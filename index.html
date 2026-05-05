@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Better World School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey:            "AIzaSyDyoKFSNI4GwrFFDAuBVZI1gbpCVrgSz98",
+      authDomain:        "better-world-school-8d31c.firebaseapp.com",
+      databaseURL:       "https://better-world-school-8d31c-default-rtdb.firebaseio.com",
+      projectId:         "better-world-school-8d31c",
+      storageBucket:     "better-world-school-8d31c.firebasestorage.app",
+      messagingSenderId: "76977069510",
+      appId:             "1:76977069510:web:76d87b74774c51589ee6c7",
+      measurementId:     "G-WFBTXLMWTG"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+  <style>
+    :root {
+      --navy:#0d1b4b; --navy2:#162260; --gold:#c9972a; --gold2:#f0bc50;
+      --cream:#fdf8f0; --white:#ffffff; --red:#b52b2b; --green:#1e6e3e;
+      --amber:#b06a00; --text:#1a1a2e; --muted:#6b7280; --border:#e4ddd0;
+      --light:#f7f4ef; --blue:#1a4fa0; --r:10px; --rl:16px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:15px;overflow-x:hidden;}
+    .page{display:none;} .page.active{display:block;}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:900;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:62px;border-bottom:3px solid var(--gold);box-shadow:0 4px 20px rgba(0,0,0,0.35);}
+    .nav-brand{display:flex;align-items:center;gap:12px;cursor:pointer;}
+    .nav-logo{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:14px;color:var(--navy);flex-shrink:0;}
+    .nav-name{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;color:var(--white);letter-spacing:0.5px;}
+    .nav-links{display:flex;gap:6px;align-items:center;}
+    .nav-link{color:rgba(255,255,255,0.75);font-size:13px;font-weight:500;padding:7px 14px;border-radius:6px;cursor:pointer;transition:all .2s;border:none;background:none;font-family:inherit;}
+    .nav-link:hover{color:var(--gold2);background:rgba(255,255,255,0.07);}
+    .nav-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-weight:700;font-size:13px;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s;}
+    .nav-btn:hover{opacity:0.88;}
+
+    /* HERO */
+    .hero{min-height:88vh;background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 55%,#1e3a8a 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(201,151,42,.12) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(26,79,160,.25) 0%,transparent 50%);}
+    .hero-dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:32px 32px;}
+    .hero-content{position:relative;z-index:2;max-width:720px;}
+    .hero-badge{display:inline-block;background:rgba(201,151,42,.2);border:1px solid rgba(201,151,42,.45);color:var(--gold2);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:24px;}
+    .hero-logo-ring{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:28px;color:var(--navy);margin:0 auto 28px;box-shadow:0 0 0 6px rgba(201,151,42,.2),0 0 0 14px rgba(201,151,42,.08);}
+    .hero h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(32px,6vw,58px);color:var(--white);line-height:1.12;margin-bottom:10px;letter-spacing:-.5px;}
+    .hero h1 span{color:var(--gold2);}
+    .hero-sub{font-size:17px;color:rgba(255,255,255,.65);margin-bottom:36px;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto;}
+    .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+    .btn-hp{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-weight:700;font-size:15px;padding:14px 32px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 24px rgba(201,151,42,.35);}
+    .btn-hp:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,151,42,.45);}
+    .btn-hs{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.3);color:var(--white);font-weight:600;font-size:15px;padding:14px 32px;border-radius:10px;cursor:pointer;font-family:inherit;transition:background .2s;}
+    .btn-hs:hover{background:rgba(255,255,255,.18);}
+
+    /* STATS */
+    .stats-strip{background:var(--white);border-bottom:1px solid var(--border);display:flex;justify-content:center;flex-wrap:wrap;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+    .stat-item{padding:24px 40px;text-align:center;border-right:1px solid var(--border);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
+    .stat-lbl{font-size:12px;color:var(--muted);font-weight:500;margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
+
+    /* SECTIONS */
+    section{padding:80px 24px;}
+    .sec-inner{max-width:1000px;margin:0 auto;}
+    .sec-tag{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+    .sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:16px;}
+    .sec-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:580px;}
+    .sec-div{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:18px 0;}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+    .about-box{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);border-radius:var(--rl);padding:40px;text-align:center;position:relative;overflow:hidden;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .about-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(201,151,42,.18) 0%,transparent 60%);}
+    .about-icon{font-size:64px;margin-bottom:16px;position:relative;}
+    .about-box h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);position:relative;margin-bottom:10px;}
+    .about-box p{font-size:14px;color:rgba(255,255,255,.65);position:relative;line-height:1.65;}
+    .about-text p{color:var(--muted);line-height:1.8;margin-bottom:16px;font-size:15px;}
+    .about-pts{list-style:none;margin-top:20px;}
+    .about-pts li{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;font-size:14px;color:var(--text);}
+    .about-pts li::before{content:'✦';color:var(--gold);font-size:11px;margin-top:2px;flex-shrink:0;}
+
+    /* OBJECTIVES */
+    .obj-bg{background:var(--navy);}
+    .obj-bg .sec-title{color:var(--white);}
+    .obj-bg .sec-sub{color:rgba(255,255,255,.6);}
+    .obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px;}
+    .obj-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--rl);padding:28px 22px;transition:background .2s,transform .2s;}
+    .obj-card:hover{background:rgba(255,255,255,.11);transform:translateY(-3px);}
+    .obj-ic{font-size:34px;margin-bottom:14px;}
+    .obj-t{font-family:'Playfair Display',serif;font-size:17px;color:var(--white);margin-bottom:8px;font-weight:600;}
+    .obj-d{font-size:13px;color:rgba(255,255,255,.6);line-height:1.65;}
+
+    /* FACILITIES */
+    .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:40px;}
+    .feat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:24px 20px;text-align:center;transition:box-shadow .2s,transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+    .feat-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.1);transform:translateY(-3px);}
+    .feat-ic{font-size:36px;margin-bottom:12px;}
+    .feat-t{font-weight:600;font-size:15px;color:var(--navy);margin-bottom:7px;}
+    .feat-d{font-size:13px;color:var(--muted);line-height:1.6;}
+
+    /* NOTICE BAND */
+    .notice-band{background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);padding:28px 24px;text-align:center;}
+    .notice-band p{font-size:15px;font-weight:600;color:var(--navy);}
+
+    /* FOOTER */
+    footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:32px 24px;font-size:13px;border-top:3px solid var(--gold);}
+    footer strong{color:var(--gold2);}
+
+    /* ═══════════════════════════════
+       PORTAL
+    ═══════════════════════════════ */
+    .portal-header{text-align:center;padding:36px 20px 24px;background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);border-bottom:3px solid var(--gold);}
+    .portal-header h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);font-weight:700;margin-bottom:4px;}
+    .portal-header p{font-size:12px;color:rgba(255,255,255,.55);}
+    .portal-back{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.7);font-size:13px;cursor:pointer;margin-bottom:12px;background:none;border:none;font-family:inherit;}
+    .portal-back:hover{color:var(--gold2);}
+    .p-wrap{max-width:480px;margin:0 auto;padding:20px 16px 60px;}
+    .wide{max-width:700px;margin:0 auto;padding:16px;}
+
+    /* CARDS / FORMS */
+    .p-card{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+    .p-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--navy);font-weight:700;margin-bottom:16px;}
+    .p-lbl{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+    input,select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--light);color:var(--text);font-size:14px;margin-bottom:12px;font-family:inherit;transition:border-color .2s;}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);background:var(--white);}
+    .btn{width:100%;padding:12px;border-radius:var(--r);border:none;font-weight:700;font-size:14px;cursor:pointer;margin-bottom:10px;font-family:inherit;transition:opacity .15s,transform .1s;}
+    .btn:hover{opacity:.87;} .btn:active{transform:scale(.98);}
+    .btn-navy{background:var(--navy);color:var(--white);}
+    .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);}
+    .btn-red{background:var(--red);color:var(--white);}
+    .btn-green{background:var(--green);color:var(--white);}
+    .btn-ghost{background:var(--light);color:var(--muted);border:1.5px solid var(--border);}
+    .btn-blue{background:var(--blue);color:var(--white);}
+    .btn-sm{padding:6px 14px;font-size:12px;width:auto;margin:0;border-radius:7px;}
+
+    /* TABS */
+    .tabs{display:flex;border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:16px;}
+    .tab{flex:1;padding:9px 6px;text-align:center;font-size:12px;font-weight:700;cursor:pointer;background:var(--light);color:var(--muted);border:none;font-family:inherit;transition:background .15s;letter-spacing:.3px;}
+    .tab.active{background:var(--navy);color:var(--white);}
+
+    /* PILLS */
+    .pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+    .pill{padding:5px 15px;border-radius:20px;border:1.5px solid var(--border);background:var(--light);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
+    .pill.active{background:var(--navy);color:var(--white);border-color:var(--navy);}
+
+    /* BADGE */
+    .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+    .bg-green{background:#e8f5e9;color:var(--green);} .bg-red{background:#ffebee;color:var(--red);}
+    .bg-amber{background:#fff8e1;color:var(--amber);} .bg-navy{background:#e8eaf6;color:var(--navy);}
+    .bg-blue{background:#e3f2fd;color:var(--blue);}
+
+    /* STUDENT PORTAL */
+    .s-topbar{display:flex;justify-content:space-between;align-items:flex-start;margin:16px 0 14px;}
+    .s-name h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);font-weight:700;}
+    .s-name p{font-size:12px;color:var(--muted);margin-top:2px;}
+    .logout-btn{background:none;border:none;color:var(--red);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;}
+    .s-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+    .s-stat{background:var(--light);border:1px solid var(--border);border-radius:var(--r);padding:14px;text-align:center;}
+    .s-stat-val{font-size:22px;font-weight:700;font-family:'Playfair Display',serif;}
+    .s-stat-lbl{font-size:10px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
+
+    /* RESULT GROUPS */
+    .rg{margin-bottom:18px;}
+    .rg-head{background:var(--navy);color:var(--white);padding:9px 14px;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;align-items:center;}
+    .rg-head span{font-size:13px;font-weight:700;}
+    .rg-head small{font-size:11px;opacity:.65;}
+    .rr{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border:1px solid var(--border);border-top:none;background:var(--white);font-size:13px;}
+    .rr:last-child{border-radius:0 0 8px 8px;}
+    .r-sub{font-weight:700;color:var(--navy);}
+    .r-marks{font-size:17px;font-weight:700;}
+    .r-pct{font-size:11px;color:var(--muted);margin-top:1px;}
+
+    /* BARS */
+    .bw{margin-bottom:10px;}
+    .bl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
+    .bt{height:8px;background:var(--light);border-radius:4px;overflow:hidden;border:1px solid var(--border);}
+    .bf{height:100%;border-radius:4px;transition:width .7s ease;}
+
+    /* ADMIN */
+    .admin-topbar{display:flex;justify-content:space-between;align-items:center;margin:14px 0 12px;}
+    .admin-topbar h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--red);}
+    .cls-sec{margin-bottom:20px;}
+    .cls-head{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:12px 16px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center;}
+    .cls-head span{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);}
+    .stu-row{background:var(--light);border:1px solid var(--border);border-top:none;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;}
+    .stu-row:last-child{border-radius:0 0 10px 10px;}
+    .stu-rn{font-weight:700;font-size:14px;color:var(--navy);}
+    .stu-rm{font-size:11px;color:var(--muted);margin-top:2px;}
+    .edit-s{border-left:3px solid var(--red);padding-left:14px;margin-bottom:16px;}
+    .edit-b{border-left:3px solid var(--blue);padding-left:14px;margin-bottom:16px;}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .del-x{background:none;border:none;color:#ccc;font-size:15px;cursor:pointer;padding:0 2px;line-height:1;}
+    .del-x:hover{color:var(--red);}
+
+    /* MODAL */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;padding:16px;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--white);border-radius:var(--rl);padding:22px;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.22);}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+    .modal-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);}
+    .close-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1;}
+
+    /* CONFIRM */
+    #confirmBox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1100;align-items:center;justify-content:center;padding:16px;}
+    #confirmBox.open{display:flex;}
+    .confirm-card{background:var(--white);border-radius:var(--rl);padding:26px;width:100%;max-width:320px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+    .confirm-card p{font-size:14px;margin-bottom:20px;line-height:1.55;}
+    .confirm-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+    .empty-msg{color:var(--muted);font-size:13px;font-style:italic;padding:10px 0;}
+    .divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
+    .err-msg{color:var(--red);font-size:12px;text-align:center;margin-top:4px;display:none;}
+
+    @media(max-width:640px){
+      .about-grid{grid-template-columns:1fr;}
+      .stat-item{padding:18px 20px;flex:1 1 45%;}
+      .nav-links .nav-link:not(.nav-btn){display:none;}
+      .row2{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand" onclick="goHome()">
+    <div class="nav-logo">BWS</div>
+    <div class="nav-name">Better World School</div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="goHome();sTo('#about')">About</button>
+    <button class="nav-link" onclick="goHome();sTo('#objectives')">Objectives</button>
+    <button class="nav-link" onclick="goHome();sTo('#facilities')">Facilities</button>
+    <button class="nav-btn" onclick="showPage('portal-page')">Student Login</button>
+  </div>
+</nav>
+
+<!-- ═══ HOME PAGE ═══ -->
+<div id="home-page" class="page active">
+
+  <div class="hero">
+    <div class="hero-dots"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Est. 2015 · Excellence in Education</div>
+      <div class="hero-logo-ring">BWS</div>
+      <h1>Better <span>World</span><br>School</h1>
+      <p class="hero-sub">Shaping young minds with knowledge, values, and vision — building tomorrow's leaders today.</p>
+      <div class="hero-btns">
+        <button class="btn-hp" onclick="showPage('portal-page')">View My Results →</button>
+        <button class="btn-hs" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Learn More</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-num">1200+</div><div class="stat-lbl">Students</div></div>
+    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-lbl">Faculty Members</div></div>
+    <div class="stat-item"><div class="stat-num">98%</div><div class="stat-lbl">Pass Rate</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-lbl">Years of Excellence</div></div>
+  </div>
+
+  <section id="about">
+    <div class="sec-inner">
+      <div class="about-grid">
+        <div class="about-box">
+          <div class="about-icon">🏫</div>
+          <h3>Our School</h3>
+          <p>A nurturing environment where every student discovers their full potential through modern teaching and timeless values.</p>
+        </div>
+        <div class="about-text">
+          <div class="sec-tag">About Us</div>
+          <h2 class="sec-title">A Legacy of Learning & Character</h2>
+          <div class="sec-div"></div>
+          <p>Better World School was founded with a single vision: to provide world-class education that develops not just academic excellence, but strong moral character and critical thinking in every student.</p>
+          <p>Over one decades, we have grown into a premier institution trusted by thousands of families, producing graduates who contribute meaningfully to society and lead with integrity.</p>
+          <ul class="about-pts">
+            <li>CBSE affiliated curriculum with enriched co-curricular activities</li>
+            <li>Experienced and dedicated teaching staff with ongoing training</li>
+            <li>Safe, inclusive, and growth-oriented campus environment</li>
+            <li>Focus on both academic performance and personal development</li>
+            <li>Digital learning tools integrated with traditional pedagogy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="objectives" class="obj-bg">
+    <div class="sec-inner">
+      <div class="sec-tag" style="color:var(--gold2);">Our Purpose</div>
+      <h2 class="sec-title">School Objectives</h2>
+      <div class="sec-div"></div>
+      <p class="sec-sub">Every decision we make is guided by our core objectives — the principles that define Better World School.</p>
+      <div class="obj-grid">
+        <div class="obj-card"><div class="obj-ic">🎯</div><div class="obj-t">Academic Excellence</div><div class="obj-d">Deliver rigorous, engaging education that challenges students to reach their highest potential.</div></div>
+        <div class="obj-card"><div class="obj-ic">🌱</div><div class="obj-t">Character Building</div><div class="obj-d">Foster honesty, respect, empathy, and responsibility as the foundation of every student's personality.</div></div>
+        <div class="obj-card"><div class="obj-ic">💡</div><div class="obj-t">Critical Thinking</div><div class="obj-d">Cultivate the ability to question, analyse, and innovate — skills that last far beyond the classroom.</div></div>
+        <div class="obj-card"><div class="obj-ic">🤝</div><div class="obj-t">Inclusive Community</div><div class="obj-d">Build a diverse, welcoming school family where every child feels valued, heard, and supported.</div></div>
+        <div class="obj-card"><div class="obj-ic">🌍</div><div class="obj-t">Global Readiness</div><div class="obj-d">Prepare students for a connected world with global awareness and digital literacy.</div></div>
+        <div class="obj-card"><div class="obj-ic">🏆</div><div class="obj-t">Holistic Growth</div><div class="obj-d">Balance academics with sports, arts, and culture to develop well-rounded, confident individuals.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="facilities">
+    <div class="sec-inner">
+      <div class="sec-tag">What We Offer</div>
+      <h2 class="sec-title">Our Facilities</h2>
+      <div class="sec-div"></div>
+      <p class="sec-sub">Modern infrastructure designed to support every aspect of student growth and learning.</p>
+      <div class="feat-grid">
+        <div class="feat-card"><div class="feat-ic">📚</div><div class="feat-t">Modern Library</div><div class="feat-d">Over 15,000 books, digital resources and a quiet reading environment.</div></div>
+        <div class="feat-card"><div class="feat-ic">🔬</div><div class="feat-t">Science Labs</div><div class="feat-d">Fully equipped Physics, Chemistry and Biology labs for hands-on learning.</div></div>
+        <div class="feat-card"><div class="feat-ic">💻</div><div class="feat-t">Computer Lab</div><div class="feat-d">High-speed internet, latest hardware and coding curriculum for all grades.</div></div>
+        <div class="feat-card"><div class="feat-ic">⚽</div><div class="feat-t">Sports Ground</div><div class="feat-d">Dedicated playgrounds for cricket, football, basketball and athletics.</div></div>
+        <div class="feat-card"><div class="feat-ic">🎨</div><div class="feat-t">Arts & Craft</div><div class="feat-d">Creative studios for painting, music, drama and cultural activities.</div></div>
+        <div class="feat-card"><div class="feat-ic">🍽️</div><div class="feat-t">Hygienic Cafeteria</div><div class="feat-d">Nutritious, affordable meals prepared fresh daily under quality supervision.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="notice-band"><p>📢 <span id="homepageNotice">Admissions open for the new academic session. Contact the school office for details.</span></p></div>
+
+  <footer>
+    <p><strong>Better World School</strong> · Building Tomorrow's Leaders Today</p>
+    <p style="margin-top:8px;">📞 +91 88775 24769 &nbsp;|&nbsp; ✉️ info@betterworldschool.edu.in &nbsp;|&nbsp; 📍 Shanti Market, Kumhrar, Patna</p>
+    <p style="margin-top:12px;font-size:11px;">© 2026 Better World School. All rights reserved.</p>
+  </footer>
+</div>
+
+<!-- ═══ PORTAL PAGE ═══ -->
+<div id="portal-page" class="page">
+
+  <div class="portal-header">
+    <button class="portal-back" onclick="goHome()">← Back to Website</button>
+    <h2>Result Portal</h2>
+    <p>Login to view your academic results</p>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="portal-login" class="p-wrap">
+    <div class="p-card" style="margin-top:22px;">
+      <div class="p-title">Sign In</div>
+      <label class="p-lbl">Username</label>
+      <input type="text" id="loginUser" placeholder="Enter your username">
+      <label class="p-lbl">Password</label>
+      <input type="password" id="loginPass" placeholder="Enter your password">
+      <button class="btn btn-gold" onclick="handleLogin()">Sign In →</button>
+      <p id="loginErr" class="err-msg">Invalid username or password.</p>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--muted);">Admin: username <strong>admin</strong> · password <strong>admin123</strong></p>
+  </div>
+
+  <!-- STUDENT RESULT VIEW -->
+  <div id="stu-portal" style="display:none;">
+    <div class="p-wrap">
+      <div class="s-topbar">
+        <div class="s-name">
+          <h3 id="stuName">Student</h3>
+          <p id="stuMeta">—</p>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+      <div class="s-stats">
+        <div class="s-stat"><div class="s-stat-val" id="s-total">0</div><div class="s-stat-lbl">Tests Taken</div></div>
+        <div class="s-stat"><div class="s-stat-val" id="s-avg">—</div><div class="s-stat-lbl">Overall Avg</div></div>
+      </div>
+      <div class="p-card">
+        <div class="p-title" style="font-size:14px;">Subject Performance</div>
+        <div id="s-bars"><p class="empty-msg">No results yet.</p></div>
+      </div>
+      <div class="p-card">
+        <div class="p-title" style="font-size:14px;">All Results</div>
+        <div id="s-results"><p class="empty-msg">No results added yet.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="admin-portal" style="display:none;">
+    <div class="wide">
+      <div class="admin-topbar">
+        <h4>Management Console</h4>
+        <button class="logout-btn" style="color:var(--navy);" onclick="doLogout()">Logout</button>
+      </div>
+      <div class="tabs" id="adminTabs">
+        <button class="tab active" onclick="switchAdminTab('at-classes',this)">Classes</button>
+        <button class="tab" onclick="switchAdminTab('at-students',this)">Students</button>
+        <button class="tab" onclick="switchAdminTab('at-results',this)">Add Results</button>
+        <button class="tab" onclick="switchAdminTab('at-notice',this)">Notice</button>
+        <button class="tab" onclick="switchAdminTab('at-settings',this)">Settings</button>
+      </div>
+
+      <!-- TAB: CLASSES -->
+      <div id="at-classes" class="at-p"><div id="classView"></div></div>
+
+      <!-- TAB: STUDENTS -->
+      <div id="at-students" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="p-title" style="font-size:14px;">Filter by Class</div>
+          <div class="pills" id="stuPills"></div>
+          <div id="stuList"></div>
+        </div>
+        <div class="p-card">
+          <div class="edit-s">
+            <div class="p-title" style="font-size:14px;">Add New Student</div>
+            <div class="row2">
+              <div><label class="p-lbl">Full Name</label><input id="newName" placeholder="e.g. Naitik Kumar"></div>
+              <div><label class="p-lbl">Class</label><select id="newClass"><option>NC</option><option>LKG</option><option>UKG</option><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option></option><option>Class 9</option><option>Class 10</option></select></div>
+            </div>
+            <div class="row2">
+              <div><label class="p-lbl">Username</label><input id="newUser" placeholder="e.g. Naitik Kumar"></div>
+              <div><label class="p-lbl">Password</label><input id="newPass" placeholder="Set password" type="text"></div>
+            </div>
+            <button class="btn btn-green" onclick="addStudent()">Create Student Account</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: ADD RESULTS -->
+      <div id="at-results" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="edit-b">
+            <div class="p-title" style="font-size:14px;">Add Result for a Student</div>
+            <label class="p-lbl">Select Class</label>
+            <select id="resClass" onchange="populateResStudents()">
+              <option value="">— Select Class —</option>
+              <option>NC</option><option>LKG</option><option>UKG</option><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7<option>Class 8</option><option>Class 9</option><option>Class 10</option>
+            </select>
+            <label class="p-lbl">Select Student</label>
+            <select id="resStudent"><option value="">— Select Student —</option></select>
+            <div class="row2">
+              <div><label class="p-lbl">Subject</label><input id="resSub" placeholder="e.g. Maths"></div>
+              <div><label class="p-lbl">Test Name</label><input id="resTest" placeholder="e.g. Unit Test 1"></div>
+            </div>
+            <div class="row2">
+              <div><label class="p-lbl">Marks Obtained</label><input id="resMarks" type="number" placeholder="e.g. 78" min="0"></div>
+              <div><label class="p-lbl">Out of (Total)</label><input id="resTotal" type="number" placeholder="e.g. 80" min="1"></div>
+            </div>
+            <label class="p-lbl">Test Date</label>
+            <input type="date" id="resDate">
+            <button class="btn btn-blue" onclick="addResult()">Save Result</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: NOTICE -->
+      <div id="at-notice" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="edit-s">
+            <div class="p-title" style="font-size:14px;">Update Homepage Notice</div>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">This notice appears on the school homepage announcement band.</p>
+            <label class="p-lbl">Notice Text</label>
+            <textarea id="noticeText" rows="3" placeholder="Type the notice..."></textarea>
+            <button class="btn btn-red" onclick="saveNotice()">Publish Notice</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: SETTINGS -->
+      <div id="at-settings" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="edit-s">
+            <div class="p-title" style="font-size:14px;">Change Admin Password</div>
+            <label class="p-lbl">Current Password</label><input type="password" id="curPass" placeholder="Current password">
+            <label class="p-lbl">New Password</label><input type="password" id="newPwd" placeholder="New password">
+            <button class="btn btn-navy" onclick="changeAdminPass()">Update Password</button>
+          </div>
+        </div>
+        <div class="p-card">
+          <div class="p-title" style="font-size:14px;color:var(--red);">Danger Zone</div>
+          <button class="btn btn-ghost" style="color:var(--red);" onclick="confirmAction('Delete ALL students and results permanently?',nukeAll)">Delete All Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="editTitle">Edit Student</div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="tabs" id="editTabs">
+      <button class="tab active" onclick="switchEditTab('em-info',this)">Info</button>
+      <button class="tab" onclick="switchEditTab('em-results',this)">Results</button>
+    </div>
+    <div id="em-info">
+      <label class="p-lbl">Full Name</label><input id="eName" placeholder="Full name">
+      <label class="p-lbl">Class</label><select id="eClass"><option>Class 9</option><option>Class 10</option></select>
+      <label class="p-lbl">Username</label><input id="eUser" placeholder="Username">
+      <label class="p-lbl">Password</label><input id="ePass" placeholder="Password" type="text">
+      <button class="btn btn-navy" onclick="saveEditInfo()">Save Changes</button>
+      <button class="btn btn-ghost" style="color:var(--red);" onclick="confirmAction('Delete this student permanently?',deleteEditStudent)">Delete Student</button>
+    </div>
+    <div id="em-results" style="display:none;"><div id="em-rlist"></div></div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div id="confirmBox">
+  <div class="confirm-card">
+    <p id="confirmMsg">Are you sure?</p>
+    <div class="confirm-btns">
+      <button class="btn btn-ghost" style="margin:0;" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-red" style="margin:0;" id="confirmOkBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── STORAGE ── */
+const K={admin:'bwsAdminF',students:'bwsStudentsF',notice:'bwsNoticeF'};
+const CLASSES=[  'Class NC','Class LKG','Class UKG','Class 1','Class 2','Class 3','Class 4','Class 5','Class 6','Class 7','Class 8','Class 9','Class 10'];
+const ls=k=>{try{return JSON.parse(localStorage.getItem(k)||'null');}catch{return null;}};
+const ss=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const getA=()=>localStorage.getItem(K.admin)||'admin123';
+const getS=()=>ls(K.students)||[];
+const getN=()=>localStorage.getItem(K.notice)||'Admissions open for the new academic session. Contact the school office for details.';
+const uid=()=>Date.now()+'_'+Math.random().toString(36).slice(2,6);
+
+/* ── STATE ── */
+let curUser=null, editId=null, stuFilter='All';
+
+/* ── HELPERS ── */
+const scC=(m,t)=>{const p=(m/t)*100;return p>=75?'#1e6e3e':p>=50?'#b06a00':'#b52b2b';};
+const fmtD=d=>{if(!d)return'';try{return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}catch{return d;}};
+
+/* ── NAVIGATION ── */
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function goHome(){showPage('home-page');}
+function sTo(hash){setTimeout(()=>{const el=document.querySelector(hash);if(el)el.scrollIntoView({behavior:'smooth'});},100);}
+
+/* ── INIT ── */
+function initApp(){document.getElementById('homepageNotice').innerText=getN();}
+
+/* ── LOGIN ── */
+function handleLogin(){
+  const user=document.getElementById('loginUser').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginErr');
+  err.style.display='none';
+  if(user.toLowerCase()==='admin'&&pass===getA()){
+    curUser='admin';
+    document.getElementById('portal-login').style.display='none';
+    document.getElementById('admin-portal').style.display='block';
+    renderClassView();
+    document.getElementById('resDate').value=new Date().toISOString().split('T')[0];
+    return;
+  }
+  const stu=getS().find(s=>s.username.toLowerCase()===user.toLowerCase()&&s.password===pass);
+  if(stu){curUser=stu;document.getElementById('portal-login').style.display='none';document.getElementById('stu-portal').style.display='block';renderStudentPortal(stu);return;}
+  err.style.display='block';
+}
+
+function doLogout(){
+  curUser=null;
+  document.getElementById('portal-login').style.display='block';
+  document.getElementById('stu-portal').style.display='none';
+  document.getElementById('admin-portal').style.display='none';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+  document.getElementById('loginErr').style.display='none';
+  document.querySelectorAll('.at-p').forEach((p,i)=>p.style.display=i===0?'block':'none');
+  document.querySelectorAll('#adminTabs .tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+}
+
+/* ── STUDENT PORTAL ── */
+function renderStudentPortal(stu){
+  // Re-fetch latest data in case admin edited after login
+  const fresh=getS().find(s=>s.id===stu.id)||stu;
+  document.getElementById('stuName').innerText=fresh.name;
+  document.getElementById('stuMeta').innerText=fresh.class+' · @'+fresh.username;
+  const results=fresh.results||[];
+  document.getElementById('s-total').innerText=results.length;
+  if(!results.length){
+    document.getElementById('s-avg').innerText='—';
+    document.getElementById('s-bars').innerHTML='<p class="empty-msg">No results yet.</p>';
+    document.getElementById('s-results').innerHTML='<p class="empty-msg">No results added yet.</p>';
+    return;
+  }
+  // Overall avg
+  const totalPct=results.reduce((a,r)=>(a+(r.marks/r.total)*100),0)/results.length;
+  const avgEl=document.getElementById('s-avg');
+  avgEl.innerText=Math.round(totalPct)+'%';
+  avgEl.style.color=scC(totalPct,100);
+  // Subject bars
+  const grp={};
+  results.forEach(r=>{if(!grp[r.subject])grp[r.subject]=[];grp[r.subject].push((r.marks/r.total)*100);});
+  document.getElementById('s-bars').innerHTML=Object.entries(grp).map(([sub,arr])=>{
+    const avg=Math.round(arr.reduce((a,b)=>a+b,0)/arr.length);
+    const c=scC(avg,100);
+    return `<div class="bw"><div class="bl"><span>${sub}</span><span style="color:${c};font-weight:700;">${avg}%</span></div><div class="bt"><div class="bf" style="width:${avg}%;background:${c};"></div></div></div>`;
+  }).join('');
+  // All results grouped by test+date
+  const byTest={};
+  results.forEach(r=>{const k=r.testName+'||'+r.date;if(!byTest[k])byTest[k]={testName:r.testName,date:r.date,rows:[]};byTest[k].rows.push(r);});
+  document.getElementById('s-results').innerHTML=Object.values(byTest).reverse().map(g=>`
+    <div class="rg">
+      <div class="rg-head"><span>${g.testName}</span><small>${fmtD(g.date)}</small></div>
+      ${g.rows.map(r=>`
+        <div class="rr">
+          <div class="r-sub">${r.subject}</div>
+          <div style="text-align:right;">
+            <div class="r-marks" style="color:${scC(r.marks,r.total)}">${r.marks}/${r.total}</div>
+            <div class="r-pct">${Math.round((r.marks/r.total)*100)}%</div>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+/* ── ADMIN: CLASS VIEW ── */
+function renderClassView(){
+  const students=getS();
+  let html='';
+  CLASSES.forEach(cls=>{
+    const list=students.filter(s=>s.class===cls);
+    html+=`<div class="cls-sec">
+      <div class="cls-head">
+        <span>${cls}</span>
+        <span class="badge bg-blue">${list.length} student${list.length!==1?'s':''}</span>
+      </div>`;
+    if(!list.length){
+      html+=`<div style="background:var(--light);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:14px 16px;"><p class="empty-msg">No students in this class yet.</p></div>`;
+    } else {
+      html+=list.map((stu,i,arr)=>{
+        const res=stu.results||[];
+        const avg=res.length?Math.round(res.reduce((a,r)=>(a+(r.marks/r.total)*100),0)/res.length):null;
+        const isLast=i===arr.length-1;
+        return `<div class="stu-row" style="${isLast?'border-radius:0 0 10px 10px;':''}">
+          <div>
+            <div class="stu-rn">${stu.name}</div>
+            <div class="stu-rm">@${stu.username} · ${res.length} result${res.length!==1?'s':''} · ${avg!==null?'Avg: '+avg+'%':'No results yet'}</div>
+          </div>
+          <button class="btn btn-navy btn-sm" onclick="openEditModal('${stu.id}')">Manage</button>
+        </div>`;
+      }).join('');
+    }
+    html+=`</div>`;
+  });
+  document.getElementById('classView').innerHTML=html||'<p class="empty-msg">No students yet.</p>';
+}
+
+/* ── ADMIN: STUDENTS TAB ── */
+function renderStuPills(){
+  const opts=['All',...CLASSES];
+  document.getElementById('stuPills').innerHTML=opts.map(c=>`<button class="pill ${stuFilter===c?'active':''}" onclick="setStuFilter('${c}')">${c}</button>`).join('');
+}
+function setStuFilter(c){stuFilter=c;renderStuPills();renderStuList();}
+function renderStuList(){
+  const list=getS().filter(s=>stuFilter==='All'||s.class===stuFilter);
+  const div=document.getElementById('stuList');
+  if(!list.length){div.innerHTML='<p class="empty-msg">No students found.</p>';return;}
+  div.innerHTML=list.map(stu=>{
+    const res=stu.results||[];
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);">
+      <div>
+        <span style="font-weight:700;color:var(--navy);">${stu.name}</span>
+        <span class="badge bg-navy" style="margin-left:8px;">${stu.class}</span>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">@${stu.username} · ${res.length} result${res.length!==1?'s':''}</div>
+      </div>
+      <button class="btn btn-navy btn-sm" onclick="openEditModal('${stu.id}')">Edit</button>
+    </div>`;
+  }).join('');
+}
+
+/* ── ADMIN: ADD STUDENT ── */
+function addStudent(){
+  const name=document.getElementById('newName').value.trim();
+  const cls=document.getElementById('newClass').value;
+  const user=document.getElementById('newUser').value.trim();
+  const pass=document.getElementById('newPass').value.trim();
+  if(!name||!user||!pass){alert('Please fill name, username and password.');return;}
+  const students=getS();
+  if(students.find(s=>s.username.toLowerCase()===user.toLowerCase())){alert('Username already exists. Choose another.');return;}
+  students.push({id:uid(),name,class:cls,username:user,password:pass,results:[]});
+  ss(K.students,students);
+  document.getElementById('newName').value='';
+  document.getElementById('newUser').value='';
+  document.getElementById('newPass').value='';
+  renderClassView();renderStuList();renderStuPills();populateResStudents();
+  alert(`Account created for ${name}!`);
+}
+
+/* ── ADMIN: ADD RESULT ── */
+function populateResStudents(){
+  const cls=document.getElementById('resClass').value;
+  const sel=document.getElementById('resStudent');
+  const list=getS().filter(s=>!cls||s.class===cls);
+  sel.innerHTML='<option value="">— Select Student —</option>'+list.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+}
+
+function addResult(){
+  const stuId=document.getElementById('resStudent').value;
+  const sub=document.getElementById('resSub').value.trim();
+  const test=document.getElementById('resTest').value.trim();
+  const marks=parseInt(document.getElementById('resMarks').value);
+  const total=parseInt(document.getElementById('resTotal').value);
+  const date=document.getElementById('resDate').value;
+  if(!stuId){alert('Please select a student.');return;}
+  if(!sub||!test){alert('Please fill subject and test name.');return;}
+  if(!date){alert('Please select a test date.');return;}
+  if(isNaN(marks)||isNaN(total)||marks<0||total<1||marks>total){alert('Invalid marks. Marks cannot exceed total.');return;}
+  const students=getS();
+  const idx=students.findIndex(s=>s.id===stuId);
+  if(idx===-1){alert('Student not found.');return;}
+  if(!students[idx].results)students[idx].results=[];
+  students[idx].results.push({id:uid(),subject:sub,testName:test,marks,total,date});
+  ss(K.students,students);
+  document.getElementById('resSub').value='';
+  document.getElementById('resTest').value='';
+  document.getElementById('resMarks').value='';
+  document.getElementById('resTotal').value='';
+  document.getElementById('resDate').value=new Date().toISOString().split('T')[0];
+  renderClassView();
+  alert(`Result added for ${students[idx].name}!`);
+}
+
+/* ── ADMIN: NOTICE ── */
+function saveNotice(){
+  const val=document.getElementById('noticeText').value.trim();
+  if(!val){alert('Please enter notice text.');return;}
+  localStorage.setItem(K.notice,val);
+  document.getElementById('homepageNotice').innerText=val;
+  alert('Notice updated!');
+}
+
+/* ── EDIT MODAL ── */
+function openEditModal(id){
+  editId=id;
+  const stu=getS().find(s=>s.id===id);
+  if(!stu)return;
+  document.getElementById('editTitle').innerText='Editing: '+stu.name;
+  document.getElementById('eName').value=stu.name;
+  document.getElementById('eClass').value=stu.class;
+  document.getElementById('eUser').value=stu.username;
+  document.getElementById('ePass').value=stu.password;
+  document.getElementById('em-results').style.display='none';
+  document.getElementById('em-info').style.display='block';
+  document.getElementById('editTabs').querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.getElementById('editModal').classList.add('open');
+}
+function closeModal(){document.getElementById('editModal').classList.remove('open');editId=null;}
+function switchEditTab(id,btn){
+  ['em-info','em-results'].forEach(t=>document.getElementById(t).style.display='none');
+  document.getElementById(id).style.display='block';
+  document.getElementById('editTabs').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  if(id==='em-results')renderModalResults();
+}
+function saveEditInfo(){
+  const name=document.getElementById('eName').value.trim();
+  const cls=document.getElementById('eClass').value;
+  const user=document.getElementById('eUser').value.trim();
+  const pass=document.getElementById('ePass').value.trim();
+  if(!name||!user||!pass){alert('All fields required.');return;}
+  const students=getS();
+  if(students.find(s=>s.id!==editId&&s.username.toLowerCase()===user.toLowerCase())){alert('Username already taken.');return;}
+  const idx=students.findIndex(s=>s.id===editId);
+  students[idx].name=name;students[idx].class=cls;students[idx].username=user;students[idx].password=pass;
+  ss(K.students,students);
+  document.getElementById('editTitle').innerText='Editing: '+name;
+  renderClassView();renderStuList();
+  alert('Info updated!');
+}
+function deleteEditStudent(){
+  ss(K.students,getS().filter(s=>s.id!==editId));
+  closeModal();renderClassView();renderStuList();renderStuPills();populateResStudents();
+}
+function renderModalResults(){
+  const stu=getS().find(s=>s.id===editId);
+  const div=document.getElementById('em-rlist');
+  if(!stu||!stu.results||!stu.results.length){div.innerHTML='<p class="empty-msg">No results yet.</p>';return;}
+  const byTest={};
+  stu.results.forEach(r=>{const k=r.testName+'||'+r.date;if(!byTest[k])byTest[k]={testName:r.testName,date:r.date,rows:[]};byTest[k].rows.push(r);});
+  div.innerHTML=Object.values(byTest).reverse().map(g=>`
+    <div class="rg">
+      <div class="rg-head"><span>${g.testName}</span><small>${fmtD(g.date)}</small></div>
+      ${g.rows.map(r=>`
+        <div class="rr">
+          <div class="r-sub">${r.subject}</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="r-marks" style="color:${scC(r.marks,r.total)}">${r.marks}/${r.total}</span>
+            <button class="del-x" onclick="deleteResult('${r.id}')">✕</button>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+function deleteResult(rid){
+  const students=getS();
+  const idx=students.findIndex(s=>s.id===editId);
+  students[idx].results=students[idx].results.filter(r=>r.id!==rid);
+  ss(K.students,students);
+  renderModalResults();renderClassView();
+}
+
+/* ── SETTINGS ── */
+function changeAdminPass(){
+  const cur=document.getElementById('curPass').value;
+  const nw=document.getElementById('newPwd').value.trim();
+  if(cur!==getA()){alert('Current password incorrect.');return;}
+  if(!nw){alert('New password cannot be empty.');return;}
+  localStorage.setItem(K.admin,nw);
+  document.getElementById('curPass').value='';
+  document.getElementById('newPwd').value='';
+  alert('Admin password updated!');
+}
+function nukeAll(){ss(K.students,[]);renderClassView();renderStuList();renderStuPills();populateResStudents();alert('All data deleted.');}
+
+/* ── TAB SWITCHERS ── */
+function switchAdminTab(id,btn){
+  document.querySelectorAll('.at-p').forEach(p=>p.style.display='none');
+  document.querySelectorAll('#adminTabs .tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).style.display='block';
+  btn.classList.add('active');
+  if(id==='at-students'){renderStuPills();renderStuList();}
+  if(id==='at-results')populateResStudents();
+  if(id==='at-notice')document.getElementById('noticeText').value=getN();
+}
+
+/* ── CONFIRM ── */
+let cCB=null;
+function confirmAction(msg,cb){document.getElementById('confirmMsg').innerText=msg;cCB=cb;document.getElementById('confirmBox').classList.add('open');}
+document.getElementById('confirmOkBtn').onclick=()=>{closeConfirm();if(cCB)cCB();};
+function closeConfirm(){document.getElementById('confirmBox').classList.remove('open');cCB=null;}
+
+/* ── BOOT ── */
+initApp();
+</script>
+</body>
+</html>
