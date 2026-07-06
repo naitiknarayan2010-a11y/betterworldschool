@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Better World School</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ══ PWA: installable app metadata ══ -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d1b4b">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BW School">
 
   <!-- ══ FIREBASE — loaded dynamically so app waits for SDKs before running ══ -->
   <script>
@@ -65,6 +74,39 @@
       init();
     }
   })();
+
+  // ══ PWA: register service worker (enables install + offline app shell) ══
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('service-worker.js').catch(function (err) {
+        console.warn('Service worker registration failed:', err);
+      });
+    });
+  }
+
+  // ══ PWA: install prompt (Android/Chrome/Edge — iOS Safari has no API for this) ══
+  var deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if (!sessionStorage.getItem('pwaDismissed')) {
+      document.getElementById('pwaInstallBar').classList.add('show');
+    }
+  });
+  window.pwaInstall = function () {
+    document.getElementById('pwaInstallBar').classList.remove('show');
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt = null;
+    }
+  };
+  window.pwaDismiss = function () {
+    document.getElementById('pwaInstallBar').classList.remove('show');
+    sessionStorage.setItem('pwaDismissed', '1');
+  };
+  window.addEventListener('appinstalled', function () {
+    document.getElementById('pwaInstallBar').classList.remove('show');
+  });
   </script>
 
   <style>
@@ -98,6 +140,23 @@
     }
     #loadingScreen p{color:rgba(255,255,255,.6);font-size:14px;}
     @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* ════════════════════════════════
+       PWA INSTALL PROMPT
+    ════════════════════════════════ */
+    #pwaInstallBar{
+      position:fixed;left:16px;right:16px;bottom:16px;z-index:9998;
+      background:var(--navy);color:#fff;border:1px solid var(--gold);
+      border-radius:var(--rl);padding:14px 16px;
+      display:none;align-items:center;gap:12px;
+      box-shadow:0 8px 28px rgba(0,0,0,.35);
+      font-family:'DM Sans',sans-serif;
+    }
+    #pwaInstallBar.show{display:flex;}
+    #pwaInstallBar span{flex:1;font-size:13px;line-height:1.4;}
+    #pwaInstallBar button{font-family:inherit;border:none;border-radius:8px;padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer;}
+    #pwaInstallBtn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);}
+    #pwaDismissBtn{background:transparent;color:rgba(255,255,255,.6);padding:9px 10px;}
 
     /* ════════════════════════════════
        NAV
@@ -970,6 +1029,13 @@
 <div id="loadingScreen">
   <div class="spin"></div>
   <p>Connecting to school database…</p>
+</div>
+
+<!-- PWA install prompt -->
+<div id="pwaInstallBar">
+  <span>Install this app on your device for quick access — no browser needed.</span>
+  <button id="pwaDismissBtn" onclick="pwaDismiss()">Not now</button>
+  <button id="pwaInstallBtn" onclick="pwaInstall()">Install</button>
 </div>
 
 <!-- ════════════════════════════════════
@@ -2195,12 +2261,47 @@ function startDbListeners() {
 
 // Sign in anonymously so auth != null is satisfied for all read rules.
 // Admin writes are allowed because we upgrade to email auth on admin login.
+// SAFETY NET: signInAnonymously() can hang forever if Anonymous Auth is
+// disabled in the Firebase console, or if the network/CORS silently blocks it.
+// A hung promise never resolves AND never rejects, so without a timeout the
+// loading screen spins forever. This race forces us to move on after 6s.
+let authSettled = false;
+function proceedOnce(reason) {
+  if (authSettled) return;
+  authSettled = true;
+  if (reason) console.warn('Auth did not complete normally:', reason);
+  startDbListeners();
+}
+
 auth.signInAnonymously()
-  .then(() => startDbListeners())
+  .then(() => proceedOnce())
   .catch(err => {
     console.error('Anonymous sign-in failed:', err.message);
-    startDbListeners();
+    proceedOnce('signInAnonymously rejected: ' + err.message);
   });
+
+setTimeout(() => {
+  if (!authSettled) proceedOnce('signInAnonymously timed out after 6s (Anonymous Auth likely disabled in Firebase console, or network/CORS is blocking it)');
+}, 6000);
+
+// SECOND SAFETY NET: even after startDbListeners() runs, individual db.ref()
+// listeners could still hang (e.g. Realtime Database rules deny access, or
+// databaseURL/region mismatch). Force the loading screen to disappear after
+// 10s no matter what, and show a visible warning banner so it's not a silent
+// failure.
+setTimeout(() => {
+  if (!dbReady) {
+    console.error('Database listeners did not complete after 10s — forcing app to load anyway.');
+    dbReady = true;
+    const ls = document.getElementById('loadingScreen');
+    if (ls) ls.style.display = 'none';
+    initApp();
+    const banner = document.createElement('div');
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#b52b2b;color:#fff;text-align:center;padding:10px;font-family:sans-serif;font-size:14px;';
+    banner.innerHTML = '⚠️ Could not fully connect to the database. Some data may be missing or out of date. Check your internet connection or try reloading.';
+    document.body.appendChild(banner);
+  }
+}, 10000);
 /* ═══════════════════════════════════════════
    HELPERS
 ═══════════════════════════════════════════ */
