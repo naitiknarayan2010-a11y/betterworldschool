@@ -1,12 +1,14 @@
 // Bump this version any time index.html/manifest/icons change,
 // so returning visitors get the update instead of a stale cached copy.
-const CACHE_NAME = "bw-school-shell-v1";
+const CACHE_NAME = "bw-school-shell-v2";
 
 const APP_SHELL = [
   "./index.html",
   "./manifest.json",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./icon-192-maskable.png",
+  "./icon-512-maskable.png"
 ];
 
 // Cache the app shell up front so the app can open offline.
