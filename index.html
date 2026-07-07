@@ -2,18 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Better World School</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- ══ PWA: installable app metadata ══ -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0d1b4b">
-  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="BW School">
 
   <!-- ══ FIREBASE — loaded dynamically so app waits for SDKs before running ══ -->
   <script>
@@ -74,39 +65,6 @@
       init();
     }
   })();
-
-  // ══ PWA: register service worker (enables install + offline app shell) ══
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('service-worker.js').catch(function (err) {
-        console.warn('Service worker registration failed:', err);
-      });
-    });
-  }
-
-  // ══ PWA: install prompt (Android/Chrome/Edge — iOS Safari has no API for this) ══
-  var deferredInstallPrompt = null;
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-    if (!sessionStorage.getItem('pwaDismissed')) {
-      document.getElementById('pwaInstallBar').classList.add('show');
-    }
-  });
-  window.pwaInstall = function () {
-    document.getElementById('pwaInstallBar').classList.remove('show');
-    if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
-      deferredInstallPrompt = null;
-    }
-  };
-  window.pwaDismiss = function () {
-    document.getElementById('pwaInstallBar').classList.remove('show');
-    sessionStorage.setItem('pwaDismissed', '1');
-  };
-  window.addEventListener('appinstalled', function () {
-    document.getElementById('pwaInstallBar').classList.remove('show');
-  });
   </script>
 
   <style>
@@ -140,23 +98,6 @@
     }
     #loadingScreen p{color:rgba(255,255,255,.6);font-size:14px;}
     @keyframes spin{to{transform:rotate(360deg);}}
-
-    /* ════════════════════════════════
-       PWA INSTALL PROMPT
-    ════════════════════════════════ */
-    #pwaInstallBar{
-      position:fixed;left:16px;right:16px;bottom:16px;z-index:9998;
-      background:var(--navy);color:#fff;border:1px solid var(--gold);
-      border-radius:var(--rl);padding:14px 16px;
-      display:none;align-items:center;gap:12px;
-      box-shadow:0 8px 28px rgba(0,0,0,.35);
-      font-family:'DM Sans',sans-serif;
-    }
-    #pwaInstallBar.show{display:flex;}
-    #pwaInstallBar span{flex:1;font-size:13px;line-height:1.4;}
-    #pwaInstallBar button{font-family:inherit;border:none;border-radius:8px;padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer;}
-    #pwaInstallBtn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);}
-    #pwaDismissBtn{background:transparent;color:rgba(255,255,255,.6);padding:9px 10px;}
 
     /* ════════════════════════════════
        NAV
@@ -1031,13 +972,6 @@
   <p>Connecting to school database…</p>
 </div>
 
-<!-- PWA install prompt -->
-<div id="pwaInstallBar">
-  <span>Install this app on your device for quick access — no browser needed.</span>
-  <button id="pwaDismissBtn" onclick="pwaDismiss()">Not now</button>
-  <button id="pwaInstallBtn" onclick="pwaInstall()">Install</button>
-</div>
-
 <!-- ════════════════════════════════════
      NAVIGATION
 ════════════════════════════════════ -->
@@ -1572,6 +1506,7 @@
       <button class="stu-tab" onclick="switchStuTab('sp-progress',this)">📈 Progress</button>
       <button class="stu-tab" onclick="switchStuTab('sp-dashboard',this)">🪪 Dashboard</button>
       <button class="stu-tab" onclick="switchStuTab('sp-fees',this)">💰 Fees</button>
+      <button class="stu-tab" onclick="switchStuTab('sp-homework',this)">📝 Homework</button>
     </div>
 
     <!-- ── TAB: OVERVIEW ── -->
@@ -1721,6 +1656,16 @@
       </div>
     </div>
 
+    <!-- ── TAB: HOMEWORK ── -->
+    <div class="stu-panel" id="sp-homework">
+      <div class="p-card" style="padding:0;overflow:hidden;">
+        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;">📝 Homework & Assignments</div>
+        <div id="stuHwList">
+          <p class="empty-msg" style="padding:0 16px 16px;">No homework posted yet.</p>
+        </div>
+      </div>
+    </div>
+
   </div><!-- end stu-portal -->
 
   <!-- ADMIN PANEL -->
@@ -1743,6 +1688,7 @@
         <button class="tab" onclick="switchAdminTab('at-results',this)">Add Results</button>
         <button class="tab" id="tab-dashfee" onclick="switchAdminTab('at-dashfee',this)">Dashboard & Fees</button>
         <button class="tab" id="tab-notice" onclick="switchAdminTab('at-notice',this)">Notice</button>
+        <button class="tab" id="tab-homework" onclick="switchAdminTab('at-homework',this)">Homework</button>
         <button class="tab" id="tab-events" onclick="switchAdminTab('at-events',this)" style="display:none;">Events</button>
         <button class="tab" id="tab-enquiries" onclick="switchAdminTab('at-enquiries',this)" style="display:none;">Enquiries <span id="enqBadge" style="display:none;" class="unread-dot"></span></button>
         <button class="tab" id="tab-admins" onclick="switchAdminTab('at-admins',this)" style="display:none;">Admins</button>
@@ -1950,6 +1896,40 @@
             <textarea id="noticeText" rows="3" placeholder="Type the notice..."></textarea>
             <button class="btn btn-red" onclick="saveNotice()">Publish Notice</button>
           </div>
+        </div>
+      </div>
+
+      <!-- TAB: HOMEWORK -->
+      <div id="at-homework" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="edit-s">
+            <div class="p-title" style="font-size:14px;">📝 Post Homework</div>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Visible instantly to students in the selected class.</p>
+            <label class="p-lbl">Class</label>
+            <select id="hwClass"></select>
+            <label class="p-lbl">Subject</label>
+            <input type="text" id="hwSubject" placeholder="e.g. Mathematics">
+            <label class="p-lbl">Title</label>
+            <input type="text" id="hwTitle" placeholder="e.g. Chapter 4 exercises">
+            <label class="p-lbl">Details</label>
+            <textarea id="hwDesc" rows="3" placeholder="Homework details..."></textarea>
+            <label class="p-lbl">Due Date</label>
+            <input type="date" id="hwDue">
+            <label class="p-lbl">Homework Image (optional)</label>
+            <p style="font-size:11px;color:var(--muted);margin:2px 0 6px;">Upload your photo to <a href="https://imgbb.com" target="_blank">imgbb.com</a> and paste the link below — OR pick a photo directly and it will be attached automatically.</p>
+            <input type="text" id="hwImageUrl" placeholder="https://i.ibb.co/...">
+            <input type="file" id="hwImageFile" accept="image/*" style="margin-top:8px;">
+            <div id="hwImagePreviewWrap" style="display:none;margin-top:8px;">
+              <img id="hwImagePreview" style="max-width:160px;border-radius:8px;border:1px solid var(--border);">
+              <button type="button" class="btn btn-navy btn-sm" style="margin-top:6px;" onclick="clearHwImage()">Remove Image</button>
+            </div>
+            <button class="btn btn-red" style="margin-top:10px;" onclick="postHomework()">Post Homework</button>
+          </div>
+        </div>
+        <div class="p-card">
+          <div class="p-title" style="font-size:14px;">Filter by Class</div>
+          <div class="pills" id="hwPills"></div>
+          <div id="hwList"></div>
         </div>
       </div>
 
@@ -2208,6 +2188,7 @@ let readyCount   = 0;
 
 // Multi-admin state
 let allSubAdmins   = {};   // key = username → { name, username, password, role, classes[], permissions{} }
+let allHomework    = {};   // key = pushId → { class, subject, title, desc, due, postedBy, postedAt }
 let curAdminData   = null; // null | sub-admin object (null for primary admin)
 let editAdminKey   = null; // username of sub-admin being edited
 
@@ -2218,12 +2199,7 @@ let editAdminKey   = null; // username of sub-admin being edited
    "auth != null" rules on every path.
 ═══════════════════════════════════════════ */
 function onReady() {
-  readyCount++;
-  if (readyCount >= 4 && !dbReady) {
-    dbReady = true;
-    document.getElementById('loadingScreen').style.display = 'none';
-    initApp();
-  }
+  readyCount++; // kept for diagnostics only; no longer gates the UI
 }
 
 function startDbListeners() {
@@ -2236,6 +2212,22 @@ function startDbListeners() {
     }
     onReady();
   }, err => { console.error('students read denied:', err.message); onReady(); });
+
+  // Homework — non-blocking (does not count toward onReady/loading screen)
+  db.ref('homework').on('value', snap => {
+    allHomework = snap.val() || {};
+    if (curUser === 'admin' || curAdminData) renderHwList();
+    if (curUser && curUser !== 'admin' && !curAdminData && allStudents[curUser]) {
+      renderStudentHomework(allStudents[curUser]);
+    }
+  }, err => {
+    console.warn('homework read denied:', err.message);
+    const msg = '⚠️ Could not load homework — Firebase rules likely need a "homework" node added (Firebase Console → Realtime Database → Rules).';
+    const hwListEl = document.getElementById('hwList');
+    if (hwListEl) hwListEl.innerHTML = `<p class="empty-msg" style="color:#b52b2b;">${msg}</p>`;
+    const stuHwListEl = document.getElementById('stuHwList');
+    if (stuHwListEl) stuHwListEl.innerHTML = `<p class="empty-msg" style="color:#b52b2b;padding:0 16px 16px;">${msg}</p>`;
+  });
 
   // 2. Admin password
   db.ref('config/adminPass').on('value', snap => {
@@ -2284,21 +2276,16 @@ setTimeout(() => {
   if (!authSettled) proceedOnce('signInAnonymously timed out after 6s (Anonymous Auth likely disabled in Firebase console, or network/CORS is blocking it)');
 }, 6000);
 
-// SECOND SAFETY NET: even after startDbListeners() runs, individual db.ref()
-// listeners could still hang (e.g. Realtime Database rules deny access, or
-// databaseURL/region mismatch). Force the loading screen to disappear after
-// 10s no matter what, and show a visible warning banner so it's not a silent
-// failure.
+// SAFETY NET: the homepage is already visible, but if no real data has
+// arrived from Firebase after 10s (e.g. Realtime Database rules deny access,
+// or a network/CORS issue), show a small non-blocking warning so it isn't a
+// silent failure. It never re-hides content or blocks interaction.
 setTimeout(() => {
-  if (!dbReady) {
-    console.error('Database listeners did not complete after 10s — forcing app to load anyway.');
-    dbReady = true;
-    const ls = document.getElementById('loadingScreen');
-    if (ls) ls.style.display = 'none';
-    initApp();
+  if (!Object.keys(allStudents).length) {
+    console.warn('No data received from Firebase after 10s — check database rules/connection.');
     const banner = document.createElement('div');
     banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#b52b2b;color:#fff;text-align:center;padding:10px;font-family:sans-serif;font-size:14px;';
-    banner.innerHTML = '⚠️ Could not fully connect to the database. Some data may be missing or out of date. Check your internet connection or try reloading.';
+    banner.innerHTML = '⚠️ Could not connect to the school database. Some data may be missing. Check your internet connection or try reloading.';
     document.body.appendChild(banner);
   }
 }, 10000);
@@ -2454,12 +2441,13 @@ function openAdminPanel() {
 
   // Restrict newClass dropdown to allowed classes for sub-admins
   const allowed = getAllowedClasses();
-  ['newClass', 'eClass'].forEach(id => {
+  ['newClass', 'eClass', 'hwClass'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.innerHTML = allowed.map(c => `<option value="${c}">${c}</option>`).join('');
     }
   });
+  setupHwImagePicker();
 }
 
 function doLogout() {
@@ -2496,6 +2484,7 @@ function renderStudentPortal(stu) {
   document.getElementById('stuClass').innerText    = stu.class;
   document.getElementById('stuUser').innerText     = '@' + stu.username;
   document.getElementById('stuAvatar').innerText   = stu.name.charAt(0).toUpperCase();
+  renderStudentHomework(stu);
 
   // Reset tabs to overview on (re)login
   document.querySelectorAll('.stu-panel').forEach(p => p.classList.remove('active'));
@@ -2926,6 +2915,141 @@ function renderStuList() {
 }
 
 /* ═══════════════════════════════════════════
+   HOMEWORK / ASSIGNMENTS
+═══════════════════════════════════════════ */
+let hwFilter = 'All';
+let hwPendingImageData = null; // base64 data-URI if a file was picked directly
+
+function setupHwImagePicker() {
+  const fileInput = document.getElementById('hwImageFile');
+  if (!fileInput || fileInput.dataset.wired) return;
+  fileInput.dataset.wired = '1';
+  fileInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = ev => { img.src = ev.target.result; };
+    img.onload = () => {
+      // Compress: cap width at 800px, JPEG quality 0.6, to keep Realtime
+      // Database records small and fast to load.
+      const maxW = 800;
+      const scale = Math.min(1, maxW / img.width);
+      const canvas = document.createElement('canvas');
+      canvas.width  = img.width * scale;
+      canvas.height = img.height * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      hwPendingImageData = canvas.toDataURL('image/jpeg', 0.6);
+      document.getElementById('hwImagePreview').src = hwPendingImageData;
+      document.getElementById('hwImagePreviewWrap').style.display = 'block';
+      document.getElementById('hwImageUrl').value = ''; // uploaded file takes priority
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function clearHwImage() {
+  hwPendingImageData = null;
+  const fileEl = document.getElementById('hwImageFile');
+  if (fileEl) fileEl.value = '';
+  document.getElementById('hwImagePreviewWrap').style.display = 'none';
+}
+
+function postHomework() {
+  const cls  = document.getElementById('hwClass').value;
+  const sub  = document.getElementById('hwSubject').value.trim();
+  const title= document.getElementById('hwTitle').value.trim();
+  const desc = document.getElementById('hwDesc').value.trim();
+  const due  = document.getElementById('hwDue').value;
+  const urlVal = document.getElementById('hwImageUrl').value.trim();
+  const image  = hwPendingImageData || urlVal || null;
+
+  if (!cls) { alert('Please choose a class — if none appear, reopen the Homework tab or contact support.'); return; }
+  if (!sub || !title || !due) { alert('Please fill subject, title and due date.'); return; }
+
+  const allowed = getAllowedClasses();
+  if (!allowed.includes(cls)) { alert('You do not have permission to post homework for this class.'); return; }
+
+  const postedBy = curAdminData ? curAdminData.name : 'Admin';
+  const payload = { class: cls, subject: sub, title, desc, due, postedBy, postedAt: Date.now() };
+  if (image) payload.image = image;
+
+  db.ref('homework').push(payload).then(() => {
+    document.getElementById('hwSubject').value  = '';
+    document.getElementById('hwTitle').value    = '';
+    document.getElementById('hwDesc').value     = '';
+    document.getElementById('hwDue').value      = '';
+    document.getElementById('hwImageUrl').value = '';
+    clearHwImage();
+    if (typeof logActivity === 'function') logActivity('homework', `${postedBy} posted homework for ${cls}: ${title}`);
+    alert('✅ Homework posted for ' + cls + '.');
+  }).catch(err => alert('Could not post homework: ' + err.message + '\n\nIf this says "Permission denied", the Firebase Realtime Database rules need a "homework" node added — see Firebase Console → Realtime Database → Rules.'));
+}
+
+function deleteHomework(key) {
+  const hw = allHomework[key];
+  if (hw) {
+    const allowed = getAllowedClasses();
+    if (!allowed.includes(hw.class)) { alert('You do not have permission to delete this.'); return; }
+  }
+  if (!confirm('Delete this homework entry?')) return;
+  db.ref('homework/' + key).remove().catch(err => alert('Could not delete: ' + err.message));
+}
+
+function renderHwPills() {
+  const allowed = getAllowedClasses();
+  document.getElementById('hwPills').innerHTML = ['All', ...allowed].map(c =>
+    `<button class="pill ${hwFilter===c?'active':''}" onclick="setHwFilter('${c}')">${c}</button>`
+  ).join('');
+}
+function setHwFilter(c) { hwFilter = c; renderHwPills(); renderHwList(); }
+
+function renderHwList() {
+  const allowed = getAllowedClasses();
+  const list = Object.entries(allHomework)
+    .filter(([k, h]) => allowed.includes(h.class) && (hwFilter==='All' || h.class===hwFilter))
+    .sort((a,b) => (a[1].due||'').localeCompare(b[1].due||''));
+  const div = document.getElementById('hwList');
+  if (!list.length) { div.innerHTML = '<p class="empty-msg">No homework posted yet.</p>'; return; }
+  div.innerHTML = list.map(([key, h]) => `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);gap:10px;">
+      <div style="flex:1;">
+        <span style="font-weight:700;color:var(--navy);">${h.title}</span>
+        <span class="badge bg-navy" style="margin-left:8px;">${h.class}</span>
+        <span class="badge" style="margin-left:4px;background:#eef2ff;color:#3b4dbc;">${h.subject}</span>
+        <div style="font-size:12px;color:var(--text);margin-top:4px;">${h.desc || ''}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Due ${h.due} · posted by ${h.postedBy||'Admin'}</div>
+        ${h.image ? `<img src="${h.image}" style="max-width:120px;border-radius:6px;margin-top:6px;border:1px solid var(--border);display:block;">` : ''}
+      </div>
+      <button class="btn btn-red btn-sm" onclick="deleteHomework('${key}')">Delete</button>
+    </div>`).join('');
+}
+
+/** Student portal — shows only this student's class homework, soonest due first,
+    with overdue items flagged. */
+function renderStudentHomework(stu) {
+  const el = document.getElementById('stuHwList');
+  if (!el) return;
+  const today = new Date().toISOString().split('T')[0];
+  const list = Object.values(allHomework)
+    .filter(h => h.class === stu.class)
+    .sort((a,b) => (a.due||'').localeCompare(b.due||''));
+  if (!list.length) { el.innerHTML = '<p class="empty-msg" style="padding:0 16px 16px;">No homework posted yet.</p>'; return; }
+  el.innerHTML = list.map(h => {
+    const overdue = h.due && h.due < today;
+    return `<div style="padding:12px 16px;border-bottom:1px solid var(--border);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-weight:700;color:var(--navy);">${h.title}</span>
+        <span class="badge" style="background:${overdue?'#fdecea':'#e8f5e9'};color:${overdue?'#c0392b':'#2e7d32'};">${overdue?'Overdue':'Due'} ${h.due}</span>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px;">${h.subject}</div>
+      <div style="font-size:13px;color:var(--text);margin-top:6px;">${h.desc || ''}</div>
+      ${h.image ? `<img src="${h.image}" style="max-width:100%;border-radius:8px;margin-top:8px;border:1px solid var(--border);display:block;">` : ''}
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════
    ADMIN — ADD STUDENT → FIREBASE
 ═══════════════════════════════════════════ */
 function addStudent() {
@@ -3158,6 +3282,12 @@ function switchAdminTab(id, btn) {
   if (id === 'at-settings') { if (curUser==='admin') renderActivityLog(); document.getElementById('activityLogCard').style.display = curUser==='admin'?'block':'none'; }
   if (id === 'at-events')   loadAdminEvents();
   if (id === 'at-enquiries') loadEnquiries();
+  if (id === 'at-homework') {
+    const allowed = getAllowedClasses();
+    document.getElementById('hwClass').innerHTML = allowed.map(c => `<option value="${c}">${c}</option>`).join('');
+    renderHwPills();
+    renderHwList();
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -3886,6 +4016,20 @@ window.dfFilterStudents   = dfFilterStudents;
 window.dfLoadStudent      = dfLoadStudent;
 window.dfSaveDashboard    = dfSaveDashboard;
 window.dfSaveFees         = dfSaveFees;
+window.postHomework       = postHomework;
+window.deleteHomework     = deleteHomework;
+window.setHwFilter        = setHwFilter;
+window.clearHwImage       = clearHwImage;
+
+// Show the homepage immediately — do not wait for auth or database reads.
+// Placed here, at the very end of the closure, so every `let`/const above
+// (like sTotal for the slider) has already been initialized before this runs.
+// Firebase listeners keep running in the background and update the page
+// live once data arrives.
+dbReady = true;
+const _loadingScreenEl = document.getElementById('loadingScreen');
+if (_loadingScreenEl) _loadingScreenEl.style.display = 'none';
+initApp();
 
 }); // end firebaseReady
 </script>
