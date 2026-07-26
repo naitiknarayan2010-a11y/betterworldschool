@@ -6,6 +6,14 @@
   <title>Better World School</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+  <!-- ══ PWA: installable app support ══ -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#0d1b4b">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BWS">
+
   <!-- ══ FIREBASE — loaded dynamically so app waits for SDKs before running ══ -->
   <script>
   // Dynamically load Firebase SDKs in order, then init the app.
@@ -1516,6 +1524,7 @@
       <button class="stu-tab" onclick="switchStuTab('sp-study',this)">📚 Study Materials<span id="smUnreadDot" class="unread-dot" style="display:none;"></span></button>
       <button class="stu-tab" onclick="switchStuTab('sp-quiz',this)">🧠 Quizzes<span id="qzUnreadDot" class="unread-dot" style="display:none;"></span></button>
       <button class="stu-tab" onclick="switchStuTab('sp-doubts',this)">❓ Doubts</button>
+      <button class="stu-tab" onclick="switchStuTab('sp-leave',this)">🗓️ Leave</button>
     </div>
 
     <!-- ── TAB: OVERVIEW ── -->
@@ -1588,6 +1597,23 @@
 
     <!-- ── TAB: DASHBOARD (Student Info) ── -->
     <div class="stu-panel" id="sp-dashboard">
+
+      <!-- Digital ID Card -->
+      <div class="p-card" id="idCard" style="background:linear-gradient(135deg,var(--navy),#1a2f6b);border-radius:16px;padding:0;overflow:hidden;margin-bottom:14px;">
+        <div style="padding:16px;display:flex;gap:14px;align-items:center;">
+          <div id="idCardAvatar" style="width:60px;height:60px;border-radius:50%;background:var(--gold);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;flex:none;border:3px solid rgba(255,255,255,.5);"></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:10px;letter-spacing:1px;color:rgba(255,255,255,.65);text-transform:uppercase;">Better World School · Student ID</div>
+            <div id="idCardName" style="font-size:17px;font-weight:800;margin-top:2px;color:#fff;"></div>
+            <div id="idCardClass" style="font-size:12px;color:rgba(255,255,255,.85);margin-top:2px;"></div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.08);padding:10px 16px;display:flex;justify-content:space-between;">
+          <div><div style="font-size:9px;color:rgba(255,255,255,.55);">ADMISSION NO.</div><div id="idCardAdm" style="font-size:12px;font-weight:700;color:#fff;margin-top:2px;"></div></div>
+          <div><div style="font-size:9px;color:rgba(255,255,255,.55);">BLOOD GROUP</div><div id="idCardBlood" style="font-size:12px;font-weight:700;color:#fff;margin-top:2px;"></div></div>
+          <div><div style="font-size:9px;color:rgba(255,255,255,.55);">VALID TILL</div><div id="idCardValid" style="font-size:12px;font-weight:700;color:#fff;margin-top:2px;"></div></div>
+        </div>
+      </div>
 
       <!-- Student Profile Card -->
       <div class="p-card dash-card">
@@ -1698,7 +1724,10 @@
     <!-- ── TAB: QUIZZES ── -->
     <div class="stu-panel" id="sp-quiz">
       <div id="stuQuizListWrap" class="p-card" style="padding:0;overflow:hidden;">
-        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;">🧠 Quizzes</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px;">
+          <div class="p-title" style="font-size:13px;padding:0;">🧠 Quizzes</div>
+          <button class="btn btn-navy btn-sm" style="margin:0;" onclick="openClassLeaderboard()">🏆 Class Rank</button>
+        </div>
         <div id="stuQuizList">
           <p class="empty-msg" style="padding:0 16px 16px;">No quizzes posted yet.</p>
         </div>
@@ -1730,6 +1759,26 @@
       </div>
     </div>
 
+    <!-- ── TAB: LEAVE APPLICATION ── -->
+    <div class="stu-panel" id="sp-leave">
+      <div class="p-card">
+        <div class="p-title" style="font-size:14px;">🗓️ Apply for Leave</div>
+        <label class="p-lbl">From Date</label>
+        <input type="date" id="lvFrom">
+        <label class="p-lbl">To Date</label>
+        <input type="date" id="lvTo">
+        <label class="p-lbl">Reason</label>
+        <textarea id="lvReason" rows="3" placeholder="e.g. Fever, family function..."></textarea>
+        <button class="btn btn-red" onclick="submitLeave()">Submit Request</button>
+      </div>
+      <div class="p-card" style="padding:0;overflow:hidden;">
+        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;">Your Leave Requests</div>
+        <div id="stuLeaveList">
+          <p class="empty-msg" style="padding:0 16px 16px;">No leave requests yet.</p>
+        </div>
+      </div>
+    </div>
+
   </div><!-- end stu-portal -->
 
   <!-- ADMIN PANEL -->
@@ -1756,6 +1805,7 @@
         <button class="tab" id="tab-study" onclick="switchAdminTab('at-study',this)">Study Materials</button>
         <button class="tab" id="tab-quiz" onclick="switchAdminTab('at-quiz',this)">Quizzes</button>
         <button class="tab" id="tab-doubts" onclick="switchAdminTab('at-doubts',this)">Doubts</button>
+        <button class="tab" id="tab-leave" onclick="switchAdminTab('at-leave',this)">Leave Requests</button>
         <button class="tab" id="tab-events" onclick="switchAdminTab('at-events',this)" style="display:none;">Events</button>
         <button class="tab" id="tab-enquiries" onclick="switchAdminTab('at-enquiries',this)" style="display:none;">Enquiries <span id="enqBadge" style="display:none;" class="unread-dot"></span></button>
         <button class="tab" id="tab-admins" onclick="switchAdminTab('at-admins',this)" style="display:none;">Admins</button>
@@ -2057,7 +2107,10 @@
           </div>
         </div>
         <div class="p-card">
-          <div class="p-title" style="font-size:14px;">Filter by Class</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="p-title" style="font-size:14px;padding:0;">Filter by Class</div>
+            <button class="btn btn-navy btn-sm" style="margin:0;" onclick="openAdminClassLeaderboard()">🏆 Class Rank</button>
+          </div>
           <div class="pills" id="qzPills"></div>
           <div id="qzList"></div>
         </div>
@@ -2070,6 +2123,16 @@
           <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Only doubts from your assigned class(es) appear here.</p>
           <div class="pills" id="dbPills"></div>
           <div id="dbList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: LEAVE REQUESTS -->
+      <div id="at-leave" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="p-title" style="font-size:14px;">🗓️ Leave Requests</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Only requests from your assigned class(es) appear here.</p>
+          <div class="pills" id="lvPills"></div>
+          <div id="lvList"></div>
         </div>
       </div>
 
@@ -2313,6 +2376,17 @@
     <div id="qzLeaderBody"></div>
   </div>
 </div>
+
+<div class="modal-overlay" id="classLeaderModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="classLeaderTitle">🏆 Class Rank</div>
+      <button class="close-btn" onclick="closeClassLeaderboard()">✕</button>
+    </div>
+    <p style="font-size:11px;color:var(--muted);padding:0 4px 8px;">Combined score across every quiz you've taken.</p>
+    <div id="classLeaderBody"></div>
+  </div>
+</div>
 <!-- ════════════════════════════════════════════════════
      JAVASCRIPT  — single clean block, no duplicates
      Runs only after Firebase SDKs are fully loaded.
@@ -2383,6 +2457,7 @@ let allPaymentClaims = {}; // key = pushId → { username, name, class, month, a
 let noticeUpdatedAt = 0;   // config/noticeUpdatedAt — timestamp of latest notice, for unread bell
 const sessionLoadTime = Date.now(); // only items posted AFTER this get a browser notification (no backlog spam on login)
 let allDoubts = {};        // key = pushId → { class, subject, question, studentUsername, studentName, askedAt, status, answer, answeredBy, answeredAt }
+let allLeaveRequests = {}; // key = pushId → { class, studentUsername, studentName, fromDate, toDate, reason, status, appliedAt, reviewedBy, reviewedAt }
 let curAdminData   = null; // null | sub-admin object (null for primary admin)
 let editAdminKey   = null; // username of sub-admin being edited
 
@@ -2491,6 +2566,22 @@ function startDbListeners() {
     if (dbListEl) dbListEl.innerHTML = `<p class="empty-msg" style="color:#b52b2b;">${msg}</p>`;
     const stuDbListEl = document.getElementById('stuDoubtsList');
     if (stuDbListEl) stuDbListEl.innerHTML = `<p class="empty-msg" style="color:#b52b2b;padding:0 16px 16px;">${msg}</p>`;
+  });
+
+  // Leave Requests — non-blocking
+  db.ref('leaveRequests').on('value', snap => {
+    allLeaveRequests = snap.val() || {};
+    if (curUser === 'admin' || curAdminData) renderAdminLeaveRequests();
+    if (curUser && curUser !== 'admin' && !curAdminData && allStudents[curUser]) {
+      renderStudentLeaveRequests(allStudents[curUser]);
+    }
+  }, err => {
+    console.warn('leaveRequests read denied:', err.message);
+    const msg = '⚠️ Could not load leave requests — Firebase rules likely need a "leaveRequests" node added (Firebase Console → Realtime Database → Rules).';
+    const lvListEl = document.getElementById('lvList');
+    if (lvListEl) lvListEl.innerHTML = `<p class="empty-msg" style="color:#b52b2b;">${msg}</p>`;
+    const stuLvListEl = document.getElementById('stuLeaveList');
+    if (stuLvListEl) stuLvListEl.innerHTML = `<p class="empty-msg" style="color:#b52b2b;padding:0 16px 16px;">${msg}</p>`;
   });
 
   // 2. Admin password
@@ -2767,6 +2858,7 @@ function renderStudentPortal(stu) {
   renderStudentStudyMaterials(stu);
   renderStudentQuizzes(stu);
   renderStudentDoubts(stu);
+  renderStudentLeaveRequests(stu);
   renderSiblingSwitcher(stu);
 
   // Unread badges + browser notification opt-in (no backend/Blaze needed)
@@ -3660,6 +3752,91 @@ function closeQuizLeaderboard() {
   document.getElementById('qzLeaderModal').classList.remove('open');
 }
 
+/** Aggregates every quiz result for a class into one overall ranking:
+    combined percentage = total marks scored / total marks possible,
+    across every quiz a student has actually attempted. */
+function computeClassLeaderboard(className) {
+  const totals = {}; // username → { studentName, scoreSum, totalSum, quizzesTaken }
+  Object.entries(allQuizzes).forEach(([qKey, qz]) => {
+    if (qz.class !== className) return;
+    const results = allQuizResults[qKey] || {};
+    Object.entries(results).forEach(([username, r]) => {
+      if (!totals[username]) totals[username] = { studentName: r.studentName, scoreSum: 0, totalSum: 0, quizzesTaken: 0 };
+      totals[username].scoreSum   += r.score;
+      totals[username].totalSum   += r.total;
+      totals[username].quizzesTaken++;
+    });
+  });
+
+  const arr = Object.entries(totals).map(([username, t]) => ({
+    username, studentName: t.studentName, quizzesTaken: t.quizzesTaken,
+    pct: t.totalSum ? Math.round((t.scoreSum / t.totalSum) * 100) : 0
+  })).sort((a,b) => b.pct - a.pct);
+
+  let rank = 0, lastPct = null;
+  arr.forEach((r, i) => {
+    if (r.pct !== lastPct) { rank = i + 1; lastPct = r.pct; }
+    r.rank = rank;
+  });
+  return arr;
+}
+
+function openClassLeaderboard() {
+  const stu = allStudents[curUser];
+  if (!stu) return;
+  document.getElementById('classLeaderTitle').innerText = '🏆 ' + stu.class + ' — Class Rank';
+  const ranked = computeClassLeaderboard(stu.class);
+  const body = document.getElementById('classLeaderBody');
+  if (!ranked.length) {
+    body.innerHTML = '<p class="empty-msg">No one has attempted a quiz yet — be the first!</p>';
+  } else {
+    body.innerHTML = `<div style="max-height:55vh;overflow-y:auto;">` + ranked.map(r => {
+      const medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':r.rank+'.';
+      const isMe = r.username === curUser;
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 4px;border-bottom:1px solid var(--border);${isMe?'background:#fff8e1;border-radius:8px;':''}">
+        <span style="font-weight:${isMe?'800':'600'};color:var(--navy);">${medal} ${r.studentName}${isMe?' (You)':''}</span>
+        <span style="text-align:right;">
+          <span style="font-weight:700;color:${scC(r.pct,100)};">${r.pct}%</span>
+          <div style="font-size:10px;color:var(--muted);">${r.quizzesTaken} quiz${r.quizzesTaken>1?'zes':''}</div>
+        </span>
+      </div>`;
+    }).join('') + `</div>`;
+  }
+  document.getElementById('classLeaderModal').classList.add('open');
+}
+
+function closeClassLeaderboard() {
+  document.getElementById('classLeaderModal').classList.remove('open');
+}
+
+/** Admin/teacher entry point: uses the currently selected class filter (or asks them to pick one). */
+function openAdminClassLeaderboard() {
+  const allowed = getAllowedClasses();
+  let cls = qzFilter;
+  if (cls === 'All') {
+    if (allowed.length === 1) cls = allowed[0];
+    else { alert('Please select a specific class filter above first (not "All"), then tap Class Rank again.'); return; }
+  }
+  document.getElementById('classLeaderTitle').innerText = '🏆 ' + cls + ' — Class Rank';
+  const ranked = computeClassLeaderboard(cls);
+  const body = document.getElementById('classLeaderBody');
+  if (!ranked.length) {
+    body.innerHTML = '<p class="empty-msg">No submissions yet for this class.</p>';
+  } else {
+    body.innerHTML = `<div style="max-height:55vh;overflow-y:auto;">` + ranked.map(r => {
+      const medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':r.rank+'.';
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 4px;border-bottom:1px solid var(--border);">
+        <span style="font-weight:600;color:var(--navy);">${medal} ${r.studentName}</span>
+        <span style="text-align:right;">
+          <span style="font-weight:700;color:${scC(r.pct,100)};">${r.pct}%</span>
+          <div style="font-size:10px;color:var(--muted);">${r.quizzesTaken} quiz${r.quizzesTaken>1?'zes':''}</div>
+        </span>
+      </div>`;
+    }).join('') + `</div>`;
+  }
+  document.getElementById('classLeaderModal').classList.add('open');
+}
+
 /** Student view: list quizzes for their class, showing past score if attempted, or a Start button. */
 function renderStudentQuizzes(stu) {
   const el = document.getElementById('stuQuizList');
@@ -3831,6 +4008,110 @@ function replyToDoubt(key) {
   const answeredBy = curAdminData ? curAdminData.name : 'Admin';
   db.ref('doubts/' + key).update({ answer: text, status: 'answered', answeredBy, answeredAt: Date.now() })
     .then(() => alert('Reply sent!'))
+    .catch(err => alert('Error: ' + err.message));
+}
+
+/* ═══════════════════════════════════════════
+   LEAVE APPLICATION
+═══════════════════════════════════════════ */
+let lvFilter = 'All';
+
+function submitLeave() {
+  const from   = document.getElementById('lvFrom').value;
+  const to     = document.getElementById('lvTo').value;
+  const reason = document.getElementById('lvReason').value.trim();
+
+  if (!from || !to) { alert('Please select both from and to dates.'); return; }
+  if (to < from) { alert('"To" date cannot be before "From" date.'); return; }
+  if (!reason) { alert('Please enter a reason.'); return; }
+
+  const stu = allStudents[curUser];
+  if (!stu) return;
+
+  db.ref('leaveRequests').push({
+    class: stu.class, studentUsername: curUser, studentName: stu.name,
+    fromDate: from, toDate: to, reason,
+    status: 'pending', appliedAt: Date.now()
+  }).then(() => {
+    document.getElementById('lvFrom').value   = '';
+    document.getElementById('lvTo').value     = '';
+    document.getElementById('lvReason').value = '';
+    alert('✅ Leave request submitted for approval.');
+  }).catch(err => alert('Could not submit: ' + err.message + '\n\nIf this says "Permission denied", the Firebase rules need a "leaveRequests" node added.'));
+}
+
+/** Student view: their own requests, most recent first, with status. */
+function renderStudentLeaveRequests(stu) {
+  const el = document.getElementById('stuLeaveList');
+  if (!el) return;
+  const mine = Object.values(allLeaveRequests)
+    .filter(l => l.studentUsername === stu.username)
+    .sort((a,b) => (b.appliedAt||0) - (a.appliedAt||0));
+
+  if (!mine.length) { el.innerHTML = '<p class="empty-msg" style="padding:0 16px 16px;">No leave requests yet.</p>'; return; }
+
+  const statusColor = { pending:['#fff3e0','#e65100'], approved:['#e8f5e9','#2e7d32'], rejected:['#fdecea','#c0392b'] };
+  el.innerHTML = mine.map(l => {
+    const [bg, fg] = statusColor[l.status] || statusColor.pending;
+    return `<div style="padding:12px 16px;border-bottom:1px solid var(--border);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-weight:700;color:var(--navy);">${l.fromDate} → ${l.toDate}</span>
+        <span class="badge" style="background:${bg};color:${fg};text-transform:capitalize;">${l.status}</span>
+      </div>
+      <div style="font-size:13px;color:var(--text);margin-top:6px;">${l.reason}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderLvPills() {
+  const allowed = getAllowedClasses();
+  document.getElementById('lvPills').innerHTML = ['All', ...allowed].map(c =>
+    `<button class="pill ${lvFilter===c?'active':''}" onclick="setLvFilter('${c}')">${c}</button>`
+  ).join('');
+}
+function setLvFilter(c) { lvFilter = c; renderLvPills(); renderAdminLeaveRequests(); }
+
+/** Teacher/admin view: pending requests surfaced first, with Approve/Reject actions. */
+function renderAdminLeaveRequests() {
+  const allowed = getAllowedClasses();
+  const entries = Object.entries(allLeaveRequests)
+    .filter(([k, l]) => allowed.includes(l.class) && (lvFilter==='All' || l.class===lvFilter))
+    .sort((a,b) => {
+      const aPending = a[1].status === 'pending', bPending = b[1].status === 'pending';
+      if (aPending !== bPending) return aPending ? -1 : 1;
+      return (b[1].appliedAt||0) - (a[1].appliedAt||0);
+    });
+
+  const div = document.getElementById('lvList');
+  if (!entries.length) { div.innerHTML = '<p class="empty-msg">No leave requests yet.</p>'; return; }
+
+  const statusColor = { pending:['#fff3e0','#e65100'], approved:['#e8f5e9','#2e7d32'], rejected:['#fdecea','#c0392b'] };
+  div.innerHTML = entries.map(([key, l]) => {
+    const [bg, fg] = statusColor[l.status] || statusColor.pending;
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--border);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span style="font-weight:700;color:var(--navy);">${l.studentName}</span>
+          <span class="badge bg-navy" style="margin-left:6px;">${l.class}</span>
+        </div>
+        <span class="badge" style="background:${bg};color:${fg};text-transform:capitalize;">${l.status}</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">${l.fromDate} → ${l.toDate}</div>
+      <div style="font-size:13px;color:var(--text);margin-top:4px;">${l.reason}</div>
+      ${l.status === 'pending' ? `
+        <div style="margin-top:8px;display:flex;gap:8px;">
+          <button class="btn btn-navy btn-sm" style="background:#2e7d32;border-color:#2e7d32;" onclick="reviewLeave('${key}','approved')">Approve</button>
+          <button class="btn btn-red btn-sm" onclick="reviewLeave('${key}','rejected')">Reject</button>
+        </div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function reviewLeave(key, status) {
+  const l = allLeaveRequests[key];
+  if (l && !getAllowedClasses().includes(l.class)) { alert('You do not have permission to review this class.'); return; }
+  const reviewedBy = curAdminData ? curAdminData.name : 'Admin';
+  db.ref('leaveRequests/' + key).update({ status, reviewedBy, reviewedAt: Date.now() })
     .catch(err => alert('Error: ' + err.message));
 }
 
@@ -4126,6 +4407,10 @@ function switchAdminTab(id, btn) {
     renderDbPills();
     renderAdminDoubts();
   }
+  if (id === 'at-leave') {
+    renderLvPills();
+    renderAdminLeaveRequests();
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -4336,6 +4621,18 @@ function closeConfirm() { document.getElementById('confirmBox').classList.remove
 function renderStudentDashboard(stu) {
   const d = stu.dashboardInfo || {};
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val || '—'; };
+
+  // Digital ID Card
+  set('idCardName',  stu.name);
+  set('idCardClass', 'Class ' + stu.class + (d.section ? ' - ' + d.section : ''));
+  set('idCardAdm',   d.admno);
+  set('idCardBlood', d.blood);
+  const avatarEl = document.getElementById('idCardAvatar');
+  if (avatarEl) avatarEl.innerText = stu.name.charAt(0).toUpperCase();
+  const now = new Date();
+  const validYear = now.getMonth() >= 3 ? now.getFullYear() + 1 : now.getFullYear(); // academic year ends March
+  set('idCardValid', 'March ' + validYear);
+
   set('dash-name',             stu.name);
   set('dash-class',            stu.class);
   set('dash-user',             stu.username);
@@ -5056,10 +5353,16 @@ window.backToQuizList     = backToQuizList;
 window.submitQuiz         = submitQuiz;
 window.openQuizLeaderboard  = openQuizLeaderboard;
 window.closeQuizLeaderboard = closeQuizLeaderboard;
+window.openClassLeaderboard = openClassLeaderboard;
+window.closeClassLeaderboard = closeClassLeaderboard;
+window.openAdminClassLeaderboard = openAdminClassLeaderboard;
 window.rankQuizResults      = rankQuizResults;
 window.submitDoubt        = submitDoubt;
 window.setDbFilter        = setDbFilter;
 window.replyToDoubt       = replyToDoubt;
+window.submitLeave        = submitLeave;
+window.setLvFilter        = setLvFilter;
+window.reviewLeave        = reviewLeave;
 
 // Show the homepage immediately — do not wait for auth or database reads.
 // Placed here, at the very end of the closure, so every `let`/const above
@@ -5073,5 +5376,55 @@ initApp();
 
 }); // end firebaseReady
 </script>
+
+<!-- ══ PWA: Install App banner ══ -->
+<div id="installBanner" style="display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;
+  background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.3);
+  display:none;align-items:center;justify-content:space-between;gap:10px;font-family:'DM Sans',sans-serif;">
+  <div style="font-size:13px;">📲 Install Better World School as an app for quicker access.</div>
+  <div style="display:flex;gap:8px;flex:none;">
+    <button onclick="installBWSApp()" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:12px;">Install</button>
+    <button onclick="dismissInstallBanner()" style="background:transparent;color:rgba(255,255,255,.7);border:none;font-size:18px;line-height:1;">✕</button>
+  </div>
+</div>
+
+<script>
+  // Service worker registration — guarded so it never errors out on file://
+  // testing (e.g. local code-editor previews) where SW APIs aren't available.
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.protocol === 'http:')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err.message));
+    });
+  }
+
+  // "Add to Home Screen" prompt — Chrome/Edge/Android fire this automatically
+  // when installability criteria are met; iOS Safari doesn't support it, but
+  // the apple-mobile-web-app meta tags in <head> already enable manual
+  // "Add to Home Screen" from Safari's share menu.
+  let deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if (!localStorage.getItem('bwsInstallDismissed')) {
+      const banner = document.getElementById('installBanner');
+      if (banner) banner.style.display = 'flex';
+    }
+  });
+
+  function installBWSApp() {
+    const banner = document.getElementById('installBanner');
+    if (banner) banner.style.display = 'none';
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt = null;
+  }
+
+  function dismissInstallBanner() {
+    const banner = document.getElementById('installBanner');
+    if (banner) banner.style.display = 'none';
+    try { localStorage.setItem('bwsInstallDismissed', '1'); } catch(e) {}
+  }
+</script>
+
 </body>
 </html>
