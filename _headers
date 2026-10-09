@@ -1,0 +1,11 @@
+# Netlify: make sure phones always ask the server for the app shell, so updates show up right away.
+/
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+/manifest.json
+  Cache-Control: no-cache
+/icon-*.png
+  Cache-Control: public, max-age=86400

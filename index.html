@@ -9,7 +9,7 @@
   <!-- ══ PWA: installable app support ══ -->
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#0d1b4b">
-  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-apple-touch.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="BWS">
@@ -1095,6 +1095,80 @@
     .enq-badge{display:inline-block;background:#e3f2fd;color:#1565c0;font-size:10px;
       font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;}
     .unread-dot{width:8px;height:8px;background:var(--red);border-radius:50%;display:inline-block;margin-left:6px;vertical-align:middle;}
+
+    /* ════════════════════════════════
+       ATTENDANCE (admin / teacher)
+    ════════════════════════════════ */
+    .ax-r2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .ax-r2 > div{min-width:0;}
+    .ax-tools{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 12px;}
+    .ax-tools .btn{flex:1 1 auto;min-height:38px;}
+    .ax-counts{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px;}
+    .ax-chip{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid transparent;}
+    .ax-chip.p{background:#e8f5e9;color:var(--green);border-color:rgba(30,110,62,.15);}
+    .ax-chip.a{background:#ffebee;color:var(--red);border-color:rgba(181,43,43,.15);}
+    .ax-chip.l{background:#fff8e1;color:var(--amber);border-color:rgba(176,106,0,.15);}
+    .ax-chip.u{background:var(--light);color:var(--muted);border-color:var(--border);}
+    .ax-note{font-size:12px;border-radius:var(--r);padding:10px 12px;margin-bottom:12px;line-height:1.5;}
+    .ax-note.info{background:#e3f2fd;border:1px solid #b3d4f5;color:var(--blue);}
+    .ax-note.warn{background:#fff8e1;border:1px solid #ffe082;color:var(--amber);}
+    .ax-note.err{background:#ffebee;border:1px solid #f5b5b5;color:var(--red);}
+    .ax-note.ok{background:#e8f5e9;border:1px solid #b7dfc3;color:var(--green);}
+    .ax-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 0;border-bottom:1px solid var(--border);}
+    .ax-row:last-child{border-bottom:none;}
+    .ax-row.changed{background:rgba(201,151,42,.08);box-shadow:-3px 0 0 var(--gold);padding-left:8px;}
+    .ax-name{flex:1 1 140px;min-width:0;font-weight:600;color:var(--navy);font-size:14px;overflow-wrap:anywhere;}
+    .ax-name small{display:block;font-weight:400;font-size:11px;color:var(--muted);}
+    .ax-seg{display:flex;gap:6px;flex:1 1 230px;}
+    .ax-b{flex:1;min-height:40px;border-radius:8px;border:1.5px solid var(--border);background:var(--light);
+      color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;}
+    .ax-b.present.on{background:var(--green);border-color:var(--green);color:#fff;}
+    .ax-b.absent.on{background:var(--red);border-color:var(--red);color:#fff;}
+    .ax-b.late.on{background:var(--amber);border-color:var(--amber);color:#fff;}
+    /* bottom:-60px offsets the 60px bottom padding of .at-p so the bar sits flush with the screen edge */
+    .ax-savebar{position:sticky;bottom:-60px;margin:0 -4px;padding:10px 4px calc(10px + env(safe-area-inset-bottom,0px));
+      background:var(--light);border-top:1px solid var(--border);z-index:5;}
+    .ax-savebar .btn{margin:0;}
+    .ax-dirty{font-size:11px;font-weight:700;color:var(--amber);margin-bottom:6px;min-height:14px;}
+    .ax-calnav{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+    .ax-calnav select{margin:0;flex:1;min-width:0;}
+    .ax-calnav #axCalMonth{flex:1.7;}
+    .ax-calnav #axCalYear{flex:1.1;}
+    .ax-calnav .arrow{flex:none;width:42px;height:42px;border-radius:var(--r);border:1.5px solid var(--border);
+      background:var(--light);color:var(--navy);font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;}
+    .ax-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+    .ax-dow{font-size:10px;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;padding:4px 0;}
+    .ax-day{min-height:44px;border-radius:8px;border:1.5px solid var(--border);background:var(--light);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;
+      font-family:inherit;cursor:pointer;padding:0;color:var(--text);line-height:1.2;}
+    .ax-day b{font-size:10px;}
+    .ax-day.present{background:#e8f5e9;border-color:rgba(30,110,62,.4);color:var(--green);}
+    .ax-day.absent{background:#ffebee;border-color:rgba(181,43,43,.4);color:var(--red);}
+    .ax-day.late{background:#fff8e1;border-color:rgba(176,106,0,.4);color:var(--amber);}
+    .ax-day.blank{visibility:hidden;}
+    .ax-day.ro{cursor:default;}
+    .ax-day.future{opacity:.45;cursor:default;}
+    .ax-day.today{box-shadow:0 0 0 2px var(--gold);}
+    .ax-legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--muted);margin:10px 0;}
+    .ax-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--border);}
+    .ax-sum{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0;}
+    .ax-sc{background:var(--light);border:1px solid var(--border);border-radius:var(--r);padding:10px 4px;text-align:center;}
+    .ax-sc .v{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);}
+    .ax-sc .l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;}
+    .ax-tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .ax-table{width:100%;border-collapse:collapse;font-size:13px;}
+    .ax-table th{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:center;
+      padding:8px 4px;border-bottom:2px solid var(--border);}
+    .ax-table th:first-child,.ax-table td:first-child{text-align:left;}
+    .ax-table td{padding:9px 4px;border-bottom:1px solid var(--border);text-align:center;}
+    .ax-table td small{display:block;font-size:10px;color:var(--muted);}
+    .ax-table td.pct{font-weight:700;}
+    .ax-table td.pct.g{color:var(--green);} .ax-table td.pct.a{color:var(--amber);} .ax-table td.pct.r{color:var(--red);}
+    @media(max-width:480px){.ax-sum{grid-template-columns:repeat(3,1fr);}}
+    body.dark-mode .ax-chip.p,body.dark-mode .ax-day.present,body.dark-mode .ax-note.ok{background:rgba(30,110,62,.25);color:#7fd6a0;}
+    body.dark-mode .ax-chip.a,body.dark-mode .ax-day.absent,body.dark-mode .ax-note.err{background:rgba(181,43,43,.25);color:#f19a9a;}
+    body.dark-mode .ax-chip.l,body.dark-mode .ax-day.late,body.dark-mode .ax-note.warn{background:rgba(176,106,0,.25);color:#f0bc50;}
+    body.dark-mode .ax-note.info{background:rgba(26,79,160,.25);color:#9cc2f5;}
   </style>
 </head>
 <body>
@@ -1657,6 +1731,7 @@
       <div class="stu-home-tile" onclick="openStuSection('sp-quiz','🧠 Quizzes')"><span class="tile-icon">🧠</span><span class="tile-label">Quizzes</span><span id="qzUnreadDot" class="unread-dot" style="display:none;"></span></div>
       <div class="stu-home-tile" onclick="openStuSection('sp-doubts','❓ Doubts')"><span class="tile-icon">❓</span><span class="tile-label">Doubts</span></div>
       <div class="stu-home-tile" onclick="openStuSection('sp-leave','🗓️ Leave')"><span class="tile-icon">🗓️</span><span class="tile-label">Leave</span></div>
+      <div class="stu-home-tile" onclick="openStuSection('sp-attendance','✅ Attendance')"><span class="tile-icon">✅</span><span class="tile-label">Attendance</span></div>
     </div>
 
     <!-- Old tab row kept in the DOM but hidden — nothing else references it -->
@@ -2007,6 +2082,23 @@
       </div>
     </div>
 
+    <!-- ── TAB: ATTENDANCE (read-only for students / parents) ── -->
+    <div class="stu-panel" id="sp-attendance">
+      <div class="p-card">
+        <div class="p-title" style="font-size:14px;margin-bottom:10px;">✅ My Attendance</div>
+        <div class="ax-calnav">
+          <button type="button" class="arrow" onclick="stuAttStep(-1)" aria-label="Previous month">‹</button>
+          <div id="stuAttLabel" style="flex:1;text-align:center;font-weight:700;color:var(--navy);"></div>
+          <button type="button" class="arrow" id="stuAttNext" onclick="stuAttStep(1)" aria-label="Next month">›</button>
+        </div>
+        <div id="stuAttOut"></div>
+      </div>
+      <div class="p-card">
+        <button type="button" class="btn btn-ghost" onclick="stuAttYear()">Show school-year total</button>
+        <div id="stuAttYearOut" style="margin-top:6px;"></div>
+      </div>
+    </div>
+
   </div><!-- end stu-portal -->
 
   <!-- ADMIN PANEL -->
@@ -2041,6 +2133,7 @@
         <div class="admin-home-tile" id="tile-quiz" onclick="openAdminSection('at-quiz','Quizzes')"><span class="tile-icon">🧠</span><span class="tile-label">Quizzes</span></div>
         <div class="admin-home-tile" id="tile-doubts" onclick="openAdminSection('at-doubts','Doubts')"><span class="tile-icon">❓</span><span class="tile-label">Doubts</span></div>
         <div class="admin-home-tile" id="tile-leave" onclick="openAdminSection('at-leave','Leave Requests')"><span class="tile-icon">🗓️</span><span class="tile-label">Leave Requests</span></div>
+        <div class="admin-home-tile" id="tile-attendance" onclick="openAdminSection('at-attendance','Attendance')"><span class="tile-icon">✅</span><span class="tile-label">Attendance</span></div>
         <div class="admin-home-tile" id="tile-events" onclick="openAdminSection('at-events','Events')" style="display:none;"><span class="tile-icon">📅</span><span class="tile-label">Events</span></div>
         <div class="admin-home-tile" id="tile-enquiries" onclick="openAdminSection('at-enquiries','Enquiries')" style="display:none;"><span class="tile-icon">📩</span><span class="tile-label">Enquiries</span><span id="enqBadgeTile" class="unread-dot" style="display:none;"></span></div>
         <div class="admin-home-tile" id="tile-admins" onclick="openAdminSection('at-admins','Admins')" style="display:none;"><span class="tile-icon">👥</span><span class="tile-label">Admins</span></div>
@@ -2059,6 +2152,7 @@
         <button class="tab" id="tab-quiz" onclick="switchAdminTab('at-quiz',this)">Quizzes</button>
         <button class="tab" id="tab-doubts" onclick="switchAdminTab('at-doubts',this)">Doubts</button>
         <button class="tab" id="tab-leave" onclick="switchAdminTab('at-leave',this)">Leave Requests</button>
+        <button class="tab" id="tab-attendance" onclick="switchAdminTab('at-attendance',this)">Attendance</button>
         <button class="tab" id="tab-events" onclick="switchAdminTab('at-events',this)" style="display:none;">Events</button>
         <button class="tab" id="tab-enquiries" onclick="switchAdminTab('at-enquiries',this)" style="display:none;">Enquiries <span id="enqBadge" style="display:none;" class="unread-dot"></span></button>
         <button class="tab" id="tab-admins" onclick="switchAdminTab('at-admins',this)" style="display:none;">Admins</button>
@@ -2389,6 +2483,79 @@
           <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Only requests from your assigned class(es) appear here.</p>
           <div class="pills" id="lvPills"></div>
           <div id="lvList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: ATTENDANCE -->
+      <div id="at-attendance" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="p-title" style="font-size:14px;margin-bottom:10px;">✅ Attendance</div>
+          <div class="pills" id="axViewPills" style="margin-bottom:0;">
+            <button type="button" class="pill active" data-v="mark" onclick="attSetView('mark')">Mark</button>
+            <button type="button" class="pill" data-v="calendar" onclick="attSetView('calendar')">Monthly Calendar</button>
+            <button type="button" class="pill" data-v="report" onclick="attSetView('report')">Reports</button>
+          </div>
+        </div>
+        <div id="axNoClass" class="ax-note warn" style="display:none;">No classes are assigned to your account yet, so there is nothing to mark. Ask the primary admin to assign you a class.</div>
+
+        <!-- MARK / EDIT -->
+        <div id="axMark">
+          <div class="p-card">
+            <div class="ax-r2">
+              <div><label class="p-lbl">Class</label><select id="axClass" onchange="attOnMarkSel()"></select></div>
+              <div><label class="p-lbl">Date</label><input type="date" id="axDate" onchange="attOnMarkSel()"></div>
+            </div>
+            <div id="axDateNote"></div>
+            <div id="axStatus"></div>
+            <div class="ax-tools" id="axTools" style="display:none;">
+              <button type="button" class="btn btn-green btn-sm" onclick="attMarkAll('present')">✓ Mark All Present</button>
+              <button type="button" class="btn btn-red btn-sm" onclick="attMarkAll('absent')">Mark All Absent</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="attMarkAll('')">Clear All</button>
+            </div>
+            <div id="axRoster"></div>
+          </div>
+          <div class="ax-savebar" id="axSaveBar">
+            <div id="axMsg"></div>
+            <div class="ax-dirty" id="axDirty"></div>
+            <button type="button" class="btn btn-navy" id="axSaveBtn" onclick="attSave()">Save Attendance</button>
+          </div>
+        </div>
+
+        <!-- MONTHLY CALENDAR -->
+        <div id="axCal" style="display:none;">
+          <div class="p-card">
+            <div class="ax-r2">
+              <div><label class="p-lbl">Class</label><select id="axCalClass" onchange="attCalChanged()"></select></div>
+              <div><label class="p-lbl">Student</label><select id="axCalStu" onchange="axCalRender()"></select></div>
+            </div>
+            <div class="ax-calnav">
+              <button type="button" class="arrow" onclick="attCalStep(-1)" aria-label="Previous month">‹</button>
+              <select id="axCalMonth" onchange="attCalJump()"></select>
+              <select id="axCalYear" onchange="attCalJump()"></select>
+              <button type="button" class="arrow" onclick="attCalStep(1)" aria-label="Next month">›</button>
+            </div>
+            <div id="axCalOut"></div>
+          </div>
+        </div>
+
+        <!-- REPORTS -->
+        <div id="axRep" style="display:none;">
+          <div class="p-card">
+            <div class="ax-r2">
+              <div><label class="p-lbl">Class</label><select id="axRepClass" onchange="attRepClassChanged()"></select></div>
+              <div><label class="p-lbl">Student</label><select id="axRepStu" onchange="attRepRun()"></select></div>
+            </div>
+            <div class="ax-r2">
+              <div><label class="p-lbl">From</label><input type="date" id="axRepFrom" onchange="attRepRun()"></div>
+              <div><label class="p-lbl">To</label><input type="date" id="axRepTo" onchange="attRepRun()"></div>
+            </div>
+            <div class="ax-tools" style="margin-bottom:0;">
+              <button type="button" class="btn btn-ghost btn-sm" onclick="attRepQuick('month')">This month</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="attRepQuick('last')">Last month</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="attRepQuick('30')">Last 30 days</button>
+            </div>
+          </div>
+          <div class="p-card" id="axRepOut"></div>
         </div>
       </div>
 
@@ -3168,6 +3335,7 @@ function openStuSection(id, label) {
   if (id === 'sp-homework') markSeen('hw');
   if (id === 'sp-study')    markSeen('sm');
   if (id === 'sp-quiz')     markSeen('qz');
+  if (id === 'sp-attendance') stuAttOpen();
   // Panel is now its own full-screen page — reset its internal scroll, and
   // lock the page behind it so it can't be scrolled while the section is open.
   if (panel) panel.scrollTop = 0;
@@ -4925,6 +5093,7 @@ function switchAdminTab(id, btn) {
     renderLvPills();
     renderAdminLeaveRequests();
   }
+  if (id === 'at-attendance') initAttendancePanel();
 }
 
 /** Opens one admin section full-screen: hides the home grid, runs the
@@ -4940,6 +5109,7 @@ function openAdminSection(id, label) {
 
 /** Returns from any open admin section back to the home grid of tiles. */
 function backToAdminHome() {
+  if (typeof axLeaveOk === 'function' && !axLeaveOk()) return;
   document.querySelectorAll('.at-p').forEach(p => { p.classList.remove('active'); p.style.display = ''; });
   document.getElementById('adminBackBar').style.display = 'none';
   document.getElementById('adminHomeGrid').style.display = 'grid';
@@ -5910,6 +6080,503 @@ window.submitLeave        = submitLeave;
 window.setLvFilter        = setLvFilter;
 window.reviewLeave        = reviewLeave;
 
+/* ═══════════════════════════════════════════
+   ATTENDANCE
+   Firebase structure (one record per student, per class, per date):
+     attendance/{class}/{YYYY-MM-DD}/{studentId} = {
+       studentId, class, date, status: 'present' | 'absent' | 'late',
+       markedBy, markedAt, updatedBy?, updatedAt?     (timestamps in ms)
+     }
+   studentId is the existing key under students/ (the username).
+   Students, classes and admin roles are all reused — nothing is duplicated.
+   Dates without a record are "not recorded" and never counted as absent.
+═══════════════════════════════════════════ */
+const AX_STATUSES = ['present', 'absent', 'late'];
+const AX_LABEL = { present:'Present', absent:'Absent', late:'Late' };
+const AX_LATE_COUNTS_AS_ATTENDED = true;   // % = (Present + Late) / days recorded. Set false for Present only.
+const AX_MAX_RANGE_DAYS = 366;
+const AX_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+let axView = 'mark';
+let axCls = '', axDate = '';
+let axRoster = [], axSaved = {}, axDraft = {};
+let axLastOkAt = 0;
+let axSaving = false, axLoadSeq = 0, axCalSeq = 0, axRepSeq = 0, axMsgTimer = null, axBound = false;
+let axCalY = 0, axCalM = 0;
+let axRangeCache = {};
+
+const axEl  = id => document.getElementById(id);
+const axPad = n => String(n).padStart(2, '0');
+function axEsc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function axToday() { const d = new Date(); return d.getFullYear() + '-' + axPad(d.getMonth()+1) + '-' + axPad(d.getDate()); }
+function axParse(s) { const p = String(s).split('-'); return { y:+p[0], m:+p[1], d:+p[2] }; }
+function axFmtDate(s) { const p = axParse(s); return p.d + ' ' + AX_MONTHS[p.m-1].slice(0,3) + ' ' + p.y; }
+function axIsSunday(s) { const p = axParse(s); return new Date(p.y, p.m-1, p.d).getDay() === 0; }
+function axSpanDays(a, b) {
+  const A = axParse(a), B = axParse(b);
+  return Math.round((Date.UTC(B.y, B.m-1, B.d) - Date.UTC(A.y, A.m-1, A.d)) / 86400000) + 1;
+}
+function axActor() { return curAdminData ? (curAdminData.name || curUser) : 'Primary Admin'; }
+function axStudentName(id) { return (allStudents[id] && allStudents[id].name) ? allStudents[id].name : id; }
+function axStudentsOf(cls) {
+  return Object.keys(allStudents)
+    .filter(k => allStudents[k] && allStudents[k].class === cls)
+    .map(k => ({ id:k, name:allStudents[k].name || k }))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric:true, sensitivity:'base' }));
+}
+function axPct(p, a, l) {
+  const rec = p + a + l;
+  if (!rec) return null;                       // nothing recorded → no percentage (never 0%)
+  return Math.round(((p + (AX_LATE_COUNTS_AS_ATTENDED ? l : 0)) / rec) * 1000) / 10;
+}
+function axPctText(v) { return v == null ? '—' : (Number.isInteger(v) ? v : v.toFixed(1)) + '%'; }
+function axErrText(e) {
+  const m = (e && e.message) || String(e);
+  if ((e && e.code === 'PERMISSION_DENIED') || /permission_denied|permission denied/i.test(m)) {
+    return "Firebase blocked access to the 'attendance' data. Add an 'attendance' entry to your Realtime Database rules, then try again.";
+  }
+  return 'Firebase error: ' + m;
+}
+function axStamp(r) { return r ? ((r.updatedAt || r.markedAt || 0) + '|' + r.status) : ''; }
+
+/* ── Message bar (sits in the sticky save bar so it is always visible) ── */
+function axShowMsg(kind, text, withReload) {
+  const el = axEl('axMsg'); if (!el) return;
+  clearTimeout(axMsgTimer);
+  el.innerHTML = `<div class="ax-note ${kind}" style="margin-bottom:8px;">${axEsc(text)}` +
+    (withReload ? ' <button type="button" class="btn btn-ghost btn-sm" style="margin-left:6px;" onclick="attReload()">Reload latest</button>' : '') + '</div>';
+  if (kind === 'ok') axMsgTimer = setTimeout(axClearMsg, 8000);
+}
+function axClearMsg() { clearTimeout(axMsgTimer); const el = axEl('axMsg'); if (el) el.innerHTML = ''; }
+
+/* ── Range reads: only the selected class, only the selected dates ── */
+function axFetchRange(cls, from, to) {
+  const key = cls + '|' + from + '|' + to;
+  const hit = axRangeCache[key];
+  if (hit && Date.now() - hit.ts < 30000) return Promise.resolve(hit.data);
+  return db.ref('attendance/' + cls).orderByKey().startAt(from).endAt(to).once('value').then(snap => {
+    const data = snap.val() || {};
+    axRangeCache[key] = { ts:Date.now(), data };
+    return data;
+  });
+}
+
+/* ═════════ Panel setup ═════════ */
+function axBindOnce() {
+  if (axBound) return; axBound = true;
+  axEl('axRoster').addEventListener('click', e => {
+    const b = e.target.closest('.ax-b'); if (!b || axSaving) return;
+    const id = b.dataset.id, st = b.dataset.st;
+    if (axDraft[id] === st) delete axDraft[id]; else axDraft[id] = st;   // tap again to un-mark
+    axRenderMark();
+  });
+  axEl('axCalOut').addEventListener('click', e => {
+    const d = e.target.closest('.ax-day[data-date]'); if (!d) return;
+    axGoMark(axEl('axCalClass').value, d.dataset.date);
+  });
+}
+
+function initAttendancePanel() {
+  axBindOnce();
+  const allowed = getAllowedClasses();
+  axView = 'mark'; axCls = ''; axDate = ''; axRoster = []; axSaved = {}; axDraft = {};
+  axSaving = false; axRangeCache = {}; axClearMsg();
+  const t = new Date(); axCalY = t.getFullYear(); axCalM = t.getMonth();
+  axEl('axNoClass').style.display = allowed.length ? 'none' : 'block';
+  const clsOpts = ph => (allowed.length === 1 ? '' : `<option value="">${ph}</option>`) +
+    allowed.map(c => `<option value="${axEsc(c)}">${axEsc(c)}</option>`).join('');
+  axEl('axClass').innerHTML    = clsOpts('Select class…');
+  axEl('axCalClass').innerHTML = clsOpts('Select class…');
+  axEl('axRepClass').innerHTML = (allowed.length > 1 ? '<option value="">All my classes</option>' : '') +
+    allowed.map(c => `<option value="${axEsc(c)}">${axEsc(c)}</option>`).join('');
+  const today = axToday();
+  axEl('axDate').value = today; axEl('axDate').max = today;
+  axEl('axRepFrom').value = today.slice(0, 8) + '01'; axEl('axRepTo').value = today;
+  axSetViewUI('mark');
+  axLoadMark();
+}
+
+function axSetViewUI(v) {
+  axView = v;
+  document.querySelectorAll('#axViewPills .pill').forEach(p => p.classList.toggle('active', p.dataset.v === v));
+  axEl('axMark').style.display = v === 'mark'     ? '' : 'none';
+  axEl('axCal').style.display  = v === 'calendar' ? '' : 'none';
+  axEl('axRep').style.display  = v === 'report'   ? '' : 'none';
+}
+function attSetView(v) {
+  axSetViewUI(v);                       // an unsaved Mark draft is kept in memory while you look at other tabs
+  if (v === 'calendar') axCalInit();
+  if (v === 'report')   axRepInit();
+}
+
+/** Used by backToAdminHome(): warn before unsaved marks are thrown away. */
+function axLeaveOk() {
+  const panel = axEl('at-attendance');
+  if (!panel || !panel.classList.contains('active')) return true;
+  if (axDirtyIds().length) return confirm('You have unsaved attendance changes. Leave without saving?');
+  return true;
+}
+
+/* ═════════ MARK / EDIT ═════════ */
+function axDirtyIds() {
+  return axRoster.filter(s => (axDraft[s.id] || null) !== (axSaved[s.id] ? axSaved[s.id].status : null)).map(s => s.id);
+}
+
+function attOnMarkSel() {
+  if (axDirtyIds().length && !confirm('You have unsaved changes for ' + axCls + ' on ' + axFmtDate(axDate) + '. Discard them?')) {
+    axEl('axClass').value = axCls; axEl('axDate').value = axDate; return;
+  }
+  axLoadMark();
+}
+function attReload() { axLoadMark(); }
+
+function axLoadMark() {
+  const cls = axEl('axClass').value, date = axEl('axDate').value;
+  axRoster = []; axSaved = {}; axDraft = {}; axClearMsg();
+  axCls = cls; axDate = date;
+  if (!cls || !date) { axRenderMark('idle'); return; }
+  if (!getAllowedClasses().includes(cls)) { axRenderMark('error', 'You are not assigned to manage ' + cls + '.'); return; }
+  if (date > axToday()) { axRenderMark('error', 'Attendance cannot be marked for a future date. Pick today or an earlier date.'); return; }
+  const seq = ++axLoadSeq;
+  axRenderMark('loading');
+  db.ref('attendance/' + cls + '/' + date).once('value').then(snap => {
+    if (seq !== axLoadSeq) return;                       // a newer selection superseded this one
+    const day = snap.val() || {};
+    axRoster = axStudentsOf(cls);
+    axRoster.forEach(s => {
+      const r = day[s.id];
+      if (r && AX_STATUSES.includes(r.status)) { axSaved[s.id] = r; axDraft[s.id] = r.status; }
+    });
+    axRenderMark('ready');
+  }).catch(e => { if (seq === axLoadSeq) axRenderMark('error', 'Could not load attendance. ' + axErrText(e)); });
+}
+
+function attMarkAll(st) {
+  axRoster.forEach(s => { if (st) axDraft[s.id] = st; else delete axDraft[s.id]; });
+  axRenderMark();
+}
+
+function axRenderMark(state, text) {
+  if (state) axRenderMark._state = state; else state = axRenderMark._state || 'idle';
+  const box = axEl('axRoster'), stat = axEl('axStatus'), tools = axEl('axTools');
+  const btn = axEl('axSaveBtn'), dirtyEl = axEl('axDirty');
+  axEl('axDateNote').innerHTML = (axDate && axDate <= axToday() && axIsSunday(axDate))
+    ? '<div class="ax-note warn">This date is a Sunday. Only save attendance if school was open.</div>' : '';
+  if (state !== 'ready') {
+    tools.style.display = 'none'; stat.innerHTML = ''; dirtyEl.textContent = '';
+    btn.disabled = true; btn.style.opacity = .5; btn.textContent = 'Save Attendance';
+    if (state === 'loading') box.innerHTML = '<p class="empty-msg">Loading students…</p>';
+    else if (state === 'error') { box.innerHTML = `<div class="ax-note err">${axEsc(text)}</div>`; axRenderMark._err = text; }
+    else box.innerHTML = '<p class="empty-msg">Select a class and date to load the students.</p>';
+    return;
+  }
+  if (!axRoster.length) {
+    tools.style.display = 'none'; stat.innerHTML = ''; dirtyEl.textContent = '';
+    btn.disabled = true; btn.style.opacity = .5;
+    box.innerHTML = `<p class="empty-msg">No students are enrolled in ${axEsc(axCls)} yet.</p>`;
+    return;
+  }
+  const counts = { present:0, absent:0, late:0, none:0 };
+  axRoster.forEach(s => { const st = axDraft[s.id]; if (st) counts[st]++; else counts.none++; });
+  const savedIds = Object.keys(axSaved);
+  let banner = '';
+  if (savedIds.length) {
+    let last = null;
+    savedIds.forEach(id => { const r = axSaved[id], t = r.updatedAt || r.markedAt || 0; if (!last || t > last.t) last = { t, by:r.updatedBy || r.markedBy }; });
+    const when = last && last.t ? new Date(last.t).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }) : '';
+    banner = `<div class="ax-note info">Attendance for ${axEsc(axCls)} on ${axEsc(axFmtDate(axDate))} is already saved (${savedIds.length} of ${axRoster.length} students)` +
+      (last && last.by ? ` — last saved by ${axEsc(last.by)}${when ? ' on ' + axEsc(when) : ''}` : '') +
+      '. Changes you make below will update that record, not create a new one.</div>';
+  }
+  stat.innerHTML = banner +
+    `<div class="ax-counts"><span class="ax-chip p">Present ${counts.present}</span><span class="ax-chip a">Absent ${counts.absent}</span>` +
+    `<span class="ax-chip l">Late ${counts.late}</span><span class="ax-chip u">Not marked ${counts.none}</span></div>`;
+  tools.style.display = 'flex';
+  box.innerHTML = axRoster.map(s => {
+    const cur = axDraft[s.id] || null, was = axSaved[s.id] ? axSaved[s.id].status : null;
+    return `<div class="ax-row ${cur !== was ? 'changed' : ''}"><div class="ax-name">${axEsc(s.name)}<small>${axEsc(s.id)}</small></div><div class="ax-seg">` +
+      AX_STATUSES.map(st => `<button type="button" class="ax-b ${st} ${cur === st ? 'on' : ''}" data-id="${axEsc(s.id)}" data-st="${st}" aria-pressed="${cur === st}">${AX_LABEL[st]}</button>`).join('') +
+      '</div></div>';
+  }).join('');
+  const n = axDirtyIds().length;
+  dirtyEl.textContent = n ? `${n} unsaved change${n === 1 ? '' : 's'}` : '';
+  btn.disabled = axSaving; btn.style.opacity = axSaving ? .6 : 1;
+  btn.textContent = axSaving ? 'Saving…' : (savedIds.length ? 'Update Attendance' : 'Save Attendance');
+}
+
+async function attSave() {
+  if (axSaving) return;                                   // blocks double-taps
+  const cls = axCls, date = axDate;
+  if (!cls || !date) { axShowMsg('err', 'Select a class and date first.'); return; }
+  if (!getAllowedClasses().includes(cls)) { axShowMsg('err', 'You are not assigned to manage ' + cls + '.'); return; }
+  if (date > axToday()) { axShowMsg('err', 'Attendance cannot be saved for a future date.'); return; }
+  if (!axRoster.length) { axShowMsg('err', 'There are no students in ' + cls + ' to save.'); return; }
+  const dirty = axDirtyIds();
+  if (!dirty.length) {
+    if (Date.now() - axLastOkAt < 4000) return;           // a second tap right after a successful save: keep the "Saved" message
+    axShowMsg('warn', Object.keys(axSaved).length ? 'No changes to save — this record is already up to date.' : 'Nothing to save yet — mark at least one student first.');
+    return;
+  }
+  const removing = dirty.filter(id => !axDraft[id] && axSaved[id]);
+  if (removing.length && !confirm('This will remove the saved record for ' + removing.length + ' student' + (removing.length === 1 ? '' : 's') + ' (they become "not recorded", not absent). Continue?')) return;
+
+  axSaving = true; axRenderMark(); axShowMsg('info', 'Saving…');
+  try {
+    // Re-read the day right before writing so we never silently overwrite someone else's edit.
+    const remote = (await db.ref('attendance/' + cls + '/' + date).once('value')).val() || {};
+    const conflicts = dirty.filter(id => axStamp(remote[id]) !== axStamp(axSaved[id]));
+    if (conflicts.length) {
+      axShowMsg('err', 'Attendance for ' + (conflicts.length === 1 ? axStudentName(conflicts[0]) : conflicts.length + ' students') +
+        ' on this date was changed by someone else after you opened it. Nothing was saved. Reload to see the latest records.', true);
+      return;
+    }
+    const now = Date.now(), actor = axActor(), updates = {}, nextSaved = Object.assign({}, axSaved);
+    dirty.forEach(id => {
+      const path = 'attendance/' + cls + '/' + date + '/' + id, st = axDraft[id];
+      if (!st) { updates[path] = null; delete nextSaved[id]; return; }
+      const old = axSaved[id];
+      const rec = { studentId:id, class:cls, date, status:st,
+                    markedBy:(old && old.markedBy) || actor, markedAt:(old && old.markedAt) || now };
+      if (old) { rec.updatedBy = actor; rec.updatedAt = now; }
+      updates[path] = rec; nextSaved[id] = rec;
+    });
+    await db.ref().update(updates);                       // multi-path: touches only these attendance records
+    axSaved = nextSaved; axRangeCache = {};
+    axLastOkAt = Date.now();
+    const c = { present:0, absent:0, late:0 };
+    axRoster.forEach(s => { if (axSaved[s.id]) c[axSaved[s.id].status]++; });
+    const unrec = axRoster.length - c.present - c.absent - c.late;
+    axShowMsg('ok', `Saved: ${cls}, ${axFmtDate(date)} — Present ${c.present}, Absent ${c.absent}, Late ${c.late}` +
+      (unrec ? `. ${unrec} not recorded (not counted as absent)` : '') + '.');
+    logActivity('edit', `Attendance saved: ${cls} · ${axFmtDate(date)}`);
+  } catch (e) {
+    axShowMsg('err', 'Could not save attendance. ' + axErrText(e));
+  } finally {
+    axSaving = false; axRenderMark();
+  }
+}
+
+/* ═════════ MONTHLY CALENDAR ═════════ */
+function axCalSyncSelects() {
+  const ms = axEl('axCalMonth'), ys = axEl('axCalYear');
+  if (!ms.options.length) ms.innerHTML = AX_MONTHS.map((m, i) => `<option value="${i}">${m}</option>`).join('');
+  const cy = new Date().getFullYear();
+  const lo = Math.min(cy - 3, axCalY), hi = Math.max(cy + 1, axCalY);
+  let h = ''; for (let y = lo; y <= hi; y++) h += `<option value="${y}">${y}</option>`;
+  ys.innerHTML = h; ms.value = axCalM; ys.value = axCalY;
+}
+function axCalInit() { axCalSyncSelects(); axCalFillStudents(); axCalRender(); }
+function axCalFillStudents() {
+  const cls = axEl('axCalClass').value, sel = axEl('axCalStu'), keep = sel.value;
+  const list = cls ? axStudentsOf(cls) : [];
+  sel.innerHTML = '<option value="">' + (cls ? 'Select student…' : 'Select a class first') + '</option>' +
+    list.map(s => `<option value="${axEsc(s.id)}">${axEsc(s.name)}</option>`).join('');
+  if (keep && list.some(s => s.id === keep)) sel.value = keep;
+}
+function attCalChanged() { axEl('axCalStu').value = ''; axCalFillStudents(); axCalRender(); }
+function attCalJump() { axCalM = +axEl('axCalMonth').value; axCalY = +axEl('axCalYear').value; axCalRender(); }
+function attCalStep(d) {
+  axCalM += d;
+  if (axCalM < 0) { axCalM = 11; axCalY--; } else if (axCalM > 11) { axCalM = 0; axCalY++; }
+  axCalSyncSelects(); axCalRender();
+}
+
+function axSummaryHtml(rec, p, a, l) {
+  const cell = (v, lbl) => `<div class="ax-sc"><div class="v">${v}</div><div class="l">${lbl}</div></div>`;
+  return '<div class="ax-sum">' + cell(rec, 'Days recorded') + cell(p, 'Present') + cell(a, 'Absent') + cell(l, 'Late') +
+         cell(axPctText(axPct(p, a, l)), 'Attendance') + '</div>';
+}
+function axPctNote() {
+  return '<p style="font-size:11px;color:var(--muted);line-height:1.5;">Attendance % = ' + (AX_LATE_COUNTS_AS_ATTENDED ? '(Present + Late)' : 'Present') +
+         ' ÷ days recorded. Dates with no attendance record are not counted as absences.</p>';
+}
+
+function axCalRender() {
+  const cls = axEl('axCalClass').value, sid = axEl('axCalStu').value, out = axEl('axCalOut');
+  if (!cls || !sid) { out.innerHTML = '<p class="empty-msg">Choose a class and a student to see their month.</p>'; return; }
+  const dim = new Date(axCalY, axCalM + 1, 0).getDate(), ym = axCalY + '-' + axPad(axCalM + 1);
+  const seq = ++axCalSeq;
+  out.innerHTML = '<p class="empty-msg">Loading…</p>';
+  axFetchRange(cls, ym + '-01', ym + '-' + axPad(dim)).then(data => {
+    if (seq !== axCalSeq) return;
+    const by = {}; let p = 0, a = 0, l = 0;
+    Object.keys(data).forEach(d => {
+      const r = data[d] && data[d][sid];
+      if (r && AX_STATUSES.includes(r.status)) { by[d] = r.status; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else l++; }
+    });
+    const first = new Date(axCalY, axCalM, 1).getDay(), today = axToday();
+    let grid = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(w => `<div class="ax-dow">${w}</div>`).join('');
+    for (let i = 0; i < first; i++) grid += '<div class="ax-day blank"></div>';
+    for (let d = 1; d <= dim; d++) {
+      const key = ym + '-' + axPad(d), st = by[key], fut = key > today;
+      grid += `<button type="button" class="ax-day ${st || ''} ${fut ? 'future' : ''} ${key === today ? 'today' : ''}" ${fut ? 'disabled' : `data-date="${key}"`}` +
+        ` title="${st ? AX_LABEL[st] : 'Not recorded'}">${d}${st ? `<b>${AX_LABEL[st].charAt(0)}</b>` : ''}</button>`;
+    }
+    out.innerHTML = `<div style="font-weight:700;color:var(--navy);margin-bottom:4px;">${axEsc(axStudentName(sid))} · ${axEsc(cls)} · ${AX_MONTHS[axCalM]} ${axCalY}</div>` +
+      `<div class="ax-cal">${grid}</div>` +
+      '<div class="ax-legend"><span><i class="ax-dot" style="background:#e8f5e9;"></i>Present</span><span><i class="ax-dot" style="background:#ffebee;"></i>Absent</span>' +
+      '<span><i class="ax-dot" style="background:#fff8e1;"></i>Late</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
+      axSummaryHtml(p + a + l, p, a, l) + axPctNote() +
+      '<p style="font-size:11px;color:var(--muted);">Tap a day to open it in the Mark tab and correct it.</p>';
+  }).catch(e => { if (seq === axCalSeq) out.innerHTML = `<div class="ax-note err">Could not load the calendar. ${axEsc(axErrText(e))}</div>`; });
+}
+
+function axGoMark(cls, date) {
+  if (axDirtyIds().length && (cls !== axCls || date !== axDate) &&
+      !confirm('You have unsaved changes on the Mark tab. Discard them and open ' + axFmtDate(date) + '?')) return;
+  axSetViewUI('mark');
+  axEl('axClass').value = cls; axEl('axDate').value = date;
+  axLoadMark();
+}
+
+/* ═════════ REPORTS ═════════ */
+function axRepInit() { axRepFillStudents(); axRepRun(); }
+function axRepFillStudents() {
+  const cls = axEl('axRepClass').value, sel = axEl('axRepStu'), keep = sel.value;
+  const list = cls ? axStudentsOf(cls) : [];
+  sel.innerHTML = '<option value="">' + (cls ? 'All students' : 'All students') + '</option>' +
+    list.map(s => `<option value="${axEsc(s.id)}">${axEsc(s.name)}</option>`).join('');
+  sel.disabled = !cls;
+  if (keep && list.some(s => s.id === keep)) sel.value = keep;
+}
+function attRepClassChanged() { axEl('axRepStu').value = ''; axRepFillStudents(); axRepRun(); }
+function attRepQuick(kind) {
+  const t = new Date(), today = axToday();
+  let from, to;
+  if (kind === 'month') { from = today.slice(0, 8) + '01'; to = today; }
+  else if (kind === 'last') {
+    const lm = new Date(t.getFullYear(), t.getMonth() - 1, 1), ld = new Date(t.getFullYear(), t.getMonth(), 0);
+    from = lm.getFullYear() + '-' + axPad(lm.getMonth()+1) + '-01';
+    to = ld.getFullYear() + '-' + axPad(ld.getMonth()+1) + '-' + axPad(ld.getDate());
+  } else {
+    const s = new Date(t.getFullYear(), t.getMonth(), t.getDate() - 29);
+    from = s.getFullYear() + '-' + axPad(s.getMonth()+1) + '-' + axPad(s.getDate()); to = today;
+  }
+  axEl('axRepFrom').value = from; axEl('axRepTo').value = to; axRepRun();
+}
+
+function axRepRun() {
+  const out = axEl('axRepOut');
+  const clsSel = axEl('axRepClass').value, sid = axEl('axRepStu').value;
+  const from = axEl('axRepFrom').value, to = axEl('axRepTo').value;
+  const allowed = getAllowedClasses();
+  const err = t => { out.innerHTML = `<div class="ax-note err">${axEsc(t)}</div>`; };
+  if (!allowed.length) { err('No classes are assigned to your account.'); return; }
+  if (!from || !to) { err('Choose both a From and a To date.'); return; }
+  if (from > to) { err('The From date must be on or before the To date.'); return; }
+  if (axSpanDays(from, to) > AX_MAX_RANGE_DAYS) { err('Please choose a range of at most ' + AX_MAX_RANGE_DAYS + ' days.'); return; }
+  const scope = clsSel ? [clsSel] : allowed;
+  const seq = ++axRepSeq;
+  out.innerHTML = '<p class="empty-msg">Loading report…</p>';
+  Promise.all(scope.map(c => axFetchRange(c, from, to).then(d => ({ c, d })))).then(results => {
+    if (seq !== axRepSeq) return;
+    const per = {}, dates = new Set();
+    results.forEach(({ c, d }) => Object.keys(d).forEach(date => {
+      const day = d[date] || {};
+      Object.keys(day).forEach(id => {
+        const r = day[id];
+        if (!r || !AX_STATUSES.includes(r.status) || (sid && id !== sid)) return;
+        dates.add(date);
+        const o = per[c + '|' + id] || (per[c + '|' + id] = { id, cls:c, P:0, A:0, L:0 });
+        if (r.status === 'present') o.P++; else if (r.status === 'absent') o.A++; else o.L++;
+      });
+    }));
+    // rows: everyone enrolled in scope (so "no records" students show "—") plus any recorded ids no longer enrolled
+    const rows = {};
+    scope.forEach(c => axStudentsOf(c).forEach(s => { if (!sid || s.id === sid) rows[c + '|' + s.id] = { id:s.id, cls:c, P:0, A:0, L:0 }; }));
+    Object.keys(per).forEach(k => { rows[k] = per[k]; });
+    const list = Object.values(rows).sort((a, b) => axStudentName(a.id).localeCompare(axStudentName(b.id), undefined, { numeric:true, sensitivity:'base' }));
+    let P = 0, A = 0, L = 0; list.forEach(r => { P += r.P; A += r.A; L += r.L; });
+    const multi = scope.length > 1;
+    const body = list.map(r => {
+      const rec = r.P + r.A + r.L, pct = axPct(r.P, r.A, r.L);
+      const tone = pct == null ? '' : (pct >= 90 ? 'g' : pct >= 75 ? 'a' : 'r');
+      const enrolled = allStudents[r.id] && allStudents[r.id].class === r.cls;
+      return `<tr><td>${axEsc(axStudentName(r.id))}${(multi || !enrolled) ? `<small>${axEsc(r.cls)}${enrolled ? '' : ' · no longer in this class'}</small>` : ''}</td>` +
+        `<td>${rec || '—'}</td><td>${rec ? r.P : '—'}</td><td>${rec ? r.A : '—'}</td><td>${rec ? r.L : '—'}</td><td class="pct ${tone}">${axPctText(pct)}</td></tr>`;
+    }).join('');
+    out.innerHTML = `<div style="font-weight:700;color:var(--navy);margin-bottom:2px;">${axEsc(clsSel || 'All my classes')} · ${axEsc(sid ? axStudentName(sid) : 'All students')}</div>` +
+      `<div style="font-size:12px;color:var(--muted);">${axEsc(axFmtDate(from))} – ${axEsc(axFmtDate(to))}</div>` +
+      axSummaryHtml(dates.size, P, A, L) +
+      (dates.size ? '' : '<div class="ax-note info">No attendance has been recorded in this date range.</div>') +
+      (list.length ? `<div class="ax-tablewrap"><table class="ax-table"><thead><tr><th>Student</th><th>Days</th><th>P</th><th>A</th><th>L</th><th>%</th></tr></thead><tbody>${body}</tbody></table></div>` : '<p class="empty-msg">No students found.</p>') +
+      axPctNote();
+  }).catch(e => { if (seq === axRepSeq) out.innerHTML = `<div class="ax-note err">Could not load the report. ${axEsc(axErrText(e))}</div>`; });
+}
+
+window.initAttendancePanel = initAttendancePanel;
+window.attSetView = attSetView;       window.attOnMarkSel = attOnMarkSel;
+window.attMarkAll = attMarkAll;       window.attSave = attSave;
+window.attReload = attReload;         window.attCalChanged = attCalChanged;
+window.attCalJump = attCalJump;       window.attCalStep = attCalStep;
+window.axCalRender = axCalRender;     window.attRepClassChanged = attRepClassChanged;
+window.attRepRun = axRepRun;          window.attRepQuick = attRepQuick;
+
+/* ═══════════════════════════════════════════
+   STUDENT / PARENT — ATTENDANCE VIEW (read-only)
+   Reads attendance/{class}/{date}/{studentId} for the logged-in student only
+   (sibling switcher works too: curUser changes when a parent switches child).
+═══════════════════════════════════════════ */
+let stuAttY = 0, stuAttM = 0, stuAttSeq = 0;
+
+function stuAttOpen() {
+  const t = new Date(); stuAttY = t.getFullYear(); stuAttM = t.getMonth();
+  const yr = axEl('stuAttYearOut'); if (yr) yr.innerHTML = '';
+  stuAttRender();
+}
+function stuAttStep(d) {
+  const t = new Date(); let y = stuAttY, m = stuAttM + d;
+  if (m < 0) { m = 11; y--; } else if (m > 11) { m = 0; y++; }
+  if (y > t.getFullYear() || (y === t.getFullYear() && m > t.getMonth())) return;   // no future months
+  stuAttY = y; stuAttM = m; stuAttRender();
+}
+function stuAttRender() {
+  const stu = allStudents[curUser], out = axEl('stuAttOut');
+  if (!stu || !out) return;
+  const t = new Date(), atNow = stuAttY === t.getFullYear() && stuAttM === t.getMonth();
+  axEl('stuAttLabel').textContent = AX_MONTHS[stuAttM] + ' ' + stuAttY;
+  axEl('stuAttNext').disabled = atNow; axEl('stuAttNext').style.opacity = atNow ? .35 : 1;
+  const dim = new Date(stuAttY, stuAttM + 1, 0).getDate(), ym = stuAttY + '-' + axPad(stuAttM + 1), sid = curUser;
+  const seq = ++stuAttSeq;
+  out.innerHTML = '<p class="empty-msg">Loading…</p>';
+  axFetchRange(stu.class, ym + '-01', ym + '-' + axPad(dim)).then(data => {
+    if (seq !== stuAttSeq) return;
+    let p = 0, a = 0, l = 0; const by = {};
+    Object.keys(data).forEach(d => {
+      const r = data[d] && data[d][sid];
+      if (r && AX_STATUSES.includes(r.status)) { by[d] = r.status; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else l++; }
+    });
+    const first = new Date(stuAttY, stuAttM, 1).getDay(), today = axToday();
+    let grid = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(w => `<div class="ax-dow">${w}</div>`).join('');
+    for (let i = 0; i < first; i++) grid += '<div class="ax-day blank"></div>';
+    for (let d = 1; d <= dim; d++) {
+      const key = ym + '-' + axPad(d), st = by[key];
+      grid += `<div class="ax-day ro ${st || ''} ${key > today ? 'future' : ''} ${key === today ? 'today' : ''}">${d}${st ? `<b>${AX_LABEL[st].charAt(0)}</b>` : ''}</div>`;
+    }
+    out.innerHTML = `<div class="ax-cal">${grid}</div>` +
+      '<div class="ax-legend"><span><i class="ax-dot" style="background:#e8f5e9;"></i>Present</span><span><i class="ax-dot" style="background:#ffebee;"></i>Absent</span>' +
+      '<span><i class="ax-dot" style="background:#fff8e1;"></i>Late</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
+      axSummaryHtml(p + a + l, p, a, l) +
+      (p + a + l ? '' : '<div class="ax-note info">No attendance has been recorded for this month yet.</div>') + axPctNote();
+  }).catch(e => { if (seq === stuAttSeq) out.innerHTML = `<div class="ax-note err">Could not load attendance. ${axEsc(axErrText(e))}</div>`; });
+}
+/** Whole school year so far (from 1 April). Loaded only when tapped, to save mobile data. */
+function stuAttYear() {
+  const stu = allStudents[curUser], out = axEl('stuAttYearOut'); if (!stu || !out) return;
+  const t = new Date(), startY = t.getMonth() >= 3 ? t.getFullYear() : t.getFullYear() - 1;
+  const from = startY + '-04-01', to = axToday(), sid = curUser, seq = ++stuAttSeq;
+  out.innerHTML = '<p class="empty-msg">Loading…</p>';
+  axFetchRange(stu.class, from, to).then(data => {
+    let p = 0, a = 0, l = 0;
+    Object.keys(data).forEach(d => { const r = data[d] && data[d][sid]; if (r && AX_STATUSES.includes(r.status)) { if (r.status === 'present') p++; else if (r.status === 'absent') a++; else l++; } });
+    out.innerHTML = `<div style="font-weight:700;color:var(--navy);">School year so far</div><div style="font-size:12px;color:var(--muted);">${axEsc(axFmtDate(from))} – ${axEsc(axFmtDate(to))}</div>` +
+      axSummaryHtml(p + a + l, p, a, l) + (p + a + l ? '' : '<div class="ax-note info">No attendance recorded yet this school year.</div>');
+  }).catch(e => { out.innerHTML = `<div class="ax-note err">Could not load attendance. ${axEsc(axErrText(e))}</div>`; });
+}
+window.stuAttStep = stuAttStep; window.stuAttYear = stuAttYear; window.stuAttOpen = stuAttOpen;
+
 // Show the homepage immediately — do not wait for auth or database reads.
 // Placed here, at the very end of the closure, so every `let`/const above
 // (like sTotal for the slider) has already been initialized before this runs.
@@ -5937,9 +6604,43 @@ initApp();
 <script>
   // Service worker registration — guarded so it never errors out on file://
   // testing (e.g. local code-editor previews) where SW APIs aren't available.
+  // Service worker + automatic updates.
+  // A new deploy is detected when the app is opened, brought back to the foreground, or every 10 minutes.
+  // We never force a reload (that could wipe half-finished work, e.g. unsaved attendance marks):
+  // a small "Update" bar appears instead. Closing and re-opening / refreshing the app also loads the latest code.
+  function showUpdateBar() {
+    if (document.getElementById('updateBar')) return;
+    const bar = document.createElement('div');
+    bar.id = 'updateBar';
+    bar.style.cssText = "position:fixed;left:12px;right:12px;bottom:12px;z-index:99999;background:#0d1b4b;color:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:'DM Sans',sans-serif;border:1px solid #c9972a;";
+    bar.innerHTML = '<div style="font-size:13px;">\u2728 A new version of BWS is ready.</div>' +
+      '<div style="display:flex;gap:8px;flex:none;"><button id="updateNowBtn" style="background:#c9972a;color:#0d1b4b;border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:12px;">Update</button>' +
+      '<button id="updateLaterBtn" style="background:transparent;color:rgba(255,255,255,.7);border:none;font-size:18px;line-height:1;">\u2715</button></div>';
+    document.body.appendChild(bar);
+    document.getElementById('updateNowBtn').onclick = () => location.reload();
+    document.getElementById('updateLaterBtn').onclick = () => bar.remove();
+  }
+
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.protocol === 'http:')) {
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController) showUpdateBar(); });
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err.message));
+      navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(reg => {
+        const check = () => reg.update().catch(() => {});
+        document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
+        setInterval(check, 10 * 60 * 1000);
+      }).catch(err => console.warn('SW registration failed:', err.message));
+
+      // Detects a changed index.html on the server (covers deploys that do not touch sw.js).
+      const stamp = r => r.headers.get('etag') || r.headers.get('last-modified') || '';
+      let baseline = null;
+      const probe = () => fetch('./index.html', { method: 'HEAD', cache: 'no-store' }).then(r => {
+        const now = stamp(r); if (!now) return;
+        if (baseline === null) baseline = now; else if (now !== baseline) showUpdateBar();
+      }).catch(() => {});
+      probe();
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') probe(); });
+      setInterval(probe, 10 * 60 * 1000);
     });
   }
 

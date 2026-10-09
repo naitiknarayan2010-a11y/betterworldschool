@@ -1,55 +1,65 @@
-// Better World School — Service Worker
-// Bump CACHE_NAME any time you want to force all installed devices to
-// drop old cached files (rarely needed — this SW already avoids staleness
-// by always preferring the network for your main HTML file).
-const CACHE_NAME = 'bws-shell-v1';
+/* Better World School — service worker
+   Goal: when you upload new code to Netlify, installed apps pick it up on the next
+   open/refresh. No uninstall or reinstall needed.
 
-// Only the app "shell" — icons and manifest — are cached. The HTML itself
-// is deliberately NOT pre-cached here, so every online visit always loads
-// your latest deployed code from Netlify, never a stuck old version.
-const SHELL_FILES = [
-  './manifest.json',
-  './icon-192.png',
-  './icon-512.png'
-];
+   How:
+   - The app page (index.html) is fetched NETWORK-FIRST, so a refresh always gets the newest code.
+     The cached copy is only a fallback when the phone is offline or the network is very slow.
+   - Same-origin files (icons, manifest) are served from cache and quietly refreshed.
+   - Firebase, Google Fonts and every other website are never touched by this worker.
+   - A new sw.js activates immediately (skipWaiting + clients.claim) and removes old caches.
 
-self.addEventListener('install', (event) => {
-  self.skipWaiting(); // activate the new SW immediately, don't wait around
+   You do NOT have to edit this file for normal updates. Changing VERSION is optional. */
+const VERSION = 'bws-1';
+const CACHE = 'bws-cache-' + VERSION;
+const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const NETWORK_TIMEOUT_MS = 5000;
+
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_FILES)).catch(() => {})
+    caches.open(CACHE)
+      .then(c => Promise.allSettled(CORE.map(u => c.add(new Request(u, { cache: 'reload' })))))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then((names) =>
-      Promise.all(names.filter((n) => n !== CACHE_NAME).map((n) => caches.delete(n)))
-    ).then(() => self.clients.claim())
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', (event) => {
+function networkFirst(request, fallbackUrl) {
+  const fresh = fetch(request, { cache: 'no-store' }).then(res => {
+    if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(fallbackUrl, copy)); }
+    return res;
+  });
+  const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), NETWORK_TIMEOUT_MS));
+  return Promise.race([fresh, timeout]).catch(() =>
+    caches.match(fallbackUrl).then(hit => hit || fresh)   // cached copy if we have one, else keep waiting for the network
+  );
+}
+
+function staleWhileRevalidate(request) {
+  return caches.open(CACHE).then(cache =>
+    cache.match(request).then(hit => {
+      const refresh = fetch(request).then(res => { if (res && res.ok) cache.put(request, res.clone()); return res; }).catch(() => null);
+      return hit || refresh.then(res => res || Response.error());
+    })
+  );
+}
+
+self.addEventListener('fetch', event => {
   const req = event.request;
-
-  // Navigation requests (loading the page itself): ALWAYS try the network
-  // first. Only fall back to a cached copy if the device is truly offline.
-  // This is the important part — it prevents the app from ever getting
-  // stuck showing an old version while you're actively updating it.
-  if (req.mode === 'navigate') {
-    event.respondWith(
-      fetch(req).catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
-    );
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;          // Firebase, fonts, imgbb… go straight to the network
+  if (url.pathname.endsWith('/sw.js')) return;
+  if (req.mode === 'navigate' || url.pathname.endsWith('/index.html') || url.pathname.endsWith('/')) {
+    event.respondWith(networkFirst(req, './index.html'));
     return;
   }
-
-  // Shell assets (icons, manifest): cache-first, since these rarely change.
-  if (SHELL_FILES.some((f) => req.url.endsWith(f.replace('./', '')))) {
-    event.respondWith(
-      caches.match(req).then((cached) => cached || fetch(req))
-    );
-    return;
-  }
-
-  // Everything else (Firebase calls, external links, etc.): just pass
-  // through to the network untouched — never intercept live data.
+  event.respondWith(staleWhileRevalidate(req));
 });
