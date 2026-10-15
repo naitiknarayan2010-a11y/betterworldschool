@@ -1169,6 +1169,19 @@
     body.dark-mode .ax-chip.a,body.dark-mode .ax-day.absent,body.dark-mode .ax-note.err{background:rgba(181,43,43,.25);color:#f19a9a;}
     body.dark-mode .ax-chip.l,body.dark-mode .ax-day.late,body.dark-mode .ax-note.warn{background:rgba(176,106,0,.25);color:#f0bc50;}
     body.dark-mode .ax-note.info{background:rgba(26,79,160,.25);color:#9cc2f5;}
+
+    /* leave status, WhatsApp buttons, 6 summary cards */
+    .ax-b.leave.on{background:#1a4fa0;border-color:#1a4fa0;color:#fff;}
+    .ax-day.leave{background:#e3f2fd;border-color:rgba(26,79,160,.4);color:#1a4fa0;}
+    .ax-chip.v{background:#e3f2fd;color:#1a4fa0;border-color:rgba(26,79,160,.15);}
+    .ax-sum{grid-template-columns:repeat(6,1fr);}
+    .stu-panel .ax-sum{grid-template-columns:repeat(3,1fr);}
+    @media(max-width:480px){.ax-sum{grid-template-columns:repeat(3,1fr);}}
+    .ax-wa{display:inline-block;background:#25D366;color:#fff;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;}
+    .ax-wa.sent{background:var(--light);color:var(--green);border:1.5px solid rgba(30,110,62,.35);}
+    .ax-nonum{font-size:10px;color:var(--muted);}
+    .ax-tpl{width:100%;min-height:78px;font-family:inherit;font-size:13px;padding:10px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--light);color:var(--text);resize:vertical;box-sizing:border-box;}
+    body.dark-mode .ax-chip.v,body.dark-mode .ax-day.leave{background:rgba(26,79,160,.25);color:#9cc2f5;}
   </style>
 </head>
 <body>
@@ -1860,6 +1873,7 @@
           <tr><td class="dash-lbl">Mother's Name</td><td id="dash-mother" class="dash-val">—</td></tr>
           <tr><td class="dash-lbl">Guardian Name</td><td id="dash-guardian" class="dash-val">—</td></tr>
           <tr><td class="dash-lbl">Contact No.</td><td id="dash-contact" class="dash-val">—</td></tr>
+          <tr><td class="dash-lbl">Parent WhatsApp</td><td id="dash-whatsapp" class="dash-val">—</td></tr>
           <tr><td class="dash-lbl">Email</td><td id="dash-email" class="dash-val">—</td></tr>
           <tr><td class="dash-lbl">Occupation</td><td id="dash-occupation" class="dash-val">—</td></tr>
         </table>
@@ -2195,6 +2209,8 @@
             <label class="p-lbl">Family ID (optional — same value for siblings)</label>
             <input id="newFamilyId" placeholder="e.g. sharma_family_01">
             <p style="font-size:11px;color:var(--muted);margin:4px 0 0;">Give siblings the exact same Family ID. Logging in with any one child's username lets the parent switch between all linked children.</p>
+            <label class="p-lbl" style="margin-top:10px;">Parent WhatsApp number (optional)</label>
+            <input id="newParentPhone" type="tel" inputmode="numeric" placeholder="e.g. 9876543210">
             <button class="btn btn-green" onclick="addStudent()">Create Student Account</button>
           </div>
         </div>
@@ -2514,6 +2530,14 @@
             </div>
             <div id="axRoster"></div>
           </div>
+          <div class="p-card" id="axNotify" style="display:none;">
+            <div class="p-title" id="axNotifyTitle" style="font-size:14px;margin-bottom:8px;"></div>
+            <label class="p-lbl">Message (edit it if you like; {name}, {class}, {date} are filled in)</label>
+            <textarea id="axNotifyTpl" class="ax-tpl" oninput="attNotifyTplChanged()"></textarea>
+            <div style="display:flex;justify-content:flex-end;margin:4px 0 8px;"><button type="button" class="btn btn-ghost btn-sm" style="width:auto;" onclick="attNotifyTplReset()">Reset text</button></div>
+            <div id="axNotifyList"></div>
+            <p style="font-size:11px;color:var(--muted);line-height:1.5;margin:8px 0 0;">Each button opens WhatsApp with the message ready; you press Send in WhatsApp. “Sent” ticks are remembered on this device only.</p>
+          </div>
           <div class="ax-savebar" id="axSaveBar">
             <div id="axMsg"></div>
             <div class="ax-dirty" id="axDirty"></div>
@@ -2548,6 +2572,10 @@
             <div class="ax-r2">
               <div><label class="p-lbl">From</label><input type="date" id="axRepFrom" onchange="attRepRun()"></div>
               <div><label class="p-lbl">To</label><input type="date" id="axRepTo" onchange="attRepRun()"></div>
+            </div>
+            <div class="ax-r2" style="margin-bottom:4px;">
+              <div><label class="p-lbl">Show</label><select id="axLowOn" onchange="attRepRun()"><option value="">Everyone</option><option value="1">Low only</option></select></div>
+              <div><label class="p-lbl">Low = below (%)</label><input type="number" id="axLowPct" value="75" min="1" max="100" inputmode="numeric" onchange="attRepRun()"></div>
             </div>
             <div class="ax-tools" style="margin-bottom:0;">
               <button type="button" class="btn btn-ghost btn-sm" onclick="attRepQuick('month')">This month</button>
@@ -2668,6 +2696,8 @@
       <label class="p-lbl">Password</label><input id="ePass" placeholder="Password" type="text">
       <label class="p-lbl">Family ID (optional — same value for siblings)</label>
       <input id="eFamilyId" placeholder="e.g. sharma_family_01">
+      <label class="p-lbl">Parent WhatsApp number (optional)</label>
+      <input id="eParentPhone" type="tel" inputmode="numeric" placeholder="e.g. 9876543210">
       <button class="btn btn-navy" onclick="saveEditInfo()">Save Changes</button>
       <button class="btn btn-ghost" style="color:var(--red);"
               onclick="confirmAction('Delete this student permanently?',deleteEditStudent)">Delete Student</button>
@@ -3802,7 +3832,7 @@ function renderClassView() {
         return `<div class="stu-row" style="${last?'border-radius:0 0 10px 10px;':''}">
           <div>
             <div class="stu-rn">${stu.name}</div>
-            <div class="stu-rm">@${stu.username} · ${res.length} result${res.length!==1?'s':''} · ${avg!==null?'Avg: '+avg+'%':'No results yet'}</div>
+            <div class="stu-rm">@${stu.username} · ${res.length} result${res.length!==1?'s':''} · ${avg!==null?'Avg: '+avg+'%':'No results yet'}${stu.parentPhone?' · 📞 '+axPhoneShow(stu.parentPhone):''}</div>
           </div>
           <button class="btn btn-navy btn-sm" onclick="openEditModal('${stu.username}')">Manage</button>
         </div>`;
@@ -3836,7 +3866,7 @@ function renderStuList() {
       <div>
         <span style="font-weight:700;color:var(--navy);">${stu.name}</span>
         <span class="badge bg-navy" style="margin-left:8px;">${stu.class}</span>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px;">@${stu.username} · ${res.length} result${res.length!==1?'s':''}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">@${stu.username} · ${res.length} result${res.length!==1?'s':''}${stu.parentPhone?' · 📞 '+axPhoneShow(stu.parentPhone):''}</div>
       </div>
       <button class="btn btn-navy btn-sm" onclick="openEditModal('${stu.username}')">Edit</button>
     </div>`;
@@ -4814,8 +4844,11 @@ function addStudent() {
   // Class scope check
   if (!getAllowedClasses().includes(cls)) { alert('You are not assigned to manage ' + cls + '.'); return; }
 
+  const phone = axPhoneNorm(document.getElementById('newParentPhone').value);
+  if (phone === null) { alert('Please enter a valid 10-digit parent WhatsApp number (or leave it empty).'); return; }
   const payload = { name, class:cls, username:user, password:pass, results:{} };
   if (familyId) payload.familyId = familyId;
+  if (phone) payload.parentPhone = phone;
 
   db.ref('students/' + user).set(payload)
     .then(() => {
@@ -4823,6 +4856,7 @@ function addStudent() {
       document.getElementById('newUser').value = '';
       document.getElementById('newPass').value = '';
       document.getElementById('newFamilyId').value = '';
+      document.getElementById('newParentPhone').value = '';
       logActivity('add', `Added student ${name} (${cls})`);
       alert('Account created for ' + name + '!');
     })
@@ -4937,6 +4971,7 @@ function openEditModal(username) {
   document.getElementById('eUser').value  = stu.username;
   document.getElementById('ePass').value  = stu.password;
   document.getElementById('eFamilyId').value = stu.familyId || '';
+  document.getElementById('eParentPhone').value = axPhoneLocal(stu.parentPhone);
   // Reset to Info tab
   document.getElementById('em-results').style.display = 'none';
   document.getElementById('em-info').style.display    = 'block';
@@ -4962,6 +4997,8 @@ function saveEditInfo() {
   const user = document.getElementById('eUser').value.trim().toLowerCase().replace(/\s+/g,'_');
   const pass = document.getElementById('ePass').value.trim();
   const familyId = document.getElementById('eFamilyId').value.trim().toLowerCase().replace(/\s+/g,'_');
+  const phone = axPhoneNorm(document.getElementById('eParentPhone').value);
+  if (phone === null) { alert('Please enter a valid 10-digit parent WhatsApp number (or leave it empty).'); return; }
   if (!name||!user||!pass) { alert('All fields required.'); return; }
 
   if (user !== editUsername) {
@@ -4969,12 +5006,13 @@ function saveEditInfo() {
     if (allStudents[user]) { alert('Username already taken.'); return; }
     const updated = { ...allStudents[editUsername], name, class:cls, username:user, password:pass };
     if (familyId) updated.familyId = familyId; else delete updated.familyId;
+    if (phone) updated.parentPhone = phone; else delete updated.parentPhone;
     db.ref('students/' + user).set(updated)
       .then(() => db.ref('students/' + editUsername).remove())
       .then(() => { closeModal(); logActivity('edit', `Updated student ${name}`); alert('Student updated!'); })
       .catch(e => alert('Error: ' + e.message));
   } else {
-    const updates = { name, class:cls, password:pass, familyId: familyId || null };
+    const updates = { name, class:cls, password:pass, familyId: familyId || null, parentPhone: phone || null };
     db.ref('students/' + editUsername).update(updates)
       .then(() => { document.getElementById('editTitle').innerText = 'Editing: ' + name; logActivity('edit', `Updated info for ${name}`); alert('Info updated!'); })
       .catch(e => alert('Error: ' + e.message));
@@ -5350,6 +5388,7 @@ function renderStudentDashboard(stu) {
   set('dash-mother',           d.mother);
   set('dash-guardian',         d.guardian);
   set('dash-contact',          d.contact);
+  set('dash-whatsapp',         stu.parentPhone ? axPhoneShow(stu.parentPhone) : '');
   set('dash-email',            d.email);
   set('dash-occupation',       d.occupation);
   set('dash-teacher',          d.teacher);
@@ -6091,8 +6130,11 @@ window.reviewLeave        = reviewLeave;
    Students, classes and admin roles are all reused — nothing is duplicated.
    Dates without a record are "not recorded" and never counted as absent.
 ═══════════════════════════════════════════ */
-const AX_STATUSES = ['present', 'absent', 'late'];
-const AX_LABEL = { present:'Present', absent:'Absent', late:'Late' };
+const AX_STATUSES = ['present', 'absent', 'late', 'leave'];
+const AX_LABEL = { present:'Present', absent:'Absent', late:'Late', leave:'Leave' };
+const AX_SHORT = { present:'P', absent:'A', late:'L', leave:'Lv' };
+const AX_ABS_TPL_DEFAULT = "Dear Parent, {name} ({class}) was absent from school on {date}. If there is a reason, please let the school know. – Better World School";
+const AX_LOW_TPL = "Dear Parent, {name}'s attendance in {class} from {from} to {to} is {pct}% ({attended} of {recorded} days). Regular attendance is very important, so please make sure {name} comes to school every day. – Better World School";
 const AX_LATE_COUNTS_AS_ATTENDED = true;   // % = (Present + Late) / days recorded. Set false for Present only.
 const AX_MAX_RANGE_DAYS = 366;
 const AX_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -6141,6 +6183,28 @@ function axErrText(e) {
 }
 function axStamp(r) { return r ? ((r.updatedAt || r.markedAt || 0) + '|' + r.status) : ''; }
 
+/* ── Parent WhatsApp number helpers (Indian mobile numbers) ── */
+function axPhoneNorm(raw) {                       // '' = empty (allowed), null = invalid, else 91XXXXXXXXXX
+  const t = String(raw || '').trim();
+  if (!t) return '';
+  const d = t.replace(/\D/g, '');
+  if (!d) return null;                              // typed something, but no digits (e.g. "abc") => invalid, never "empty"
+  if (d.length === 10 && /^[6-9]/.test(d)) return '91' + d;
+  if (d.length === 11 && d[0] === '0' && /^[6-9]/.test(d[1])) return '91' + d.slice(1);
+  if (d.length === 12 && d.startsWith('91') && /^[6-9]/.test(d[2])) return d;
+  return null;
+}
+function axPhoneShow(p) { p = String(p || ''); return p.length === 12 ? '+91 ' + p.slice(2, 7) + ' ' + p.slice(7) : '+' + p; }
+function axPhoneLocal(p) { p = String(p || ''); return (p.length === 12 && p.startsWith('91')) ? p.slice(2) : p; }
+function axWaLink(phone, msg) { return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg); }
+function axFill(tpl, vars) { return String(tpl).replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)); }
+function axLsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : v; } catch (e) { return d; } }
+function axLsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+/** An approved leave request (from the existing Leave feature) covering this student on this date. */
+function axLeaveFor(sid, date) {
+  return Object.values(allLeaveRequests || {}).find(l => l && l.status === 'approved' && l.studentUsername === sid && l.fromDate <= date && date <= l.toDate) || null;
+}
+
 /* ── Message bar (sits in the sticky save bar so it is always visible) ── */
 function axShowMsg(kind, text, withReload) {
   const el = axEl('axMsg'); if (!el) return;
@@ -6171,6 +6235,15 @@ function axBindOnce() {
     const id = b.dataset.id, st = b.dataset.st;
     if (axDraft[id] === st) delete axDraft[id]; else axDraft[id] = st;   // tap again to un-mark
     axRenderMark();
+  });
+  axEl('axNotifyTpl').value = axLsGet('bwsAbsTpl', AX_ABS_TPL_DEFAULT);
+  axEl('axNotify').addEventListener('click', e => {
+    const a = e.target.closest('.ax-wa[data-key]');
+    if (a) {                                          // WhatsApp opens in its own tab; remember we sent it (this device only)
+      const n = JSON.parse(axLsGet('bwsAbsNotified', '{}')); n[a.dataset.key] = Date.now(); axLsSet('bwsAbsNotified', JSON.stringify(n));
+      a.classList.add('sent'); a.textContent = '✓ Sent · tap to resend'; return;
+    }
+    const b = e.target.closest('[data-act="addphone"]'); if (b) axAddPhone(b.dataset.id);
   });
   axEl('axCalOut').addEventListener('click', e => {
     const d = e.target.closest('.ax-day[data-date]'); if (!d) return;
@@ -6249,12 +6322,13 @@ function axLoadMark() {
       const r = day[s.id];
       if (r && AX_STATUSES.includes(r.status)) { axSaved[s.id] = r; axDraft[s.id] = r.status; }
     });
+    axRoster.forEach(s => { if (!axSaved[s.id] && axLeaveFor(s.id, date)) axDraft[s.id] = 'leave'; });   // approved leave => suggest Leave
     axRenderMark('ready');
   }).catch(e => { if (seq === axLoadSeq) axRenderMark('error', 'Could not load attendance. ' + axErrText(e)); });
 }
 
 function attMarkAll(st) {
-  axRoster.forEach(s => { if (st) axDraft[s.id] = st; else delete axDraft[s.id]; });
+  axRoster.forEach(s => { if (st) { if (axDraft[s.id] !== 'leave') axDraft[s.id] = st; } else delete axDraft[s.id]; });   // 'Mark All' never overrides Leave
   axRenderMark();
 }
 
@@ -6266,7 +6340,7 @@ function axRenderMark(state, text) {
     ? '<div class="ax-note warn">This date is a Sunday. Only save attendance if school was open.</div>' : '';
   if (state !== 'ready') {
     tools.style.display = 'none'; stat.innerHTML = ''; dirtyEl.textContent = '';
-    btn.disabled = true; btn.style.opacity = .5; btn.textContent = 'Save Attendance';
+    btn.disabled = true; btn.style.opacity = .5; btn.textContent = 'Save Attendance'; axEl('axNotify').style.display = 'none';
     if (state === 'loading') box.innerHTML = '<p class="empty-msg">Loading students…</p>';
     else if (state === 'error') { box.innerHTML = `<div class="ax-note err">${axEsc(text)}</div>`; axRenderMark._err = text; }
     else box.innerHTML = '<p class="empty-msg">Select a class and date to load the students.</p>';
@@ -6274,11 +6348,11 @@ function axRenderMark(state, text) {
   }
   if (!axRoster.length) {
     tools.style.display = 'none'; stat.innerHTML = ''; dirtyEl.textContent = '';
-    btn.disabled = true; btn.style.opacity = .5;
+    btn.disabled = true; btn.style.opacity = .5; axEl('axNotify').style.display = 'none';
     box.innerHTML = `<p class="empty-msg">No students are enrolled in ${axEsc(axCls)} yet.</p>`;
     return;
   }
-  const counts = { present:0, absent:0, late:0, none:0 };
+  const counts = { present:0, absent:0, late:0, leave:0, none:0 };
   axRoster.forEach(s => { const st = axDraft[s.id]; if (st) counts[st]++; else counts.none++; });
   const savedIds = Object.keys(axSaved);
   let banner = '';
@@ -6290,13 +6364,16 @@ function axRenderMark(state, text) {
       (last && last.by ? ` — last saved by ${axEsc(last.by)}${when ? ' on ' + axEsc(when) : ''}` : '') +
       '. Changes you make below will update that record, not create a new one.</div>';
   }
+  const pre = axRoster.filter(s => !axSaved[s.id] && axDraft[s.id] === 'leave' && axLeaveFor(s.id, axDate)).length;
+  if (pre) banner += `<div class="ax-note info">📅 ${pre} student${pre === 1 ? ' is' : 's are'} pre-marked <b>Leave</b> from approved leave requests. Save to record it. “Mark All” keeps them on Leave.</div>`;
   stat.innerHTML = banner +
     `<div class="ax-counts"><span class="ax-chip p">Present ${counts.present}</span><span class="ax-chip a">Absent ${counts.absent}</span>` +
-    `<span class="ax-chip l">Late ${counts.late}</span><span class="ax-chip u">Not marked ${counts.none}</span></div>`;
+    `<span class="ax-chip l">Late ${counts.late}</span><span class="ax-chip v">Leave ${counts.leave}</span><span class="ax-chip u">Not marked ${counts.none}</span></div>`;
   tools.style.display = 'flex';
   box.innerHTML = axRoster.map(s => {
     const cur = axDraft[s.id] || null, was = axSaved[s.id] ? axSaved[s.id].status : null;
-    return `<div class="ax-row ${cur !== was ? 'changed' : ''}"><div class="ax-name">${axEsc(s.name)}<small>${axEsc(s.id)}</small></div><div class="ax-seg">` +
+    const lf = axLeaveFor(s.id, axDate) ? ' · 📅 ' + (cur === 'leave' ? 'approved leave' : 'has approved leave for this date') : '';
+    return `<div class="ax-row ${cur !== was ? 'changed' : ''}"><div class="ax-name">${axEsc(s.name)}<small>${axEsc(s.id)}${lf}</small></div><div class="ax-seg">` +
       AX_STATUSES.map(st => `<button type="button" class="ax-b ${st} ${cur === st ? 'on' : ''}" data-id="${axEsc(s.id)}" data-st="${st}" aria-pressed="${cur === st}">${AX_LABEL[st]}</button>`).join('') +
       '</div></div>';
   }).join('');
@@ -6304,6 +6381,37 @@ function axRenderMark(state, text) {
   dirtyEl.textContent = n ? `${n} unsaved change${n === 1 ? '' : 's'}` : '';
   btn.disabled = axSaving; btn.style.opacity = axSaving ? .6 : 1;
   btn.textContent = axSaving ? 'Saving…' : (savedIds.length ? 'Update Attendance' : 'Save Attendance');
+  axRenderNotify();
+}
+
+/* ═════════ NOTIFY PARENTS (WhatsApp) — saved absentees only ═════════ */
+function axRenderNotify() {
+  const box = axEl('axNotify');
+  const absent = axRoster.filter(s => axSaved[s.id] && axSaved[s.id].status === 'absent');
+  if (!absent.length) { box.style.display = 'none'; return; }
+  box.style.display = '';
+  const tpl = axEl('axNotifyTpl').value || AX_ABS_TPL_DEFAULT, sent = JSON.parse(axLsGet('bwsAbsNotified', '{}'));
+  axEl('axNotifyTitle').textContent = '📲 Tell parents of absent students (' + absent.length + ')';
+  axEl('axNotifyList').innerHTML = absent.map(s => {
+    const ph = allStudents[s.id] && allStudents[s.id].parentPhone, key = axCls + '|' + axDate + '|' + s.id;
+    const msg = axFill(tpl, { name:s.name, class:axCls, date:axFmtDate(axDate) });
+    const action = ph
+      ? `<a class="ax-wa ${sent[key] ? 'sent' : ''}" data-key="${axEsc(key)}" href="${axEsc(axWaLink(ph, msg))}" target="_blank" rel="noopener">${sent[key] ? '✓ Sent · tap to resend' : 'WhatsApp'}</a>`
+      : `<button type="button" class="btn btn-ghost btn-sm" style="width:auto;" data-act="addphone" data-id="${axEsc(s.id)}">+ Add number</button>`;
+    return `<div class="ax-row"><div class="ax-name">${axEsc(s.name)}<small>${ph ? axEsc(axPhoneShow(ph)) : 'No parent number saved'}</small></div><div>${action}</div></div>`;
+  }).join('');
+}
+function attNotifyTplChanged() { axLsSet('bwsAbsTpl', axEl('axNotifyTpl').value); axRenderNotify(); }
+function attNotifyTplReset() { axEl('axNotifyTpl').value = AX_ABS_TPL_DEFAULT; attNotifyTplChanged(); }
+function axAddPhone(id) {
+  if (curAdminData && !hasPerm('edit-stu')) { alert('You do not have permission to edit students.'); return; }
+  const raw = prompt('Parent WhatsApp number for ' + axStudentName(id) + ' (10-digit mobile):');
+  if (raw === null) return;
+  const ph = axPhoneNorm(raw);
+  if (!ph) { alert('Please enter a valid 10-digit mobile number (starting 6–9).'); return; }
+  db.ref('students/' + id + '/parentPhone').set(ph)
+    .then(() => { logActivity('edit', 'Added parent number for ' + axStudentName(id)); axRenderNotify(); })
+    .catch(e => alert('Could not save the number. ' + axErrText(e)));
 }
 
 async function attSave() {
@@ -6345,10 +6453,10 @@ async function attSave() {
     await db.ref().update(updates);                       // multi-path: touches only these attendance records
     axSaved = nextSaved; axRangeCache = {};
     axLastOkAt = Date.now();
-    const c = { present:0, absent:0, late:0 };
+    const c = { present:0, absent:0, late:0, leave:0 };
     axRoster.forEach(s => { if (axSaved[s.id]) c[axSaved[s.id].status]++; });
-    const unrec = axRoster.length - c.present - c.absent - c.late;
-    axShowMsg('ok', `Saved: ${cls}, ${axFmtDate(date)} — Present ${c.present}, Absent ${c.absent}, Late ${c.late}` +
+    const unrec = axRoster.length - c.present - c.absent - c.late - c.leave;
+    axShowMsg('ok', `Saved: ${cls}, ${axFmtDate(date)} — Present ${c.present}, Absent ${c.absent}, Late ${c.late}` + (c.leave ? `, Leave ${c.leave}` : '') +
       (unrec ? `. ${unrec} not recorded (not counted as absent)` : '') + '.');
     logActivity('edit', `Attendance saved: ${cls} · ${axFmtDate(date)}`);
   } catch (e) {
@@ -6383,14 +6491,14 @@ function attCalStep(d) {
   axCalSyncSelects(); axCalRender();
 }
 
-function axSummaryHtml(rec, p, a, l) {
+function axSummaryHtml(rec, p, a, l, v) {
   const cell = (v, lbl) => `<div class="ax-sc"><div class="v">${v}</div><div class="l">${lbl}</div></div>`;
-  return '<div class="ax-sum">' + cell(rec, 'Days recorded') + cell(p, 'Present') + cell(a, 'Absent') + cell(l, 'Late') +
+  return '<div class="ax-sum">' + cell(rec, 'Days recorded') + cell(p, 'Present') + cell(a, 'Absent') + cell(l, 'Late') + cell(v || 0, 'Leave') +
          cell(axPctText(axPct(p, a, l)), 'Attendance') + '</div>';
 }
 function axPctNote() {
   return '<p style="font-size:11px;color:var(--muted);line-height:1.5;">Attendance % = ' + (AX_LATE_COUNTS_AS_ATTENDED ? '(Present + Late)' : 'Present') +
-         ' ÷ days recorded. Dates with no attendance record are not counted as absences.</p>';
+         ' ÷ days recorded, not counting approved-leave days. Dates with no attendance record are not counted as absences.</p>';
 }
 
 function axCalRender() {
@@ -6401,10 +6509,10 @@ function axCalRender() {
   out.innerHTML = '<p class="empty-msg">Loading…</p>';
   axFetchRange(cls, ym + '-01', ym + '-' + axPad(dim)).then(data => {
     if (seq !== axCalSeq) return;
-    const by = {}; let p = 0, a = 0, l = 0;
+    const by = {}; let p = 0, a = 0, l = 0, v = 0;
     Object.keys(data).forEach(d => {
       const r = data[d] && data[d][sid];
-      if (r && AX_STATUSES.includes(r.status)) { by[d] = r.status; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else l++; }
+      if (r && AX_STATUSES.includes(r.status)) { by[d] = r.status; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; else v++; }
     });
     const first = new Date(axCalY, axCalM, 1).getDay(), today = axToday();
     let grid = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(w => `<div class="ax-dow">${w}</div>`).join('');
@@ -6412,13 +6520,13 @@ function axCalRender() {
     for (let d = 1; d <= dim; d++) {
       const key = ym + '-' + axPad(d), st = by[key], fut = key > today;
       grid += `<button type="button" class="ax-day ${st || ''} ${fut ? 'future' : ''} ${key === today ? 'today' : ''}" ${fut ? 'disabled' : `data-date="${key}"`}` +
-        ` title="${st ? AX_LABEL[st] : 'Not recorded'}">${d}${st ? `<b>${AX_LABEL[st].charAt(0)}</b>` : ''}</button>`;
+        ` title="${st ? AX_LABEL[st] : 'Not recorded'}">${d}${st ? `<b>${AX_SHORT[st]}</b>` : ''}</button>`;
     }
     out.innerHTML = `<div style="font-weight:700;color:var(--navy);margin-bottom:4px;">${axEsc(axStudentName(sid))} · ${axEsc(cls)} · ${AX_MONTHS[axCalM]} ${axCalY}</div>` +
       `<div class="ax-cal">${grid}</div>` +
       '<div class="ax-legend"><span><i class="ax-dot" style="background:#e8f5e9;"></i>Present</span><span><i class="ax-dot" style="background:#ffebee;"></i>Absent</span>' +
-      '<span><i class="ax-dot" style="background:#fff8e1;"></i>Late</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
-      axSummaryHtml(p + a + l, p, a, l) + axPctNote() +
+      '<span><i class="ax-dot" style="background:#fff8e1;"></i>Late</span><span><i class="ax-dot" style="background:#e3f2fd;"></i>Leave</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
+      axSummaryHtml(p + a + l + v, p, a, l, v) + axPctNote() +
       '<p style="font-size:11px;color:var(--muted);">Tap a day to open it in the Mark tab and correct it.</p>';
   }).catch(e => { if (seq === axCalSeq) out.innerHTML = `<div class="ax-note err">Could not load the calendar. ${axEsc(axErrText(e))}</div>`; });
 }
@@ -6461,12 +6569,14 @@ function axRepRun() {
   const out = axEl('axRepOut');
   const clsSel = axEl('axRepClass').value, sid = axEl('axRepStu').value;
   const from = axEl('axRepFrom').value, to = axEl('axRepTo').value;
+  const lowOn = axEl('axLowOn').value === '1', lowPct = Number(axEl('axLowPct').value);
   const allowed = getAllowedClasses();
   const err = t => { out.innerHTML = `<div class="ax-note err">${axEsc(t)}</div>`; };
   if (!allowed.length) { err('No classes are assigned to your account.'); return; }
   if (!from || !to) { err('Choose both a From and a To date.'); return; }
   if (from > to) { err('The From date must be on or before the To date.'); return; }
   if (axSpanDays(from, to) > AX_MAX_RANGE_DAYS) { err('Please choose a range of at most ' + AX_MAX_RANGE_DAYS + ' days.'); return; }
+  if (lowOn && !(lowPct >= 1 && lowPct <= 100)) { err('Enter a percentage between 1 and 100 for the low-attendance filter.'); return; }
   const scope = clsSel ? [clsSel] : allowed;
   const seq = ++axRepSeq;
   out.innerHTML = '<p class="empty-msg">Loading report…</p>';
@@ -6479,29 +6589,45 @@ function axRepRun() {
         const r = day[id];
         if (!r || !AX_STATUSES.includes(r.status) || (sid && id !== sid)) return;
         dates.add(date);
-        const o = per[c + '|' + id] || (per[c + '|' + id] = { id, cls:c, P:0, A:0, L:0 });
-        if (r.status === 'present') o.P++; else if (r.status === 'absent') o.A++; else o.L++;
+        const o = per[c + '|' + id] || (per[c + '|' + id] = { id, cls:c, P:0, A:0, L:0, V:0 });
+        if (r.status === 'present') o.P++; else if (r.status === 'absent') o.A++; else if (r.status === 'late') o.L++; else o.V++;
       });
     }));
     // rows: everyone enrolled in scope (so "no records" students show "—") plus any recorded ids no longer enrolled
     const rows = {};
-    scope.forEach(c => axStudentsOf(c).forEach(s => { if (!sid || s.id === sid) rows[c + '|' + s.id] = { id:s.id, cls:c, P:0, A:0, L:0 }; }));
+    scope.forEach(c => axStudentsOf(c).forEach(s => { if (!sid || s.id === sid) rows[c + '|' + s.id] = { id:s.id, cls:c, P:0, A:0, L:0, V:0 }; }));
     Object.keys(per).forEach(k => { rows[k] = per[k]; });
-    const list = Object.values(rows).sort((a, b) => axStudentName(a.id).localeCompare(axStudentName(b.id), undefined, { numeric:true, sensitivity:'base' }));
-    let P = 0, A = 0, L = 0; list.forEach(r => { P += r.P; A += r.A; L += r.L; });
+    const byName = (a, b) => axStudentName(a.id).localeCompare(axStudentName(b.id), undefined, { numeric:true, sensitivity:'base' });
+    const list = Object.values(rows).sort(byName);
+    let P = 0, A = 0, L = 0, V = 0; list.forEach(r => { P += r.P; A += r.A; L += r.L; V += r.V; });
     const multi = scope.length > 1;
-    const body = list.map(r => {
-      const rec = r.P + r.A + r.L, pct = axPct(r.P, r.A, r.L);
+    let shown = list, lowNote = '';
+    if (lowOn) {                                              // students under the chosen %, lowest first; no-record students can't be judged
+      shown = list.filter(r => { const pc = axPct(r.P, r.A, r.L); return pc != null && pc < lowPct; })
+                  .sort((a, b) => (axPct(a.P, a.A, a.L) - axPct(b.P, b.A, b.L)) || byName(a, b));
+      lowNote = shown.length
+        ? `<div class="ax-note warn"><b>${shown.length} student${shown.length === 1 ? '' : 's'} below ${lowPct}%</b>, lowest first. The cards above cover the whole selection.</div>`
+        : `<div class="ax-note ok">No students are below ${lowPct}% in this selection. 🎉</div>`;
+    }
+    const body = shown.map(r => {
+      const rec = r.P + r.A + r.L + r.V, pct = axPct(r.P, r.A, r.L);
       const tone = pct == null ? '' : (pct >= 90 ? 'g' : pct >= 75 ? 'a' : 'r');
       const enrolled = allStudents[r.id] && allStudents[r.id].class === r.cls;
+      let wa = '';
+      if (lowOn) {
+        const ph = allStudents[r.id] && allStudents[r.id].parentPhone;
+        const msg = axFill(AX_LOW_TPL, { name:axStudentName(r.id), class:r.cls, from:axFmtDate(from), to:axFmtDate(to),
+          pct:axPctText(pct).replace('%', ''), attended:r.P + (AX_LATE_COUNTS_AS_ATTENDED ? r.L : 0), recorded:r.P + r.A + r.L });
+        wa = '<td>' + (ph ? `<a class="ax-wa" href="${axEsc(axWaLink(ph, msg))}" target="_blank" rel="noopener">WhatsApp</a>` : '<span class="ax-nonum">No number</span>') + '</td>';
+      }
       return `<tr><td>${axEsc(axStudentName(r.id))}${(multi || !enrolled) ? `<small>${axEsc(r.cls)}${enrolled ? '' : ' · no longer in this class'}</small>` : ''}</td>` +
-        `<td>${rec || '—'}</td><td>${rec ? r.P : '—'}</td><td>${rec ? r.A : '—'}</td><td>${rec ? r.L : '—'}</td><td class="pct ${tone}">${axPctText(pct)}</td></tr>`;
+        `<td>${rec || '—'}</td><td>${rec ? r.P : '—'}</td><td>${rec ? r.A : '—'}</td><td>${rec ? r.L : '—'}</td><td>${rec ? r.V : '—'}</td><td class="pct ${tone}">${axPctText(pct)}</td>${wa}</tr>`;
     }).join('');
     out.innerHTML = `<div style="font-weight:700;color:var(--navy);margin-bottom:2px;">${axEsc(clsSel || 'All my classes')} · ${axEsc(sid ? axStudentName(sid) : 'All students')}</div>` +
       `<div style="font-size:12px;color:var(--muted);">${axEsc(axFmtDate(from))} – ${axEsc(axFmtDate(to))}</div>` +
-      axSummaryHtml(dates.size, P, A, L) +
+      axSummaryHtml(dates.size, P, A, L, V) + lowNote +
       (dates.size ? '' : '<div class="ax-note info">No attendance has been recorded in this date range.</div>') +
-      (list.length ? `<div class="ax-tablewrap"><table class="ax-table"><thead><tr><th>Student</th><th>Days</th><th>P</th><th>A</th><th>L</th><th>%</th></tr></thead><tbody>${body}</tbody></table></div>` : '<p class="empty-msg">No students found.</p>') +
+      (shown.length ? `<div class="ax-tablewrap"><table class="ax-table"><thead><tr><th>Student</th><th>Days</th><th>P</th><th>A</th><th>L</th><th>Lv</th><th>%</th>${lowOn ? '<th></th>' : ''}</tr></thead><tbody>${body}</tbody></table></div>` : (lowOn ? '' : '<p class="empty-msg">No students found.</p>')) +
       axPctNote();
   }).catch(e => { if (seq === axRepSeq) out.innerHTML = `<div class="ax-note err">Could not load the report. ${axEsc(axErrText(e))}</div>`; });
 }
@@ -6513,6 +6639,7 @@ window.attReload = attReload;         window.attCalChanged = attCalChanged;
 window.attCalJump = attCalJump;       window.attCalStep = attCalStep;
 window.axCalRender = axCalRender;     window.attRepClassChanged = attRepClassChanged;
 window.attRepRun = axRepRun;          window.attRepQuick = attRepQuick;
+window.attNotifyTplChanged = attNotifyTplChanged; window.attNotifyTplReset = attNotifyTplReset;
 
 /* ═══════════════════════════════════════════
    STUDENT / PARENT — ATTENDANCE VIEW (read-only)
@@ -6543,23 +6670,23 @@ function stuAttRender() {
   out.innerHTML = '<p class="empty-msg">Loading…</p>';
   axFetchRange(stu.class, ym + '-01', ym + '-' + axPad(dim)).then(data => {
     if (seq !== stuAttSeq) return;
-    let p = 0, a = 0, l = 0; const by = {};
+    let p = 0, a = 0, l = 0, v = 0; const by = {};
     Object.keys(data).forEach(d => {
       const r = data[d] && data[d][sid];
-      if (r && AX_STATUSES.includes(r.status)) { by[d] = r.status; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else l++; }
+      if (r && AX_STATUSES.includes(r.status)) { by[d] = r.status; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; else v++; }
     });
     const first = new Date(stuAttY, stuAttM, 1).getDay(), today = axToday();
     let grid = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(w => `<div class="ax-dow">${w}</div>`).join('');
     for (let i = 0; i < first; i++) grid += '<div class="ax-day blank"></div>';
     for (let d = 1; d <= dim; d++) {
       const key = ym + '-' + axPad(d), st = by[key];
-      grid += `<div class="ax-day ro ${st || ''} ${key > today ? 'future' : ''} ${key === today ? 'today' : ''}">${d}${st ? `<b>${AX_LABEL[st].charAt(0)}</b>` : ''}</div>`;
+      grid += `<div class="ax-day ro ${st || ''} ${key > today ? 'future' : ''} ${key === today ? 'today' : ''}">${d}${st ? `<b>${AX_SHORT[st]}</b>` : ''}</div>`;
     }
     out.innerHTML = `<div class="ax-cal">${grid}</div>` +
       '<div class="ax-legend"><span><i class="ax-dot" style="background:#e8f5e9;"></i>Present</span><span><i class="ax-dot" style="background:#ffebee;"></i>Absent</span>' +
-      '<span><i class="ax-dot" style="background:#fff8e1;"></i>Late</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
-      axSummaryHtml(p + a + l, p, a, l) +
-      (p + a + l ? '' : '<div class="ax-note info">No attendance has been recorded for this month yet.</div>') + axPctNote();
+      '<span><i class="ax-dot" style="background:#fff8e1;"></i>Late</span><span><i class="ax-dot" style="background:#e3f2fd;"></i>Leave</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
+      axSummaryHtml(p + a + l + v, p, a, l, v) +
+      (p + a + l + v ? '' : '<div class="ax-note info">No attendance has been recorded for this month yet.</div>') + axPctNote();
   }).catch(e => { if (seq === stuAttSeq) out.innerHTML = `<div class="ax-note err">Could not load attendance. ${axEsc(axErrText(e))}</div>`; });
 }
 /** Whole school year so far (from 1 April). Loaded only when tapped, to save mobile data. */
@@ -6569,10 +6696,10 @@ function stuAttYear() {
   const from = startY + '-04-01', to = axToday(), sid = curUser, seq = ++stuAttSeq;
   out.innerHTML = '<p class="empty-msg">Loading…</p>';
   axFetchRange(stu.class, from, to).then(data => {
-    let p = 0, a = 0, l = 0;
-    Object.keys(data).forEach(d => { const r = data[d] && data[d][sid]; if (r && AX_STATUSES.includes(r.status)) { if (r.status === 'present') p++; else if (r.status === 'absent') a++; else l++; } });
+    let p = 0, a = 0, l = 0, v = 0;
+    Object.keys(data).forEach(d => { const r = data[d] && data[d][sid]; if (r && AX_STATUSES.includes(r.status)) { if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; else v++; } });
     out.innerHTML = `<div style="font-weight:700;color:var(--navy);">School year so far</div><div style="font-size:12px;color:var(--muted);">${axEsc(axFmtDate(from))} – ${axEsc(axFmtDate(to))}</div>` +
-      axSummaryHtml(p + a + l, p, a, l) + (p + a + l ? '' : '<div class="ax-note info">No attendance recorded yet this school year.</div>');
+      axSummaryHtml(p + a + l + v, p, a, l, v) + (p + a + l + v ? '' : '<div class="ax-note info">No attendance recorded yet this school year.</div>');
   }).catch(e => { out.innerHTML = `<div class="ax-note err">Could not load attendance. ${axEsc(axErrText(e))}</div>`; });
 }
 window.stuAttStep = stuAttStep; window.stuAttYear = stuAttYear; window.stuAttOpen = stuAttOpen;
