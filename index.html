@@ -1182,6 +1182,115 @@
     .ax-nonum{font-size:10px;color:var(--muted);}
     .ax-tpl{width:100%;min-height:78px;font-family:inherit;font-size:13px;padding:10px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--light);color:var(--text);resize:vertical;box-sizing:border-box;}
     body.dark-mode .ax-chip.v,body.dark-mode .ax-day.leave{background:rgba(26,79,160,.25);color:#9cc2f5;}
+
+    /* ═════ Notification Centre + Staff attendance ═════ */
+    .nc-count{position:absolute;top:10px;right:12px;background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;min-width:16px;text-align:center;line-height:1.5;}
+    .nc-sum{font-size:12px;color:var(--muted);margin:8px 0 10px;} .nc-sum b{color:var(--navy);font-size:14px;}
+    .nc-pn{background:var(--red);color:#fff;border-radius:9px;padding:0 6px;font-size:10px;margin-left:3px;}
+    .pill.active .nc-pn{background:#fff;color:var(--navy);}
+    .nc-group{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 2px 6px;}
+    .nc-group.imp{color:var(--amber);}
+    .nc-card{position:relative;display:flex;gap:12px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;cursor:pointer;}
+    .nc-card:not(.unread){opacity:.8;}
+    .nc-card.unread{border-color:rgba(13,27,75,.35);box-shadow:0 2px 8px rgba(13,27,75,.08);}
+    .nc-card.unread .nc-top{padding-right:16px;}
+    .nc-card.important{border-left:4px solid var(--gold);background:linear-gradient(90deg,rgba(201,151,42,.12),transparent 65%),var(--white);}
+    .nc-card.pinned{cursor:default;opacity:1;}
+    .nc-ico{flex:none;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--light);}
+    .nc-ico.c-notice{background:#e8eaf6;} .nc-ico.c-attendance{background:#e8f5e9;} .nc-ico.c-exam{background:#fff3e0;}
+    .nc-ico.c-fee{background:#fff8e1;} .nc-ico.c-event{background:#fce4ec;} .nc-ico.c-academic{background:#e3f2fd;}
+    .nc-main{flex:1;min-width:0;}
+    .nc-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;}
+    .nc-cat{font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+    .nc-imp{background:var(--gold);color:var(--navy);font-weight:700;border-radius:10px;padding:1px 8px;}
+    .nc-time{margin-left:auto;color:var(--muted);}
+    .nc-title{font-weight:700;color:var(--navy);font-size:14px;margin-top:3px;overflow-wrap:anywhere;}
+    .nc-body{font-size:13px;color:var(--text);margin-top:3px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;}
+    .nc-card.open .nc-body{display:block;overflow:visible;}
+    .nc-by{font-size:11px;color:var(--muted);margin-top:4px;}
+    .nc-dot{position:absolute;top:12px;right:12px;width:9px;height:9px;border-radius:50%;background:var(--red);}
+    body.dark-mode .nc-card{background:var(--white);}
+
+    /* ═════ Academic suite (Question Bank / Exams / Analytics): scoped palette, SVG icons, no emojis ═════ */
+    .ac{--ac-navy:#102A43;--ac-blue:#1976D2;--ac-bg:#F5F7FB;--ac-card:#fff;--ac-border:#E1E8F0;--ac-text:#243B53;--ac-muted:#627D98;--ac-ok:#2E7D32;--ac-bad:#C62828;--ac-warn:#B26A00;--ac-shadow:0 2px 10px rgba(16,42,67,.07);color:var(--ac-text);font-family:inherit;}
+    body.dark-mode .ac{--ac-navy:#E6EEF7;--ac-blue:#64B5F6;--ac-bg:#0E1620;--ac-card:#16212D;--ac-border:#27384A;--ac-text:#D6E2EE;--ac-muted:#8DA2B8;--ac-shadow:none;--ac-ok:#7FD6A0;--ac-bad:#F19A9A;--ac-warn:#F0BC50;}
+    .ac *{box-sizing:border-box;}
+    .ac-wrap{background:var(--ac-bg);border-radius:16px;padding:12px;}
+    .ac-ti{color:#102A43;} .ac-ti svg{width:30px;height:30px;display:block;margin:0 auto;} body.dark-mode .ac-ti{color:#9fc4ec;}
+    .ac-card{background:var(--ac-card);border:1px solid var(--ac-border);border-radius:14px;box-shadow:var(--ac-shadow);padding:16px;margin-bottom:12px;}
+    .ac-title{font-weight:700;color:var(--ac-navy);font-size:15px;} .ac-title.lg{font-size:18px;}
+    .ac-muted{color:var(--ac-muted);font-size:12px;line-height:1.5;} p.ac-muted{margin:6px 0 0;}
+    .ac-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;}
+    .ac-sec{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ac-muted);margin:14px 2px 8px;}
+    .ac-empty{text-align:center;color:var(--ac-muted);font-size:13px;padding:26px 16px;}
+    .ac-lbl{display:block;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--ac-muted);margin:12px 0 5px;}
+    .ac input:not([type=radio]):not([type=checkbox]),.ac select,.ac textarea{width:100%;padding:11px 12px;border:1.5px solid var(--ac-border);border-radius:10px;background:var(--ac-card);color:var(--ac-text);font:inherit;font-size:14px;min-height:44px;}
+    .ac textarea{resize:vertical;line-height:1.5;} .ac input:focus,.ac select:focus,.ac textarea:focus{outline:none;border-color:var(--ac-blue);box-shadow:0 0 0 3px rgba(25,118,210,.15);}
+    .ac-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;} .ac-grid2 .span2{grid-column:1/-1;} .ac-end{display:flex;align-items:flex-end;padding-bottom:2px;margin-top:12px;}
+    .ac-search{position:relative;margin-top:6px;} .ac-search .si{position:absolute;left:12px;top:13px;color:var(--ac-muted);display:flex;} .ac-search input{padding-left:38px !important;}
+    .ac-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:10px;background:var(--ac-blue);color:#fff;font:inherit;font-weight:600;font-size:14px;padding:11px 16px;min-height:44px;cursor:pointer;}
+    .ac-btn.sm{min-height:38px;padding:8px 12px;font-size:13px;} .ac-btn.ghost{background:transparent;color:var(--ac-blue);border:1.5px solid var(--ac-border);}
+    .ac-btn.danger{background:var(--ac-bad);} .ac-btn.bad{color:var(--ac-bad);} .ac-btn:disabled{opacity:.5;cursor:default;}
+    .ac-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;} .ac-actions .ac-btn{flex:1;}
+    .ac-ico{width:38px;height:38px;border-radius:10px;border:1.5px solid var(--ac-border);background:var(--ac-card);color:var(--ac-muted);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;} .ac-ico.bad:hover{color:var(--ac-bad);}
+    .ac-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:#EEF2F7;color:var(--ac-muted);border:1px solid transparent;white-space:nowrap;}
+    body.dark-mode .ac-chip{background:#1F2D3B;}
+    .ac-chip.d-easy,.ac-chip.st-closed{background:#E8F5E9;color:#2E7D32;} .ac-chip.d-medium,.ac-chip.st-draft{background:#FFF4E0;color:#B26A00;} .ac-chip.d-hard,.ac-chip.bad{background:#FDECEA;color:#C62828;}
+    .ac-chip.st-live{background:#E3F2FD;color:#1565C0;} .ac-chip.st-upcoming{background:#EDE7F6;color:#5E35B1;}
+    .ac-note{border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5;margin:10px 0;border:1px solid transparent;}
+    .ac-note.ok{background:#E8F5E9;color:#1B5E20;border-color:#C8E6C9;} .ac-note.err{background:#FDECEA;color:#B71C1C;border-color:#F5C6C2;} .ac-note.warn{background:#FFF4E0;color:#8A5300;border-color:#FFE0B2;} .ac-note.info{background:#E3F2FD;color:#0D47A1;border-color:#BBDEFB;}
+    body.dark-mode .ac-note.ok{background:rgba(46,125,50,.2);color:#9BE0B1;} body.dark-mode .ac-note.err{background:rgba(198,40,40,.2);color:#F5A8A8;} body.dark-mode .ac-note.warn{background:rgba(178,106,0,.22);color:#F2C36B;} body.dark-mode .ac-note.info{background:rgba(25,118,210,.2);color:#9CC9F5;}
+    .ac-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+    .ac-stat{background:var(--ac-card);border:1px solid var(--ac-border);border-radius:12px;padding:12px 8px;text-align:center;box-shadow:var(--ac-shadow);}
+    .ac-stat b{display:block;font-size:19px;color:var(--ac-navy);line-height:1.2;} .ac-stat span{display:block;font-size:11px;color:var(--ac-muted);margin-top:3px;} .ac-stat em{display:block;font-style:normal;font-size:10px;color:var(--ac-muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .ac-stat.good b{color:var(--ac-ok);} .ac-stat.badt b{color:var(--ac-bad);}
+    .ac-bars{display:flex;flex-direction:column;gap:14px;margin-top:12px;} .ac-bar-row.click{cursor:pointer;} .ac-bar-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;gap:8px;} .ac-bar-top span{overflow-wrap:anywhere;} .ac-bar-top b{color:var(--ac-navy);}
+    .ac-bar{height:10px;border-radius:6px;background:#E9EEF5;overflow:hidden;} body.dark-mode .ac-bar{background:#223244;} .ac-bar i{display:block;height:100%;border-radius:6px;} .ac-bar-row small{display:block;color:var(--ac-muted);font-size:11px;margin-top:4px;}
+    .ac-line{width:100%;height:auto;display:block;margin-top:8px;} .ac-line text{font-size:9px;fill:var(--ac-muted);} .ac-line .g{stroke:var(--ac-border);stroke-width:1;} .ac-line .ln{fill:none;stroke:#1976D2;stroke-width:2.4;stroke-linejoin:round;} .ac-line circle{fill:#fff;stroke:#1976D2;stroke-width:2;}
+    .ac-chips-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+    .ac-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none;} .ac-tabs::-webkit-scrollbar{display:none;} .ac-tabs button{flex:none;border:1.5px solid var(--ac-border);background:var(--ac-card);color:var(--ac-muted);border-radius:20px;padding:8px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;} .ac-tabs button.active{background:var(--ac-navy);border-color:var(--ac-navy);color:#fff;} body.dark-mode .ac-tabs button.active{background:var(--ac-blue);border-color:var(--ac-blue);color:#0E1620;}
+    .ac-modal{position:fixed;inset:0;z-index:100010;background:rgba(16,42,67,.5);display:flex;align-items:center;justify-content:center;padding:18px;}
+    .ac-modal-box{background:var(--ac-card);border-radius:16px;padding:20px;width:100%;max-width:420px;max-height:88vh;overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,.25);} .ac-modal-body{margin:10px 0 4px;font-size:14px;line-height:1.55;} .ac-modal-btns{display:flex;gap:10px;margin-top:14px;} .ac-modal-btns .ac-btn{flex:1;}
+    /* question bank */
+    .qb-group{padding:6px 12px;} .qb-gh,.qb-chh{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;font:inherit;color:var(--ac-navy);text-align:left;cursor:pointer;padding:10px 2px;min-height:44px;} .qb-gt{flex:1;font-weight:700;font-size:15px;overflow-wrap:anywhere;} .qb-gt i{color:var(--ac-muted);font-style:normal;margin:0 4px;}
+    .qb-chh{font-weight:600;font-size:13px;color:var(--ac-text);border-top:1px solid var(--ac-border);} .qb-chh span:first-child{flex:1;} .qb-caret{display:flex;color:var(--ac-muted);transition:transform .15s;} .qb-caret.open{transform:rotate(180deg);}
+    .qb-q{border:1px solid var(--ac-border);border-radius:12px;padding:12px;margin:0 0 10px;background:var(--ac-bg);} .qb-q-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px;} .qb-acts{margin-left:auto;display:flex;gap:6px;}
+    .qb-q-text{font-size:14px;line-height:1.55;color:var(--ac-text);overflow-wrap:anywhere;} .qb-opts{margin-top:8px;display:grid;gap:5px;} .qb-o{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 8px;border-radius:8px;} .qb-o span{width:20px;height:20px;border-radius:50%;background:#E9EEF5;color:var(--ac-muted);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none;} body.dark-mode .qb-o span{background:#223244;}
+    .qb-o.ok{background:rgba(46,125,50,.1);color:var(--ac-ok);font-weight:600;} .qb-o.ok svg{margin-left:auto;} .qb-ans{margin-top:8px;font-size:13px;color:var(--ac-muted);} .qb-ans b{color:var(--ac-navy);}
+    .qb-opt{display:flex;align-items:center;gap:10px;margin-bottom:8px;} .qb-opt input[type=radio]{width:22px;height:22px;flex:none;accent-color:#1976D2;} .qb-tfrow{display:flex;gap:12px;} .qb-tfrow label{flex:1;display:flex;align-items:center;gap:10px;border:1.5px solid var(--ac-border);border-radius:10px;padding:12px;font-weight:600;color:var(--ac-text);} .qb-tfrow input{width:20px;height:20px;accent-color:#1976D2;}
+    /* exams: staff */
+    .ex-card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;} .ex-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin:10px 0 4px;font-size:12px;color:var(--ac-muted);} .ex-meta span{display:inline-flex;align-items:center;gap:5px;} .ex-win{margin:2px 0 6px;} .ex-card-stats{font-size:13px;margin:6px 0;} .ex-card-stats .warn{color:var(--ac-warn);} .ex-card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+    .ex-sq{display:flex;gap:10px;border:1px solid var(--ac-border);border-radius:12px;padding:10px;margin-top:10px;background:var(--ac-bg);} .ex-sq-n{width:28px;height:28px;border-radius:50%;background:var(--ac-navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;} body.dark-mode .ex-sq-n{background:var(--ac-blue);color:#0E1620;}
+    .ex-sq-b{flex:1;min-width:0;} .ex-sq-t{font-size:13px;line-height:1.5;overflow-wrap:anywhere;} .ex-sq-m{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap;} .ex-sq-m label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ac-muted);} .ex-sq-m input{width:64px !important;min-height:36px !important;padding:6px 8px !important;} .ex-sq-a{display:flex;flex-direction:column;gap:6px;}
+    .ex-pick{max-height:380px;overflow-y:auto;margin:12px 0;} .ex-pk{display:flex;gap:10px;border:1.5px solid var(--ac-border);border-radius:12px;padding:10px;margin-bottom:8px;cursor:pointer;background:var(--ac-card);} .ex-pk-box{width:24px;height:24px;border-radius:7px;border:1.5px solid var(--ac-border);display:flex;align-items:center;justify-content:center;color:transparent;flex:none;margin-top:2px;} .ex-pk.on{border-color:var(--ac-blue);background:rgba(25,118,210,.07);} .ex-pk.on .ex-pk-box{background:var(--ac-blue);border-color:var(--ac-blue);color:#fff;}
+    .ex-pk-t{font-size:13px;line-height:1.5;overflow-wrap:anywhere;} .ex-pk-m{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;}
+    .ex-row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--ac-border);} .ex-row.click{cursor:pointer;} .ex-row-n{font-weight:600;font-size:14px;color:var(--ac-navy);} .ex-row-s,.ex-row-p{font-size:12px;color:var(--ac-muted);} .ex-row-p{grid-column:2;grid-row:1;text-align:right;font-weight:700;color:var(--ac-navy);font-size:14px;} .ex-row > div:last-child{grid-column:1/-1;}
+    .ex-pq-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;} .ex-pq-t{font-size:14px;line-height:1.55;margin-bottom:10px;overflow-wrap:anywhere;} .ex-pq-a{border-radius:10px;padding:9px 11px;background:var(--ac-bg);border:1px solid var(--ac-border);margin-top:8px;font-size:13px;overflow-wrap:anywhere;} .ex-pq-a small{display:block;font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ac-muted);margin-bottom:3px;} .ex-pq-a.ok{background:rgba(46,125,50,.08);border-color:rgba(46,125,50,.25);}
+    .ex-grade label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--ac-muted);margin-top:12px;} .ex-grade input{margin-top:5px;max-width:160px;}
+    /* exams: student */
+    .ex-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;} .ex-intro-grid small,.ex-instr small{display:block;font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ac-muted);} .ex-intro-grid b{color:var(--ac-navy);} .ex-instr{background:var(--ac-bg);border:1px solid var(--ac-border);border-radius:10px;padding:10px 12px;margin-bottom:10px;white-space:pre-wrap;font-size:13px;}
+    .ex-full{position:fixed;inset:0;z-index:100000;background:var(--ac-bg);flex-direction:column;} .ex-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:var(--ac-card);border-bottom:1px solid var(--ac-border);padding-top:calc(12px + env(safe-area-inset-top,0px));} .ex-bar-l{min-width:0;} .ex-bar-title{font-weight:700;color:var(--ac-navy);font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} .ex-bar-sub{font-size:11px;color:var(--ac-muted);}
+    .ex-timer{flex:none;font-variant-numeric:tabular-nums;font-weight:700;font-size:16px;color:var(--ac-navy);background:var(--ac-bg);border:1.5px solid var(--ac-border);border-radius:10px;padding:7px 12px;} .ex-timer.low{color:#C62828;border-color:#C62828;background:#FDECEA;}
+    .ex-prog{height:4px;background:var(--ac-border);} .ex-prog i{display:block;height:100%;width:0;background:var(--ac-blue);transition:width .2s;} .ex-body{flex:1;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch;}
+    .ex-qcard{background:var(--ac-card);border:1px solid var(--ac-border);border-radius:16px;padding:18px 16px;box-shadow:var(--ac-shadow);max-width:720px;margin:0 auto;} .ex-qtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;} .ex-qn{font-weight:700;color:var(--ac-navy);} .ex-qn i{font-style:normal;color:var(--ac-muted);font-weight:500;}
+    .ex-qtext{font-size:17px;line-height:1.6;color:var(--ac-text);margin-bottom:18px;overflow-wrap:anywhere;white-space:pre-wrap;} .ex-wait{text-align:center;padding:40px 16px;}
+    .ex-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;border:1.5px solid var(--ac-border);border-radius:12px;background:var(--ac-card);color:var(--ac-text);font:inherit;font-size:15px;min-height:56px;margin-bottom:10px;cursor:pointer;} .ex-opt.on{border-color:var(--ac-blue);background:rgba(25,118,210,.09);}
+    .ex-opt-l{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--ac-border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;color:var(--ac-muted);} .ex-opt.on .ex-opt-l{background:var(--ac-blue);border-color:var(--ac-blue);color:#fff;} .ex-opt-t{flex:1;overflow-wrap:anywhere;}
+    .ex-tf{display:grid;grid-template-columns:1fr 1fr;gap:10px;} .ex-tf .ex-opt{justify-content:center;margin:0;font-weight:700;} .ex-short{font-size:16px !important;}
+    .ex-foot{display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:var(--ac-card);border-top:1px solid var(--ac-border);} .ex-foot .ac-btn{flex:1;} .ex-foot .ex-pal-btn{flex:none;min-width:84px;}
+    .ex-sheet{position:absolute;inset:0;background:rgba(16,42,67,.5);align-items:flex-end;z-index:3;} .ex-sheet-box{background:var(--ac-card);width:100%;border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));max-height:78%;overflow:auto;} .ex-sheet-h{display:flex;justify-content:space-between;align-items:center;}
+    .ex-pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:8px;margin:14px 0;} .ex-pn{height:48px;border-radius:12px;border:1.5px solid var(--ac-border);background:var(--ac-card);color:var(--ac-text);font:inherit;font-weight:700;cursor:pointer;} .ex-pn.done{background:var(--ac-blue);border-color:var(--ac-blue);color:#fff;} .ex-pn.cur{box-shadow:0 0 0 3px rgba(25,118,210,.35);}
+    .ex-legend{display:flex;gap:16px;font-size:12px;color:var(--ac-muted);margin-bottom:14px;} .ex-legend i{display:inline-block;width:12px;height:12px;border-radius:4px;border:1.5px solid var(--ac-border);margin-right:6px;vertical-align:-1px;} .ex-legend i.done{background:var(--ac-blue);border-color:var(--ac-blue);}
+    .ex-rs-hero{text-align:center;} .ex-rs-big{margin:10px 0 2px;} .ex-rs-big b{font-size:44px;color:var(--ac-navy);line-height:1;} .ex-rs-big span{font-size:18px;color:var(--ac-muted);margin-left:6px;} .ex-rs-pct{font-size:15px;font-weight:700;color:var(--ac-blue);}
+    .ex-rv{border-left:4px solid var(--ac-border);} .ex-rv.ok{border-left-color:#2E7D32;} .ex-rv.bad{border-left-color:#C62828;} .ex-rv.part{border-left-color:#E08A00;} .ex-rv.pend{border-left-color:#5E35B1;} .ex-rv-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;} .ex-rv-ico{display:flex;color:var(--ac-muted);} .ex-rv.ok .ex-rv-ico{color:#2E7D32;} .ex-rv.bad .ex-rv-ico{color:#C62828;}
+    /* analytics */
+    .pa-bc{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 2px 12px;font-size:12px;color:var(--ac-muted);} .pa-bc i{font-style:normal;margin:0 3px;}
+    .pa-li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--ac-border);cursor:pointer;font-size:14px;} .pa-li small{display:block;color:var(--ac-muted);font-size:11px;} .pa-li:last-child{border-bottom:0;}
+    .pa-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px;} .pa-h{font-size:12px;font-weight:700;margin-bottom:4px;} .pa-h.good{color:var(--ac-ok);} .pa-h.bad{color:var(--ac-bad);}
+    .pa-weak,.pa-good{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13px;} .pa-weak{color:var(--ac-warn);} .pa-weak small{display:block;color:var(--ac-muted);} .pa-good{color:var(--ac-ok);}
+    .pa-recent{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ac-border);font-size:13px;} .pa-recent:last-child{border-bottom:0;} .pa-recent small{display:block;color:var(--ac-muted);font-size:11px;} .pa-r-sc{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:12px;color:var(--ac-muted);}
+    .pa-exrow{padding:12px 2px;border-bottom:1px solid var(--ac-border);cursor:pointer;} .pa-exrow:last-child{border-bottom:0;} .pa-ex-h{display:flex;justify-content:space-between;gap:10px;align-items:center;} .pa-exrow small{display:block;color:var(--ac-muted);font-size:11px;margin-top:4px;}
+    @media(max-width:520px){.ac-grid2{grid-template-columns:1fr;} .ac-grid2 .span2{grid-column:auto;} .pa-two{grid-template-columns:1fr;} .ac-stats{grid-template-columns:repeat(2,1fr);} .ac-actions{flex-direction:column-reverse;} #at-exams .ac-grid2:has(#exfDur){grid-template-columns:1fr 1fr;}}
   </style>
 </head>
 <body>
@@ -1700,6 +1809,13 @@
             🔔 New notice from school <span class="unread-dot" style="background:#fff;"></span>
           </button>
         </div>
+        <div style="margin-top:8px;">
+          <button id="stuNcBell" onclick="openStuSection('sp-notifications','🔔 Notifications')" style="display:none;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:12px;padding:6px 12px;border-radius:20px;cursor:pointer;align-items:center;gap:6px;">
+      <div class="stu-home-tile" onclick="openStuSection('sp-exams','Exams')"><span class="tile-icon ac-ti"><svg class="aci" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></svg></span><span class="tile-label">Exams</span></div>
+      <div class="stu-home-tile" onclick="openStuSection('sp-analytics','My Performance')"><span class="tile-icon ac-ti"><svg class="aci" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><rect x="5" y="11" width="3" height="8" rx="1"/><rect x="10.5" y="5" width="3" height="14" rx="1"/><rect x="16" y="9" width="3" height="10" rx="1"/></svg></span><span class="tile-label">My Performance</span></div>
+            🔔 <span><span id="stuNcBellN">0</span> new notification(s)</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1745,6 +1861,7 @@
       <div class="stu-home-tile" onclick="openStuSection('sp-doubts','❓ Doubts')"><span class="tile-icon">❓</span><span class="tile-label">Doubts</span></div>
       <div class="stu-home-tile" onclick="openStuSection('sp-leave','🗓️ Leave')"><span class="tile-icon">🗓️</span><span class="tile-label">Leave</span></div>
       <div class="stu-home-tile" onclick="openStuSection('sp-attendance','✅ Attendance')"><span class="tile-icon">✅</span><span class="tile-label">Attendance</span></div>
+      <div class="stu-home-tile" onclick="openStuSection('sp-notifications','🔔 Notifications')"><span class="tile-icon">🔔</span><span class="tile-label">Notifications</span><span id="ncTileBadge" class="nc-count" style="display:none;"></span></div>
     </div>
 
     <!-- Old tab row kept in the DOM but hidden — nothing else references it -->
@@ -2096,6 +2213,30 @@
       </div>
     </div>
 
+    <!-- ── TAB: EXAMS (students) ── -->
+    <div class="stu-panel" id="sp-exams"><div class="ac ac-wrap">
+      <div class="ac-card"><div class="ac-title lg">Exams</div><div class="ac-muted">Online exams for your class</div></div>
+      <div id="stuExList"></div>
+    </div></div>
+    <!-- ── TAB: MY PERFORMANCE (students) ── -->
+    <div class="stu-panel" id="sp-analytics"><div class="ac ac-wrap">
+      <div class="ac-card"><div class="ac-title lg">My Performance</div><div class="ac-muted">How you are doing across tests and exams</div></div>
+      <div id="stuPaOut"></div>
+    </div></div>
+
+    <!-- ── TAB: NOTIFICATION CENTRE (students / parents) ── -->
+    <div class="stu-panel" id="sp-notifications">
+      <div class="p-card" style="padding-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div class="p-title" style="font-size:14px;margin:0;">🔔 Notifications</div>
+          <button type="button" class="btn btn-ghost btn-sm" style="width:auto;" onclick="ncMarkAllRead()">Mark all read</button>
+        </div>
+        <div id="ncStuSummary"></div>
+        <div class="pills" id="ncStuPills" style="margin-bottom:0;"></div>
+      </div>
+      <div id="ncStuList"></div>
+    </div>
+
     <!-- ── TAB: ATTENDANCE (read-only for students / parents) ── -->
     <div class="stu-panel" id="sp-attendance">
       <div class="p-card">
@@ -2148,6 +2289,11 @@
         <div class="admin-home-tile" id="tile-doubts" onclick="openAdminSection('at-doubts','Doubts')"><span class="tile-icon">❓</span><span class="tile-label">Doubts</span></div>
         <div class="admin-home-tile" id="tile-leave" onclick="openAdminSection('at-leave','Leave Requests')"><span class="tile-icon">🗓️</span><span class="tile-label">Leave Requests</span></div>
         <div class="admin-home-tile" id="tile-attendance" onclick="openAdminSection('at-attendance','Attendance')"><span class="tile-icon">✅</span><span class="tile-label">Attendance</span></div>
+        <div class="admin-home-tile" id="tile-notifs" onclick="openAdminSection('at-notifs','Notifications')"><span class="tile-icon">🔔</span><span class="tile-label">Notifications</span><span id="ncAdminBadge" class="nc-count" style="display:none;"></span></div>
+        <div class="admin-home-tile" id="tile-staffatt" onclick="openAdminSection('at-staffatt','Staff Attendance')" style="display:none;"><span class="tile-icon">🧑‍🏫</span><span class="tile-label">Staff Attendance</span></div>
+        <div class="admin-home-tile" id="tile-qbank" onclick="openAdminSection('at-qbank','Question Bank')"><span class="tile-icon ac-ti"><svg class="aci" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7.5h6M9 11h6"/></svg></span><span class="tile-label">Question Bank</span></div>
+        <div class="admin-home-tile" id="tile-exams" onclick="openAdminSection('at-exams','Examinations')"><span class="tile-icon ac-ti"><svg class="aci" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></svg></span><span class="tile-label">Examinations</span></div>
+        <div class="admin-home-tile" id="tile-analytics" onclick="openAdminSection('at-analytics','Analytics')"><span class="tile-icon ac-ti"><svg class="aci" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><rect x="5" y="11" width="3" height="8" rx="1"/><rect x="10.5" y="5" width="3" height="14" rx="1"/><rect x="16" y="9" width="3" height="10" rx="1"/></svg></span><span class="tile-label">Analytics</span></div>
         <div class="admin-home-tile" id="tile-events" onclick="openAdminSection('at-events','Events')" style="display:none;"><span class="tile-icon">📅</span><span class="tile-label">Events</span></div>
         <div class="admin-home-tile" id="tile-enquiries" onclick="openAdminSection('at-enquiries','Enquiries')" style="display:none;"><span class="tile-icon">📩</span><span class="tile-label">Enquiries</span><span id="enqBadgeTile" class="unread-dot" style="display:none;"></span></div>
         <div class="admin-home-tile" id="tile-admins" onclick="openAdminSection('at-admins','Admins')" style="display:none;"><span class="tile-icon">👥</span><span class="tile-label">Admins</span></div>
@@ -2167,6 +2313,11 @@
         <button class="tab" id="tab-doubts" onclick="switchAdminTab('at-doubts',this)">Doubts</button>
         <button class="tab" id="tab-leave" onclick="switchAdminTab('at-leave',this)">Leave Requests</button>
         <button class="tab" id="tab-attendance" onclick="switchAdminTab('at-attendance',this)">Attendance</button>
+        <button class="tab" id="tab-notifs" onclick="switchAdminTab('at-notifs',this)">Notifications</button>
+        <button class="tab" id="tab-staffatt" onclick="switchAdminTab('at-staffatt',this)" style="display:none;">Staff Attendance</button>
+        <button class="tab" id="tab-qbank" onclick="switchAdminTab('at-qbank',this)" style="display:none;">Question Bank</button>
+        <button class="tab" id="tab-exams" onclick="switchAdminTab('at-exams',this)" style="display:none;">Examinations</button>
+        <button class="tab" id="tab-analytics" onclick="switchAdminTab('at-analytics',this)" style="display:none;">Analytics</button>
         <button class="tab" id="tab-events" onclick="switchAdminTab('at-events',this)" style="display:none;">Events</button>
         <button class="tab" id="tab-enquiries" onclick="switchAdminTab('at-enquiries',this)" style="display:none;">Enquiries <span id="enqBadge" style="display:none;" class="unread-dot"></span></button>
         <button class="tab" id="tab-admins" onclick="switchAdminTab('at-admins',this)" style="display:none;">Admins</button>
@@ -2498,6 +2649,7 @@
           <div class="p-title" style="font-size:14px;">🗓️ Leave Requests</div>
           <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Only requests from your assigned class(es) appear here.</p>
           <div class="pills" id="lvPills"></div>
+          <div id="lvMsg"></div>
           <div id="lvList"></div>
         </div>
       </div>
@@ -2586,6 +2738,183 @@
           <div class="p-card" id="axRepOut"></div>
         </div>
       </div>
+
+      <!-- TAB: NOTIFICATION CENTRE (staff) -->
+      <div id="at-notifs" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
+            <div class="p-title" style="font-size:14px;margin:0;">🔔 Notification Centre</div>
+            <button type="button" class="btn btn-ghost btn-sm" style="width:auto;" onclick="ncMarkAllRead()">Mark all read</button>
+          </div>
+          <div class="pills" id="ncAdmViewPills" style="margin-bottom:0;">
+            <button type="button" class="pill active" data-v="inbox" onclick="ncAdmSetView('inbox')">Inbox</button>
+            <button type="button" class="pill" data-v="send" onclick="ncAdmSetView('send')">Send</button>
+            <button type="button" class="pill" data-v="sent" onclick="ncAdmSetView('sent')">Sent</button>
+          </div>
+        </div>
+        <div id="ncAdmInbox">
+          <div class="p-card" style="padding-bottom:10px;"><div id="ncAdmSummary"></div><div class="pills" id="ncAdmPills" style="margin-bottom:0;"></div></div>
+          <div id="ncAdmList"></div>
+        </div>
+        <div id="ncAdmSend" style="display:none;">
+          <div class="p-card">
+            <div class="ax-r2"><div><label class="p-lbl">Category</label><select id="ncCat"></select></div><div><label class="p-lbl">Send to</label><select id="ncAud" onchange="ncAudChanged()"></select></div></div>
+            <div class="ax-r2" id="ncAudClassWrap" style="display:none;"><div><label class="p-lbl">Class</label><select id="ncAudClass" onchange="ncFillStudents()"></select></div><div id="ncAudStuWrap" style="display:none;"><label class="p-lbl">Student</label><select id="ncAudStu"></select></div></div>
+            <label class="p-lbl">Title</label><input id="ncTitle" maxlength="120" placeholder="e.g. Unit Test 2 starts Monday">
+            <label class="p-lbl">Message</label><textarea id="ncBody" class="ax-tpl" maxlength="800" placeholder="Write the update…"></textarea>
+            <label class="perm-item" style="margin:10px 0;"><input type="checkbox" id="ncImp"> ⭐ Mark as important (highlighted for everyone)</label>
+            <div id="ncCompMsg"></div>
+            <button type="button" class="btn btn-navy" id="ncSendBtn" onclick="ncSend()">Send Notification</button>
+          </div>
+        </div>
+        <div id="ncAdmSent" style="display:none;"><div class="p-card"><div id="ncAdmSentList"></div></div></div>
+      </div>
+
+      <!-- TAB: STAFF ATTENDANCE (primary admin) -->
+      <div id="at-staffatt" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="p-title" style="font-size:14px;margin-bottom:10px;">🧑‍🏫 Teacher / Staff Attendance</div>
+          <div class="pills" id="sxViewPills" style="margin-bottom:0;">
+            <button type="button" class="pill active" data-v="daily" onclick="sxSetView('daily')">Daily</button>
+            <button type="button" class="pill" data-v="monthly" onclick="sxSetView('monthly')">Monthly</button>
+            <button type="button" class="pill" data-v="overview" onclick="sxSetView('overview')">Overview</button>
+          </div>
+        </div>
+        <div id="sxDaily">
+          <div class="p-card">
+            <label class="p-lbl">Date</label><input type="date" id="sxDate" onchange="sxOnDaySel()">
+            <div id="sxDateNote"></div>
+            <div id="sxStatus"></div>
+            <div class="ax-tools" id="sxTools" style="display:none;">
+              <button type="button" class="btn btn-green btn-sm" onclick="sxMarkAll('present')">✓ Mark All Present</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="sxMarkAll('')">Clear All</button>
+            </div>
+            <div id="sxRoster"></div>
+          </div>
+          <div class="ax-savebar">
+            <div id="sxMsg"></div><div class="ax-dirty" id="sxDirty"></div>
+            <button type="button" class="btn btn-navy" id="sxSaveBtn" onclick="sxSave()">Save Staff Attendance</button>
+          </div>
+        </div>
+        <div id="sxMonthly" style="display:none;">
+          <div class="p-card">
+            <label class="p-lbl">Staff member</label><select id="sxMonStaff" onchange="sxMonRender()"></select>
+            <div class="ax-calnav">
+              <button type="button" class="arrow" onclick="sxMonStep(-1)" aria-label="Previous month">‹</button>
+              <select id="sxMonMonth" onchange="sxMonJump()"></select><select id="sxMonYear" onchange="sxMonJump()"></select>
+              <button type="button" class="arrow" onclick="sxMonStep(1)" aria-label="Next month">›</button>
+            </div>
+            <div id="sxMonOut"></div>
+          </div>
+        </div>
+        <div id="sxOverview" style="display:none;">
+          <div class="p-card">
+            <div class="ax-r2"><div><label class="p-lbl">From</label><input type="date" id="sxRepFrom" onchange="sxRepRun()"></div><div><label class="p-lbl">To</label><input type="date" id="sxRepTo" onchange="sxRepRun()"></div></div>
+            <div class="ax-tools" style="margin-bottom:0;">
+              <button type="button" class="btn btn-ghost btn-sm" onclick="sxRepQuick('month')">This month</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="sxRepQuick('last')">Last month</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="sxRepQuick('30')">Last 30 days</button>
+            </div>
+          </div>
+          <div class="p-card" id="sxRepOut"></div>
+        </div>
+      </div>
+
+      <!-- TAB: QUESTION BANK -->
+      <div id="at-qbank" class="at-p" style="display:none;"><div class="ac ac-wrap">
+        <div id="qbListView">
+          <div class="ac-card">
+            <div class="ac-head"><div><div class="ac-title lg">Question Bank</div><div class="ac-muted" id="qbCount"></div></div><button type="button" class="ac-btn sm" onclick="qbOpenForm()"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add question</button></div>
+            <div id="qbMsg"></div>
+            <div class="ac-search"><span class="si"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></span><input id="qbQ" type="search" placeholder="Search questions, chapters or options" oninput="qbSearchTyped()"></div>
+            <div class="ac-grid2">
+              <div><label class="ac-lbl">Class</label><select id="qbCls" onchange="qbFilterChanged()"></select></div><div><label class="ac-lbl">Subject</label><select id="qbSubj" onchange="qbFilterChanged()"></select></div><div><label class="ac-lbl">Chapter / topic</label><select id="qbChap" onchange="qbFilterChanged()"></select></div>
+              <div><label class="ac-lbl">Difficulty</label><select id="qbDiff" onchange="qbFilterChanged()"><option value="">All levels</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+              <div><label class="ac-lbl">Question type</label><select id="qbType" onchange="qbFilterChanged()"><option value="">All types</option><option value="mcq">Multiple choice</option><option value="tf">True / False</option><option value="short">Short answer</option></select></div>
+              <div class="ac-end"><button type="button" class="ac-btn ghost sm" onclick="qbClearFilters()">Clear filters</button></div>
+            </div>
+          </div>
+          <div id="qbList"></div>
+        </div>
+        <div id="qbFormView" style="display:none;">
+          <div class="ac-card">
+            <div class="ac-head"><div class="ac-title lg" id="qbFormTitle">Add a question</div><button type="button" class="ac-btn ghost sm" onclick="qbCancel()"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg> Back</button></div>
+            <div class="ac-grid2">
+              <div><label class="ac-lbl">Class</label><select id="qbfClass" ></select></div><div><label class="ac-lbl">Subject</label><input id="qbfSubject" list="acSubjectsDL" maxlength="40" placeholder="e.g. Mathematics" autocomplete="off"></div>
+              <div class="span2"><label class="ac-lbl">Chapter / topic</label><input id="qbfChapter" list="acChaptersDL" maxlength="60" placeholder="e.g. Fractions" autocomplete="off"></div>
+              <div><label class="ac-lbl">Question type</label><select id="qbfType" onchange="qbTypeChanged()"><option value="mcq">Multiple choice</option><option value="tf">True / False</option><option value="short">Short answer</option></select></div>
+              <div><label class="ac-lbl">Difficulty</label><select id="qbfDiff"><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+              <div><label class="ac-lbl">Marks</label><input id="qbfMarks" type="number" min="1" max="100" step="1" inputmode="numeric" value="1"></div>
+            </div>
+            <label class="ac-lbl">Question</label><textarea id="qbfText" rows="4" maxlength="1000" placeholder="Write the question"></textarea>
+            <div id="qbfMcq"><label class="ac-lbl">Options (select the correct one)</label><div id="qbOptRows"></div><button type="button" class="ac-btn ghost sm" id="qbAddOpt" onclick="qbAddOption()"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add option</button></div>
+            <div id="qbfTf" style="display:none;"><label class="ac-lbl">Correct answer</label><div class="qb-tfrow"><label><input type="radio" name="qbfTf" id="qbfTfTrue"> True</label><label><input type="radio" name="qbfTf" id="qbfTfFalse"> False</label></div></div>
+            <div id="qbfShort" style="display:none;"><label class="ac-lbl">Model answer (for the teacher who checks it)</label><textarea id="qbfAnswer" rows="3" maxlength="800" placeholder="What a correct answer should say"></textarea><p class="ac-muted">Short answers are checked by a teacher after the exam.</p></div>
+            <label class="ac-lbl">Explanation (optional)</label><textarea id="qbfExplain" rows="2" maxlength="600" placeholder="Why this is the answer"></textarea>
+            <div id="qbfMsg"></div>
+            <div class="ac-actions"><button type="button" class="ac-btn ghost" onclick="qbCancel()">Cancel</button><button type="button" class="ac-btn" id="qbSaveBtn" onclick="qbSave()">Save question</button></div>
+          </div>
+        </div>
+      </div></div>
+
+      <!-- TAB: EXAMINATIONS -->
+      <div id="at-exams" class="at-p" style="display:none;"><div class="ac ac-wrap">
+        <div id="exListView">
+          <div class="ac-card">
+            <div class="ac-head"><div><div class="ac-title lg">Examinations</div><div class="ac-muted">Built from your Question Bank</div></div><button type="button" class="ac-btn sm" onclick="exNew()"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> New exam</button></div>
+            <div id="exMsg"></div>
+            <div class="ac-grid2"><div><label class="ac-lbl">Class</label><select id="exFltCls" onchange="exFilterChanged()"></select></div><div><label class="ac-lbl">Status</label><select id="exFltSt" onchange="exFilterChanged()"><option value="">All</option><option value="draft">Draft</option><option value="upcoming">Upcoming</option><option value="live">Live</option><option value="closed">Closed</option></select></div></div>
+          </div>
+          <div id="exList"></div>
+        </div>
+        <div id="exFormView" style="display:none;">
+          <div class="ac-card">
+            <div class="ac-head"><div class="ac-title lg" id="exfTitleH">New examination</div><button type="button" class="ac-btn ghost sm" onclick="exBack()"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg> Back</button></div>
+            <div id="exfLock" class="ac-note warn" style="display:none;">Students have already attempted this exam, so its questions, marks, duration, class and subject are locked. You can still change the name, instructions and dates.</div>
+            <div class="ac-grid2">
+              <div><label class="ac-lbl">Class</label><select id="exfClass" onchange="exfScopeChanged()"></select></div><div><label class="ac-lbl">Subject</label><input id="exfSubject" list="acSubjectsDL" maxlength="40" placeholder="e.g. Science" autocomplete="off" onchange="exfScopeChanged()" oninput="exPickerRender()"></div>
+            </div>
+            <label class="ac-lbl">Exam name</label><input id="exfTitle" maxlength="80" placeholder="e.g. Unit Test 2, Science">
+            <label class="ac-lbl">Instructions for students</label><textarea id="exfInstr" rows="3" maxlength="800"></textarea>
+            <div class="ac-grid2">
+              <div><label class="ac-lbl">Duration (minutes)</label><input id="exfDur" type="number" min="1" max="600" step="1" inputmode="numeric"></div><div></div>
+              <div><label class="ac-lbl">Opens</label><input id="exfStart" type="datetime-local"></div><div><label class="ac-lbl">Closes</label><input id="exfEnd" type="datetime-local"></div>
+            </div>
+          </div>
+          <div class="ac-card"><div class="ac-title">Questions in this exam</div><div class="ac-muted" id="exfTotal"></div><div id="exSel"></div></div>
+          <div class="ac-card" id="exPickerWrap">
+            <div class="ac-title">Add from the Question Bank</div>
+            <div class="ac-search"><span class="si"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></span><input id="expQ" type="search" placeholder="Search" oninput="exPickerRender()"></div>
+            <div class="ac-grid2"><div><label class="ac-lbl">Chapter</label><select id="expChap" onchange="exPickerRender()"></select></div><div><label class="ac-lbl">Difficulty</label><select id="expDiff" onchange="exPickerRender()"><option value="">All levels</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+              <div><label class="ac-lbl">Type</label><select id="expType" onchange="exPickerRender()"><option value="">All types</option><option value="mcq">Multiple choice</option><option value="tf">True / False</option><option value="short">Short answer</option></select></div></div>
+            <div id="exPick" class="ex-pick"></div>
+            <button type="button" class="ac-btn" id="exPickBtn" onclick="exPickAdd()" disabled>Add selected questions</button>
+          </div>
+          <div id="exfMsg"></div>
+          <div class="ac-actions"><button type="button" class="ac-btn ghost" id="exfSaveDraft" onclick="exSave(false)">Save as draft</button><button type="button" class="ac-btn" id="exfSavePub" onclick="exSave(true)">Save and publish</button></div>
+        </div>
+        <div id="exAttView" style="display:none;">
+          <div class="ac-card"><div class="ac-head"><div><div class="ac-title lg" id="exAttTitle"></div><div class="ac-muted" id="exAttSub"></div></div><button type="button" class="ac-btn ghost sm" onclick="exBack()"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg> Back</button></div></div>
+          <div id="exAttBody"></div>
+        </div>
+        <div id="exPaperView" style="display:none;">
+          <div class="ac-card"><div class="ac-head"><div class="ac-title lg">Student paper</div><button type="button" class="ac-btn ghost sm" onclick="exBack()"><svg class="aci" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg> Back</button></div></div>
+          <div id="exPaperBody"></div>
+        </div>
+      </div></div>
+
+      <!-- TAB: PERFORMANCE ANALYTICS -->
+      <div id="at-analytics" class="at-p" style="display:none;"><div class="ac ac-wrap">
+        <div class="ac-card">
+          <div class="ac-head"><div><div class="ac-title lg">Performance Analytics</div><div class="ac-muted">Exam results and recorded tests</div></div></div>
+          <div class="ac-grid2"><div><label class="ac-lbl">Class</label><select id="paCls" onchange="paFilterChanged()"></select></div><div><label class="ac-lbl">Subject</label><select id="paSubj" onchange="paFilterChanged()"></select></div><div><label class="ac-lbl">Examination</label><select id="paExam" onchange="paFilterChanged()"></select></div>
+            <div><label class="ac-lbl">Low / high mark (%)</label><input id="paThr" type="number" min="1" max="100" value="50" inputmode="numeric" onchange="paFilterChanged()"></div>
+            <div><label class="ac-lbl">From</label><input id="paFrom" type="date" onchange="paFilterChanged()"></div><div><label class="ac-lbl">To</label><input id="paTo" type="date" onchange="paFilterChanged()"></div></div>
+          <div class="ac-chips-row"><button type="button" class="ac-btn ghost sm" onclick="paQuick('30')">Last 30 days</button><button type="button" class="ac-btn ghost sm" onclick="paQuick('year')">This school year</button><button type="button" class="ac-btn ghost sm" onclick="paQuick('all')">All time</button><button type="button" class="ac-btn ghost sm" onclick="paResetFilters()">Reset</button></div>
+        </div>
+        <div class="ac-tabs" id="paTabs"><button type="button" data-t="summary" class="active">Summary</button><button type="button" data-t="subjects">Subjects</button><button type="button" data-t="exams">Exams</button><button type="button" data-t="students">Students</button><button type="button" data-t="topics">Topics</button></div>
+        <div id="paOut"></div>
+      </div></div>
 
       <!-- TAB: EVENTS MANAGER -->
       <div id="at-events" class="at-p" style="display:none;">
@@ -3297,6 +3626,7 @@ function openAdminPanel() {
   document.getElementById('tile-notice').style.display    =
     (isPrimary || (curAdminData && curAdminData.permissions && curAdminData.permissions.notice))
     ? 'block' : 'none';
+  ncAdminInit();                                   // notification listeners + staff-attendance tile (primary admin only)
 
   renderClassView();
   renderAdminList();
@@ -3334,6 +3664,8 @@ function openAdminPanel() {
 }
 
 function doLogout() {
+  ncStop();
+  acStop();
   curUser = null;
   curAdminData = null;
   clearSession();
@@ -3366,6 +3698,9 @@ function openStuSection(id, label) {
   if (id === 'sp-study')    markSeen('sm');
   if (id === 'sp-quiz')     markSeen('qz');
   if (id === 'sp-attendance') stuAttOpen();
+  if (id === 'sp-notifications') ncOpenStudent();
+  if (id === 'sp-exams') stuExOpen();
+  if (id === 'sp-analytics') stuPaOpen();
   // Panel is now its own full-screen page — reset its internal scroll, and
   // lock the page behind it so it can't be scrolled while the section is open.
   if (panel) panel.scrollTop = 0;
@@ -3391,6 +3726,7 @@ function switchStuTab(id) { openStuSection(id, ''); }
    STUDENT PORTAL RENDER
 ═══════════════════════════════════════════ */
 function renderStudentPortal(stu) {
+  ncStudentInit();                                 // notification listeners for this student / child
   const results = rArr(stu.results);
   // Defensive reset: don't leave a stale quiz-taking screen visible if switching students
   currentQuizTaking = null;
@@ -4812,7 +5148,11 @@ function renderAdminLeaveRequests() {
         <div style="margin-top:8px;display:flex;gap:8px;">
           <button class="btn btn-navy btn-sm" style="background:#2e7d32;border-color:#2e7d32;" onclick="reviewLeave('${key}','approved')">Approve</button>
           <button class="btn btn-red btn-sm" onclick="reviewLeave('${key}','rejected')">Reject</button>
-        </div>` : ''}
+        </div>` : (l.status === 'approved' ? `
+        <div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <span style="font-size:11px;color:var(--muted);">Shown as <b>Leave</b> in attendance.</span>
+          <button class="btn btn-ghost btn-sm" style="width:auto;" onclick="undoLeaveApproval('${key}')">Undo approval</button>
+        </div>` : '')}
     </div>`;
   }).join('');
 }
@@ -4821,7 +5161,8 @@ function reviewLeave(key, status) {
   const l = allLeaveRequests[key];
   if (l && !getAllowedClasses().includes(l.class)) { alert('You do not have permission to review this class.'); return; }
   const reviewedBy = curAdminData ? curAdminData.name : 'Admin';
-  db.ref('leaveRequests/' + key).update({ status, reviewedBy, reviewedAt: Date.now() })
+  db.ref('leaveRequests/' + key).update({ status, reviewedBy, reviewedAt: Date.now(), syncedThrough: null })
+    .then(() => leaveAfterReview(key, status, reviewedBy))      // approved → attendance "Leave"; student is notified
     .catch(err => alert('Error: ' + err.message));
 }
 
@@ -4934,7 +5275,7 @@ function saveNotice() {
   Promise.all([
     db.ref('config/notice').set(val),
     db.ref('config/noticeUpdatedAt').set(Date.now())
-  ]).then(() => alert('Notice published to all visitors!'))
+  ]).then(() => { ncPut({ title:'School notice', body:val, category:'notice', important:true, audience:'all', source:'notice' }); alert('Notice published to all visitors!'); })
     .catch(e => alert('Error: ' + e.message));
 }
 
@@ -5132,6 +5473,11 @@ function switchAdminTab(id, btn) {
     renderAdminLeaveRequests();
   }
   if (id === 'at-attendance') initAttendancePanel();
+  if (id === 'at-notifs') ncAdminOpen();
+  if (id === 'at-staffatt') sxInit();
+  if (id === 'at-qbank') qbOpen();
+  if (id === 'at-exams') exOpen();
+  if (id === 'at-analytics') paOpen();
 }
 
 /** Opens one admin section full-screen: hides the home grid, runs the
@@ -5148,6 +5494,7 @@ function openAdminSection(id, label) {
 /** Returns from any open admin section back to the home grid of tiles. */
 function backToAdminHome() {
   if (typeof axLeaveOk === 'function' && !axLeaveOk()) return;
+  if (typeof sxLeaveOk === 'function' && !sxLeaveOk()) return;
   document.querySelectorAll('.at-p').forEach(p => { p.classList.remove('active'); p.style.display = ''; });
   document.getElementById('adminBackBar').style.display = 'none';
   document.getElementById('adminHomeGrid').style.display = 'grid';
@@ -6200,6 +6547,10 @@ function axWaLink(phone, msg) { return 'https://wa.me/' + phone + '?text=' + enc
 function axFill(tpl, vars) { return String(tpl).replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)); }
 function axLsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : v; } catch (e) { return d; } }
 function axLsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+/** A leave request still waiting for review that covers this student on this date. */
+function axPendingLeaveFor(sid, date) {
+  return Object.values(allLeaveRequests || {}).find(l => l && l.status === 'pending' && l.studentUsername === sid && l.fromDate <= date && date <= l.toDate) || null;
+}
 /** An approved leave request (from the existing Leave feature) covering this student on this date. */
 function axLeaveFor(sid, date) {
   return Object.values(allLeaveRequests || {}).find(l => l && l.status === 'approved' && l.studentUsername === sid && l.fromDate <= date && date <= l.toDate) || null;
@@ -6269,6 +6620,7 @@ function initAttendancePanel() {
   axEl('axRepFrom').value = today.slice(0, 8) + '01'; axEl('axRepTo').value = today;
   axSetViewUI('mark');
   axLoadMark();
+  axSyncAllLeaves();                                   // apply approved leave days that have arrived since last time
 }
 
 function axSetViewUI(v) {
@@ -6372,7 +6724,8 @@ function axRenderMark(state, text) {
   tools.style.display = 'flex';
   box.innerHTML = axRoster.map(s => {
     const cur = axDraft[s.id] || null, was = axSaved[s.id] ? axSaved[s.id].status : null;
-    const lf = axLeaveFor(s.id, axDate) ? ' · 📅 ' + (cur === 'leave' ? 'approved leave' : 'has approved leave for this date') : '';
+    const lf = axLeaveFor(s.id, axDate) ? ' · 📅 ' + (cur === 'leave' ? 'approved leave' : 'has approved leave for this date')
+             : (axPendingLeaveFor(s.id, axDate) ? ' · ⏳ leave request pending' : '');
     return `<div class="ax-row ${cur !== was ? 'changed' : ''}"><div class="ax-name">${axEsc(s.name)}<small>${axEsc(s.id)}${lf}</small></div><div class="ax-seg">` +
       AX_STATUSES.map(st => `<button type="button" class="ax-b ${st} ${cur === st ? 'on' : ''}" data-id="${axEsc(s.id)}" data-st="${st}" aria-pressed="${cur === st}">${AX_LABEL[st]}</button>`).join('') +
       '</div></div>';
@@ -6450,6 +6803,7 @@ async function attSave() {
       if (old) { rec.updatedBy = actor; rec.updatedAt = now; }
       updates[path] = rec; nextSaved[id] = rec;
     });
+    const before = axSaved;
     await db.ref().update(updates);                       // multi-path: touches only these attendance records
     axSaved = nextSaved; axRangeCache = {};
     axLastOkAt = Date.now();
@@ -6459,6 +6813,7 @@ async function attSave() {
     axShowMsg('ok', `Saved: ${cls}, ${axFmtDate(date)} — Present ${c.present}, Absent ${c.absent}, Late ${c.late}` + (c.leave ? `, Leave ${c.leave}` : '') +
       (unrec ? `. ${unrec} not recorded (not counted as absent)` : '') + '.');
     logActivity('edit', `Attendance saved: ${cls} · ${axFmtDate(date)}`);
+    axNotifyAbsences(cls, date, dirty, before, nextSaved);          // best-effort alerts to parents of newly absent students
   } catch (e) {
     axShowMsg('err', 'Could not save attendance. ' + axErrText(e));
   } finally {
@@ -6704,6 +7059,1483 @@ function stuAttYear() {
 }
 window.stuAttStep = stuAttStep; window.stuAttYear = stuAttYear; window.stuAttOpen = stuAttOpen;
 
+/* ═══════════════════════════════════════════
+   LEAVE → ATTENDANCE  (extends the existing leave-request system)
+   • Approving a request writes status "leave" into attendance/{class}/{date}/{student}
+     for every school day (Sundays skipped) from the first date up to today.
+   • Days that have not arrived yet are filled in automatically the next time staff open
+     Attendance (leaveRequests/{id}/syncedThrough remembers how far we got, so a teacher's
+     later manual correction is never overwritten).
+   • Conflict rules per date:  no record → Leave   |  Absent → Leave (excused)
+                               Present / Late / already Leave → left untouched, reported.
+   • "Undo approval" reverses exactly the records this request created.
+═══════════════════════════════════════════ */
+function axNextDay(d) { const p = axParse(d), t = new Date(p.y, p.m - 1, p.d + 1); return t.getFullYear() + '-' + axPad(t.getMonth() + 1) + '-' + axPad(t.getDate()); }
+function axLeaveDays(l, today) {
+  const upTo = l.toDate < today ? l.toDate : today;
+  let from = l.syncedThrough ? axNextDay(l.syncedThrough) : l.fromDate;
+  if (from < l.fromDate) from = l.fromDate;
+  const days = [];
+  for (let d = from, n = 0; d <= upTo && n < 400; d = axNextDay(d), n++) if (!axIsSunday(d)) days.push(d);
+  return { days, from, upTo };
+}
+function axAbsKey(cls, date, id) { return 'att_' + (cls + '_' + date + '_' + id).replace(/[^A-Za-z0-9_-]/g, '_'); }
+
+async function axApplyLeave(key, actor, lObj) {
+  const l = lObj || allLeaveRequests[key];
+  if (!l || l.status !== 'approved') return null;
+  const { days, from, upTo } = axLeaveDays(l, axToday());
+  if (from > upTo) return { written:0, converted:0, kept:0, keptDates:[], pending:true };       // leave is entirely in the future
+  const have = (await db.ref('attendance/' + l.class).orderByKey().startAt(from).endAt(upTo).once('value')).val() || {};
+  const now = Date.now(), updates = {}, res = { written:0, converted:0, kept:0, keptDates:[], pending:false };
+  days.forEach(d => {
+    const ex = have[d] && have[d][l.studentUsername], path = 'attendance/' + l.class + '/' + d + '/' + l.studentUsername;
+    const base = { studentId:l.studentUsername, class:l.class, date:d, status:'leave', source:'leave', leaveId:key };
+    if (!ex) { updates[path] = Object.assign(base, { markedBy:actor, markedAt:now }); res.written++; }
+    else if (ex.status === 'absent') {
+      updates[path] = Object.assign(base, { markedBy:ex.markedBy || actor, markedAt:ex.markedAt || now, updatedBy:actor, updatedAt:now, previousStatus:'absent' });
+      res.converted++; ncDelete(axAbsKey(l.class, d, l.studentUsername));                         // the "marked absent" alert is no longer true
+    }
+    else if (ex.status !== 'leave') { res.kept++; res.keptDates.push(axFmtDate(d) + ' (' + (AX_LABEL[ex.status] || ex.status) + ')'); }
+  });
+  updates['leaveRequests/' + key + '/syncedThrough'] = upTo;
+  await db.ref().update(updates);
+  axRangeCache = {};
+  return res;
+}
+
+let axSyncing = false;
+/** Applies any approved-leave days that have arrived since the last sync (runs when staff open Attendance). */
+async function axSyncAllLeaves() {
+  if (axSyncing) return 0; axSyncing = true; let total = 0;
+  try {
+    const allowed = getAllowedClasses(), today = axToday();
+    for (const [key, l] of Object.entries(allLeaveRequests || {})) {
+      if (!l || l.status !== 'approved' || !allowed.includes(l.class)) continue;
+      const r = axLeaveDays(l, today); if (r.from > r.upTo) continue;
+      const res = await axApplyLeave(key, axActor()); if (res) total += res.written + res.converted;
+    }
+    if (total && axView === 'mark' && axCls && axDate && !axDirtyIds().length) axLoadMark();
+  } catch (e) { console.warn('leave → attendance sync:', e.message); }
+  finally { axSyncing = false; }
+  return total;
+}
+
+function lvShowMsg(kind, text) {
+  const el = axEl('lvMsg'); if (!el) return;
+  el.innerHTML = text ? `<div class="ax-note ${kind}">${axEsc(text)}</div>` : '';
+  el.scrollIntoView && el.scrollIntoView({ block:'nearest' });
+}
+function lvRange(l) { return l.fromDate === l.toDate ? axFmtDate(l.fromDate) : axFmtDate(l.fromDate) + ' – ' + axFmtDate(l.toDate); }
+
+/** Called by reviewLeave() after Firebase accepted the Approve / Reject. */
+async function leaveAfterReview(key, status, by) {
+  const l = allLeaveRequests[key]; if (!l) return;
+  if (status === 'rejected') {
+    lvShowMsg('warn', '❌ Leave rejected for ' + l.studentName + '. Attendance is unchanged.');
+    ncPut({ title:'Leave request rejected', body:'Your leave request for ' + lvRange(l) + ' was not approved by ' + by + '. Please contact the class teacher if you have questions.',
+            category:'attendance', important:true, audience:'student', audienceValue:l.studentUsername, source:'leave', refId:key }, 'lv_' + key);
+    return;
+  }
+  let text = '✅ Leave approved for ' + l.studentName + '.', kind = 'ok';
+  try {
+    const r = await axApplyLeave(key, by, Object.assign({}, l, { status:'approved', syncedThrough:null }));
+    if (r && r.pending) text += ' Attendance will show Leave automatically as each of those days arrives.';
+    else if (r) {
+      const n = r.written + r.converted;
+      text += n ? ` Attendance: ${n} school day${n === 1 ? '' : 's'} set to Leave` + (r.converted ? ` (${r.converted} marked Absent changed to Leave)` : '') + '.' : ' No school days needed updating (Sundays are skipped).';
+      if (r.kept) { kind = 'warn'; text += ` Kept as already marked: ${r.keptDates.join(', ')}.`; }
+    }
+  } catch (e) { kind = 'err'; text += ' But attendance could not be updated: ' + axErrText(e); }
+  lvShowMsg(kind, text);
+  ncPut({ title:'Leave request approved', body:'Your leave request for ' + lvRange(l) + ' was approved by ' + by + '. Attendance will show it as Leave.',
+          category:'attendance', important:false, audience:'student', audienceValue:l.studentUsername, source:'leave', refId:key }, 'lv_' + key);
+}
+
+/** Approved → back to Pending, and exactly the attendance records this request created are reverted. */
+async function undoLeaveApproval(key) {
+  const l = allLeaveRequests[key];
+  if (!l || l.status !== 'approved') return;
+  if (!getAllowedClasses().includes(l.class)) { alert('You do not have permission to review this class.'); return; }
+  if (!confirm('Undo approval for ' + l.studentName + '?\nLeave days added to attendance by this request will be reverted.')) return;
+  try {
+    const updates = {}, now = Date.now(), actor = axActor(); let removed = 0, restored = 0;
+    if (l.syncedThrough) {
+      const have = (await db.ref('attendance/' + l.class).orderByKey().startAt(l.fromDate).endAt(l.syncedThrough).once('value')).val() || {};
+      Object.keys(have).forEach(d => {
+        const r = have[d] && have[d][l.studentUsername]; if (!r || r.status !== 'leave' || r.leaveId !== key) return;
+        const path = 'attendance/' + l.class + '/' + d + '/' + l.studentUsername;
+        if (r.previousStatus && r.previousStatus !== 'leave') {
+          updates[path] = { studentId:l.studentUsername, class:l.class, date:d, status:r.previousStatus, markedBy:r.markedBy || actor, markedAt:r.markedAt || now, updatedBy:actor, updatedAt:now };
+          restored++;
+        } else { updates[path] = null; removed++; }
+      });
+    }
+    updates['leaveRequests/' + key + '/status'] = 'pending';
+    updates['leaveRequests/' + key + '/reviewedBy'] = null; updates['leaveRequests/' + key + '/reviewedAt'] = null; updates['leaveRequests/' + key + '/syncedThrough'] = null;
+    await db.ref().update(updates); axRangeCache = {};
+    ncDelete('lv_' + key);
+    lvShowMsg('info', '↩️ Approval undone for ' + l.studentName + '. ' + removed + ' Leave day' + (removed === 1 ? '' : 's') + ' removed' + (restored ? ', ' + restored + ' restored to Absent' : '') + '. The request is pending again.');
+  } catch (e) { lvShowMsg('err', 'Could not undo approval. ' + axErrText(e)); }
+}
+window.undoLeaveApproval = undoLeaveApproval;
+
+/* ═══════════════════════════════════════════
+   NOTIFICATION CENTRE
+   notifications/{id}        = { title, body, category, important, audience, audienceValue,
+                                 createdAt, createdBy, createdById, source, refId? }
+   notificationReads/{reader}/{id} = timestamp        reader = stu_<username> | adm_<username>
+   audience: 'all' | 'staff' | 'class' (audienceValue = class) | 'student' (audienceValue = username)
+   A live listener on the latest 150 items means new notifications appear instantly, and the same
+   structure is what a future push-notification sender would write to.
+   Writes here are always best-effort: a notification problem can never break attendance / leave / notices.
+═══════════════════════════════════════════ */
+const NC_CATS = {
+  notice:     { label:'Notices',        icon:'📢' },
+  attendance: { label:'Attendance',     icon:'✅' },
+  exam:       { label:'Exams / Tests',  icon:'📝' },
+  fee:        { label:'Fees',           icon:'💰' },
+  event:      { label:'Events',         icon:'📅' },
+  academic:   { label:'Academic',       icon:'🎓' }
+};
+let ncNotifs = {}, ncReads = {}, ncRefs = [], ncRole = null, ncReader = null, ncLoaded = false, ncErr = null;
+let ncFilter = 'all', ncShown = 20, ncOpen = new Set(), ncKnown = null, ncAdmView = 'inbox', ncBound = false;
+
+function ncPut(n, id, strict) {
+  const rec = { title:String(n.title || '').slice(0, 120), body:String(n.body || '').slice(0, 800), category:NC_CATS[n.category] ? n.category : 'notice',
+                important:!!n.important, audience:n.audience || 'all', audienceValue:n.audienceValue || '', createdAt:Date.now(),
+                createdBy:n.createdBy || axActor(), createdById:curUser || '', source:n.source || 'manual' };
+  if (n.refId) rec.refId = n.refId;
+  const key = id || db.ref('notifications').push().key;
+  const p = db.ref('notifications/' + key).set(rec);
+  return strict ? p : p.catch(e => { console.warn('notification not saved:', e.message); });
+}
+function ncDelete(id) { try { return db.ref('notifications/' + id).remove().catch(() => {}); } catch (e) { return Promise.resolve(); } }
+
+/* ── who may see what ── */
+function ncVisibleTo(n) {
+  if (ncRole === 'student') {
+    const stu = allStudents[curUser]; if (!stu) return false;
+    return n.audience === 'all' || (n.audience === 'class' && n.audienceValue === stu.class) || (n.audience === 'student' && n.audienceValue === curUser);
+  }
+  if (n.audience === 'all' || n.audience === 'staff') return true;
+  if (n.audience === 'class') return curAdminData ? getAllowedClasses().includes(n.audienceValue) : true;
+  return false;                                  // student-specific alerts (e.g. "marked absent") stay out of the staff inbox
+}
+function ncVisible() {
+  return Object.keys(ncNotifs).map(id => Object.assign({ id }, ncNotifs[id])).filter(n => n.title && ncVisibleTo(n)).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+}
+const ncIsRead = id => !!ncReads[id];
+function ncUnread() { return ncVisible().filter(n => !ncIsRead(n.id)); }
+
+/* ── lifecycle ── */
+function ncStart(role) {
+  ncStop(); ncRole = role; ncReader = (role === 'student' ? 'stu_' : 'adm_') + curUser; ncBind();
+  const q = db.ref('notifications').orderByChild('createdAt').limitToLast(150);
+  q.on('value', snap => { ncNotifs = snap.val() || {}; ncLoaded = true; ncErr = null; ncAnnounce(); ncRender(); },
+       err => { ncErr = err; ncLoaded = true; ncRender(); });
+  const r = db.ref('notificationReads/' + ncReader);
+  r.on('value', snap => { ncReads = snap.val() || {}; ncRender(); }, () => {});
+  ncRefs = [q, r];
+}
+function ncStop() {
+  ncRefs.forEach(r => { try { r.off(); } catch (e) {} });
+  ncRefs = []; ncNotifs = {}; ncReads = {}; ncLoaded = false; ncErr = null; ncRole = null; ncReader = null; ncKnown = null; ncOpen = new Set();
+  ['stuNcBell'].forEach(i => { const e = axEl(i); if (e) e.style.display = 'none'; });
+}
+function ncStudentInit() { if (ncRole !== 'student' || ncReader !== 'stu_' + curUser) { ncFilter = 'all'; ncShown = 20; ncStart('student'); } }
+function ncAdminInit() {
+  const primary = !curAdminData;
+  const t = axEl('tile-staffatt'); if (t) t.style.display = primary ? 'block' : 'none';
+  if (ncRole !== 'staff' || ncReader !== 'adm_' + curUser) { ncFilter = 'all'; ncShown = 20; ncStart('staff'); }
+}
+/** Browser notification (existing maybeNotify) only for items that arrive after this session started. */
+function ncAnnounce() {
+  const ids = new Set(ncVisible().map(n => n.id));
+  if (ncKnown) ncVisible().forEach(n => { if (!ncKnown.has(n.id) && !ncIsRead(n.id) && (n.createdAt || 0) > sessionLoadTime) maybeNotify((n.important ? '⭐ ' : '🔔 ') + n.title, n.body); });
+  ncKnown = ids;
+}
+
+/* ── read state ── */
+function ncMarkRead(id) {
+  if (!ncReader || ncIsRead(id)) return;
+  ncReads[id] = Date.now(); ncRender();
+  db.ref('notificationReads/' + ncReader + '/' + id).set(ncReads[id]).catch(e => console.warn('read state not saved:', e.message));
+}
+function ncMarkAllRead() {
+  const un = ncUnread(); if (!un.length || !ncReader) return;
+  const now = Date.now(), up = {}; un.forEach(n => { up[n.id] = now; ncReads[n.id] = now; }); ncRender();
+  db.ref('notificationReads/' + ncReader).update(up).catch(e => console.warn('read state not saved:', e.message));
+}
+
+/* ── rendering ── */
+const ncDayKey = ts => { const d = new Date(ts); return d.getFullYear() + '-' + axPad(d.getMonth() + 1) + '-' + axPad(d.getDate()); };
+function ncDayLabel(ts) {
+  const t = new Date(), y = new Date(t.getFullYear(), t.getMonth(), t.getDate() - 1), k = ncDayKey(ts);
+  return k === ncDayKey(t) ? 'Today' : k === ncDayKey(y) ? 'Yesterday' : axFmtDate(k);
+}
+const ncClock = ts => new Date(ts).toLocaleTimeString('en-IN', { hour:'numeric', minute:'2-digit' });
+
+function ncCardHtml(n) {
+  const c = NC_CATS[n.category] || NC_CATS.notice, unread = !ncIsRead(n.id);
+  return `<div class="nc-card ${unread ? 'unread' : ''} ${n.important ? 'important' : ''} ${ncOpen.has(n.id) ? 'open' : ''}" data-nid="${axEsc(n.id)}">` +
+    `<div class="nc-ico c-${axEsc(n.category)}">${c.icon}</div><div class="nc-main">` +
+    `<div class="nc-top"><span class="nc-cat">${axEsc(c.label)}</span>${n.important ? '<span class="nc-imp">⭐ Important</span>' : ''}<span class="nc-time">${axEsc(ncClock(n.createdAt || 0))}</span></div>` +
+    `<div class="nc-title">${axEsc(n.title)}</div><div class="nc-body">${axEsc(n.body)}</div>` +
+    (n.createdBy && n.source === 'manual' ? `<div class="nc-by">— ${axEsc(n.createdBy)}</div>` : '') +
+    '</div>' + (unread ? '<span class="nc-dot" aria-label="Unread"></span>' : '') + '</div>';
+}
+
+function ncRenderInbox(p) {
+  const listEl = axEl('nc' + p + 'List'); if (!listEl) return;
+  const sum = axEl('nc' + p + 'Summary'), pills = axEl('nc' + p + 'Pills');
+  if (ncErr) { listEl.innerHTML = `<div class="ax-note err">Could not load notifications. ${axEsc(axErrText(ncErr).replace("'attendance'", "'notifications'"))} (Rules needed: <b>notifications</b> and <b>notificationReads</b>.)</div>`; sum.innerHTML = ''; pills.innerHTML = ''; return; }
+  if (!ncLoaded) { listEl.innerHTML = '<p class="empty-msg">Loading…</p>'; return; }
+  const all = ncVisible(), un = all.filter(n => !ncIsRead(n.id));
+  sum.innerHTML = `<div class="nc-sum">${un.length ? `<b>${un.length}</b> unread` : '✓ You are all caught up'} · ${all.length} total</div>`;
+  const unBy = c => un.filter(n => n.category === c).length;
+  pills.innerHTML = [['all', 'All', 0], ['unread', 'Unread', un.length]].concat(Object.keys(NC_CATS).map(k => [k, NC_CATS[k].icon + ' ' + NC_CATS[k].label, unBy(k)]))
+    .map(([k, lbl, n]) => `<button type="button" class="pill ${ncFilter === k ? 'active' : ''}" data-f="${k}">${lbl}${n ? ` <span class="nc-pn">${n}</span>` : ''}</button>`).join('');
+  let list = all; if (ncFilter === 'unread') list = un; else if (ncFilter !== 'all') list = all.filter(n => n.category === ncFilter);
+  let html = '';
+  const pin = siteNotice && !all.some(n => n.category === 'notice') && (ncFilter === 'all' || ncFilter === 'notice');
+  if (pin) html += `<div class="nc-card important pinned"><div class="nc-ico c-notice">📢</div><div class="nc-main"><div class="nc-top"><span class="nc-cat">Notices</span><span class="nc-imp">📌 Current school notice</span></div><div class="nc-body" style="-webkit-line-clamp:unset;">${axEsc(siteNotice)}</div></div></div>`;
+  if (!list.length && !pin) { listEl.innerHTML = '<p class="empty-msg">' + (ncFilter === 'all' ? 'No notifications yet. School updates will appear here.' : 'Nothing here.') + '</p>'; return; }
+  const imp = list.filter(n => n.important && !ncIsRead(n.id)), rest = list.filter(n => !imp.includes(n)), shown = rest.slice(0, ncShown);
+  if (imp.length) html += '<div class="nc-group imp">⭐ Important — unread</div>' + imp.map(ncCardHtml).join('');
+  let last = '';
+  shown.forEach(n => { const g = ncDayLabel(n.createdAt || 0); if (g !== last) { html += `<div class="nc-group">${axEsc(g)}</div>`; last = g; } html += ncCardHtml(n); });
+  if (rest.length > shown.length) html += `<button type="button" class="btn btn-ghost" data-more="1">Show older notifications (${rest.length - shown.length} more)</button>`;
+  listEl.innerHTML = html;
+}
+
+function ncRender() {
+  const n = ncRole ? ncUnread().length : 0;
+  [['ncTileBadge'], ['ncAdminBadge']].forEach(([i]) => { const e = axEl(i); if (e) { e.style.display = n ? 'inline-block' : 'none'; e.textContent = n > 99 ? '99+' : n; } });
+  const bell = axEl('stuNcBell'); if (bell) { bell.style.display = (ncRole === 'student' && n) ? 'inline-flex' : 'none'; axEl('stuNcBellN').textContent = n; }
+  if (ncRole === 'student') ncRenderInbox('Stu'); else if (ncRole === 'staff') { ncRenderInbox('Adm'); if (ncAdmView === 'sent') ncRenderSent(); }
+}
+
+function ncBind() {
+  if (ncBound) return; ncBound = true;
+  ['Stu', 'Adm'].forEach(p => {
+    if (p === 'Adm') axEl('ncAdmSentList').addEventListener('click', e => { const b = e.target.closest('[data-del]'); if (b) ncDeleteSent(b.dataset.del); });
+    axEl('nc' + p + 'Pills').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) { ncFilter = b.dataset.f; ncShown = 20; ncRender(); } });
+    axEl('nc' + p + 'List').addEventListener('click', e => {
+      if (e.target.closest('[data-more]')) { ncShown += 20; ncRender(); return; }
+      const c = e.target.closest('.nc-card[data-nid]'); if (!c) return;
+      const id = c.dataset.nid; if (ncOpen.has(id)) ncOpen.delete(id); else ncOpen.add(id);
+      ncMarkRead(id); ncRender();
+    });
+  });
+}
+function ncOpenStudent() { ncShown = 20; ncRender(); }
+
+/* ═════════ Staff side: Inbox | Send | Sent ═════════ */
+const ncCanBroadcast = () => !curAdminData || hasPerm('notice');
+function ncAdminOpen() { ncAdmSetView('inbox'); ncFillCompose(); ncRender(); }
+function ncAdmSetView(v) {
+  ncAdmView = v;
+  document.querySelectorAll('#ncAdmViewPills .pill').forEach(b => b.classList.toggle('active', b.dataset.v === v));
+  ['inbox', 'send', 'sent'].forEach(k => { axEl('ncAdm' + k.charAt(0).toUpperCase() + k.slice(1)).style.display = k === v ? '' : 'none'; });
+  if (v === 'sent') ncRenderSent();
+}
+function ncFillCompose() {
+  const allowed = getAllowedClasses(), opts = [];
+  if (ncCanBroadcast()) { opts.push(['all', 'Whole school (students & parents)']); opts.push(['staff', 'Staff only']); }
+  if (allowed.length) { opts.push(['class', 'A class']); opts.push(['student', 'One student']); }
+  axEl('ncAud').innerHTML = opts.map(([v, l]) => `<option value="${v}">${l}</option>`).join('');
+  axEl('ncCat').innerHTML = Object.keys(NC_CATS).map(k => `<option value="${k}">${NC_CATS[k].icon} ${NC_CATS[k].label}</option>`).join('');
+  axEl('ncAudClass').innerHTML = allowed.map(c => `<option value="${axEsc(c)}">${axEsc(c)}</option>`).join('');
+  ncAudChanged();
+}
+function ncAudChanged() {
+  const a = axEl('ncAud').value;
+  axEl('ncAudClassWrap').style.display = (a === 'class' || a === 'student') ? '' : 'none';
+  axEl('ncAudStuWrap').style.display = a === 'student' ? '' : 'none';
+  if (a === 'student') ncFillStudents();
+}
+function ncFillStudents() {
+  const cls = axEl('ncAudClass').value;
+  axEl('ncAudStu').innerHTML = axStudentsOf(cls).map(s => `<option value="${axEsc(s.id)}">${axEsc(s.name)}</option>`).join('') || '<option value="">No students in this class</option>';
+}
+function ncCompMsg(kind, text) { axEl('ncCompMsg').innerHTML = text ? `<div class="ax-note ${kind}">${axEsc(text)}</div>` : ''; }
+async function ncSend() {
+  const title = axEl('ncTitle').value.trim(), body = axEl('ncBody').value.trim(), cat = axEl('ncCat').value, imp = axEl('ncImp').checked, aud = axEl('ncAud').value;
+  const allowed = getAllowedClasses(); let val = '';
+  if (!title) { ncCompMsg('err', 'Please enter a title.'); return; }
+  if (!body) { ncCompMsg('err', 'Please enter the message.'); return; }
+  if ((aud === 'all' || aud === 'staff') && !ncCanBroadcast()) { ncCompMsg('err', 'You do not have permission to send to the whole school or all staff.'); return; }
+  if (aud === 'class') { val = axEl('ncAudClass').value; if (!allowed.includes(val)) { ncCompMsg('err', 'You can only send to your assigned classes.'); return; } }
+  if (aud === 'student') {
+    val = axEl('ncAudStu').value; const s = allStudents[val];
+    if (!val || !s) { ncCompMsg('err', 'Choose a student.'); return; }
+    if (!allowed.includes(s.class)) { ncCompMsg('err', 'You can only send to students in your assigned classes.'); return; }
+  }
+  const btn = axEl('ncSendBtn'); btn.disabled = true; ncCompMsg('info', 'Sending…');
+  try {
+    await ncPut({ title, body, category:cat, important:imp, audience:aud, audienceValue:val, source:'manual' }, null, true);
+    axEl('ncTitle').value = ''; axEl('ncBody').value = ''; axEl('ncImp').checked = false;
+    ncCompMsg('ok', '✅ Notification sent' + (aud === 'class' ? ' to ' + val : aud === 'student' ? ' to ' + axStudentName(val) : aud === 'staff' ? ' to all staff' : ' to the whole school') + '.');
+  } catch (e) { ncCompMsg('err', 'Could not send. ' + axErrText(e).replace("'attendance'", "'notifications'")); }
+  finally { btn.disabled = false; }
+}
+function ncAudLabel(n) { return n.audience === 'all' ? 'Whole school' : n.audience === 'staff' ? 'Staff' : n.audience === 'class' ? n.audienceValue : '👤 ' + axStudentName(n.audienceValue); }
+function ncRenderSent() {
+  const el = axEl('ncAdmSentList');
+  if (ncErr) { el.innerHTML = '<div class="ax-note err">Could not load notifications.</div>'; return; }
+  const mine = Object.keys(ncNotifs).map(id => Object.assign({ id }, ncNotifs[id])).filter(n => n.title && (!curAdminData || n.createdById === curUser)).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  if (!mine.length) { el.innerHTML = '<p class="empty-msg">Nothing sent yet.</p>'; return; }
+  el.innerHTML = mine.slice(0, 60).map(n => {
+    const c = NC_CATS[n.category] || NC_CATS.notice;
+    return `<div class="ax-row"><div class="ax-name">${c.icon} ${axEsc(n.title)}${n.important ? ' ⭐' : ''}<small>${axEsc(ncAudLabel(n))} · ${axEsc(ncDayLabel(n.createdAt || 0))} ${axEsc(ncClock(n.createdAt || 0))}${n.source !== 'manual' ? ' · automatic' : ''}</small></div>` +
+           `<button type="button" class="btn btn-red btn-sm" style="width:auto;" data-del="${axEsc(n.id)}">Delete</button></div>`;
+  }).join('');
+}
+function ncDeleteSent(id) { const n = ncNotifs[id]; if (!n) return; if (!confirm('Delete "' + n.title + '" for everyone who received it?')) return; ncDelete(id); }
+
+/** Attendance → notifications: a student marked absent gets an alert; correcting it removes the alert. */
+function axNotifyAbsences(cls, date, dirty, before, after) {
+  dirty.forEach(id => {
+    const key = axAbsKey(cls, date, id), now = after[id], was = before[id];
+    if (now && now.status === 'absent') {
+      ncPut({ title:'Marked absent', body:axStudentName(id) + ' was marked absent on ' + axFmtDate(date) + ' (' + cls + '). If this is a mistake, or there is a reason, please contact the class teacher.',
+              category:'attendance', important:true, audience:'student', audienceValue:id, source:'attendance', refId:cls + '|' + date }, key);
+    } else if (was && was.status === 'absent') ncDelete(key);
+  });
+}
+
+window.ncMarkAllRead = ncMarkAllRead; window.ncOpenStudent = ncOpenStudent; window.ncAdminOpen = ncAdminOpen;
+window.ncAdmSetView = ncAdmSetView; window.ncAudChanged = ncAudChanged; window.ncFillStudents = ncFillStudents; window.ncSend = ncSend;
+
+/* ═══════════════════════════════════════════
+   TEACHER / STAFF ATTENDANCE  (primary admin only)
+   Separate from student attendance: its own node, its own panel, its own code.
+     staffAttendance/{YYYY-MM-DD}/{staffId} = { staffId, status, date, markedBy, markedAt, updatedBy?, updatedAt? }
+   staffId = the key under admins/ (the teacher / coordinator username).
+═══════════════════════════════════════════ */
+let sxView = 'daily', sxDate = '', sxRoster = [], sxSaved = {}, sxDraft = {};
+let sxSaving = false, sxSeq = 0, sxCalSeq = 0, sxRepSeq = 0, sxMsgTimer = null, sxBound = false, sxState = 'idle', sxStateText = '';
+let sxCalY = 0, sxCalM = 0, sxCache = {};
+
+const sxRoleLabel = r => r === 'coordinator' ? 'Coordinator' : 'Class Teacher';
+function sxStaff() {
+  return Object.keys(allSubAdmins || {}).map(k => ({ id:k, name:(allSubAdmins[k] && allSubAdmins[k].name) || k, role:(allSubAdmins[k] && allSubAdmins[k].role) || '' }))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity:'base' }));
+}
+const sxName = id => (allSubAdmins[id] && allSubAdmins[id].name) || id;
+function sxFetchRange(from, to) {
+  const key = from + '|' + to, hit = sxCache[key];
+  if (hit && Date.now() - hit.ts < 30000) return Promise.resolve(hit.data);
+  return db.ref('staffAttendance').orderByKey().startAt(from).endAt(to).once('value').then(s => { const d = s.val() || {}; sxCache[key] = { ts:Date.now(), data:d }; return d; });
+}
+function sxDirtyIds() { return sxRoster.filter(s => (sxDraft[s.id] || null) !== (sxSaved[s.id] ? sxSaved[s.id].status : null)).map(s => s.id); }
+function sxLeaveOk() {
+  const p = axEl('at-staffatt'); if (!p || !p.classList.contains('active')) return true;
+  return sxDirtyIds().length ? confirm('You have unsaved staff attendance changes. Leave without saving?') : true;
+}
+function sxShowMsg(kind, text, reload) {
+  const el = axEl('sxMsg'); if (!el) return; clearTimeout(sxMsgTimer);
+  el.innerHTML = `<div class="ax-note ${kind}" style="margin-bottom:8px;">${axEsc(text)}` + (reload ? ' <button type="button" class="btn btn-ghost btn-sm" style="margin-left:6px;" onclick="sxReload()">Reload latest</button>' : '') + '</div>';
+  if (kind === 'ok') sxMsgTimer = setTimeout(() => { el.innerHTML = ''; }, 8000);
+}
+function sxBindOnce() {
+  if (sxBound) return; sxBound = true;
+  axEl('sxRoster').addEventListener('click', e => {
+    const b = e.target.closest('.ax-b'); if (!b || sxSaving) return;
+    const id = b.dataset.id, st = b.dataset.st; if (sxDraft[id] === st) delete sxDraft[id]; else sxDraft[id] = st; sxRenderDaily();
+  });
+  axEl('sxMonOut').addEventListener('click', e => { const d = e.target.closest('.ax-day[data-date]'); if (d) sxGoDaily(d.dataset.date); });
+  axEl('sxRepOut').addEventListener('click', e => { const r = e.target.closest('tr[data-id]'); if (r) sxGoMonthly(r.dataset.id); });
+}
+
+function sxInit() {
+  if (curAdminData) return;                       // primary admin only (the tile is hidden for everyone else)
+  sxBindOnce(); sxSaving = false; sxCache = {}; sxDraft = {}; sxSaved = {}; sxRoster = [];
+  const t = new Date(), today = axToday(); sxCalY = t.getFullYear(); sxCalM = t.getMonth();
+  axEl('sxDate').value = today; axEl('sxDate').max = today;
+  axEl('sxRepFrom').value = today.slice(0, 8) + '01'; axEl('sxRepTo').value = today;
+  sxSetViewUI('daily'); sxLoadDaily();
+}
+function sxSetViewUI(v) {
+  sxView = v;
+  document.querySelectorAll('#sxViewPills .pill').forEach(p => p.classList.toggle('active', p.dataset.v === v));
+  axEl('sxDaily').style.display = v === 'daily' ? '' : 'none'; axEl('sxMonthly').style.display = v === 'monthly' ? '' : 'none'; axEl('sxOverview').style.display = v === 'overview' ? '' : 'none';
+}
+function sxSetView(v) { sxSetViewUI(v); if (v === 'monthly') sxMonInit(); if (v === 'overview') sxRepRun(); }
+function sxGoDaily(date) {
+  if (sxDirtyIds().length && date !== sxDate && !confirm('You have unsaved changes on the Daily tab. Discard them and open ' + axFmtDate(date) + '?')) return;
+  sxSetViewUI('daily'); axEl('sxDate').value = date; sxLoadDaily();
+}
+function sxGoMonthly(id) {
+  sxSetViewUI('monthly'); sxMonInit(); axEl('sxMonStaff').value = id; sxMonRender();
+}
+
+/* ═════════ DAILY ═════════ */
+function sxOnDaySel() {
+  if (sxDirtyIds().length && !confirm('You have unsaved changes for ' + axFmtDate(sxDate) + '. Discard them?')) { axEl('sxDate').value = sxDate; return; }
+  sxLoadDaily();
+}
+function sxReload() { sxLoadDaily(); }
+function sxLoadDaily() {
+  const date = axEl('sxDate').value; sxDraft = {}; sxSaved = {}; sxRoster = []; sxDate = date; axEl('sxMsg').innerHTML = '';
+  if (!date) { sxRenderDaily('idle'); return; }
+  if (date > axToday()) { sxRenderDaily('error', 'Attendance cannot be marked for a future date. Pick today or an earlier date.'); return; }
+  const seq = ++sxSeq; sxRenderDaily('loading');
+  db.ref('staffAttendance/' + date).once('value').then(snap => {
+    if (seq !== sxSeq) return;
+    const day = snap.val() || {}; sxRoster = sxStaff();
+    sxRoster.forEach(s => { const r = day[s.id]; if (r && AX_STATUSES.includes(r.status)) { sxSaved[s.id] = r; sxDraft[s.id] = r.status; } });
+    sxRenderDaily('ready');
+  }).catch(e => { if (seq === sxSeq) sxRenderDaily('error', 'Could not load staff attendance. ' + axErrText(e).replace("'attendance'", "'staffAttendance'")); });
+}
+function sxMarkAll(st) { sxRoster.forEach(s => { if (st) sxDraft[s.id] = st; else delete sxDraft[s.id]; }); sxRenderDaily(); }
+function sxRenderDaily(state, text) {
+  if (state) { sxState = state; sxStateText = text || ''; } else { state = sxState; text = sxStateText; }
+  const box = axEl('sxRoster'), stat = axEl('sxStatus'), tools = axEl('sxTools'), btn = axEl('sxSaveBtn'), dirtyEl = axEl('sxDirty');
+  axEl('sxDateNote').innerHTML = (sxDate && sxDate <= axToday() && axIsSunday(sxDate)) ? '<div class="ax-note warn">This date is a Sunday. Only save attendance if school was open.</div>' : '';
+  const off = () => { tools.style.display = 'none'; stat.innerHTML = ''; dirtyEl.textContent = ''; btn.disabled = true; btn.style.opacity = .5; btn.textContent = 'Save Staff Attendance'; };
+  if (state !== 'ready') {
+    off(); box.innerHTML = state === 'loading' ? '<p class="empty-msg">Loading staff…</p>' : state === 'error' ? `<div class="ax-note err">${axEsc(text)}</div>` : '<p class="empty-msg">Pick a date to load the staff list.</p>'; return;
+  }
+  if (!sxRoster.length) { off(); box.innerHTML = '<p class="empty-msg">No teacher / staff accounts yet. Add them under Admins first.</p>'; return; }
+  const c = { present:0, absent:0, late:0, leave:0, none:0 }; sxRoster.forEach(s => { const st = sxDraft[s.id]; if (st) c[st]++; else c.none++; });
+  const savedIds = Object.keys(sxSaved); let banner = '';
+  if (savedIds.length) {
+    let last = null; savedIds.forEach(id => { const r = sxSaved[id], t = r.updatedAt || r.markedAt || 0; if (!last || t > last.t) last = { t, by:r.updatedBy || r.markedBy }; });
+    banner = `<div class="ax-note info">Staff attendance for ${axEsc(axFmtDate(sxDate))} is already saved (${savedIds.length} of ${sxRoster.length} staff)` + (last && last.by ? ' — last saved by ' + axEsc(last.by) : '') + '. Changes below update that record.</div>';
+  }
+  stat.innerHTML = banner + `<div class="ax-counts"><span class="ax-chip p">Present ${c.present}</span><span class="ax-chip a">Absent ${c.absent}</span><span class="ax-chip l">Late ${c.late}</span><span class="ax-chip v">Leave ${c.leave}</span><span class="ax-chip u">Not marked ${c.none}</span></div>`;
+  tools.style.display = 'flex';
+  box.innerHTML = sxRoster.map(s => {
+    const cur = sxDraft[s.id] || null, was = sxSaved[s.id] ? sxSaved[s.id].status : null;
+    return `<div class="ax-row ${cur !== was ? 'changed' : ''}"><div class="ax-name">${axEsc(s.name)}<small>${axEsc(sxRoleLabel(s.role))} · ${axEsc(s.id)}</small></div><div class="ax-seg">` +
+      AX_STATUSES.map(st => `<button type="button" class="ax-b ${st} ${cur === st ? 'on' : ''}" data-id="${axEsc(s.id)}" data-st="${st}" aria-pressed="${cur === st}">${AX_LABEL[st]}</button>`).join('') + '</div></div>';
+  }).join('');
+  const n = sxDirtyIds().length; dirtyEl.textContent = n ? `${n} unsaved change${n === 1 ? '' : 's'}` : '';
+  btn.disabled = sxSaving; btn.style.opacity = sxSaving ? .6 : 1; btn.textContent = sxSaving ? 'Saving…' : (savedIds.length ? 'Update Staff Attendance' : 'Save Staff Attendance');
+}
+async function sxSave() {
+  if (sxSaving) return;
+  const date = sxDate;
+  if (!date) { sxShowMsg('err', 'Pick a date first.'); return; }
+  if (date > axToday()) { sxShowMsg('err', 'Attendance cannot be saved for a future date.'); return; }
+  if (!sxRoster.length) { sxShowMsg('err', 'There is no staff to save.'); return; }
+  const dirty = sxDirtyIds();
+  if (!dirty.length) { sxShowMsg('warn', Object.keys(sxSaved).length ? 'No changes to save — this record is already up to date.' : 'Nothing to save yet — mark at least one person first.'); return; }
+  const removing = dirty.filter(id => !sxDraft[id] && sxSaved[id]);
+  if (removing.length && !confirm('This will remove the saved record for ' + removing.length + ' person' + (removing.length === 1 ? '' : 's') + ' (they become "not recorded", not absent). Continue?')) return;
+  sxSaving = true; sxRenderDaily(); sxShowMsg('info', 'Saving…');
+  try {
+    const remote = (await db.ref('staffAttendance/' + date).once('value')).val() || {};
+    const conflicts = dirty.filter(id => axStamp(remote[id]) !== axStamp(sxSaved[id]));
+    if (conflicts.length) { sxShowMsg('err', 'Staff attendance for ' + (conflicts.length === 1 ? sxName(conflicts[0]) : conflicts.length + ' people') + ' was changed by someone else after you opened it. Nothing was saved. Reload to see the latest.', true); return; }
+    const now = Date.now(), actor = axActor(), updates = {}, next = Object.assign({}, sxSaved);
+    dirty.forEach(id => {
+      const path = 'staffAttendance/' + date + '/' + id, st = sxDraft[id];
+      if (!st) { updates[path] = null; delete next[id]; return; }
+      const old = sxSaved[id], rec = { staffId:id, status:st, date, markedBy:(old && old.markedBy) || actor, markedAt:(old && old.markedAt) || now };
+      if (old) { rec.updatedBy = actor; rec.updatedAt = now; } updates[path] = rec; next[id] = rec;
+    });
+    await db.ref().update(updates); sxSaved = next; sxCache = {};
+    const c = { present:0, absent:0, late:0, leave:0 }; sxRoster.forEach(s => { if (sxSaved[s.id]) c[sxSaved[s.id].status]++; });
+    const un = sxRoster.length - c.present - c.absent - c.late - c.leave;
+    sxShowMsg('ok', `Saved: staff attendance for ${axFmtDate(date)} — Present ${c.present}, Absent ${c.absent}, Late ${c.late}, Leave ${c.leave}` + (un ? `. ${un} not recorded` : '') + '.');
+    logActivity('edit', 'Staff attendance saved: ' + axFmtDate(date));
+  } catch (e) { sxShowMsg('err', 'Could not save staff attendance. ' + axErrText(e).replace("'attendance'", "'staffAttendance'")); }
+  finally { sxSaving = false; sxRenderDaily(); }
+}
+
+/* ═════════ MONTHLY (one person) ═════════ */
+function sxMonSync() {
+  const ms = axEl('sxMonMonth'), ys = axEl('sxMonYear');
+  if (!ms.options.length) ms.innerHTML = AX_MONTHS.map((m, i) => `<option value="${i}">${m}</option>`).join('');
+  const cy = new Date().getFullYear(), lo = Math.min(cy - 3, sxCalY), hi = Math.max(cy + 1, sxCalY); let h = '';
+  for (let y = lo; y <= hi; y++) h += `<option value="${y}">${y}</option>`; ys.innerHTML = h; ms.value = sxCalM; ys.value = sxCalY;
+}
+function sxMonInit() {
+  sxMonSync(); const sel = axEl('sxMonStaff'), keep = sel.value;
+  sel.innerHTML = '<option value="">Select staff member…</option>' + sxStaff().map(s => `<option value="${axEsc(s.id)}">${axEsc(s.name)}</option>`).join('');
+  if (keep && sxStaff().some(s => s.id === keep)) sel.value = keep; sxMonRender();
+}
+function sxMonJump() { sxCalM = +axEl('sxMonMonth').value; sxCalY = +axEl('sxMonYear').value; sxMonRender(); }
+function sxMonStep(d) { sxCalM += d; if (sxCalM < 0) { sxCalM = 11; sxCalY--; } else if (sxCalM > 11) { sxCalM = 0; sxCalY++; } sxMonSync(); sxMonRender(); }
+function sxMonRender() {
+  const sid = axEl('sxMonStaff').value, out = axEl('sxMonOut');
+  if (!sid) { out.innerHTML = '<p class="empty-msg">Choose a staff member to see their month.</p>'; return; }
+  const dim = new Date(sxCalY, sxCalM + 1, 0).getDate(), ym = sxCalY + '-' + axPad(sxCalM + 1), seq = ++sxCalSeq;
+  out.innerHTML = '<p class="empty-msg">Loading…</p>';
+  sxFetchRange(ym + '-01', ym + '-' + axPad(dim)).then(data => {
+    if (seq !== sxCalSeq) return;
+    const by = {}; let p = 0, a = 0, l = 0, v = 0;
+    Object.keys(data).forEach(d => { const r = data[d] && data[d][sid]; if (r && AX_STATUSES.includes(r.status)) { by[d] = r.status; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; else v++; } });
+    const first = new Date(sxCalY, sxCalM, 1).getDay(), today = axToday();
+    let grid = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(w => `<div class="ax-dow">${w}</div>`).join('');
+    for (let i = 0; i < first; i++) grid += '<div class="ax-day blank"></div>';
+    for (let d = 1; d <= dim; d++) {
+      const key = ym + '-' + axPad(d), st = by[key], fut = key > today;
+      grid += `<button type="button" class="ax-day ${st || ''} ${fut ? 'future' : ''} ${key === today ? 'today' : ''}" ${fut ? 'disabled' : `data-date="${key}"`} title="${st ? AX_LABEL[st] : 'Not recorded'}">${d}${st ? `<b>${AX_SHORT[st]}</b>` : ''}</button>`;
+    }
+    out.innerHTML = `<div style="font-weight:700;color:var(--navy);margin-bottom:4px;">${axEsc(sxName(sid))} · ${AX_MONTHS[sxCalM]} ${sxCalY}</div><div class="ax-cal">${grid}</div>` +
+      '<div class="ax-legend"><span><i class="ax-dot" style="background:#e8f5e9;"></i>Present</span><span><i class="ax-dot" style="background:#ffebee;"></i>Absent</span><span><i class="ax-dot" style="background:#fff8e1;"></i>Late</span><span><i class="ax-dot" style="background:#e3f2fd;"></i>Leave</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
+      axSummaryHtml(p + a + l + v, p, a, l, v) + axPctNote() + '<p style="font-size:11px;color:var(--muted);">Tap a day to open it in the Daily tab and correct it.</p>';
+  }).catch(e => { if (seq === sxCalSeq) out.innerHTML = `<div class="ax-note err">Could not load. ${axEsc(axErrText(e).replace("'attendance'", "'staffAttendance'"))}</div>`; });
+}
+
+/* ═════════ OVERVIEW (everyone, any date range) ═════════ */
+function sxRepQuick(kind) {
+  const t = new Date(), today = axToday(); let from, to;
+  if (kind === 'month') { from = today.slice(0, 8) + '01'; to = today; }
+  else if (kind === 'last') { const lm = new Date(t.getFullYear(), t.getMonth() - 1, 1), ld = new Date(t.getFullYear(), t.getMonth(), 0); from = lm.getFullYear() + '-' + axPad(lm.getMonth() + 1) + '-01'; to = ld.getFullYear() + '-' + axPad(ld.getMonth() + 1) + '-' + axPad(ld.getDate()); }
+  else { const s = new Date(t.getFullYear(), t.getMonth(), t.getDate() - 29); from = s.getFullYear() + '-' + axPad(s.getMonth() + 1) + '-' + axPad(s.getDate()); to = today; }
+  axEl('sxRepFrom').value = from; axEl('sxRepTo').value = to; sxRepRun();
+}
+function sxRepRun() {
+  const out = axEl('sxRepOut'), from = axEl('sxRepFrom').value, to = axEl('sxRepTo').value, err = t => { out.innerHTML = `<div class="ax-note err">${axEsc(t)}</div>`; };
+  if (!from || !to) { err('Choose both a From and a To date.'); return; }
+  if (from > to) { err('The From date must be on or before the To date.'); return; }
+  if (axSpanDays(from, to) > AX_MAX_RANGE_DAYS) { err('Please choose a range of at most ' + AX_MAX_RANGE_DAYS + ' days.'); return; }
+  const seq = ++sxRepSeq; out.innerHTML = '<p class="empty-msg">Loading…</p>';
+  sxFetchRange(from, to).then(data => {
+    if (seq !== sxRepSeq) return;
+    const per = {}, days = {};
+    Object.keys(data).forEach(date => Object.keys(data[date] || {}).forEach(id => {
+      const r = data[date][id]; if (!r || !AX_STATUSES.includes(r.status)) return;
+      const o = per[id] || (per[id] = { id, P:0, A:0, L:0, V:0 }), dd = days[date] || (days[date] = { P:0, A:0, L:0, V:0 }), k = { present:'P', absent:'A', late:'L', leave:'V' }[r.status];
+      o[k]++; dd[k]++;
+    }));
+    const rows = {}; sxStaff().forEach(s => { rows[s.id] = { id:s.id, P:0, A:0, L:0, V:0 }; }); Object.keys(per).forEach(id => { rows[id] = per[id]; });
+    const list = Object.values(rows).sort((a, b) => sxName(a.id).localeCompare(sxName(b.id), undefined, { sensitivity:'base' }));
+    let P = 0, A = 0, L = 0, V = 0; list.forEach(r => { P += r.P; A += r.A; L += r.L; V += r.V; });
+    const nDays = Object.keys(days).length;
+    const body = list.map(r => {
+      const rec = r.P + r.A + r.L + r.V, pc = axPct(r.P, r.A, r.L), tone = pc == null ? '' : (pc >= 90 ? 'g' : pc >= 75 ? 'a' : 'r'), known = !!allSubAdmins[r.id];
+      return `<tr data-id="${axEsc(r.id)}" style="cursor:pointer;"><td>${axEsc(sxName(r.id))}${known ? '' : '<small>removed account</small>'}</td><td>${rec || '—'}</td><td>${rec ? r.P : '—'}</td><td>${rec ? r.A : '—'}</td><td>${rec ? r.L : '—'}</td><td>${rec ? r.V : '—'}</td><td class="pct ${tone}">${axPctText(pc)}</td></tr>`;
+    }).join('');
+    const dayRows = Object.keys(days).sort().map(d => `<tr><td>${axEsc(axFmtDate(d))}</td><td>${days[d].P}</td><td>${days[d].A}</td><td>${days[d].L}</td><td>${days[d].V}</td></tr>`).join('');
+    out.innerHTML = `<div style="font-weight:700;color:var(--navy);">All staff</div><div style="font-size:12px;color:var(--muted);">${axEsc(axFmtDate(from))} – ${axEsc(axFmtDate(to))}</div>` +
+      axSummaryHtml(nDays, P, A, L, V) +
+      (nDays ? '' : '<div class="ax-note info">No staff attendance has been recorded in this date range.</div>') +
+      (list.length ? `<div class="ax-tablewrap"><table class="ax-table"><thead><tr><th>Staff</th><th>Days</th><th>P</th><th>A</th><th>L</th><th>Lv</th><th>%</th></tr></thead><tbody>${body}</tbody></table></div><p style="font-size:11px;color:var(--muted);">Tap a name for that person's month.</p>` : '<p class="empty-msg">No staff accounts yet.</p>') +
+      (nDays ? `<div style="font-weight:700;color:var(--navy);margin:14px 0 4px;">Day by day</div><div class="ax-tablewrap"><table class="ax-table"><thead><tr><th>Date</th><th>P</th><th>A</th><th>L</th><th>Lv</th></tr></thead><tbody>${dayRows}</tbody></table></div>` : '') + axPctNote();
+  }).catch(e => { if (seq === sxRepSeq) out.innerHTML = `<div class="ax-note err">Could not load. ${axEsc(axErrText(e).replace("'attendance'", "'staffAttendance'"))}</div>`; });
+}
+
+window.sxInit = sxInit; window.sxSetView = sxSetView; window.sxOnDaySel = sxOnDaySel; window.sxMarkAll = sxMarkAll; window.sxSave = sxSave; window.sxReload = sxReload;
+window.sxMonRender = sxMonRender; window.sxMonJump = sxMonJump; window.sxMonStep = sxMonStep; window.sxRepRun = sxRepRun; window.sxRepQuick = sxRepQuick;
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACADEMIC SUITE:  Question Bank  →  Online Examination  →  Performance Analytics
+   Data:
+     questionBank/{id}        question templates (teacher / admin)
+     exams/{id}               exam definition + SNAPSHOT of its questions (no answers)
+     examKeys/{id}            answer keys, kept apart from exams/ so they can be locked down later
+     examAttempts/{exam}/{student}   one attempt per student (answers, per-question marks, score)
+     students/{id}/results/exam_{exam}   the final result is also written here, so the existing
+                                         Results screen and every analytics view use ONE result source
+═══════════════════════════════════════════════════════════════════ */
+const AC_ICONS = {
+  qbank:'<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7.5h6M9 11h6"/>',
+  exam:'<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/>',
+  chart:'<path d="M3 21h18"/><rect x="5" y="11" width="3" height="8" rx="1"/><rect x="10.5" y="5" width="3" height="14" rx="1"/><rect x="16" y="9" width="3" height="10" rx="1"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>', edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
+  trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>', search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', check:'<path d="M5 12.5l4.5 4.5L19 7"/>', x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  left:'<path d="M15 5l-7 7 7 7"/>', right:'<path d="M9 5l7 7-7 7"/>', up:'<path d="M5 15l7-7 7 7"/>', down:'<path d="M5 9l7 7 7-7"/>',
+  grid:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>',
+  eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  users:'<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.300 2.700-6 6-6s6 2.700 6 6"/><path d="M16 5.500a3 3 0 0 1 0 5.500M18 14c2 .7 3 2.600 3 6"/>',
+  dash:'<path d="M6 12h12"/>', alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/>', file:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
+  book:'<path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/>'
+};
+function acI(name, size) {
+  return `<svg class="aci" width="${size || 18}" height="${size || 18}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${AC_ICONS[name] || ''}</svg>`;
+}
+const acEsc = axEsc;
+const acNorm = s => String(s == null ? '' : s).trim().toLowerCase().replace(/\s+/g, ' ');
+const acTitle = s => { s = String(s == null ? '' : s).trim().replace(/\s+/g, ' '); return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; };
+const acAt = (x, i) => (x == null ? undefined : (Array.isArray(x) ? x[i] : x[i]));          // Firebase returns dense {0:..,1:..} as arrays
+const acDT = ms => ms ? axFmtDate(ncDayKey(ms)) + ', ' + ncClock(ms) : '—';
+function acInput(ms) { const d = new Date(ms); return d.getFullYear() + '-' + axPad(d.getMonth() + 1) + '-' + axPad(d.getDate()) + 'T' + axPad(d.getHours()) + ':' + axPad(d.getMinutes()); }
+const acFromInput = v => (v ? new Date(v).getTime() : NaN);
+const acPct = (m, t) => (t > 0 ? Math.round((m / t) * 1000) / 10 : 0);
+const acPctTxt = v => (Number.isInteger(v) ? v : (Math.round(v * 10) / 10).toFixed(1)) + '%';
+function acDistinct(arr, getter) {
+  const m = new Map();
+  arr.forEach(x => { const v = getter(x), k = acNorm(v); if (k && !m.has(k)) m.set(k, acTitle(v)); });
+  return [...m].sort((a, b) => a[1].localeCompare(b[1], undefined, { numeric:true }));
+}
+function acFillSelect(sel, items, placeholder, current) {
+  sel.innerHTML = (placeholder == null ? '' : `<option value="">${acEsc(placeholder)}</option>`) + items.map(([v, l]) => `<option value="${acEsc(v)}">${acEsc(l)}</option>`).join('');
+  sel.value = items.some(([v]) => v === current) ? current : '';
+}
+function acTone(p) { return p >= 75 ? '#1976D2' : p >= 50 ? '#E08A00' : '#D64545'; }
+function acMsg(id, kind, text) { const el = axEl(id); if (el) el.innerHTML = text ? `<div class="ac-note ${kind}">${acEsc(text)}</div>` : ''; }
+
+/** Small confirmation / info dialog (replaces window.confirm so it looks the same on every phone). */
+function acModal(o) {
+  const m = document.createElement('div'); m.className = 'ac ac-modal';
+  m.innerHTML = `<div class="ac-modal-box" role="dialog"><div class="ac-title">${acEsc(o.title || '')}</div><div class="ac-modal-body">${o.html || ''}</div>` +
+    `<div class="ac-modal-btns">${o.cancel === false ? '' : `<button type="button" class="ac-btn ghost" data-m="cancel">${acEsc(o.cancel || 'Cancel')}</button>`}` +
+    `<button type="button" class="ac-btn ${o.danger ? 'danger' : ''}" data-m="ok">${acEsc(o.ok || 'OK')}</button></div></div>`;
+  document.body.appendChild(m);
+  m.addEventListener('click', e => {
+    const b = e.target.closest('[data-m]');
+    if (b && b.dataset.m === 'ok') { m.remove(); if (o.onOk) o.onOk(); }
+    else if (b || e.target === m) { m.remove(); if (o.onCancel) o.onCancel(); }
+  });
+  return m;
+}
+
+/* ── charts: plain HTML/SVG, fluid width, no horizontal scrolling ── */
+function acBars(items) {            // [{label, value 0-100, sub?, key?}]
+  if (!items.length) return '';
+  return '<div class="ac-bars">' + items.map(i => `<div class="ac-bar-row ${i.key != null ? 'click' : ''}" ${i.key != null ? `data-key="${acEsc(i.key)}" role="button"` : ''}>` +
+    `<div class="ac-bar-top"><span>${acEsc(i.label)}</span><b>${acPctTxt(i.value)}</b></div>` +
+    `<div class="ac-bar"><i style="width:${Math.max(2, Math.min(100, i.value))}%;background:${acTone(i.value)}"></i></div>${i.sub ? `<small>${acEsc(i.sub)}</small>` : ''}</div>`).join('') + '</div>';
+}
+function acLine(points) {           // [{x: timestamp, y: 0-100}]
+  if (points.length < 2) return '<p class="ac-muted">Not enough results yet to draw a trend. At least two are needed.</p>';
+  const W = 320, H = 160, L = 30, R = 10, T = 10, B = 24, xs = points.map(p => p.x), x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+  const X = x => L + (x1 === x0 ? (W - L - R) / 2 : ((x - x0) / (x1 - x0)) * (W - L - R)), Y = y => T + (1 - y / 100) * (H - T - B);
+  const grid = [0, 25, 50, 75, 100].map(g => `<line x1="${L}" x2="${W - R}" y1="${Y(g)}" y2="${Y(g)}" class="g"/><text x="${L - 5}" y="${Y(g) + 3}" text-anchor="end">${g}</text>`).join('');
+  const d = points.map((p, i) => (i ? 'L' : 'M') + X(p.x).toFixed(1) + ' ' + Y(p.y).toFixed(1)).join(' ');
+  const dots = points.map(p => `<circle cx="${X(p.x).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="3.2"/>`).join('');
+  const lab = ms => axFmtDate(ncDayKey(ms)).replace(/ \d{4}$/, '');
+  return `<svg class="ac-line" viewBox="0 0 ${W} ${H}" role="img" aria-label="Performance trend">${grid}<path d="${d}" class="ln"/>${dots}` +
+    `<text x="${L}" y="${H - 6}" text-anchor="start">${acEsc(lab(x0))}</text><text x="${W - R}" y="${H - 6}" text-anchor="end">${acEsc(lab(x1))}</text></svg>`;
+}
+
+/* ── listeners are started lazily and stopped at logout ── */
+let qbRef = null, exRef = null;
+function acStop() {
+  [qbRef, exRef].forEach(r => { try { if (r) r.off(); } catch (e) {} }); qbRef = null; exRef = null;
+  qbData = {}; qbLoaded = false; exData = {}; exLoaded = false; exMyAtt = {}; exAttCache = {};
+  clearInterval(exTimerId); clearInterval(exListTimer); exTk = null;
+  ['exTake', 'exResult'].forEach(i => { const e = axEl(i); if (e) e.style.display = 'none'; });
+  document.querySelectorAll('.ac-modal').forEach(m => m.remove());
+}
+
+const AC_DEF_SUBJECTS = ['English', 'Hindi', 'Mathematics', 'Science', 'Social Science', 'Computer', 'EVS', 'General Knowledge', 'Sanskrit'];
+const acIsStaff = () => curUser === 'admin' || !!(allSubAdmins && allSubAdmins[curUser]);
+function acFillDL() {                                   // suggestions only: subjects / chapters already used anywhere in the app
+  const s = new Map(); AC_DEF_SUBJECTS.forEach(x => s.set(acNorm(x), x));
+  [acDistinct(Object.values(qbData), q => q.subject), acDistinct(Object.values(exData), e => e.subject), acDistinct(paRecords(), r => r.subject)].forEach(a => a.forEach(([k, v]) => s.set(k, v)));
+  axEl('acSubjectsDL').innerHTML = [...s.values()].sort().map(v => `<option value="${acEsc(v)}">`).join('');
+  axEl('acChaptersDL').innerHTML = acDistinct(Object.values(qbData), q => q.chapter).map(([k, v]) => `<option value="${acEsc(v)}">`).join('');
+}
+/* ═════════ 1. QUESTION BANK ═════════ */
+let qbData = {}, qbLoaded = false, qbErr = null, qbEditId = null, qbToggled = {}, qbBound = false, qbT = null;
+let qbF = { q:'', cls:'', subj:'', chap:'', diff:'', type:'' };
+const QB_TYPES = { mcq:'Multiple choice', tf:'True / False', short:'Short answer' };
+const QB_DIFF = { easy:'Easy', medium:'Medium', hard:'Hard' };
+const qbCanEdit = q => !curAdminData || q.createdById === curUser;
+function qbScope() {
+  const al = getAllowedClasses();
+  return Object.keys(qbData).map(id => Object.assign({ id }, qbData[id])).filter(q => q && q.text && al.includes(q.class));
+}
+function qbFilter(list, f) {
+  const s = acNorm(f.q);
+  return list.filter(x => (!f.cls || x.class === f.cls) && (!f.subj || acNorm(x.subject) === f.subj) && (!f.chap || acNorm(x.chapter) === f.chap) &&
+    (!f.diff || x.difficulty === f.diff) && (!f.type || x.type === f.type) &&
+    (!s || acNorm([x.text, x.chapter, x.subject].concat(x.options || []).join(' ')).includes(s)));
+}
+function qbStart() {
+  if (qbRef) return;
+  qbRef = db.ref('questionBank');
+  qbRef.on('value', s => { qbData = s.val() || {}; qbLoaded = true; qbErr = null; qbRender(); exPickerRender(); },
+           e => { qbErr = e; qbLoaded = true; qbRender(); exPickerRender(); });
+}
+function qbOpen() {
+  qbStart();
+  if (!qbBound) {
+    qbBound = true;
+    axEl('qbList').addEventListener('click', e => {
+      const t = e.target.closest('[data-tog]'); if (t) { const k = t.dataset.tog; qbToggled[k] = !(qbToggled[k] !== undefined ? qbToggled[k] : t.dataset.open === '1'); qbRender(); return; }
+      const ed = e.target.closest('[data-edit]'); if (ed) { qbOpenForm(ed.dataset.edit); return; }
+      const dl = e.target.closest('[data-del]'); if (dl) qbDelete(dl.dataset.del);
+    });
+  }
+  qbShowList(); qbRender();
+}
+function qbFilterChanged() {
+  qbF.q = axEl('qbQ').value; qbF.cls = axEl('qbCls').value; qbF.subj = axEl('qbSubj').value; qbF.chap = axEl('qbChap').value; qbF.diff = axEl('qbDiff').value; qbF.type = axEl('qbType').value;
+  qbRender();
+}
+function qbSearchTyped() { clearTimeout(qbT); qbT = setTimeout(qbFilterChanged, 150); }
+function qbClearFilters() { qbF = { q:'', cls:'', subj:'', chap:'', diff:'', type:'' }; axEl('qbQ').value = ''; qbRender(); }
+
+function qbCardHtml(q) {
+  let body = '';
+  if (q.type === 'mcq') body = '<div class="qb-opts">' + (q.options || []).map((o, i) => `<div class="qb-o ${i === q.correct ? 'ok' : ''}"><span>${String.fromCharCode(65 + i)}</span>${acEsc(o)}${i === q.correct ? acI('check', 14) : ''}</div>`).join('') + '</div>';
+  else if (q.type === 'tf') body = `<div class="qb-ans">Answer: <b>${q.correct === 'true' ? 'True' : 'False'}</b></div>`;
+  else body = q.answer ? `<div class="qb-ans">Model answer: ${acEsc(q.answer)}</div>` : '';
+  return `<div class="qb-q"><div class="qb-q-top"><span class="ac-chip">${QB_TYPES[q.type] || q.type}</span><span class="ac-chip d-${q.difficulty}">${QB_DIFF[q.difficulty] || ''}</span><span class="ac-chip">${q.marks} mark${q.marks === 1 ? '' : 's'}</span>` +
+    (qbCanEdit(q) ? `<span class="qb-acts"><button type="button" class="ac-ico" data-edit="${acEsc(q.id)}" aria-label="Edit question">${acI('edit')}</button><button type="button" class="ac-ico bad" data-del="${acEsc(q.id)}" aria-label="Delete question">${acI('trash')}</button></span>` : '') +
+    `</div><div class="qb-q-text">${acEsc(q.text)}</div>${body}</div>`;
+}
+function qbRender() {
+  const wrap = axEl('qbList'); if (!wrap) return;
+  if (qbErr) { wrap.innerHTML = `<div class="ac-note err">Could not load the Question Bank. ${acEsc(axErrText(qbErr).replace("'attendance'", "'questionBank'"))}</div>`; return; }
+  if (!qbLoaded) { wrap.innerHTML = '<p class="ac-muted">Loading…</p>'; return; }
+  const scope = qbScope(), al = getAllowedClasses();
+  acFillSelect(axEl('qbCls'), al.map(c => [c, c]), 'All classes', qbF.cls); qbF.cls = axEl('qbCls').value;
+  const inCls = scope.filter(x => !qbF.cls || x.class === qbF.cls);
+  acFillSelect(axEl('qbSubj'), acDistinct(inCls, x => x.subject), 'All subjects', qbF.subj); qbF.subj = axEl('qbSubj').value;
+  const inSub = inCls.filter(x => !qbF.subj || acNorm(x.subject) === qbF.subj);
+  acFillSelect(axEl('qbChap'), acDistinct(inSub, x => x.chapter), 'All chapters', qbF.chap); qbF.chap = axEl('qbChap').value;
+  axEl('qbDiff').value = qbF.diff; axEl('qbType').value = qbF.type;
+  const list = qbFilter(scope, qbF).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const active = !!(qbF.q || qbF.cls || qbF.subj || qbF.chap || qbF.diff || qbF.type);
+  axEl('qbCount').textContent = list.length + ' of ' + scope.length + ' question' + (scope.length === 1 ? '' : 's');
+  if (!scope.length) { wrap.innerHTML = '<div class="ac-card ac-empty">The Question Bank is empty. Add your first question to get started.</div>'; return; }
+  if (!list.length) { wrap.innerHTML = '<div class="ac-card ac-empty">No questions match these filters.</div>'; return; }
+  const groups = new Map();
+  list.forEach(q => {
+    const gk = q.class + '|' + acNorm(q.subject);
+    if (!groups.has(gk)) groups.set(gk, { cls:q.class, subj:acTitle(q.subject), n:0, chaps:new Map() });
+    const g = groups.get(gk); g.n++;
+    const ck = acNorm(q.chapter); if (!g.chaps.has(ck)) g.chaps.set(ck, { name:acTitle(q.chapter), qs:[] }); g.chaps.get(ck).qs.push(q);
+  });
+  const auto = active || list.length <= 25;
+  wrap.innerHTML = [...groups].sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric:true })).map(([gk, g]) => {
+    const open = qbToggled[gk] !== undefined ? qbToggled[gk] : auto;
+    const head = `<button type="button" class="qb-gh" data-tog="${acEsc(gk)}" data-open="${auto ? 1 : 0}"><span class="qb-gt">${acEsc(g.cls)} <i>/</i> ${acEsc(g.subj)}</span><span class="ac-chip">${g.n}</span><span class="qb-caret ${open ? 'open' : ''}">${acI('down', 16)}</span></button>`;
+    if (!open) return `<div class="ac-card qb-group">${head}</div>`;
+    const chs = [...g.chaps].sort((a, b) => a[1].name.localeCompare(b[1].name, undefined, { numeric:true })).map(([ck, c]) => {
+      const key = gk + '|' + ck, o = qbToggled[key] !== undefined ? qbToggled[key] : (auto || (qbToggled[gk] === true && g.n <= 15));   // a group you opened shows its chapters open unless it is big
+      return `<div class="qb-ch"><button type="button" class="qb-chh" data-tog="${acEsc(key)}" data-open="${auto ? 1 : 0}"><span>${acEsc(c.name)}</span><span class="ac-chip">${c.qs.length}</span><span class="qb-caret ${o ? 'open' : ''}">${acI('down', 14)}</span></button>${o ? c.qs.map(qbCardHtml).join('') : ''}</div>`;
+    }).join('');
+    return `<div class="ac-card qb-group">${head}${chs}</div>`;
+  }).join('');
+}
+
+/* ── add / edit form ── */
+function qbShowList() { axEl('qbListView').style.display = ''; axEl('qbFormView').style.display = 'none'; }
+function qbOptRow(i, text, checked) {
+  return `<div class="qb-opt"><input type="radio" name="qbCorrect" value="${i}" ${checked ? 'checked' : ''} aria-label="Correct answer ${String.fromCharCode(65 + i)}"><input type="text" class="qb-opt-t" maxlength="200" placeholder="Option ${String.fromCharCode(65 + i)}" value="${acEsc(text || '')}"></div>`;
+}
+function qbRenderOpts(opts, correct) {
+  const n = Math.max(4, opts.length);
+  axEl('qbOptRows').innerHTML = Array.from({ length:n }, (_, i) => qbOptRow(i, opts[i], i === correct)).join('');
+  axEl('qbAddOpt').style.display = n >= 6 ? 'none' : '';
+}
+function qbAddOption() {
+  const rows = [...axEl('qbOptRows').querySelectorAll('.qb-opt')]; if (rows.length >= 6) return;
+  const cur = rows.map(r => r.querySelector('.qb-opt-t').value), sel = rows.findIndex(r => r.querySelector('input[type=radio]').checked);
+  qbRenderOpts(cur.concat(['']), sel);
+}
+function qbTypeChanged() {
+  const t = axEl('qbfType').value;
+  axEl('qbfMcq').style.display = t === 'mcq' ? '' : 'none'; axEl('qbfTf').style.display = t === 'tf' ? '' : 'none'; axEl('qbfShort').style.display = t === 'short' ? '' : 'none';
+}
+function qbOpenForm(id) {
+  acFillDL(); qbEditId = id || null; const q = id ? qbData[id] : null, al = getAllowedClasses();
+  if (id && (!q || !qbCanEdit(Object.assign({ id }, q)))) { alert('You can only edit questions you created.'); return; }
+  axEl('qbFormTitle').textContent = q ? 'Edit question' : 'Add a question';
+  axEl('qbfClass').innerHTML = al.map(c => `<option value="${acEsc(c)}">${acEsc(c)}</option>`).join('');
+  axEl('qbfClass').value = q ? q.class : (qbF.cls || al[0] || '');
+  axEl('qbfSubject').value = q ? q.subject : (qbF.subj ? (acDistinct(qbScope(), x => x.subject).find(([k]) => k === qbF.subj) || [0, ''])[1] : '');
+  axEl('qbfChapter').value = q ? q.chapter : '';
+  axEl('qbfType').value = q ? q.type : 'mcq'; axEl('qbfDiff').value = q ? q.difficulty : 'easy'; axEl('qbfMarks').value = q ? q.marks : 1;
+  axEl('qbfText').value = q ? q.text : ''; axEl('qbfExplain').value = q ? (q.explanation || '') : '';
+  qbRenderOpts(q && q.type === 'mcq' ? (q.options || []) : [], q && q.type === 'mcq' ? q.correct : -1);
+  axEl('qbfTf' + 'True').checked = !!(q && q.type === 'tf' && q.correct === 'true'); axEl('qbfTfFalse').checked = !!(q && q.type === 'tf' && q.correct === 'false');
+  axEl('qbfAnswer').value = q && q.type === 'short' ? (q.answer || '') : '';
+  qbTypeChanged(); acMsg('qbfMsg', '', '');
+  axEl('qbListView').style.display = 'none'; axEl('qbFormView').style.display = '';
+  axEl('qbFormView').scrollIntoView && axEl('qbFormView').scrollIntoView({ block:'start' });
+}
+function qbCancel() { qbShowList(); qbRender(); }
+function qbSave() {
+  const err = t => { acMsg('qbfMsg', 'err', t); return false; };
+  const cls = axEl('qbfClass').value, subject = acTitle(axEl('qbfSubject').value), chapter = acTitle(axEl('qbfChapter').value), type = axEl('qbfType').value;
+  const diff = axEl('qbfDiff').value, marks = Number(axEl('qbfMarks').value), text = axEl('qbfText').value.trim(), expl = axEl('qbfExplain').value.trim();
+  if (!getAllowedClasses().includes(cls)) return err('Choose one of your classes.');
+  if (!subject) return err('Enter the subject.');
+  if (!chapter) return err('Enter the chapter or topic. It keeps the Question Bank organised.');
+  if (!(marks >= 1 && marks <= 100 && Number.isInteger(marks))) return err('Marks must be a whole number from 1 to 100.');
+  if (text.length < 5) return err('Write the question (at least 5 characters).');
+  const rec = { class:cls, subject, chapter, type, difficulty:diff, marks, text };
+  if (type === 'mcq') {
+    const rows = [...axEl('qbOptRows').querySelectorAll('.qb-opt')], opts = [];
+    let correct = -1, sel = rows.findIndex(r => r.querySelector('input[type=radio]').checked);
+    rows.forEach((r, i) => { const v = r.querySelector('.qb-opt-t').value.trim(); if (v) { if (i === sel) correct = opts.length; opts.push(v); } });
+    if (opts.length < 2) return err('Add at least two options.');
+    if (new Set(opts.map(acNorm)).size !== opts.length) return err('Two options are identical. Make each option different.');
+    if (correct < 0) return err('Select the correct option (the round button beside it).');
+    rec.options = opts; rec.correct = correct;
+  } else if (type === 'tf') {
+    const v = axEl('qbfTfTrue').checked ? 'true' : axEl('qbfTfFalse').checked ? 'false' : '';
+    if (!v) return err('Select whether the statement is True or False.'); rec.correct = v;
+  } else { rec.answer = axEl('qbfAnswer').value.trim(); }
+  if (expl) rec.explanation = expl;
+  const dup = qbScope().find(x => x.id !== qbEditId && x.class === cls && acNorm(x.subject) === acNorm(subject) && acNorm(x.text) === acNorm(text));
+  if (dup) return err('This question already exists in the Question Bank for this class and subject.');
+  const old = qbEditId ? qbData[qbEditId] : null, id = qbEditId || uid(), now = Date.now();
+  rec.createdAt = old ? (old.createdAt || now) : now; rec.createdBy = old ? (old.createdBy || axActor()) : axActor(); rec.createdById = old ? (old.createdById || curUser) : curUser; rec.updatedAt = now;
+  const btn = axEl('qbSaveBtn'); btn.disabled = true;
+  db.ref('questionBank/' + id).set(rec).then(() => {
+    logActivity('edit', (old ? 'Edited' : 'Added') + ' question: ' + subject + ' / ' + chapter);
+    qbF.cls = cls; qbF.subj = acNorm(subject); qbF.chap = ''; qbShowList(); qbRender(); acMsg('qbMsg', 'ok', old ? 'Question updated.' : 'Question added to the Question Bank.');
+  }).catch(e => err('Could not save. ' + axErrText(e).replace("'attendance'", "'questionBank'"))).then(() => { btn.disabled = false; });
+}
+function qbDelete(id) {
+  const q = qbData[id]; if (!q || !qbCanEdit(Object.assign({ id }, q))) return;
+  acModal({ title:'Delete this question?', html:`<p>${acEsc(q.text.slice(0, 160))}</p><p class="ac-muted">Exams that already use it keep their own copy and are not affected.</p>`, ok:'Delete', danger:true,
+    onOk: () => db.ref('questionBank/' + id).remove().then(() => { logActivity('del', 'Deleted a question: ' + q.subject); acMsg('qbMsg', 'ok', 'Question deleted.'); }).catch(e => acMsg('qbMsg', 'err', 'Could not delete. ' + axErrText(e))) });
+}
+window.qbOpen = qbOpen; window.qbFilterChanged = qbFilterChanged; window.qbSearchTyped = qbSearchTyped; window.qbClearFilters = qbClearFilters;
+window.qbOpenForm = qbOpenForm; window.qbCancel = qbCancel; window.qbSave = qbSave; window.qbTypeChanged = qbTypeChanged; window.qbAddOption = qbAddOption;
+
+/* ═════════ 2. ONLINE EXAMINATION — shared grading + teacher / admin side ═════════ */
+let exData = {}, exLoaded = false, exErr = null, exView = 'list', exForm = null, exAttCache = {}, exCur = null, exBound = false, exFilter = { cls:'', status:'' };
+let exMyAtt = {}, exTk = null, exTimerId = null, exListTimer = null, exSaveT = {};
+
+/* ── grading (used by the student's submit and by teacher re-evaluation) ── */
+function exGrade(exam, keys, answers) {
+  const perQ = {};
+  exam.questions.forEach((q, i) => {
+    const key = acAt(keys, i) || {}, a = acAt(answers, i), blank = a == null || String(a).trim() === '';
+    if (blank) perQ[i] = { s:'skipped', m:0 };
+    else if (q.type === 'mcq') perQ[i] = Number(a) === Number(key.c) ? { s:'correct', m:q.marks } : { s:'wrong', m:0 };
+    else if (q.type === 'tf') perQ[i] = String(a) === String(key.c) ? { s:'correct', m:q.marks } : { s:'wrong', m:0 };
+    else perQ[i] = { s:'pending', m:null };                     // short answers need a teacher
+  });
+  return { perQ };
+}
+function exSummarize(exam, perQ) {
+  const r = { score:0, total:0, correct:0, wrong:0, skipped:0, partial:0, pendingCount:0, pendingTotal:0 };
+  exam.questions.forEach((q, i) => {
+    const p = acAt(perQ, i) || { s:'skipped', m:0 }; r.total += q.marks;
+    if (p.s === 'pending') { r.pendingCount++; r.pendingTotal += q.marks; return; }
+    r.score += p.m || 0;
+    if (p.s === 'skipped') r.skipped++;
+    else if (p.s === 'correct' || (p.s === 'graded' && p.m === q.marks)) r.correct++;
+    else if (p.s === 'graded' && p.m > 0) r.partial++;
+    else r.wrong++;
+  });
+  r.pct = acPct(r.score, r.total); r.checkedTotal = r.total - r.pendingTotal;
+  return r;
+}
+async function exMirrorResult(exam, eid, sid, sum, submittedAt) {
+  const d = new Date(submittedAt || Date.now()), date = d.getFullYear() + '-' + axPad(d.getMonth() + 1) + '-' + axPad(d.getDate());
+  await db.ref('students/' + sid + '/results/exam_' + eid).set({ id:'exam_' + eid, subject:exam.subject, testName:exam.title, marks:sum.score, total:sum.total, date, source:'exam', examId:eid });
+}
+function exStatus(e, now) {
+  now = now || Date.now();
+  if (!e.published) return 'draft'; if (now < e.startAt) return 'upcoming'; if (now > e.endAt) return 'closed'; return 'live';
+}
+const EX_STATUS_LBL = { draft:'Draft', upcoming:'Upcoming', live:'Live', closed:'Closed' };
+const exCanManage = e => !curAdminData || e.createdById === curUser;
+
+function exStart() {
+  if (exRef) return;
+  exRef = db.ref('exams');
+  exRef.on('value', s => { exData = s.val() || {}; exLoaded = true; exErr = null; exRenderList(); stuExRender(); },
+           e => { exErr = e; exLoaded = true; exRenderList(); stuExRender(); });
+}
+function exMine() {
+  const al = getAllowedClasses();
+  return Object.keys(exData).map(id => Object.assign({ id }, exData[id])).filter(e => e && e.title && Array.isArray(e.questions) && al.includes(e.class));
+}
+function exOpen() {
+  exStart(); qbStart();
+  if (!exBound) {
+    exBound = true;
+    axEl('exList').addEventListener('click', ev => {
+      const b = ev.target.closest('[data-act]'); if (!b) return; const id = b.dataset.id, a = b.dataset.act;
+      if (a === 'attempts') exOpenAttempts(id); else if (a === 'edit') exEdit(id); else if (a === 'pub') exTogglePublish(id); else if (a === 'del') exDelete(id);
+    });
+    axEl('exAttBody').addEventListener('click', ev => { const r = ev.target.closest('[data-sid]'); if (r) exOpenPaper(exCur, r.dataset.sid); });
+    axEl('exPicker').addEventListener('click', ev => {
+      const m = ev.target.closest('[data-pick]'); if (m) { m.classList.toggle('on'); exPickCount(); }
+    });
+    axEl('exSel').addEventListener('click', ev => {
+      const b = ev.target.closest('[data-q]'); if (!b || exForm.locked) return; const i = +b.dataset.i, a = b.dataset.q, qs = exForm.questions;
+      if (a === 'rm') qs.splice(i, 1); else if (a === 'up' && i > 0) [qs[i - 1], qs[i]] = [qs[i], qs[i - 1]]; else if (a === 'dn' && i < qs.length - 1) [qs[i + 1], qs[i]] = [qs[i], qs[i + 1]];
+      exSelRender(); exPickerRender();
+    });
+    axEl('exSel').addEventListener('input', ev => { const t = ev.target.closest('[data-marks]'); if (!t) return; const v = Math.round(Number(t.value)); exForm.questions[+t.dataset.marks].marks = v >= 1 ? v : 1; exTotalRender(); });
+  }
+  exSetView('list'); exRenderList();
+}
+function exSetView(v) {
+  exView = v; ['List', 'Form', 'Att', 'Paper'].forEach(k => { axEl('ex' + k + 'View').style.display = ('ex' + k) === ('ex' + v.charAt(0).toUpperCase() + v.slice(1)) ? '' : 'none'; });
+}
+function exBack() { if (exView === 'paper') { exSetView('att'); exRenderAttempts(); } else { exSetView('list'); exRenderList(); } }
+
+/* ── list ── */
+function exFilterChanged() { exFilter.cls = axEl('exFltCls').value; exFilter.status = axEl('exFltSt').value; exRenderList(); }
+function exLoadCounts(list) {
+  const need = list.filter(e => !exAttCache[e.id] || Date.now() - exAttCache[e.id].ts > 30000).slice(0, 40);
+  if (!need.length) return;
+  Promise.all(need.map(e => db.ref('examAttempts/' + e.id).once('value').then(s => { exAttCache[e.id] = { ts:Date.now(), data:s.val() || {} }; }).catch(() => { exAttCache[e.id] = { ts:Date.now(), data:{}, err:true }; })))
+    .then(() => { if (exView === 'list') exRenderList(true); });
+}
+function exRenderList(noLoad) {
+  const wrap = axEl('exList'); if (!wrap || !exRef || !acIsStaff()) return;
+  acFillSelect(axEl('exFltCls'), getAllowedClasses().map(c => [c, c]), 'All classes', exFilter.cls); exFilter.cls = axEl('exFltCls').value; axEl('exFltSt').value = exFilter.status;
+  if (exErr) { wrap.innerHTML = `<div class="ac-note err">Could not load examinations. ${acEsc(axErrText(exErr).replace("'attendance'", "'exams'"))}</div>`; return; }
+  if (!exLoaded) { wrap.innerHTML = '<p class="ac-muted">Loading…</p>'; return; }
+  const all = exMine().sort((a, b) => (b.startAt || 0) - (a.startAt || 0));
+  const list = all.filter(e => (!exFilter.cls || e.class === exFilter.cls) && (!exFilter.status || exStatus(e) === exFilter.status));
+  if (!noLoad) exLoadCounts(list);
+  if (!all.length) { wrap.innerHTML = '<div class="ac-card ac-empty">No examinations yet. Create one from your Question Bank questions.</div>'; return; }
+  if (!list.length) { wrap.innerHTML = '<div class="ac-card ac-empty">No examinations match these filters.</div>'; return; }
+  wrap.innerHTML = list.map(e => {
+    const st = exStatus(e), c = exAttCache[e.id], n = c ? Object.values(c.data).filter(a => a && a.status && a.status !== 'in_progress').length : null, roster = axStudentsOf(e.class).length;
+    const pend = c ? Object.values(c.data).filter(a => a && a.status === 'submitted').length : 0;
+    return `<div class="ac-card ex-card"><div class="ex-card-top"><div><div class="ac-title">${acEsc(e.title)}</div><div class="ac-muted">${acEsc(e.class)} <i>/</i> ${acEsc(e.subject)}</div></div><span class="ac-chip st-${st}">${EX_STATUS_LBL[st]}</span></div>` +
+      `<div class="ex-meta"><span>${acI('clock', 14)} ${e.duration} min</span><span>${acI('file', 14)} ${e.questions.length} questions</span><span>${e.total} marks</span></div>` +
+      `<div class="ac-muted ex-win">${acEsc(acDT(e.startAt))} to ${acEsc(acDT(e.endAt))}</div>` +
+      `<div class="ex-card-stats">${n == null ? 'Loading attempts…' : `<b>${n}</b> of ${roster} submitted` + (pend ? ` &middot; <b class="warn">${pend}</b> need checking` : '')}</div>` +
+      `<div class="ex-card-btns"><button type="button" class="ac-btn sm" data-act="attempts" data-id="${acEsc(e.id)}">${acI('users', 15)} Attempts</button>` +
+      (exCanManage(e) ? `<button type="button" class="ac-btn ghost sm" data-act="edit" data-id="${acEsc(e.id)}">${acI('edit', 15)} Edit</button><button type="button" class="ac-btn ghost sm" data-act="pub" data-id="${acEsc(e.id)}">${e.published ? 'Unpublish' : 'Publish'}</button><button type="button" class="ac-btn ghost sm bad" data-act="del" data-id="${acEsc(e.id)}" aria-label="Delete exam">${acI('trash', 15)}</button>` : '') + '</div></div>';
+  }).join('');
+}
+function exTogglePublish(id) {
+  const e = exData[id]; if (!e || !exCanManage(e)) return; const to = !e.published;
+  if (to && (!e.questions || !e.questions.length)) { acMsg('exMsg', 'err', 'Add questions before publishing.'); return; }
+  const go = () => db.ref('exams/' + id).update({ published:to, updatedAt:Date.now() }).then(() => {
+    acMsg('exMsg', 'ok', to ? 'Published. Students of ' + e.class + ' can see it.' : 'Unpublished. Students can no longer open it.'); logActivity('edit', (to ? 'Published' : 'Unpublished') + ' exam: ' + e.title);
+    if (to) ncPut({ title:'New exam: ' + e.title, body:e.subject + ' exam, ' + e.duration + ' minutes, ' + e.total + ' marks. Opens ' + acDT(e.startAt) + ' and closes ' + acDT(e.endAt) + '.', category:'exam', important:true, audience:'class', audienceValue:e.class, source:'exam', refId:id }, 'exam_' + id);
+    else ncDelete('exam_' + id);
+  }).catch(err => acMsg('exMsg', 'err', 'Could not update. ' + axErrText(err)));
+  if (!to && exStatus(e) === 'live') acModal({ title:'Unpublish a live exam?', html:'<p>Students who have not started will no longer be able to open it. Students already writing can finish.</p>', ok:'Unpublish', onOk:go }); else go();
+}
+async function exDelete(id) {
+  const e = exData[id]; if (!e || !exCanManage(e)) return;
+  let has = false;
+  try { has = Object.keys((await db.ref('examAttempts/' + id).once('value')).val() || {}).length > 0; } catch (er) { has = true; }
+  if (has) { acMsg('exMsg', 'err', 'This exam already has student attempts, so it cannot be deleted. Unpublish it instead.'); return; }
+  acModal({ title:'Delete "' + e.title + '"?', html:'<p>This removes the exam. No student has attempted it.</p>', ok:'Delete', danger:true,
+    onOk: () => { const u = {}; u['exams/' + id] = null; u['examKeys/' + id] = null; db.ref().update(u).then(() => { acMsg('exMsg', 'ok', 'Exam deleted.'); ncDelete('exam_' + id); logActivity('del', 'Deleted exam: ' + e.title); }).catch(er => acMsg('exMsg', 'err', 'Could not delete. ' + axErrText(er))); } });
+}
+
+/* ── create / edit ── */
+function exNew() { exOpenForm(null); }
+async function exEdit(id) {
+  const e = exData[id]; if (!e || !exCanManage(e)) return;
+  let locked = false, keys = [];
+  try {
+    locked = Object.keys((await db.ref('examAttempts/' + id).once('value')).val() || {}).length > 0;
+    keys = (await db.ref('examKeys/' + id).once('value')).val() || [];
+  } catch (er) { acMsg('exMsg', 'err', 'Could not open this exam for editing. ' + axErrText(er)); return; }
+  exOpenForm(id, locked, keys);
+}
+function exOpenForm(id, locked, keys) {
+  acFillDL();
+  const e = id ? exData[id] : null, al = getAllowedClasses(), now = Date.now();
+  exForm = { id:id || null, locked:!!locked, orig:e,
+    questions: e ? e.questions.map((q, i) => Object.assign({}, q, { key:acAt(keys, i), _cls:e.class, _sub:acNorm(e.subject) })) : [] };
+  axEl('exfTitleH').textContent = e ? 'Edit examination' : 'New examination';
+  axEl('exfClass').innerHTML = al.map(c => `<option value="${acEsc(c)}">${acEsc(c)}</option>`).join(''); axEl('exfClass').value = e ? e.class : (exFilter.cls || al[0] || '');
+  axEl('exfSubject').value = e ? e.subject : ''; axEl('exfTitle').value = e ? e.title : ''; axEl('exfInstr').value = e ? (e.instructions || '') : 'Read each question carefully. You can move between questions before you submit.';
+  axEl('exfDur').value = e ? e.duration : 30;
+  const start = e ? e.startAt : Math.ceil((now + 3600000) / 900000) * 900000; axEl('exfStart').value = acInput(start); axEl('exfEnd').value = acInput(e ? e.endAt : start + 24 * 3600000);
+  ['exfClass', 'exfSubject', 'exfDur'].forEach(i => { axEl(i).disabled = !!locked; });
+  axEl('exfLock').style.display = locked ? '' : 'none'; axEl('exPickerWrap').style.display = locked ? 'none' : '';
+  const pub = !!(e && e.published); axEl('exfSaveDraft').style.display = pub ? 'none' : ''; axEl('exfSavePub').textContent = pub ? 'Save changes' : 'Save and publish';
+  ['expQ'].forEach(i => { axEl(i).value = ''; }); ['expDiff', 'expType', 'expChap'].forEach(i => { axEl(i).value = ''; });
+  acMsg('exfMsg', '', ''); exSelRender(); exPickerRender(); exSetView('form');
+  axEl('exFormView').scrollIntoView && axEl('exFormView').scrollIntoView({ block:'start' });
+}
+function exfScopeChanged() {
+  if (!exForm.locked && exForm.questions.length) {
+    const cls = axEl('exfClass').value, sub = acNorm(axEl('exfSubject').value), before = exForm.questions.length;
+    exForm.questions = exForm.questions.filter(q => q._cls === cls && (!sub || q._sub === sub));
+    if (exForm.questions.length < before) acMsg('exfMsg', 'warn', (before - exForm.questions.length) + ' selected question(s) belong to a different class or subject and were removed.');
+  }
+  exSelRender(); exPickerRender();
+}
+function exTotalRender() { const t = exForm.questions.reduce((s, q) => s + (q.marks || 0), 0); axEl('exfTotal').textContent = t + ' marks in total, ' + exForm.questions.length + ' question' + (exForm.questions.length === 1 ? '' : 's'); }
+function exSelRender() {
+  const el = axEl('exSel'), qs = exForm.questions; exTotalRender();
+  if (!qs.length) { el.innerHTML = '<p class="ac-muted">No questions selected yet. Choose from the Question Bank below.</p>'; return; }
+  el.innerHTML = qs.map((q, i) => `<div class="ex-sq"><div class="ex-sq-n">${i + 1}</div><div class="ex-sq-b"><div class="ex-sq-t">${acEsc(q.text)}</div><div class="ex-sq-m"><span class="ac-chip">${QB_TYPES[q.type]}</span>` +
+    `<label>Marks <input type="number" min="1" max="100" step="1" value="${q.marks}" data-marks="${i}" ${exForm.locked ? 'disabled' : ''}></label></div></div>` +
+    (exForm.locked ? '' : `<div class="ex-sq-a"><button type="button" class="ac-ico" data-q="up" data-i="${i}" aria-label="Move up">${acI('up', 16)}</button><button type="button" class="ac-ico" data-q="dn" data-i="${i}" aria-label="Move down">${acI('down', 16)}</button><button type="button" class="ac-ico bad" data-q="rm" data-i="${i}" aria-label="Remove">${acI('x', 16)}</button></div>`) + '</div>').join('');
+}
+function exPickerRender() {
+  const box = axEl('exPick'); if (!box || !exForm || exView !== 'form' || exForm.locked) return;
+  const cls = axEl('exfClass').value, subj = acNorm(axEl('exfSubject').value);
+  if (qbErr) { box.innerHTML = '<div class="ac-note err">Could not load the Question Bank.</div>'; return; }
+  const base = qbScope().filter(q => q.class === cls && (!subj || acNorm(q.subject) === subj)), used = new Set(exForm.questions.map(q => q.qid));
+  acFillSelect(axEl('expChap'), acDistinct(base, x => x.chapter), 'All chapters', axEl('expChap').value);
+  const f = { q:axEl('expQ').value, chap:axEl('expChap').value, diff:axEl('expDiff').value, type:axEl('expType').value };
+  const list = qbFilter(base, f).filter(q => !used.has(q.id)).sort((a, b) => acNorm(a.chapter).localeCompare(acNorm(b.chapter)) || (b.createdAt || 0) - (a.createdAt || 0));
+  if (!base.length) { box.innerHTML = `<p class="ac-muted">No questions in the Question Bank for ${acEsc(cls)}${subj ? ' / ' + acEsc(axEl('exfSubject').value) : ''} yet. Add some in the Question Bank first.</p>`; axEl('exPickBtn').style.display = 'none'; return; }
+  axEl('exPickBtn').style.display = '';
+  box.innerHTML = list.length ? list.slice(0, 80).map(q => `<div class="ex-pk" data-pick="${acEsc(q.id)}"><span class="ex-pk-box">${acI('check', 14)}</span><div class="ex-pk-b"><div class="ex-pk-t">${acEsc(q.text)}</div><div class="ex-pk-m"><span class="ac-chip">${QB_TYPES[q.type]}</span><span class="ac-chip d-${q.difficulty}">${QB_DIFF[q.difficulty]}</span><span class="ac-chip">${q.marks}m</span><span class="ac-muted">${acEsc(q.chapter)}</span></div></div></div>`).join('') + (list.length > 80 ? `<p class="ac-muted">Showing 80 of ${list.length}. Narrow the filters to see the rest.</p>` : '') : '<p class="ac-muted">No matching questions left to add.</p>';
+  exPickCount();
+}
+function exPickCount() { const n = axEl('exPick').querySelectorAll('.ex-pk.on').length; axEl('exPickBtn').textContent = n ? 'Add ' + n + ' selected question' + (n === 1 ? '' : 's') : 'Add selected questions'; axEl('exPickBtn').disabled = !n; }
+function exPickAdd() {
+  const ids = [...axEl('exPick').querySelectorAll('.ex-pk.on')].map(e => e.dataset.pick), cls = axEl('exfClass').value, sub = acNorm(axEl('exfSubject').value);
+  ids.forEach(id => { const q = qbData[id]; if (!q) return;
+    const s = { qid:id, type:q.type, text:q.text, chapter:q.chapter, difficulty:q.difficulty, marks:q.marks, _cls:cls, _sub:acNorm(q.subject),
+                key:q.type === 'short' ? { a:q.answer || '' } : { c:q.correct } };       // the key is captured together with the snapshot
+    if (q.type === 'mcq') s.options = q.options.slice(); exForm.questions.push(s); });
+  if (!axEl('exfSubject').value.trim() && ids.length && qbData[ids[0]]) axEl('exfSubject').value = qbData[ids[0]].subject;
+  exSelRender(); exPickerRender();
+}
+async function exSave(publish) {
+  const err = t => { acMsg('exfMsg', 'err', t); return false; }, F = exForm, o = F.orig;
+  const title = axEl('exfTitle').value.trim(), cls = axEl('exfClass').value, subject = acTitle(axEl('exfSubject').value), instr = axEl('exfInstr').value.trim();
+  const dur = Number(axEl('exfDur').value), start = acFromInput(axEl('exfStart').value), end = acFromInput(axEl('exfEnd').value);
+  if (!title) return err('Enter the exam name.'); if (!getAllowedClasses().includes(cls)) return err('Choose one of your classes.'); if (!subject) return err('Enter the subject.');
+  if (!F.questions.length) return err('Select at least one question from the Question Bank.');
+  if (!(dur >= 1 && dur <= 600 && Number.isInteger(dur))) return err('Duration must be a whole number of minutes (1 to 600).');
+  if (isNaN(start) || isNaN(end)) return err('Choose the start and end date and time.'); if (end <= start) return err('The end time must be after the start time.');
+  if (end - start < dur * 60000) return err('The availability window (' + Math.round((end - start) / 60000) + ' min) is shorter than the exam duration (' + dur + ' min).');
+  if (F.questions.some(q => !(q.marks >= 1))) return err('Every question needs marks of at least 1.');
+  if (F.questions.some(q => !q.key)) return err('A question is missing its answer key. Remove it and add it again from the Question Bank.');
+  const now = Date.now(), id = F.id || uid(), total = F.questions.reduce((s, q) => s + q.marks, 0), up = {}, keep = ['qid', 'type', 'text', 'chapter', 'difficulty', 'marks', 'options'];
+  const rec = { title, class:cls, subject, instructions:instr, duration:dur, startAt:start, endAt:end, published:!!publish, total, createdBy:o ? o.createdBy : axActor(), createdById:o ? o.createdById : curUser, createdAt:o ? o.createdAt : now, updatedAt:now };
+  ['exfSaveDraft', 'exfSavePub'].forEach(i => btnBusy(i, true));
+  try {
+    if (F.locked) { rec.questions = o.questions; rec.total = o.total; rec.duration = o.duration; rec.class = o.class; rec.subject = o.subject; }   // attempts exist: questions, marks and timing rules are frozen
+    else {
+      rec.questions = F.questions.map(q => { const c = {}; keep.forEach(k => { if (q[k] !== undefined) c[k] = q[k]; }); return c; });
+      up['examKeys/' + id] = F.questions.map(q => q.key);
+    }
+    up['exams/' + id] = rec;
+    await db.ref().update(up);
+    logActivity('edit', (o ? 'Updated' : 'Created') + ' exam: ' + title);
+    if (rec.published && !(o && o.published)) ncPut({ title:'New exam: ' + title, body:subject + ' exam, ' + rec.duration + ' minutes, ' + rec.total + ' marks. Opens ' + acDT(start) + ' and closes ' + acDT(end) + '.', category:'exam', important:true, audience:'class', audienceValue:rec.class, source:'exam', refId:id }, 'exam_' + id);
+    exSetView('list'); exRenderList(); acMsg('exMsg', 'ok', rec.published ? 'Exam saved and published.' : 'Exam saved as a draft. Publish it when it is ready.');
+  } catch (e) { err('Could not save. ' + axErrText(e)); }
+  ['exfSaveDraft', 'exfSavePub'].forEach(i => btnBusy(i, false));
+}
+function btnBusy(id, b) { const e = axEl(id); if (e) e.disabled = b; }
+
+/* ── attempts, class performance, papers, manual evaluation ── */
+async function exOpenAttempts(id) {
+  exCur = id; exSetView('att'); axEl('exAttBody').innerHTML = '<p class="ac-muted">Loading…</p>';
+  try { exAttCache[id] = { ts:Date.now(), data:(await db.ref('examAttempts/' + id).once('value')).val() || {} }; } catch (e) { axEl('exAttBody').innerHTML = `<div class="ac-note err">Could not load attempts. ${acEsc(axErrText(e).replace("'attendance'", "'examAttempts'"))}</div>`; return; }
+  exRenderAttempts();
+}
+function exRenderAttempts() {
+  const e = exData[exCur], c = exAttCache[exCur]; if (!e || !c) return;
+  axEl('exAttTitle').textContent = e.title; axEl('exAttSub').textContent = e.class + ' / ' + e.subject + '  ·  ' + e.total + ' marks';
+  const roster = axStudentsOf(e.class), done = Object.keys(c.data).filter(k => c.data[k] && c.data[k].status && c.data[k].status !== 'in_progress');
+  const scored = done.map(k => c.data[k]).filter(a => a.status === 'evaluated'), pcts = scored.map(a => a.pct);
+  const pend = done.filter(k => c.data[k].status === 'submitted').length, prog = Object.keys(c.data).filter(k => c.data[k] && c.data[k].status === 'in_progress').length;
+  const avg = pcts.length ? pcts.reduce((s, v) => s + v, 0) / pcts.length : null;
+  const card = (v, l) => `<div class="ac-stat"><b>${v}</b><span>${l}</span></div>`;
+  const dist = [['80 - 100%', 80, 101], ['60 - 79%', 60, 80], ['40 - 59%', 40, 60], ['Below 40%', -1, 40]].map(([l, a, b]) => ({ label:l, n:pcts.filter(p => p >= a && p < b).length }));
+  const mx = Math.max(1, ...dist.map(d => d.n));
+  const rows = roster.map(s => {
+    const a = c.data[s.id]; let st, sc = '—', pc = '—';
+    if (!a) st = '<span class="ac-chip">Not attempted</span>';
+    else if (a.status === 'in_progress') st = '<span class="ac-chip st-upcoming">Writing</span>';
+    else if (a.status === 'submitted') { st = '<span class="ac-chip st-draft">Needs checking</span>'; sc = a.score + ' + ' + a.pendingTotal + ' pending'; }
+    else { st = '<span class="ac-chip st-closed">Evaluated</span>'; sc = a.score + ' / ' + a.total; pc = acPctTxt(a.pct); }
+    return `<div class="ex-row ${a && a.status && a.status !== 'in_progress' ? 'click' : ''}" ${a && a.status && a.status !== 'in_progress' ? `data-sid="${acEsc(s.id)}"` : ''}><div class="ex-row-n">${acEsc(s.name)}</div><div class="ex-row-s">${sc}</div><div class="ex-row-p">${pc}</div><div>${st}</div></div>`;
+  }).join('');
+  axEl('exAttBody').innerHTML = `<div class="ac-stats">${card(done.length + ' / ' + roster.length, 'Submitted')}${card(pend, 'Need checking')}${card(avg == null ? '—' : acPctTxt(avg), 'Class average')}${card(pcts.length ? acPctTxt(Math.max.apply(null, pcts)) : '—', 'Highest')}${card(pcts.length ? acPctTxt(Math.min.apply(null, pcts)) : '—', 'Lowest')}${card(prog, 'Still writing')}</div>` +
+    `<div class="ac-card"><div class="ac-title">Class performance</div>${pcts.length ? '<div class="ac-bars">' + dist.map(d => `<div class="ac-bar-row"><div class="ac-bar-top"><span>${d.label}</span><b>${d.n} student${d.n === 1 ? '' : 's'}</b></div><div class="ac-bar"><i style="width:${d.n ? Math.max(4, d.n / mx * 100) : 0}%;background:#1976D2"></i></div></div>`).join('') + '</div>' : '<p class="ac-muted">No evaluated papers yet.</p>'}</div>` +
+    `<div class="ac-card"><div class="ac-title">Students</div><div class="ex-rows">${rows || '<p class="ac-muted">No students in this class.</p>'}</div>` + (done.length ? '<p class="ac-muted">Tap a submitted paper to view it' + (pend ? ' and check the written answers.' : '.') + '</p>' : '') + '</div>';
+}
+async function exOpenPaper(eid, sid) {
+  const e = exData[eid], a = exAttCache[eid] && exAttCache[eid].data[sid]; if (!e || !a) return;
+  exSetView('paper'); axEl('exPaperBody').innerHTML = '<p class="ac-muted">Loading…</p>'; let keys = [];
+  try { keys = (await db.ref('examKeys/' + eid).once('value')).val() || []; } catch (er) { axEl('exPaperBody').innerHTML = '<div class="ac-note err">Could not load the answer key.</div>'; return; }
+  exPaperRender(eid, sid, keys);
+}
+function exPaperRender(eid, sid, keys) {
+  const e = exData[eid], a = exAttCache[eid].data[sid], sum = exSummarize(e, a.perQ), name = axStudentName(sid);
+  axEl('exPaperBody').dataset.eid = eid; axEl('exPaperBody').dataset.sid = sid;
+  const qh = e.questions.map((q, i) => {
+    const key = acAt(keys, i) || {}, ans = acAt(a.answers, i), p = acAt(a.perQ, i) || { s:'skipped', m:0 }, has = !(ans == null || String(ans).trim() === '');
+    let given = '<span class="ac-muted">Not answered</span>', right = '';
+    if (has) given = q.type === 'mcq' ? acEsc(q.options[Number(ans)] != null ? String.fromCharCode(65 + Number(ans)) + '. ' + q.options[Number(ans)] : '—') : q.type === 'tf' ? (ans === 'true' ? 'True' : 'False') : acEsc(ans);
+    if (q.type === 'mcq') right = acEsc(String.fromCharCode(65 + Number(key.c)) + '. ' + (q.options[Number(key.c)] || '')); else if (q.type === 'tf') right = key.c === 'true' ? 'True' : 'False'; else right = key.a ? acEsc(key.a) : '<span class="ac-muted">No model answer saved</span>';
+    const badge = p.s === 'pending' ? '<span class="ac-chip st-draft">Needs checking</span>' : p.s === 'skipped' ? '<span class="ac-chip">Unattempted</span>' : (p.s === 'correct' || (p.s === 'graded' && p.m === q.marks)) ? '<span class="ac-chip st-closed">Correct</span>' : p.s === 'graded' && p.m > 0 ? '<span class="ac-chip st-live">Partly correct</span>' : '<span class="ac-chip bad">Incorrect</span>';
+    const manual = q.type === 'short' && has ? `<div class="ex-grade"><label>Marks awarded (0 to ${q.marks})<input type="number" min="0" max="${q.marks}" step="1" data-g="${i}" value="${p.s === 'graded' ? p.m : ''}" placeholder="Enter marks"></label></div>` : '';
+    return `<div class="ac-card"><div class="ex-pq-top"><b>Q${i + 1}</b><span class="ac-chip">${QB_TYPES[q.type]}</span><span class="ac-chip">${p.m == null ? '?' : p.m} / ${q.marks}</span>${badge}</div><div class="ex-pq-t">${acEsc(q.text)}</div>` +
+      `<div class="ex-pq-a"><small>Student's answer</small><div>${given}</div></div><div class="ex-pq-a ok"><small>${q.type === 'short' ? 'Model answer' : 'Correct answer'}</small><div>${right}</div></div>${manual}</div>`;
+  }).join('');
+  const hasManual = e.questions.some((q, i) => q.type === 'short' && !(acAt(a.answers, i) == null || String(acAt(a.answers, i)).trim() === ''));
+  axEl('exPaperBody').innerHTML = `<div class="ac-card"><div class="ac-title">${acEsc(name)}</div><div class="ac-muted">${acEsc(e.title)}</div>` +
+    `<div class="ac-stats" style="margin-top:10px;"><div class="ac-stat"><b>${sum.score}${sum.pendingCount ? ' + ?' : ''} / ${sum.total}</b><span>Marks</span></div><div class="ac-stat"><b>${sum.pendingCount ? '—' : acPctTxt(sum.pct)}</b><span>Percentage</span></div><div class="ac-stat"><b>${sum.correct}</b><span>Correct</span></div><div class="ac-stat"><b>${sum.wrong}</b><span>Incorrect</span></div><div class="ac-stat"><b>${sum.skipped}</b><span>Unattempted</span></div><div class="ac-stat"><b>${sum.pendingCount}</b><span>Need checking</span></div></div>` +
+    `<p class="ac-muted">Submitted ${acEsc(acDT(a.submittedAt))}${a.autoSubmitted ? ' (automatically when time ran out)' : ''}${a.evaluatedBy ? ' &middot; checked by ' + acEsc(a.evaluatedBy) : ''}</p></div>${qh}` +
+    (hasManual ? '<div id="exGradeMsg"></div><button type="button" class="ac-btn" id="exGradeBtn" onclick="exSaveGrades()">Save evaluation</button>' : '') + '<div style="height:20px"></div>';
+}
+async function exSaveGrades() {
+  const body = axEl('exPaperBody'), eid = body.dataset.eid, sid = body.dataset.sid, e = exData[eid], a = exAttCache[eid].data[sid];
+  const perQ = {}; e.questions.forEach((q, i) => { perQ[i] = Object.assign({}, acAt(a.perQ, i) || { s:'skipped', m:0 }); });
+  let bad = null;
+  body.querySelectorAll('[data-g]').forEach(inp => {
+    const i = +inp.dataset.g, q = e.questions[i], v = inp.value.trim();
+    if (v === '') { if (perQ[i].s === 'graded') perQ[i] = { s:'pending', m:null }; return; }
+    const m = Number(v); if (!Number.isInteger(m) || m < 0 || m > q.marks) { bad = 'Marks for question ' + (i + 1) + ' must be a whole number from 0 to ' + q.marks + '.'; return; }
+    perQ[i] = { s:'graded', m };
+  });
+  if (bad) { acMsg('exGradeMsg', 'err', bad); return; }
+  const sum = exSummarize(e, perQ), status = sum.pendingCount ? 'submitted' : 'evaluated', now = Date.now();
+  const upd = { perQ, status, score:sum.score, total:sum.total, pct:sum.pct, correct:sum.correct, wrong:sum.wrong, skipped:sum.skipped, partial:sum.partial, pendingCount:sum.pendingCount, pendingTotal:sum.pendingTotal, evaluatedBy:axActor(), evaluatedAt:now };
+  btnBusy('exGradeBtn', true);
+  try {
+    await db.ref('examAttempts/' + eid + '/' + sid).update(upd); Object.assign(a, upd);
+    if (status === 'evaluated') {
+      await exMirrorResult(e, eid, sid, sum, a.submittedAt);
+      ncPut({ title:'Exam result: ' + e.title, body:'You scored ' + sum.score + ' out of ' + sum.total + ' (' + acPctTxt(sum.pct) + ') in ' + e.subject + '.', category:'exam', important:false, audience:'student', audienceValue:sid, source:'exam', refId:eid }, 'exres_' + eid + '_' + sid);
+    }
+    acMsg('exGradeMsg', 'ok', status === 'evaluated' ? 'Evaluation saved. The final result is now visible to the student and counted in analytics.' : 'Saved. ' + sum.pendingCount + ' answer' + (sum.pendingCount === 1 ? '' : 's') + ' still need marks.');
+    logActivity('edit', 'Evaluated exam paper: ' + e.title + ' / ' + axStudentName(sid));
+    const keys = (await db.ref('examKeys/' + eid).once('value')).val() || []; const msgHtml = axEl('exGradeMsg').innerHTML; exPaperRender(eid, sid, keys); axEl('exGradeMsg') && (axEl('exGradeMsg').innerHTML = msgHtml);
+  } catch (er) { acMsg('exGradeMsg', 'err', 'Could not save. ' + axErrText(er)); btnBusy('exGradeBtn', false); }
+}
+window.exOpen = exOpen; window.exNew = exNew; window.exBack = exBack; window.exFilterChanged = exFilterChanged; window.exfScopeChanged = exfScopeChanged; window.exPickerRender = exPickerRender;
+window.exPickAdd = exPickAdd; window.exSave = exSave; window.exSaveGrades = exSaveGrades;
+
+/* ═════════ 2b. ONLINE EXAMINATION — student side ═════════ */
+const exArr = (x, n) => Array.from({ length:n }, (_, i) => acAt(x, i));
+function exAnsObj(a) { const o = {}; if (!a) return o; Object.keys(a).forEach(k => { if (a[k] != null && String(a[k]).trim() !== '') o[k] = a[k]; }); return o; }
+const exAnswered = i => { const a = exTk.answers[i]; return a != null && String(a).trim() !== ''; };
+
+function stuExOpen() {
+  exStart();
+  if (!stuExOpen.bound) {
+    stuExOpen.bound = true;
+    axEl('stuExList').addEventListener('click', e => {
+      const b = e.target.closest('[data-ex]'); if (!b) return;
+      if (b.dataset.a === 'result') stuExShowResult(b.dataset.ex); else stuExIntro(b.dataset.ex);
+    });
+  }
+  clearInterval(exListTimer); exListTimer = setInterval(() => { const p = axEl('sp-exams'); if (p && p.offsetParent !== null) stuExRender(); }, 30000);
+  stuExRender(true);
+}
+function stuExMine() {
+  const stu = allStudents[curUser]; if (!stu) return [];
+  return Object.keys(exData).map(id => Object.assign({ id }, exData[id])).filter(e => e && e.published && e.class === stu.class && e.title && Array.isArray(e.questions)).sort((a, b) => (b.startAt || 0) - (a.startAt || 0));
+}
+const stuExAtt = id => { const c = exMyAtt[curUser + '|' + id]; return c ? c.v : undefined; };
+function stuExLoad(list) {
+  const need = list.filter(e => { const c = exMyAtt[curUser + '|' + e.id]; return !c || Date.now() - c.ts > 20000; });
+  if (!need.length) return Promise.resolve(false);
+  return Promise.all(need.map(e => db.ref('examAttempts/' + e.id + '/' + curUser).once('value').then(s => { exMyAtt[curUser + '|' + e.id] = { ts:Date.now(), v:s.val() }; }).catch(() => { exMyAtt[curUser + '|' + e.id] = { ts:Date.now(), v:null }; }))).then(() => true);
+}
+function stuExRender(load) {
+  const wrap = axEl('stuExList'); if (!wrap || !curUser || !allStudents[curUser] || !exRef) return;
+  if (exErr) { wrap.innerHTML = `<div class="ac-note err">Could not load exams. ${acEsc(axErrText(exErr).replace("'attendance'", "'exams'"))}</div>`; return; }
+  if (!exLoaded) { wrap.innerHTML = '<p class="ac-muted">Loading…</p>'; return; }
+  const list = stuExMine();
+  if (load !== false) stuExLoad(list).then(ch => { if (ch) stuExRender(false); });
+  if (!list.length) { wrap.innerHTML = '<div class="ac-card ac-empty">No exams for your class yet. When your teacher publishes one, it will appear here.</div>'; return; }
+  const now = Date.now(), sec = { live:[], upcoming:[], done:[] };
+  list.forEach(e => {
+    const a = stuExAtt(e.id), st = exStatus(e, now), submitted = a && a.status && a.status !== 'in_progress';
+    if (submitted || st === 'closed') sec.done.push(e); else if (st === 'live') sec.live.push(e); else sec.upcoming.push(e);
+  });
+  const card = e => {
+    const a = stuExAtt(e.id), st = exStatus(e, now), submitted = a && a.status && a.status !== 'in_progress'; let btn, tag;
+    if (submitted) { btn = `<button type="button" class="ac-btn ghost sm" data-a="result" data-ex="${acEsc(e.id)}">View result</button>`; tag = a.status === 'evaluated' ? `<span class="ac-chip st-closed">${a.score} / ${a.total} &middot; ${acPctTxt(a.pct)}</span>` : '<span class="ac-chip st-draft">Awaiting teacher</span>'; }
+    else if (st === 'closed') { btn = ''; tag = '<span class="ac-chip bad">Missed</span>'; }
+    else if (st === 'upcoming') { btn = `<button type="button" class="ac-btn ghost sm" data-a="open" data-ex="${acEsc(e.id)}">Details</button>`; tag = '<span class="ac-chip st-upcoming">Upcoming</span>'; }
+    else { btn = `<button type="button" class="ac-btn sm" data-a="open" data-ex="${acEsc(e.id)}">${a && a.status === 'in_progress' ? 'Resume' : 'Start'}</button>`; tag = '<span class="ac-chip st-live">Live now</span>'; }
+    return `<div class="ac-card ex-card"><div class="ex-card-top"><div><div class="ac-title">${acEsc(e.title)}</div><div class="ac-muted">${acEsc(e.subject)}</div></div>${tag}</div>` +
+      `<div class="ex-meta"><span>${acI('clock', 14)} ${e.duration} min</span><span>${acI('file', 14)} ${e.questions.length} questions</span><span>${e.total} marks</span></div>` +
+      `<div class="ac-muted ex-win">${st === 'upcoming' ? 'Opens ' + acEsc(acDT(e.startAt)) : st === 'live' && !submitted ? 'Closes ' + acEsc(acDT(e.endAt)) : acEsc(acDT(e.startAt))}</div>${btn ? `<div class="ex-card-btns">${btn}</div>` : ''}</div>`;
+  };
+  const block = (t, arr) => arr.length ? `<div class="ac-sec">${t}</div>` + arr.map(card).join('') : '';
+  wrap.innerHTML = block('Available now', sec.live) + block('Upcoming', sec.upcoming) + block('Completed', sec.done);
+}
+function stuExIntro(id) {
+  const e = exData[id]; if (!e) return; const a = stuExAtt(id), st = exStatus(e), submitted = a && a.status && a.status !== 'in_progress';
+  if (submitted) { stuExShowResult(id); return; }
+  const can = st === 'live', resume = a && a.status === 'in_progress';
+  const info = `<div class="ex-intro-grid"><div><small>Subject</small><b>${acEsc(e.subject)}</b></div><div><small>Duration</small><b>${e.duration} minutes</b></div><div><small>Total marks</small><b>${e.total}</b></div><div><small>Questions</small><b>${e.questions.length}</b></div></div>` +
+    (e.instructions ? `<div class="ex-instr"><small>Instructions</small><div>${acEsc(e.instructions)}</div></div>` : '') +
+    `<p class="ac-muted">${can ? (resume ? 'You already started this exam. Your timer is still running.' : 'The timer starts as soon as you press Start and cannot be paused. Answers are saved as you go.') : st === 'upcoming' ? 'This exam opens ' + acEsc(acDT(e.startAt)) + '.' : 'This exam is closed.'}</p>`;
+  acModal({ title:e.title, html:info, ok:can ? (resume ? 'Resume exam' : 'Start exam') : 'Close', cancel:can ? 'Not now' : false, onOk:can ? () => exBegin(id) : null });
+}
+
+async function exBegin(eid) {
+  const e = exData[eid], stu = allStudents[curUser]; if (!e || !stu) return; const now = Date.now();
+  if (!e.published || now < e.startAt || now > e.endAt) { acModal({ title:'Exam not available', html:'<p>This exam is not open right now.</p>', ok:'Close', cancel:false }); stuExRender(); return; }
+  const path = 'examAttempts/' + eid + '/' + curUser; let att;
+  try { att = (await db.ref(path).once('value')).val(); } catch (er) { acModal({ title:'Could not start', html:'<p>' + acEsc(axErrText(er).replace("'attendance'", "'examAttempts'")) + '</p>', ok:'Close', cancel:false }); return; }
+  if (att && att.status && att.status !== 'in_progress') { exMyAtt[curUser + '|' + eid] = { ts:Date.now(), v:att }; stuExShowResult(eid); return; }
+  if (!att) {
+    att = { examId:eid, studentId:curUser, studentName:stu.name || curUser, class:stu.class, startedAt:now, status:'in_progress' };
+    try { await db.ref(path).set(att); } catch (er) { acModal({ title:'Could not start', html:'<p>' + acEsc(axErrText(er)) + '</p>', ok:'Close', cancel:false }); return; }
+  }
+  exMyAtt[curUser + '|' + eid] = { ts:Date.now(), v:att };
+  exTk = { eid, exam:e, answers:exAnsObj(att.answers), cur:0, deadline:Math.min(att.startedAt + e.duration * 60000, e.endAt), submitting:false };
+  exTkBind();
+  axEl('exTkTitle').textContent = e.title; axEl('exTkSub').textContent = e.subject + '  ·  ' + e.total + ' marks';
+  axEl('exTake').style.display = 'flex'; document.body.style.overflow = 'hidden'; axEl('exSheet').style.display = 'none';
+  exTkRender(); exTick(); clearInterval(exTimerId); exTimerId = setInterval(exTick, 1000);
+  window.addEventListener('beforeunload', exWarnLeave);
+}
+const exWarnLeave = ev => { if (exTk && !exTk.submitting) { ev.preventDefault(); ev.returnValue = ''; } };
+function exFmt(s) { s = Math.max(0, Math.floor(s)); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60; return (h ? h + ':' + axPad(m) : axPad(m)) + ':' + axPad(x); }
+function exTick() {
+  if (!exTk) return; const left = (exTk.deadline - Date.now()) / 1000, t = axEl('exTkTimer');
+  t.textContent = exFmt(left); t.classList.toggle('low', left < 300);
+  if (left <= 0 && !exTk.submitting) exSubmit(true);
+}
+function exTkRender() {
+  const t = exTk, qs = t.exam.questions, i = t.cur, q = qs[i], n = qs.length, a = t.answers[i];
+  axEl('exTkProg').style.width = ((Object.keys(t.answers).filter((k, _) => exAnswered(k)).length) / n * 100) + '%';
+  let inp = '';
+  if (q.type === 'mcq') inp = '<div class="ex-opts">' + q.options.map((o, k) => `<button type="button" class="ex-opt ${a != null && Number(a) === k && String(a) !== '' ? 'on' : ''}" data-opt="${k}"><span class="ex-opt-l">${String.fromCharCode(65 + k)}</span><span class="ex-opt-t">${acEsc(o)}</span></button>`).join('') + '</div>';
+  else if (q.type === 'tf') inp = '<div class="ex-tf">' + ['true', 'false'].map(v => `<button type="button" class="ex-opt ${a === v ? 'on' : ''}" data-tf="${v}"><span class="ex-opt-t">${v === 'true' ? 'True' : 'False'}</span></button>`).join('') + '</div>';
+  else inp = `<textarea class="ex-short" id="exShort" rows="6" maxlength="1500" placeholder="Type your answer here">${acEsc(a || '')}</textarea>`;
+  axEl('exTkBody').innerHTML = `<div class="ex-qcard"><div class="ex-qtop"><span class="ex-qn">Question ${i + 1} <i>of ${n}</i></span><span class="ac-chip">${q.marks} mark${q.marks === 1 ? '' : 's'}</span></div><div class="ex-qtext">${acEsc(q.text)}</div>${inp}</div>`;
+  axEl('exPrev').disabled = i === 0; axEl('exPrev').style.opacity = i === 0 ? .4 : 1;
+  const last = i === n - 1; axEl('exNext').innerHTML = last ? 'Submit exam' : 'Next ' + acI('right', 16); axEl('exNext').dataset.last = last ? '1' : '0';
+  axEl('exPalBtn').innerHTML = acI('grid', 18) + ' <span>' + Object.keys(t.answers).filter(k => exAnswered(k)).length + '/' + n + '</span>';
+}
+function exSaveAns(i) {                                           // progress is written as the student goes, so a reload or a dead battery loses nothing
+  const t = exTk; if (!t) return; clearTimeout(exSaveT[i]);
+  exSaveT[i] = setTimeout(() => { const v = exAnswered(i) ? t.answers[i] : null; db.ref('examAttempts/' + t.eid + '/' + curUser + '/answers/' + i).set(v).catch(() => {}); }, 350);
+}
+function exGo(i) { if (!exTk) return; exTk.cur = Math.max(0, Math.min(exTk.exam.questions.length - 1, i)); exTkRender(); axEl('exTkBody').scrollTop = 0; }
+function exPalette() {
+  const t = exTk, n = t.exam.questions.length, ans = t.exam.questions.filter((_, i) => exAnswered(i)).length, sh = axEl('exSheet');
+  sh.innerHTML = `<div class="ex-sheet-box"><div class="ex-sheet-h"><div class="ac-title">Questions</div><button type="button" class="ac-ico" id="exSheetX" aria-label="Close">${acI('x')}</button></div>` +
+    `<div class="ex-pal">${t.exam.questions.map((q, i) => `<button type="button" class="ex-pn ${exAnswered(i) ? 'done' : ''} ${i === t.cur ? 'cur' : ''}" data-go="${i}" aria-label="Question ${i + 1}, ${exAnswered(i) ? 'answered' : 'not answered'}">${i + 1}</button>`).join('')}</div>` +
+    `<div class="ex-legend"><span><i class="done"></i>Answered ${ans}</span><span><i></i>Not answered ${n - ans}</span></div><button type="button" class="ac-btn" id="exSheetSubmit">Submit exam</button></div>`;
+  sh.style.display = 'flex';
+}
+function exConfirmSubmit() {
+  const t = exTk, n = t.exam.questions.length, un = t.exam.questions.filter((_, i) => !exAnswered(i)).length;
+  acModal({ title:'Submit your exam?', html:`<p>You have answered <b>${n - un}</b> of <b>${n}</b> questions.</p>` + (un ? `<div class="ac-note warn"><b>${un}</b> question${un === 1 ? ' is' : 's are'} not answered.</div>` : '') + '<p class="ac-muted">After you submit you cannot change your answers.</p>', ok:'Submit now', cancel:'Keep working', onOk:() => exSubmit(false) });
+}
+function exTkBind() {
+  if (exTkBind.done) return; exTkBind.done = true;
+  axEl('exTkBody').addEventListener('click', e => {
+    if (!exTk || exTk.submitting) return; const i = exTk.cur, o = e.target.closest('[data-opt]'), f = e.target.closest('[data-tf]');
+    if (o) { exTk.answers[i] = Number(o.dataset.opt); exTkRender(); exSaveAns(i); } else if (f) { exTk.answers[i] = f.dataset.tf; exTkRender(); exSaveAns(i); }
+  });
+  axEl('exTkBody').addEventListener('input', e => { if (!exTk || e.target.id !== 'exShort') return; const v = e.target.value; if (v.trim()) exTk.answers[exTk.cur] = v; else delete exTk.answers[exTk.cur]; exSaveAns(exTk.cur); axEl('exPalBtn').innerHTML = acI('grid', 18) + ' <span>' + exTk.exam.questions.filter((_, k) => exAnswered(k)).length + '/' + exTk.exam.questions.length + '</span>'; });
+  axEl('exPrev').addEventListener('click', () => exGo(exTk.cur - 1));
+  axEl('exNext').addEventListener('click', () => { if (axEl('exNext').dataset.last === '1') exConfirmSubmit(); else exGo(exTk.cur + 1); });
+  axEl('exPalBtn').addEventListener('click', exPalette);
+  axEl('exSheet').addEventListener('click', e => {
+    if (e.target.id === 'exSheet' || e.target.closest('#exSheetX')) { axEl('exSheet').style.display = 'none'; return; }
+    const g = e.target.closest('[data-go]'); if (g) { axEl('exSheet').style.display = 'none'; exGo(+g.dataset.go); return; }
+    if (e.target.closest('#exSheetSubmit')) { axEl('exSheet').style.display = 'none'; exConfirmSubmit(); }
+  });
+}
+async function exSubmit(auto) {
+  const t = exTk; if (!t || t.submitting) return; t.submitting = true; clearInterval(exTimerId);
+  Object.keys(exSaveT).forEach(k => clearTimeout(exSaveT[k])); axEl('exSheet').style.display = 'none';
+  axEl('exTkBody').innerHTML = `<div class="ex-qcard ex-wait"><div class="ac-title">${auto ? 'Time is up. Submitting your answers…' : 'Submitting…'}</div><p class="ac-muted">Please keep this screen open.</p></div>`;
+  try {
+    const keys = (await db.ref('examKeys/' + t.eid).once('value')).val() || [], g = exGrade(t.exam, keys, t.answers), sum = exSummarize(t.exam, g.perQ), now = Date.now();
+    const upd = { status:sum.pendingCount ? 'submitted' : 'evaluated', submittedAt:now, answers:t.answers, perQ:g.perQ, score:sum.score, total:sum.total, pct:sum.pct, correct:sum.correct, wrong:sum.wrong, skipped:sum.skipped, partial:sum.partial, pendingCount:sum.pendingCount, pendingTotal:sum.pendingTotal, autoSubmitted:!!auto };
+    await db.ref('examAttempts/' + t.eid + '/' + curUser).update(upd);
+    const att = Object.assign({}, exMyAtt[curUser + '|' + t.eid].v, upd); exMyAtt[curUser + '|' + t.eid] = { ts:Date.now(), v:att };
+    if (!sum.pendingCount) { try { await exMirrorResult(t.exam, t.eid, curUser, sum, now); } catch (er) { console.warn('result copy failed:', er.message); } }
+    window.removeEventListener('beforeunload', exWarnLeave); exTk = null; axEl('exTake').style.display = 'none'; document.body.style.overflow = '';
+    stuExShowResult(t.eid, keys); stuExRender(false);
+  } catch (er) {
+    t.submitting = false; exTkRender(); exTimerId = setInterval(exTick, 1000);
+    acModal({ title:'Could not submit', html:'<p>' + acEsc(axErrText(er).replace("'attendance'", "'examKeys / examAttempts'")) + '</p><p class="ac-muted">Your answers are saved. Check your connection and press Submit again.</p>', ok:'Close', cancel:false });
+  }
+}
+
+/* ── result ── */
+async function stuExShowResult(eid, keysIn) {
+  const e = exData[eid]; if (!e) return; let a = stuExAtt(eid);
+  if (!a || a.status === 'in_progress') { try { a = (await db.ref('examAttempts/' + eid + '/' + curUser).once('value')).val(); exMyAtt[curUser + '|' + eid] = { ts:Date.now(), v:a }; } catch (er) { return; } }
+  if (!a || !a.status || a.status === 'in_progress') { stuExIntro(eid); return; }
+  const sum = exSummarize(e, a.perQ), pend = sum.pendingCount > 0, closed = Date.now() > e.endAt, tile = (v, l, c) => `<div class="ac-stat ${c || ''}"><b>${v}</b><span>${l}</span></div>`;
+  let review = '';
+  if (closed) {
+    let keys = keysIn; if (!keys) { try { keys = (await db.ref('examKeys/' + eid).once('value')).val() || []; } catch (er) { keys = null; } }
+    if (keys) review = '<div class="ac-sec">Answer review</div>' + e.questions.map((q, i) => {
+      const p = acAt(a.perQ, i) || { s:'skipped', m:0 }, key = acAt(keys, i) || {}, ans = acAt(a.answers, i), has = !(ans == null || String(ans).trim() === '');
+      const ico = p.s === 'pending' ? acI('clock', 16) : p.s === 'skipped' ? acI('dash', 16) : (p.s === 'correct' || (p.s === 'graded' && p.m === q.marks)) ? acI('check', 16) : p.s === 'graded' && p.m > 0 ? acI('check', 16) : acI('x', 16);
+      const cls = p.s === 'pending' ? 'pend' : p.s === 'skipped' ? 'skip' : (p.s === 'correct' || (p.s === 'graded' && p.m === q.marks)) ? 'ok' : p.s === 'graded' && p.m > 0 ? 'part' : 'bad';
+      const mine = !has ? 'Not answered' : q.type === 'mcq' ? String.fromCharCode(65 + Number(ans)) + '. ' + (q.options[Number(ans)] || '') : q.type === 'tf' ? (ans === 'true' ? 'True' : 'False') : ans;
+      const right = q.type === 'mcq' ? String.fromCharCode(65 + Number(key.c)) + '. ' + (q.options[Number(key.c)] || '') : q.type === 'tf' ? (key.c === 'true' ? 'True' : 'False') : (key.a || '');
+      return `<div class="ac-card ex-rv ${cls}"><div class="ex-rv-top"><span class="ex-rv-ico">${ico}</span><b>Q${i + 1}</b><span class="ac-chip">${p.m == null ? '?' : p.m} / ${q.marks}</span></div><div class="ex-pq-t">${acEsc(q.text)}</div>` +
+        `<div class="ex-pq-a"><small>Your answer</small><div>${acEsc(mine)}</div></div>${p.s === 'correct' ? '' : (right ? `<div class="ex-pq-a ok"><small>${q.type === 'short' ? 'Model answer' : 'Correct answer'}</small><div>${acEsc(right)}</div></div>` : '')}</div>`;
+    }).join('');
+  } else review = '<div class="ac-note info">The detailed answer review opens after the exam closes (' + acEsc(acDT(e.endAt)) + '), so everyone gets a fair chance.</div>';
+  axEl('exRsBody').innerHTML = `<div class="ac-card ex-rs-hero"><div class="ac-muted">${acEsc(e.subject)}</div><div class="ac-title">${acEsc(e.title)}</div>` +
+    `<div class="ex-rs-big"><b>${sum.score}</b><span>/ ${pend ? sum.checkedTotal : sum.total}${pend ? ' (auto-checked)' : ''}</span></div><div class="ex-rs-pct">${pend ? acPctTxt(acPct(sum.score, sum.checkedTotal)) + ' of the auto-checked marks' : acPctTxt(sum.pct)}</div>` +
+    (a.autoSubmitted ? '<div class="ac-muted">Submitted automatically when time ran out.</div>' : '') + '</div>' +
+    (pend ? `<div class="ac-note warn"><b>${sum.pendingTotal} marks pending.</b> ${sum.pendingCount} written answer${sum.pendingCount === 1 ? ' is' : 's are'} waiting for your teacher to check. Your final marks and percentage will appear once they are checked.</div>` : '') +
+    `<div class="ac-stats">${tile(pend ? sum.score + ' / ' + sum.checkedTotal : sum.score + ' / ' + sum.total, pend ? 'Marks so far' : 'Marks obtained')}${tile(pend ? '—' : acPctTxt(sum.pct), 'Percentage')}${tile(sum.correct, 'Correct', 'good')}${tile(sum.wrong, 'Incorrect', 'badt')}${tile(sum.skipped, 'Unattempted')}${pend ? tile(sum.pendingTotal, 'Marks pending') : sum.partial ? tile(sum.partial, 'Partly correct') : ''}</div>` + review + '<div style="height:24px"></div>';
+  axEl('exResult').style.display = 'flex'; axEl('exRsBody').scrollTop = 0; document.body.style.overflow = 'hidden';
+}
+function exCloseResult() { axEl('exResult').style.display = 'none'; document.body.style.overflow = ''; stuExRender(); }
+window.stuExOpen = stuExOpen; window.exCloseResult = exCloseResult;
+
+/* ═════════ 3. PERFORMANCE ANALYTICS ═════════
+   One result source: students/{id}/results (manual results AND finished exams, which are written there).
+   Student overall % = total marks obtained / total marks possible.  "Average score" = mean of the test percentages. */
+const PA_WEAK = 60;
+let paF = { cls:'', subj:'', exam:'', from:'', to:'', thr:50 }, paTab = 'summary', paStack = [], paBound = false, paTopics = null;
+
+function paRecords() {
+  const out = [];
+  Object.keys(allStudents).forEach(sid => {
+    const s = allStudents[sid]; if (!s || !s.results) return;
+    Object.keys(s.results).forEach(rid => {
+      const r = s.results[rid]; if (!r || !(r.total > 0) || r.marks == null || isNaN(r.marks)) return;
+      out.push({ sid, name:s.name || sid, cls:s.class, subject:acTitle(r.subject) || 'General', subjKey:acNorm(r.subject) || 'general', test:r.testName || 'Test', marks:Number(r.marks), total:Number(r.total), pct:acPct(Number(r.marks), Number(r.total)), date:r.date || '', examId:r.examId || '', src:r.source || 'manual' });
+    });
+  });
+  return out;
+}
+const paExamKey = r => r.examId || ('t|' + r.subjKey + '|' + acNorm(r.test));
+function paStats(recs) {
+  if (!recs.length) return null;
+  const pcts = recs.map(r => r.pct), hi = recs.reduce((a, b) => (b.pct > a.pct ? b : a)), lo = recs.reduce((a, b) => (b.pct < a.pct ? b : a));
+  return { n:recs.length, avg:pcts.reduce((s, v) => s + v, 0) / pcts.length, hi, lo, overall:acPct(recs.reduce((s, r) => s + r.marks, 0), recs.reduce((s, r) => s + r.total, 0)) };
+}
+function paGroup(recs, keyFn) { const m = new Map(); recs.forEach(r => { const k = keyFn(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); }); return m; }
+const paTs = d => (d ? new Date(d + 'T00:00:00').getTime() : 0);
+
+/* ── a single student's view (student portal AND staff drill-down) ── */
+function paStudentHtml(sid) {
+  const recs = paRecords().filter(r => r.sid === sid).sort((a, b) => a.date.localeCompare(b.date)), st = paStats(recs);
+  if (!st) return '<div class="ac-card ac-empty">No test results yet. Once exams or tests are recorded, your performance charts will appear here.</div>';
+  const subj = [...paGroup(recs, r => r.subjKey)].map(([k, rs]) => ({ label:rs[0].subject, value:rs.reduce((s, r) => s + r.pct, 0) / rs.length, sub:rs.length + ' test' + (rs.length === 1 ? '' : 's'), key:k })).sort((a, b) => b.value - a.value);
+  const weak = subj.filter(s => s.value < PA_WEAK).sort((a, b) => a.value - b.value).slice(0, 3);
+  const recent = recs.slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+  const card = (v, l) => `<div class="ac-stat"><b>${v}</b><span>${l}</span></div>`;
+  return `<div class="ac-stats">${card(acPctTxt(st.overall), 'Overall percentage')}${card(acPctTxt(st.avg), 'Average test score')}${card(acPctTxt(st.hi.pct), 'Highest score')}${card(st.n, 'Tests taken')}</div>` +
+    `<div class="ac-card"><div class="ac-title">Subject-wise performance</div>${acBars(subj.map(s => ({ label:s.label, value:s.value, sub:s.sub })))}</div>` +
+    `<div class="ac-card"><div class="ac-title">Performance trend</div>${acLine(recs.filter(r => r.date).map(r => ({ x:paTs(r.date), y:r.pct })))}<p class="ac-muted">Each point is one test, in date order. Highest: ${acEsc(st.hi.test)} (${acEsc(st.hi.subject)}).</p></div>` +
+    `<div class="ac-card"><div class="ac-title">Areas needing improvement</div>${weak.length ? weak.map(w => `<div class="pa-weak">${acI('alert', 16)}<div><b>${acEsc(w.label)}</b> &middot; ${acPctTxt(w.value)}<small>Below ${PA_WEAK}%. Revise the weaker chapters and practise more questions.</small></div></div>`).join('') : `<div class="pa-good">${acI('check', 16)}<div>No subject is below ${PA_WEAK}%. Keep it up.</div></div>`}</div>` +
+    `<div class="ac-card"><div class="ac-title">Recent tests</div>${recent.map(r => `<div class="pa-recent"><div><b>${acEsc(r.test)}</b><small>${acEsc(r.subject)} &middot; ${acEsc(r.date ? axFmtDate(r.date) : '')}</small></div><div class="pa-r-sc"><span>${r.marks} / ${r.total}</span><span class="ac-chip" style="color:${acTone(r.pct)}">${acPctTxt(r.pct)}</span></div></div>`).join('')}</div>` +
+    '<p class="ac-muted">Overall percentage uses all marks together. Average test score is the mean of each test\'s percentage.</p>';
+}
+function stuPaOpen() { axEl('stuPaOut').innerHTML = paStudentHtml(curUser); }
+
+/* ── staff analytics ── */
+function paScope() {
+  const al = getAllowedClasses();
+  return { classes: paF.cls ? [paF.cls] : al, all: al };
+}
+function paFiltered() {
+  const sc = paScope(), set = new Set(sc.classes);
+  const from = paF.from, to = paF.to;
+  return paRecords().filter(r => set.has(r.cls) && (!paF.subj || r.subjKey === paF.subj) && (!paF.exam || paExamKey(r) === paF.exam) && (!from || r.date >= from) && (!to || r.date <= to));
+}
+function paOpen() {
+  exStart();
+  if (!paBound) {
+    paBound = true;
+    axEl('paOut').addEventListener('click', ev => {
+      const t = ev.target.closest('[data-pa]'); if (!t) return; const a = t.dataset.pa, v = t.dataset.v;
+      if (a === 'cls') { paF.cls = v; paF.exam = ''; paStack = []; paRender(); }
+      else if (a === 'subj') { paF.subj = v; paF.exam = ''; paTab = 'exams'; paStack = []; paRender(); }
+      else if (a === 'exam') { paStack = [{ k:'exam', key:v }]; paRender(); }
+      else if (a === 'student') { paStack.push({ k:'student', id:v }); paRender(); }
+      else if (a === 'back') { paStack.pop(); paRender(); }
+      else if (a === 'topics') paLoadTopics();
+    });
+    axEl('paTabs').addEventListener('click', ev => { const b = ev.target.closest('[data-t]'); if (b) { paTab = b.dataset.t; paStack = []; paRender(); } });
+  }
+  const t = new Date(), today = axToday();
+  if (!paF.to && !paF.from) { /* default: whole school year so far */ }
+  paRender();
+}
+function paFilterChanged() {
+  paF.cls = axEl('paCls').value; paF.subj = axEl('paSubj').value; paF.exam = axEl('paExam').value; paF.from = axEl('paFrom').value; paF.to = axEl('paTo').value;
+  const th = Number(axEl('paThr').value); paF.thr = th >= 1 && th <= 100 ? th : 50; paStack = []; paTopics = null; paRender();
+}
+function paQuick(k) {
+  const t = new Date(), today = axToday();
+  if (k === 'all') { axEl('paFrom').value = ''; axEl('paTo').value = ''; }
+  else if (k === '30') { const s = new Date(t.getFullYear(), t.getMonth(), t.getDate() - 29); axEl('paFrom').value = s.getFullYear() + '-' + axPad(s.getMonth() + 1) + '-' + axPad(s.getDate()); axEl('paTo').value = today; }
+  else { const y = t.getMonth() >= 3 ? t.getFullYear() : t.getFullYear() - 1; axEl('paFrom').value = y + '-04-01'; axEl('paTo').value = today; }
+  paFilterChanged();
+}
+function paResetFilters() { paF = { cls:'', subj:'', exam:'', from:'', to:'', thr:50 }; axEl('paFrom').value = ''; axEl('paTo').value = ''; axEl('paThr').value = 50; paStack = []; paTopics = null; paRender(); }
+
+function paRender() {
+  const out = axEl('paOut'); if (!out) return;
+  const sc = paScope(), primary = !curAdminData;
+  // filter controls (options come from the data inside the chosen scope, so they never offer an empty choice)
+  const inScope = paRecords().filter(r => sc.all.includes(r.cls));
+  acFillSelect(axEl('paCls'), sc.all.map(c => [c, c]), primary ? 'All classes (school)' : 'All my classes', paF.cls); paF.cls = axEl('paCls').value;
+  const byCls = inScope.filter(r => !paF.cls || r.cls === paF.cls);
+  acFillSelect(axEl('paSubj'), acDistinct(byCls, r => r.subject), 'All subjects', paF.subj); paF.subj = axEl('paSubj').value;
+  const bySub = byCls.filter(r => !paF.subj || r.subjKey === paF.subj), exMap = new Map(); bySub.forEach(r => { const k = paExamKey(r); if (!exMap.has(k)) exMap.set(k, r.test + ' (' + r.subject + ')'); });
+  acFillSelect(axEl('paExam'), [...exMap].sort((a, b) => a[1].localeCompare(b[1])), 'All examinations', paF.exam); paF.exam = axEl('paExam').value;
+  axEl('paThr').value = paF.thr; document.querySelectorAll('#paTabs [data-t]').forEach(b => b.classList.toggle('active', b.dataset.t === paTab));
+  const recs = paFiltered(), top = paStack[paStack.length - 1];
+  const crumbs = [paF.cls ? paF.cls : (primary ? 'School' : 'All my classes')]; if (paF.subj) crumbs.push((acDistinct(byCls, r => r.subject).find(([k]) => k === paF.subj) || [0, ''])[1]); if (paF.exam) crumbs.push(exMap.get(paF.exam) || 'Exam');
+  if (top && top.k === 'exam') crumbs.push((recs.find(r => paExamKey(r) === top.key) || {}).test || 'Exam'); paStack.filter(x => x.k === 'student').forEach(x => crumbs.push(axStudentName(x.id)));
+  const bc = `<div class="pa-bc">${paStack.length ? `<button type="button" class="ac-btn ghost sm" data-pa="back">${acI('left', 15)} Back</button>` : ''}<span>${crumbs.map(acEsc).join(' <i>›</i> ')}</span></div>`;
+  if (top && top.k === 'student') { out.innerHTML = bc + paStudentHtml(top.id); return; }
+  if (top && top.k === 'exam') { out.innerHTML = bc + paExamDetail(recs, top.key); return; }
+  if (!recs.length) { out.innerHTML = bc + '<div class="ac-card ac-empty">No results match these filters yet. Results appear here as exams are evaluated and tests are recorded.</div>'; return; }
+  out.innerHTML = bc + (paTab === 'subjects' ? paSubjects(recs) : paTab === 'exams' ? paExams(recs) : paTab === 'students' ? paStudents(recs) : paTab === 'topics' ? paTopicsHtml() : paSummary(recs, sc));
+}
+function paSummary(recs, sc) {
+  const st = paStats(recs), perStu = [...paGroup(recs, r => r.sid)].map(([sid, rs]) => ({ sid, avg:rs.reduce((s, r) => s + r.pct, 0) / rs.length })), thr = paF.thr;
+  const above = perStu.filter(s => s.avg >= thr).sort((a, b) => b.avg - a.avg), below = perStu.filter(s => s.avg < thr).sort((a, b) => a.avg - b.avg);
+  const roster = Object.keys(allStudents).filter(k => allStudents[k] && sc.classes.includes(allStudents[k].class)).length, examStu = new Set(recs.filter(r => r.src === 'exam').map(r => r.sid)).size;
+  const card = (v, l, sub) => `<div class="ac-stat"><b>${v}</b><span>${l}</span>${sub ? `<em>${acEsc(sub)}</em>` : ''}</div>`;
+  const list = (arr, empty) => arr.length ? arr.slice(0, 30).map(s => `<div class="pa-li" data-pa="student" data-v="${acEsc(s.sid)}" role="button"><span>${acEsc(axStudentName(s.sid))}<small>${acEsc((allStudents[s.sid] || {}).class || '')}</small></span><b style="color:${acTone(s.avg)}">${acPctTxt(s.avg)}</b></div>`).join('') + (arr.length > 30 ? `<p class="ac-muted">${arr.length - 30} more not shown.</p>` : '') : `<p class="ac-muted">${empty}</p>`;
+  const classes = [...paGroup(recs, r => r.cls)].map(([c, rs]) => ({ label:c, value:rs.reduce((s, r) => s + r.pct, 0) / rs.length, sub:new Set(rs.map(r => r.sid)).size + ' students, ' + rs.length + ' results', key:c })).sort((a, b) => a.label.localeCompare(b.label, undefined, { numeric:true }));
+  const months = [...paGroup(recs.filter(r => r.date), r => r.date.slice(0, 7))].sort((a, b) => a[0].localeCompare(b[0])).map(([m, rs]) => ({ x:paTs(m + '-15'), y:rs.reduce((s, r) => s + r.pct, 0) / rs.length }));
+  return `<div class="ac-stats">${card(acPctTxt(st.avg), 'Average score')}${card(acPctTxt(st.hi.pct), 'Highest', st.hi.name)}${card(acPctTxt(st.lo.pct), 'Lowest', st.lo.name)}${card(perStu.length + ' / ' + roster, 'Students with results')}${card(examStu, 'Took an online exam')}${card(st.n, 'Results counted')}</div>` +
+    (classes.length > 1 ? `<div class="ac-card"><div class="ac-title">Class-wise average</div><p class="ac-muted">Tap a class to look closer.</p>${acBars(classes).replace(/data-key=/g, 'data-pa="cls" data-v=')}</div>` : '') +
+    `<div class="ac-card"><div class="ac-title">Trend over time</div>${acLine(months)}<p class="ac-muted">Average score of all results, month by month.</p></div>` +
+    `<div class="ac-card"><div class="ac-title">Students above / below a percentage</div><p class="ac-muted">Based on each student's average. Change the percentage in the filters.</p>` +
+    `<div class="pa-two"><div><div class="pa-h good">${above.length} at or above ${thr}%</div>${list(above, 'No students.')}</div><div><div class="pa-h bad">${below.length} below ${thr}%</div>${list(below, 'No students are below this mark.')}</div></div></div>` +
+    '<p class="ac-muted">Average score is the mean of test percentages. Tap any student to see their own performance page.</p>';
+}
+function paSubjects(recs) {
+  const items = [...paGroup(recs, r => r.subjKey)].map(([k, rs]) => ({ label:rs[0].subject, value:rs.reduce((s, r) => s + r.pct, 0) / rs.length, sub:new Set(rs.map(r => r.sid)).size + ' students, ' + rs.length + ' results', key:k })).sort((a, b) => b.value - a.value);
+  return `<div class="ac-card"><div class="ac-title">Subject-wise average</div><p class="ac-muted">Tap a subject to see its examinations.</p>${acBars(items).replace(/data-key=/g, 'data-pa="subj" data-v=')}</div>`;
+}
+function paExams(recs) {
+  const rows = [...paGroup(recs, paExamKey)].map(([k, rs]) => { const st = paStats(rs); return { k, test:rs[0].test, subject:rs[0].subject, cls:rs[0].cls, n:new Set(rs.map(r => r.sid)).size, avg:st.avg, hi:st.hi.pct, lo:st.lo.pct, date:rs.map(r => r.date).sort().pop() }; }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  return `<div class="ac-card"><div class="ac-title">Examination-wise performance</div><p class="ac-muted">Tap an examination to see each student.</p><div class="pa-ex">` +
+    rows.map(r => `<div class="pa-exrow" data-pa="exam" data-v="${acEsc(r.k)}" role="button"><div class="pa-ex-h"><b>${acEsc(r.test)}</b><span class="ac-chip" style="color:${acTone(r.avg)}">${acPctTxt(r.avg)}</span></div><small>${acEsc(r.subject)} &middot; ${acEsc(r.cls)} &middot; ${r.n} student${r.n === 1 ? '' : 's'} &middot; high ${acPctTxt(r.hi)} &middot; low ${acPctTxt(r.lo)}</small></div>`).join('') + '</div></div>';
+}
+function paExamDetail(recs, key) {
+  const rs = recs.filter(r => paExamKey(r) === key).sort((a, b) => b.pct - a.pct); if (!rs.length) return '<div class="ac-card ac-empty">No results for this examination.</div>';
+  const st = paStats(rs);
+  return `<div class="ac-stats"><div class="ac-stat"><b>${acPctTxt(st.avg)}</b><span>Average</span></div><div class="ac-stat"><b>${acPctTxt(st.hi.pct)}</b><span>Highest</span></div><div class="ac-stat"><b>${acPctTxt(st.lo.pct)}</b><span>Lowest</span></div><div class="ac-stat"><b>${rs.length}</b><span>Students</span></div></div>` +
+    `<div class="ac-card"><div class="ac-title">${acEsc(rs[0].test)}</div><div class="ac-muted">${acEsc(rs[0].subject)}</div>` + rs.map(r => `<div class="pa-li" data-pa="student" data-v="${acEsc(r.sid)}" role="button"><span>${acEsc(r.name)}<small>${r.marks} / ${r.total}</small></span><b style="color:${acTone(r.pct)}">${acPctTxt(r.pct)}</b></div>`).join('') + '</div>';
+}
+function paStudents(recs) {
+  const rows = [...paGroup(recs, r => r.sid)].map(([sid, rs]) => ({ sid, n:rs.length, avg:rs.reduce((s, r) => s + r.pct, 0) / rs.length })).sort((a, b) => b.avg - a.avg);
+  return `<div class="ac-card"><div class="ac-title">Students (${rows.length})</div><p class="ac-muted">Tap a student for their full performance page.</p>` + rows.map(s => `<div class="pa-li" data-pa="student" data-v="${acEsc(s.sid)}" role="button"><span>${acEsc(axStudentName(s.sid))}<small>${acEsc((allStudents[s.sid] || {}).class || '')} &middot; ${s.n} result${s.n === 1 ? '' : 's'}</small></span><b style="color:${acTone(s.avg)}">${acPctTxt(s.avg)}</b></div>`).join('') + '</div>';
+}
+/* topic / chapter performance: question-level, so it needs the exam papers — loaded only when asked */
+function paTopicsHtml() {
+  if (!paTopics) return '<div class="ac-card"><div class="ac-title">Topic performance</div><p class="ac-muted">Shows which chapters students find hardest, using the question-level marks of online exams in the current filters.</p><button type="button" class="ac-btn" data-pa="topics">Load topic performance</button></div>';
+  if (paTopics.err) return `<div class="ac-note err">Could not load exam papers. ${acEsc(paTopics.err)}</div>`;
+  if (!paTopics.rows.length) return '<div class="ac-card ac-empty">Not enough data yet. Topic performance needs evaluated online exam papers.</div>';
+  const ok = paTopics.rows.filter(r => r.n >= paTopics.min), few = paTopics.rows.filter(r => r.n < paTopics.min);
+  return `<div class="ac-card"><div class="ac-title">Topic performance</div><p class="ac-muted">Share of marks students earned per chapter, from ${paTopics.exams} exam${paTopics.exams === 1 ? '' : 's'}. Chapters need at least ${paTopics.min} answered questions to be shown.</p>` +
+    (ok.length ? acBars(ok.map(r => ({ label:r.chapter + ' (' + r.subject + ')', value:r.pct, sub:r.n + ' answers' }))) : '<p class="ac-muted">No chapter has enough answers yet.</p>') + (few.length ? `<p class="ac-muted">Not enough data yet: ${few.map(r => acEsc(r.chapter)).join(', ')}.</p>` : '') + '</div>';
+}
+async function paLoadTopics() {
+  const sc = paScope(), from = paF.from ? paTs(paF.from) : 0, to = paF.to ? paTs(paF.to) + 86399999 : Infinity;
+  const exams = Object.keys(exData).map(id => Object.assign({ id }, exData[id])).filter(e => e && e.questions && sc.classes.includes(e.class) && (!paF.subj || acNorm(e.subject) === paF.subj) && (!paF.exam || e.id === paF.exam) && e.startAt >= from && e.startAt <= to).slice(0, 25);
+  axEl('paOut').querySelector('[data-pa="topics"]').disabled = true;
+  try {
+    const agg = new Map(); let used = 0;
+    for (const e of exams) {
+      const att = (await db.ref('examAttempts/' + e.id).once('value')).val() || {}; let any = false;
+      Object.keys(att).forEach(sid => { const a = att[sid]; if (!a || (a.status !== 'evaluated' && a.status !== 'submitted')) return;
+        e.questions.forEach((q, i) => { const p = acAt(a.perQ, i); if (!p || p.s === 'pending' || p.s === 'skipped' || p.m == null) return; any = true;
+          const k = acNorm(e.subject) + '|' + acNorm(q.chapter); if (!agg.has(k)) agg.set(k, { subject:acTitle(e.subject), chapter:acTitle(q.chapter), got:0, max:0, n:0 }); const o = agg.get(k); o.got += p.m; o.max += q.marks; o.n++; }); });
+      if (any) used++;
+    }
+    paTopics = { rows:[...agg.values()].map(o => ({ subject:o.subject, chapter:o.chapter, pct:acPct(o.got, o.max), n:o.n })).sort((a, b) => a.pct - b.pct), min:5, exams:used };
+  } catch (er) { paTopics = { err:axErrText(er).replace("'attendance'", "'examAttempts'"), rows:[] }; }
+  paRender();
+}
+window.paOpen = paOpen; window.paFilterChanged = paFilterChanged; window.paQuick = paQuick; window.paResetFilters = paResetFilters; window.stuPaOpen = stuPaOpen;
+
 // Show the homepage immediately — do not wait for auth or database reads.
 // Placed here, at the very end of the closure, so every `let`/const above
 // (like sTotal for the slider) has already been initialized before this runs.
@@ -6800,5 +8632,17 @@ initApp();
   }
 </script>
 
+<datalist id="acSubjectsDL"></datalist><datalist id="acChaptersDL"></datalist>
+<div id="exTake" class="ac ex-full" style="display:none;">
+  <div class="ex-bar"><div class="ex-bar-l"><div class="ex-bar-title" id="exTkTitle"></div><div class="ex-bar-sub" id="exTkSub"></div></div><div class="ex-timer" id="exTkTimer">00:00</div></div>
+  <div class="ex-prog"><i id="exTkProg"></i></div>
+  <div class="ex-body" id="exTkBody"></div>
+  <div class="ex-foot"><button type="button" class="ac-btn ghost" id="exPrev">Previous</button><button type="button" class="ac-btn ghost ex-pal-btn" id="exPalBtn"></button><button type="button" class="ac-btn" id="exNext">Next</button></div>
+  <div class="ex-sheet" id="exSheet" style="display:none;"></div>
+</div>
+<div id="exResult" class="ac ex-full" style="display:none;">
+  <div class="ex-bar"><div class="ex-bar-l"><div class="ex-bar-title">Exam result</div></div><button type="button" class="ac-btn sm" onclick="exCloseResult()">Done</button></div>
+  <div class="ex-body" id="exRsBody"></div>
+</div>
 </body>
 </html>
