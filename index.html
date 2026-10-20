@@ -370,14 +370,18 @@
     /* ════════════════════════════════
        PORTAL
     ════════════════════════════════ */
-    .portal-header{text-align:center;padding:36px 20px 24px;
-      background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);
-      box-shadow:0 1px 0 rgba(201,151,42,.45),0 12px 32px rgba(0,0,0,.18);}
-    .portal-header h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);font-weight:700;margin-bottom:4px;}
-    .portal-header p{font-size:12px;color:rgba(255,255,255,.55);}
+    .portal-header{text-align:center;padding:40px 20px 34px;
+      background:linear-gradient(160deg,var(--db-navy) 0%,var(--db-blue2) 100%);
+      font-family:'DM Sans',sans-serif;}
+    .portal-logo-badge{width:58px;height:58px;border-radius:17px;margin:0 auto 14px;
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Playfair Display',serif;font-weight:800;font-size:19px;color:#fff;}
+    .portal-header h2{font-size:21px;color:var(--white);font-weight:700;margin-bottom:6px;letter-spacing:.2px;}
+    .portal-header p{font-size:12px;color:rgba(255,255,255,.65);letter-spacing:.4px;}
     .portal-back{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.7);
-      font-size:13px;cursor:pointer;margin-bottom:12px;background:none;border:none;font-family:inherit;}
-    .portal-back:hover{color:var(--gold2);}
+      font-size:13px;cursor:pointer;margin-bottom:16px;background:none;border:none;font-family:inherit;}
+    .portal-back:hover{color:#fff;}
     .p-wrap{max-width:480px;margin:0 auto;padding:20px 16px 60px;}
     .wide{max-width:720px;margin:0 auto;padding:16px;}
 
@@ -397,6 +401,7 @@
     .btn:active{transform:scale(.98) translateY(0);}
     .btn-navy{background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--white);box-shadow:0 4px 14px rgba(13,27,75,.25);}
     .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);box-shadow:0 4px 14px rgba(201,151,42,.3);}
+    .btn-dbprimary{background:linear-gradient(135deg,var(--db-navy),var(--db-blue2));color:#fff;box-shadow:0 4px 14px rgba(16,42,67,.3);}
     .btn-red{background:var(--red);color:var(--white);}
     .btn-green{background:var(--green);color:var(--white);}
     .btn-ghost{background:var(--light);color:var(--muted);border:1.5px solid var(--border);}
@@ -666,12 +671,12 @@
        Scoped design tokens (--db-*) so this doesn't touch the rest of the app.
     ════════════════════════════════ */
     :root{
-      --db-navy:#102A43; --db-blue:#1976D2; --db-bg:#F5F7FB; --db-card:#ffffff;
-      --db-text:#102A43; --db-muted:#667085; --db-border:#E7EAF3;
-      --db-green:#1E9E6B; --db-green-bg:#E8F7F0;
-      --db-orange:#E07A1F; --db-orange-bg:#FDF0E3;
-      --db-purple:#7B4FE0; --db-purple-bg:#F1ECFC;
-      --db-red:#E0392F; --db-red-bg:#FDEAE9;
+      --db-navy:#102A43; --db-blue:#1976D2; --db-blue2:#2563EB; --db-bg:#F5F7FB; --db-card:#ffffff;
+      --db-text:#102A43; --db-muted:#667085; --db-muted2:#98A2B3; --db-border:#E7EAF3;
+      --db-green:#12B76A; --db-green-bg:#E7F8F0;
+      --db-orange:#F79009; --db-orange-bg:#FEF3E2;
+      --db-purple:#7F56D9; --db-purple-bg:#F3EFFC;
+      --db-red:#F04438; --db-red-bg:#FDECEB;
       --db-blue-bg:#E8F1FC;
       --db-r:16px; --db-rs:14px;
       --db-shadow:0 2px 10px rgba(16,42,67,.06);
@@ -789,6 +794,10 @@
     .stu-qc-link.c-green{color:var(--db-green);} .stu-qc-link.c-orange{color:var(--db-orange);}
     .stu-qc-link.c-purple{color:var(--db-purple);} .stu-qc-link.c-blue{color:var(--db-blue);}
     .stu-qc-link.c-red{color:var(--db-red);}
+    .stu-quick-card.ring-card{display:flex;align-items:center;gap:10px;}
+    .stu-quick-card.ring-card .stu-qc-ring-body{flex:1;min-width:0;}
+    .stu-quick-card.ring-card .stu-qc-title{margin-bottom:3px;}
+    .stu-quick-card.ring-card .stu-qc-val{font-size:13px;}
 
     /* Recent updates rows */
     .stu-update-list{background:var(--db-card);border:1px solid var(--db-border);
@@ -843,6 +852,23 @@
     .stu-pm-link{font-size:11.5px;font-weight:700;color:var(--db-blue);flex-shrink:0;}
 
     .stu-empty-note{font-size:12px;color:var(--db-muted);padding:14px;text-align:center;}
+
+    /* Attendance summary card (ring + counts + today) */
+    .stu-ax-summary-card{background:var(--db-card);border:1px solid var(--db-border);border-radius:var(--db-r);
+      padding:18px 16px;box-shadow:var(--db-shadow);margin-bottom:14px;max-width:480px;margin-left:auto;margin-right:auto;}
+    .stu-ax-sum-top{display:flex;align-items:center;gap:18px;}
+    .stu-ax-sum-counts{flex:1;display:flex;justify-content:space-around;gap:6px;}
+    .stu-ax-sc{text-align:center;}
+    .stu-ax-sc .v{font-size:17px;font-weight:800;color:var(--db-navy);line-height:1;}
+    .stu-ax-sc .l{font-size:10.5px;color:var(--db-muted);margin-top:4px;}
+    .stu-ax-sc.green .v{color:var(--db-green);} .stu-ax-sc.orange .v{color:var(--db-orange);} .stu-ax-sc.red .v{color:var(--db-red);}
+    .stu-ax-today{margin-top:16px;padding-top:14px;border-top:1px solid var(--db-border);
+      display:flex;align-items:center;justify-content:space-between;}
+    .stu-ax-today-lbl{font-size:12px;color:var(--db-muted);font-weight:600;}
+    .stu-ax-today-val{font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;}
+    .stu-ax-today-val.present{color:var(--db-green);} .stu-ax-today-val.absent{color:var(--db-red);}
+    .stu-ax-today-val.late{color:var(--db-orange);} .stu-ax-today-val.leave{color:var(--db-blue);}
+    .stu-ax-today-val.none{color:var(--db-muted);}
 
     /* ── Desktop / tablet: permanent sidebar + multi-column dashboard ── */
     @media (min-width:900px){
@@ -1838,8 +1864,9 @@
 
   <div class="portal-header" id="portalHeader">
     <button class="portal-back" id="portalBackBtn" onclick="goHome()">← Back to Website</button>
-    <h2>Result Portal</h2>
-    <p>Login to view your academic results</p>
+    <div class="portal-logo-badge">BWS</div>
+    <h2>Better World School</h2>
+    <p>Learn · Grow · Build a Better Tomorrow</p>
   </div>
 
   <!-- LOGIN -->
@@ -1852,13 +1879,13 @@
       <label class="p-lbl">Password</label>
       <input type="password" id="loginPass" placeholder="Enter your password"
              onkeydown="if(event.key==='Enter')handleLogin()">
-      <button class="btn btn-gold" onclick="handleLogin()">Sign In →</button>
+      <button class="btn btn-dbprimary" onclick="handleLogin()">Sign In →</button>
       <p id="loginErr" class="err-msg">Invalid username or password.</p>
     </div>
 
     <!-- ENQUIRY FORM — below login -->
     <div class="p-card" style="margin-top:4px;">
-      <div class="p-title" style="font-size:16px;">📬 Quick Enquiry</div>
+      <div class="p-title" style="font-size:16px;">Quick Enquiry</div>
       <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">New admission or any question? Send us a message — we'll get back to you soon.</p>
       <label class="p-lbl">Your Name</label>
       <input type="text" id="cName" placeholder="Full name">
@@ -2063,8 +2090,8 @@
       <button class="stu-tab" onclick="switchStuTab('sp-dashboard',this)">🪪 Dashboard</button>
       <button class="stu-tab" onclick="switchStuTab('sp-fees',this)">💰 Fees</button>
       <button class="stu-tab" onclick="switchStuTab('sp-homework',this)">📝 Homework</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-study',this)">📚 Study Materials</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-quiz',this)">🧠 Quizzes</button>
+      <button class="stu-tab" onclick="switchStuTab('sp-study',this)"><span data-icon="book-open" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Study Materials</button>
+      <button class="stu-tab" onclick="switchStuTab('sp-quiz',this)"><span data-icon="clipboard" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Quizzes</button>
       <button class="stu-tab" onclick="switchStuTab('sp-doubts',this)">❓ Doubts</button>
       <button class="stu-tab" onclick="switchStuTab('sp-leave',this)">🗓️ Leave</button>
     </div>
@@ -2074,13 +2101,13 @@
 
       <!-- Topper badge (shown if rank 1) -->
       <div id="topperBadge" class="topper-badge" style="display:none;">
-        <div class="tb-icon">🏆</div>
+        <div class="tb-icon"><span data-icon="award" data-icon-size="20"></span></div>
         <div><div class="tb-text">Class Topper!</div><div class="tb-sub" id="topperSub">Top performance in your class</div></div>
       </div>
 
       <!-- School notice -->
       <div class="stu-notice-band" id="stuNoticeWrap">
-        <div class="stu-notice-icon">📢</div>
+        <div class="stu-notice-icon"><span data-icon="bell" data-icon-size="16"></span></div>
         <div>
           <div class="stu-notice-lbl">School Notice</div>
           <div class="stu-notice-text" id="stuNoticeText">—</div>
@@ -2090,13 +2117,13 @@
       <!-- Best / Weakest subjects -->
       <div class="hw-grid" id="hwGrid" style="display:none;">
         <div class="hw-card hw-best">
-          <div class="hw-icon">⭐</div>
+          <div class="hw-icon"><span data-icon="award" data-icon-size="18"></span></div>
           <div class="hw-label">Best Subject</div>
           <div class="hw-sub" id="hw-best-sub">—</div>
           <div class="hw-pct" id="hw-best-pct">—</div>
         </div>
         <div class="hw-card hw-weak">
-          <div class="hw-icon">💪</div>
+          <div class="hw-icon"><span data-icon="book" data-icon-size="18"></span></div>
           <div class="hw-label">Needs Work</div>
           <div class="hw-sub" id="hw-weak-sub">—</div>
           <div class="hw-pct" id="hw-weak-pct">—</div>
@@ -2120,7 +2147,7 @@
     <div class="stu-panel" id="sp-results">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <div style="font-size:13px;font-weight:700;color:var(--navy);">All Results</div>
-        <button class="print-btn" style="width:auto;padding:7px 14px;font-size:12px;" onclick="printResultCard()">🖨️ Print</button>
+        <button class="print-btn" style="width:auto;padding:7px 14px;font-size:12px;" onclick="printResultCard()"><span data-icon="printer" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>Print</button>
       </div>
       <div id="s-results"><p class="empty-msg">No results added yet.</p></div>
     </div>
@@ -2159,7 +2186,7 @@
 
       <!-- Student Profile Card -->
       <div class="p-card dash-card">
-        <div class="dash-section-title">🎓 Student Information</div>
+        <div class="dash-section-title"><span data-icon="user" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Student Information</div>
         <table class="dash-table">
           <tr><td class="dash-lbl">Full Name</td><td id="dash-name" class="dash-val">—</td></tr>
           <tr><td class="dash-lbl">Class</td><td id="dash-class" class="dash-val">—</td></tr>
@@ -2174,7 +2201,7 @@
 
       <!-- Parent / Guardian Card -->
       <div class="p-card dash-card">
-        <div class="dash-section-title">👨‍👩‍👦 Parent / Guardian</div>
+        <div class="dash-section-title"><span data-icon="users" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Parent / Guardian</div>
         <table class="dash-table">
           <tr><td class="dash-lbl">Father's Name</td><td id="dash-father" class="dash-val">—</td></tr>
           <tr><td class="dash-lbl">Mother's Name</td><td id="dash-mother" class="dash-val">—</td></tr>
@@ -2188,7 +2215,7 @@
 
       <!-- Teacher Info Card -->
       <div class="p-card dash-card">
-        <div class="dash-section-title">👩‍🏫 Class Teacher</div>
+        <div class="dash-section-title"><span data-icon="grad-cap" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Class Teacher</div>
         <table class="dash-table">
           <tr><td class="dash-lbl">Teacher Name</td><td id="dash-teacher" class="dash-val">—</td></tr>
           <tr><td class="dash-lbl">Contact</td><td id="dash-teacher-contact" class="dash-val">—</td></tr>
@@ -2197,12 +2224,20 @@
       </div>
 
       <div style="height:8px;"></div>
-      <button class="print-btn" onclick="printResultCard()">🖨️ Print Result Card</button>
+      <button class="print-btn" onclick="printResultCard()"><span data-icon="printer" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>Print Result Card</button>
       <button class="print-btn" style="background:var(--navy);color:var(--white);border-color:var(--navy);margin-top:8px;" onclick="doLogout()">Logout</button>
     </div>
 
     <!-- ── TAB: FEES ── -->
     <div class="stu-panel" id="sp-fees">
+      <!-- Ring summary -->
+      <div class="stu-ax-summary-card">
+        <div class="stu-ax-sum-top">
+          <div id="feeRing"></div>
+          <div class="stu-ax-sum-counts" id="feeRingCounts"></div>
+        </div>
+      </div>
+
       <!-- Summary strip -->
       <div class="fee-summary-strip" id="feeSummaryStrip">
         <div class="fee-sum-box fee-sum-total">
@@ -2221,7 +2256,7 @@
 
       <!-- Pay full due via UPI -->
       <div id="payFullDueWrap" style="display:none;margin-bottom:14px;">
-        <button class="btn btn-red" style="width:100%;" onclick="payFeeUPI('Full Due')">💳 Pay Full Due via UPI</button>
+        <button class="btn btn-red" style="width:100%;" onclick="payFeeUPI('Full Due')"><span data-icon="credit-card" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Pay Full Due via UPI</button>
       </div>
 
       <!-- Monthly fee table -->
@@ -2234,12 +2269,12 @@
 
       <!-- Already paid via UPI, waiting on school to confirm -->
       <div class="p-card" id="feeClaimNoteCard" style="display:none;">
-        <p style="font-size:12px;color:var(--muted);margin:0;">✅ Already paid via UPI? Tap "Pay" on the month above once more and choose "I've already paid" to notify the school office — they'll confirm it on their end.</p>
+        <p style="font-size:12px;color:var(--muted);margin:0;"><span data-icon="check" data-icon-size="13" style="vertical-align:-2px;margin-right:4px;"></span>Already paid via UPI? Tap "Pay" on the month above once more and choose "I've already paid" to notify the school office — they'll confirm it on their end.</p>
       </div>
 
       <!-- Any note from admin -->
       <div class="p-card" id="feeNoteCard" style="display:none;">
-        <div class="dash-section-title">📌 Note from School</div>
+        <div class="dash-section-title"><span data-icon="bell" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Note from School</div>
         <p id="feeNoteText" style="font-size:13px;color:var(--text);margin:0;"></p>
       </div>
     </div>
@@ -2247,7 +2282,7 @@
     <!-- ── TAB: HOMEWORK ── -->
     <div class="stu-panel" id="sp-homework">
       <div class="p-card" style="padding:0;overflow:hidden;">
-        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;">📝 Homework & Assignments</div>
+        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;"><span data-icon="edit" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Homework &amp; Assignments</div>
         <div id="stuHwList">
           <p class="empty-msg" style="padding:0 16px 16px;">No homework posted yet.</p>
         </div>
@@ -2257,7 +2292,7 @@
     <!-- ── TAB: STUDY MATERIALS ── -->
     <div class="stu-panel" id="sp-study">
       <div class="p-card" style="padding:0;overflow:hidden;">
-        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;">📚 Study Materials</div>
+        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;"><span data-icon="book-open" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Study Materials</div>
         <div id="stuStudyList">
           <p class="empty-msg" style="padding:0 16px 16px;">No study materials posted yet.</p>
         </div>
@@ -2268,8 +2303,8 @@
     <div class="stu-panel" id="sp-quiz">
       <div id="stuQuizListWrap" class="p-card" style="padding:0;overflow:hidden;">
         <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px;">
-          <div class="p-title" style="font-size:13px;padding:0;">🧠 Quizzes</div>
-          <button class="btn btn-navy btn-sm" style="margin:0;" onclick="openClassLeaderboard()">🏆 Class Rank</button>
+          <div class="p-title" style="font-size:13px;padding:0;"><span data-icon="clipboard" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Quizzes</div>
+          <button class="btn btn-navy btn-sm" style="margin:0;" onclick="openClassLeaderboard()"><span data-icon="award" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Class Rank</button>
         </div>
         <div id="stuQuizList">
           <p class="empty-msg" style="padding:0 16px 16px;">No quizzes posted yet.</p>
@@ -2323,7 +2358,7 @@
               <div style="font-size:15px;font-weight:800;color:#fff;">Great Job!</div>
               <div style="font-size:14px;font-weight:700;color:#fff;margin-top:2px;" id="qrStudentName"></div>
             </div>
-            <div style="font-size:30px;">🏆</div>
+            <div style="font-size:30px;"><span data-icon="award" data-icon-size="30"></span></div>
           </div>
           <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:14px;padding:16px;margin-top:10px;color:#fff;box-shadow:0 10px 26px rgba(13,27,75,.25);">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;">
@@ -2337,10 +2372,10 @@
               </div>
             </div>
             <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,.15);padding-top:12px;">
-              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span>📋 Test Name</span><span id="qrTestName" style="font-weight:700;"></span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span>✅ Attempt</span><span id="qrAttempt" style="font-weight:700;"></span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span>⏱ Time</span><span id="qrTime" style="font-weight:700;"></span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span>🏆 Rank</span><span id="qrRank" style="font-weight:700;"></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span><span data-icon="clipboard" data-icon-size="13" style="vertical-align:-2px;margin-right:4px;"></span>Test Name</span><span id="qrTestName" style="font-weight:700;"></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span><span data-icon="check" data-icon-size="13" style="vertical-align:-2px;margin-right:4px;"></span>Attempt</span><span id="qrAttempt" style="font-weight:700;"></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span><span data-icon="calendar-check" data-icon-size="13" style="vertical-align:-2px;margin-right:4px;"></span>Time</span><span id="qrTime" style="font-weight:700;"></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;"><span><span data-icon="award" data-icon-size="13" style="vertical-align:-2px;margin-right:4px;"></span>Rank</span><span id="qrRank" style="font-weight:700;"></span></div>
             </div>
           </div>
 
@@ -2367,7 +2402,7 @@
     <!-- ── TAB: DOUBTS ── -->
     <div class="stu-panel" id="sp-doubts">
       <div class="p-card">
-        <div class="p-title" style="font-size:14px;">❓ Ask a Doubt</div>
+        <div class="p-title" style="font-size:14px;"><span data-icon="help-circle" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Ask a Doubt</div>
         <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Your question goes straight to your class teacher.</p>
         <label class="p-lbl">Subject</label>
         <input type="text" id="dbSubject" placeholder="e.g. Mathematics">
@@ -2386,7 +2421,7 @@
     <!-- ── TAB: LEAVE APPLICATION ── -->
     <div class="stu-panel" id="sp-leave">
       <div class="p-card">
-        <div class="p-title" style="font-size:14px;">🗓️ Apply for Leave</div>
+        <div class="p-title" style="font-size:14px;"><span data-icon="calendar-x" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Apply for Leave</div>
         <label class="p-lbl">From Date</label>
         <input type="date" id="lvFrom">
         <label class="p-lbl">To Date</label>
@@ -2405,18 +2440,21 @@
 
     <!-- ── TAB: ATTENDANCE (read-only for students / parents) ── -->
     <div class="stu-panel" id="sp-attendance">
+      <div class="stu-ax-summary-card" id="stuAttSummaryCard">
+        <div class="stu-ax-sum-top">
+          <div id="stuAttRing"></div>
+          <div class="stu-ax-sum-counts" id="stuAttCounts"></div>
+        </div>
+        <div class="stu-ax-today" id="stuAttToday"></div>
+      </div>
       <div class="p-card">
-        <div class="p-title" style="font-size:14px;margin-bottom:10px;">✅ My Attendance</div>
+        <div class="p-title" style="font-size:14px;margin-bottom:10px;">Daily Attendance</div>
         <div class="ax-calnav">
           <button type="button" class="arrow" onclick="stuAttStep(-1)" aria-label="Previous month">‹</button>
           <div id="stuAttLabel" style="flex:1;text-align:center;font-weight:700;color:var(--navy);"></div>
           <button type="button" class="arrow" id="stuAttNext" onclick="stuAttStep(1)" aria-label="Next month">›</button>
         </div>
         <div id="stuAttOut"></div>
-      </div>
-      <div class="p-card">
-        <button type="button" class="btn btn-ghost" onclick="stuAttYear()">Show school-year total</button>
-        <div id="stuAttYearOut" style="margin-top:6px;"></div>
       </div>
     </div>
 
@@ -2428,13 +2466,13 @@
       <div class="admin-topbar">
         <div class="admin-info-bar">
           <div class="ai-name" id="adminDisplayName">Management Console</div>
-          <span id="adminRoleBadge" class="role-badge role-primary">⭐ Primary Admin</span>
+          <span id="adminRoleBadge" class="role-badge role-primary"><span data-icon="award" data-icon-size="13" style="vertical-align:-2px;margin-right:3px;"></span>Primary Admin</span>
         </div>
         <button class="logout-btn" style="color:var(--navy);" onclick="doLogout()">Logout</button>
       </div>
       <!-- Teacher scope notice (shown for class teachers) -->
       <div id="teacherScopeBar" class="teacher-notice" style="display:none;">
-        📌 You are logged in as a <strong>Class Teacher</strong>. You can only manage students and results for your assigned classes.
+        <span data-icon="bell" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>You are logged in as a <strong>Class Teacher</strong>. You can only manage students and results for your assigned classes.
       </div>
       <!-- Back bar: shown only when a section is open -->
       <div class="admin-back-bar" id="adminBackBar">
@@ -2444,21 +2482,21 @@
 
       <!-- Home grid: shown by default, hidden while a section is open -->
       <div class="admin-home-grid" id="adminHomeGrid">
-        <div class="admin-home-tile" onclick="openAdminSection('at-classes','Classes')"><span class="tile-icon">🏫</span><span class="tile-label">Classes</span></div>
-        <div class="admin-home-tile" id="tile-students" onclick="openAdminSection('at-students','Students')"><span class="tile-icon">🎓</span><span class="tile-label">Students</span></div>
-        <div class="admin-home-tile" onclick="openAdminSection('at-results','Add Results')"><span class="tile-icon">📊</span><span class="tile-label">Add Results</span></div>
-        <div class="admin-home-tile" id="tile-dashfee" onclick="openAdminSection('at-dashfee','Dashboard &amp; Fees')"><span class="tile-icon">💳</span><span class="tile-label">Dashboard &amp; Fees</span></div>
-        <div class="admin-home-tile" id="tile-notice" onclick="openAdminSection('at-notice','Notice')"><span class="tile-icon">📢</span><span class="tile-label">Notice</span></div>
-        <div class="admin-home-tile" id="tile-homework" onclick="openAdminSection('at-homework','Homework')"><span class="tile-icon">📝</span><span class="tile-label">Homework</span></div>
-        <div class="admin-home-tile" id="tile-study" onclick="openAdminSection('at-study','Study Materials')"><span class="tile-icon">📚</span><span class="tile-label">Study Materials</span></div>
-        <div class="admin-home-tile" id="tile-quiz" onclick="openAdminSection('at-quiz','Quizzes')"><span class="tile-icon">🧠</span><span class="tile-label">Quizzes</span></div>
-        <div class="admin-home-tile" id="tile-doubts" onclick="openAdminSection('at-doubts','Doubts')"><span class="tile-icon">❓</span><span class="tile-label">Doubts</span></div>
-        <div class="admin-home-tile" id="tile-leave" onclick="openAdminSection('at-leave','Leave Requests')"><span class="tile-icon">🗓️</span><span class="tile-label">Leave Requests</span></div>
-        <div class="admin-home-tile" id="tile-attendance" onclick="openAdminSection('at-attendance','Attendance')"><span class="tile-icon">✅</span><span class="tile-label">Attendance</span></div>
-        <div class="admin-home-tile" id="tile-events" onclick="openAdminSection('at-events','Events')" style="display:none;"><span class="tile-icon">📅</span><span class="tile-label">Events</span></div>
-        <div class="admin-home-tile" id="tile-enquiries" onclick="openAdminSection('at-enquiries','Enquiries')" style="display:none;"><span class="tile-icon">📩</span><span class="tile-label">Enquiries</span><span id="enqBadgeTile" class="unread-dot" style="display:none;"></span></div>
-        <div class="admin-home-tile" id="tile-admins" onclick="openAdminSection('at-admins','Admins')" style="display:none;"><span class="tile-icon">👥</span><span class="tile-label">Admins</span></div>
-        <div class="admin-home-tile" id="tile-settings" onclick="openAdminSection('at-settings','Settings')"><span class="tile-icon">⚙️</span><span class="tile-label">Settings</span></div>
+        <div class="admin-home-tile" onclick="openAdminSection('at-classes','Classes')"><span class="tile-icon" data-icon="building"></span><span class="tile-label">Classes</span></div>
+        <div class="admin-home-tile" id="tile-students" onclick="openAdminSection('at-students','Students')"><span class="tile-icon" data-icon="users"></span><span class="tile-label">Students</span></div>
+        <div class="admin-home-tile" onclick="openAdminSection('at-results','Add Results')"><span class="tile-icon" data-icon="bar-chart"></span><span class="tile-label">Add Results</span></div>
+        <div class="admin-home-tile" id="tile-dashfee" onclick="openAdminSection('at-dashfee','Dashboard &amp; Fees')"><span class="tile-icon" data-icon="credit-card"></span><span class="tile-label">Dashboard &amp; Fees</span></div>
+        <div class="admin-home-tile" id="tile-notice" onclick="openAdminSection('at-notice','Notice')"><span class="tile-icon" data-icon="bell"></span><span class="tile-label">Notice</span></div>
+        <div class="admin-home-tile" id="tile-homework" onclick="openAdminSection('at-homework','Homework')"><span class="tile-icon" data-icon="edit"></span><span class="tile-label">Homework</span></div>
+        <div class="admin-home-tile" id="tile-study" onclick="openAdminSection('at-study','Study Materials')"><span class="tile-icon" data-icon="book-open"></span><span class="tile-label">Study Materials</span></div>
+        <div class="admin-home-tile" id="tile-quiz" onclick="openAdminSection('at-quiz','Quizzes')"><span class="tile-icon" data-icon="clipboard"></span><span class="tile-label">Quizzes</span></div>
+        <div class="admin-home-tile" id="tile-doubts" onclick="openAdminSection('at-doubts','Doubts')"><span class="tile-icon" data-icon="help-circle"></span><span class="tile-label">Doubts</span></div>
+        <div class="admin-home-tile" id="tile-leave" onclick="openAdminSection('at-leave','Leave Requests')"><span class="tile-icon" data-icon="calendar-x"></span><span class="tile-label">Leave Requests</span></div>
+        <div class="admin-home-tile" id="tile-attendance" onclick="openAdminSection('at-attendance','Attendance')"><span class="tile-icon" data-icon="calendar-check"></span><span class="tile-label">Attendance</span></div>
+        <div class="admin-home-tile" id="tile-events" onclick="openAdminSection('at-events','Events')" style="display:none;"><span class="tile-icon" data-icon="calendar-check"></span><span class="tile-label">Events</span></div>
+        <div class="admin-home-tile" id="tile-enquiries" onclick="openAdminSection('at-enquiries','Enquiries')" style="display:none;"><span class="tile-icon" data-icon="mail"></span><span class="tile-label">Enquiries</span><span id="enqBadgeTile" class="unread-dot" style="display:none;"></span></div>
+        <div class="admin-home-tile" id="tile-admins" onclick="openAdminSection('at-admins','Admins')" style="display:none;"><span class="tile-icon" data-icon="grad-cap"></span><span class="tile-label">Admins</span></div>
+        <div class="admin-home-tile" id="tile-settings" onclick="openAdminSection('at-settings','Settings')"><span class="tile-icon" data-icon="settings"></span><span class="tile-label">Settings</span></div>
       </div>
 
       <!-- Old tab row kept in the DOM but hidden — switchAdminTab still works via it internally -->
@@ -2528,14 +2566,14 @@
 
         <!-- Pending UPI payment claims from parents -->
         <div class="p-card" id="paymentClaimsCard" style="display:none;">
-          <div class="p-title" style="font-size:14px;">💳 Payment Claims Awaiting Confirmation</div>
+          <div class="p-title" style="font-size:14px;"><span data-icon="credit-card" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Payment Claims Awaiting Confirmation</div>
           <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Parents tap "I've Already Paid" after a UPI payment. Verify the amount in your bank/UPI app, then approve to mark that month Paid.</p>
           <div id="paymentClaimsList"></div>
         </div>
 
         <!-- Step 1: Pick a student -->
         <div class="p-card">
-          <div class="p-title" style="font-size:14px;">📋 Select Student to Edit</div>
+          <div class="p-title" style="font-size:14px;"><span data-icon="file" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Select Student to Edit</div>
           <div class="row2" style="margin-bottom:10px;">
             <div>
               <label class="p-lbl">Filter by Class</label>
@@ -2561,8 +2599,8 @@
         <div id="df-editor-wrap" style="display:none;">
 
           <div class="p-card">
-            <div class="p-title" style="font-size:14px;">🪪 Dashboard Info — <span id="df-stu-name" style="color:var(--gold);"></span></div>
-            <div class="dash-section-title" style="margin-bottom:6px;">🎓 Student Details</div>
+            <div class="p-title" style="font-size:14px;"><span data-icon="user" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Dashboard Info — <span id="df-stu-name" style="color:var(--gold);"></span></div>
+            <div class="dash-section-title" style="margin-bottom:6px;"><span data-icon="user" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Student Details</div>
             <div class="row2">
               <div><label class="p-lbl">Date of Birth</label><input id="df-dob" placeholder="e.g. 12 Jan 2010"></div>
               <div><label class="p-lbl">Blood Group</label><input id="df-blood" placeholder="e.g. B+"></div>
@@ -2572,7 +2610,7 @@
               <div><label class="p-lbl">Section</label><input id="df-section" placeholder="e.g. A"></div>
             </div>
             <label class="p-lbl">Address</label><input id="df-address" placeholder="Full address">
-            <div class="dash-section-title" style="margin:10px 0 6px;">👨‍👩‍👦 Parent / Guardian</div>
+            <div class="dash-section-title" style="margin:10px 0 6px;"><span data-icon="users" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Parent / Guardian</div>
             <div class="row2">
               <div><label class="p-lbl">Father's Name</label><input id="df-father" placeholder="Father's name"></div>
               <div><label class="p-lbl">Mother's Name</label><input id="df-mother" placeholder="Mother's name"></div>
@@ -2585,19 +2623,19 @@
               <div><label class="p-lbl">Email</label><input id="df-email" placeholder="Email address"></div>
               <div><label class="p-lbl">Occupation</label><input id="df-occupation" placeholder="e.g. Engineer"></div>
             </div>
-            <div class="dash-section-title" style="margin:10px 0 6px;">👩‍🏫 Class Teacher</div>
+            <div class="dash-section-title" style="margin:10px 0 6px;"><span data-icon="grad-cap" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Class Teacher</div>
             <div class="row2">
               <div><label class="p-lbl">Teacher Name</label><input id="df-teacher" placeholder="e.g. Mrs. Sharma"></div>
               <div><label class="p-lbl">Teacher Contact</label><input id="df-teacher-contact" placeholder="Phone/email"></div>
             </div>
             <label class="p-lbl">Remarks / Notes</label>
             <input id="df-remarks" placeholder="e.g. Good in Maths, needs improvement in English">
-            <button class="btn btn-navy" onclick="dfSaveDashboard()" style="margin-top:6px;">💾 Save Dashboard Info</button>
+            <button class="btn btn-navy" onclick="dfSaveDashboard()" style="margin-top:6px;"><span data-icon="save" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Save Dashboard Info</button>
             <p id="df-dash-msg" style="font-size:12px;font-weight:600;display:none;padding:8px 12px;border-radius:8px;margin-top:6px;"></p>
           </div>
 
           <div class="p-card">
-            <div class="p-title" style="font-size:14px;">💰 Fee Records — <span id="df-stu-name2" style="color:var(--gold);"></span></div>
+            <div class="p-title" style="font-size:14px;"><span data-icon="credit-card" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Fee Records — <span id="df-stu-name2" style="color:var(--gold);"></span></div>
             <div class="row2" style="margin-bottom:10px;">
               <div><label class="p-lbl">Monthly Fee (₹)</label><input id="df-monthly" type="number" placeholder="e.g. 1500" min="0"></div>
               <div><label class="p-lbl">Annual Fee (₹)</label><input id="df-annual" type="number" placeholder="e.g. 5000" min="0"></div>
@@ -2606,7 +2644,7 @@
             <div id="df-months-grid" class="fee-months-grid"></div>
             <label class="p-lbl" style="margin-top:10px;">Note to Student</label>
             <input id="df-note" placeholder="e.g. Please clear dues before 10th">
-            <button class="btn btn-green" onclick="dfSaveFees()" style="margin-top:6px;">💾 Save Fee Records</button>
+            <button class="btn btn-green" onclick="dfSaveFees()" style="margin-top:6px;"><span data-icon="save" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Save Fee Records</button>
             <p id="df-fee-msg" style="font-size:12px;font-weight:600;display:none;padding:8px 12px;border-radius:8px;margin-top:6px;"></p>
           </div>
 
@@ -2701,7 +2739,7 @@
       <div id="at-homework" class="at-p" style="display:none;">
         <div class="p-card">
           <div class="edit-s">
-            <div class="p-title" style="font-size:14px;">📝 Post Homework</div>
+            <div class="p-title" style="font-size:14px;"><span data-icon="edit" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Post Homework</div>
             <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Visible instantly to students in the selected class.</p>
             <label class="p-lbl">Class</label>
             <select id="hwClass"></select>
@@ -2735,7 +2773,7 @@
       <div id="at-study" class="at-p" style="display:none;">
         <div class="p-card">
           <div class="edit-s">
-            <div class="p-title" style="font-size:14px;">📚 Upload Study Material</div>
+            <div class="p-title" style="font-size:14px;"><span data-icon="book-open" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Upload Study Material</div>
             <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Organized as Class → Subject folders. Students only see materials for their own class.</p>
             <label class="p-lbl">Class</label>
             <select id="smClass"></select>
@@ -2764,7 +2802,7 @@
       <div id="at-quiz" class="at-p" style="display:none;">
         <div class="p-card">
           <div class="edit-s">
-            <div class="p-title" style="font-size:14px;">🧠 Build a Quiz</div>
+            <div class="p-title" style="font-size:14px;"><span data-icon="clipboard" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Build a Quiz</div>
             <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Add multiple-choice questions below. Students get scored instantly on submission.</p>
             <label class="p-lbl">Class</label>
             <select id="qzClass"></select>
@@ -2782,7 +2820,7 @@
         <div class="p-card">
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <div class="p-title" style="font-size:14px;padding:0;">Filter by Class</div>
-            <button class="btn btn-navy btn-sm" style="margin:0;" onclick="openAdminClassLeaderboard()">🏆 Class Rank</button>
+            <button class="btn btn-navy btn-sm" style="margin:0;" onclick="openAdminClassLeaderboard()"><span data-icon="award" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Class Rank</button>
           </div>
           <div class="pills" id="qzPills"></div>
           <div id="qzList"></div>
@@ -2792,7 +2830,7 @@
       <!-- TAB: DOUBTS -->
       <div id="at-doubts" class="at-p" style="display:none;">
         <div class="p-card">
-          <div class="p-title" style="font-size:14px;">❓ Student Doubts</div>
+          <div class="p-title" style="font-size:14px;"><span data-icon="help-circle" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Student Doubts</div>
           <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Only doubts from your assigned class(es) appear here.</p>
           <div class="pills" id="dbPills"></div>
           <div id="dbList"></div>
@@ -2802,7 +2840,7 @@
       <!-- TAB: LEAVE REQUESTS -->
       <div id="at-leave" class="at-p" style="display:none;">
         <div class="p-card">
-          <div class="p-title" style="font-size:14px;">🗓️ Leave Requests</div>
+          <div class="p-title" style="font-size:14px;"><span data-icon="calendar-x" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Leave Requests</div>
           <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Only requests from your assigned class(es) appear here.</p>
           <div class="pills" id="lvPills"></div>
           <div id="lvList"></div>
@@ -2812,7 +2850,7 @@
       <!-- TAB: ATTENDANCE -->
       <div id="at-attendance" class="at-p" style="display:none;">
         <div class="p-card">
-          <div class="p-title" style="font-size:14px;margin-bottom:10px;">✅ Attendance</div>
+          <div class="p-title" style="font-size:14px;margin-bottom:10px;"><span data-icon="calendar-check" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Attendance</div>
           <div class="pills" id="axViewPills" style="margin-bottom:0;">
             <button type="button" class="pill active" data-v="mark" onclick="attSetView('mark')">Mark</button>
             <button type="button" class="pill" data-v="calendar" onclick="attSetView('calendar')">Monthly Calendar</button>
@@ -2831,7 +2869,7 @@
             <div id="axDateNote"></div>
             <div id="axStatus"></div>
             <div class="ax-tools" id="axTools" style="display:none;">
-              <button type="button" class="btn btn-green btn-sm" onclick="attMarkAll('present')">✓ Mark All Present</button>
+              <button type="button" class="btn btn-green btn-sm" onclick="attMarkAll('present')"><span data-icon="check" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>Mark All Present</button>
               <button type="button" class="btn btn-red btn-sm" onclick="attMarkAll('absent')">Mark All Absent</button>
               <button type="button" class="btn btn-ghost btn-sm" onclick="attMarkAll('')">Clear All</button>
             </div>
@@ -2898,7 +2936,7 @@
       <div id="at-events" class="at-p" style="display:none;">
         <div class="p-card">
           <div class="edit-s">
-            <div class="p-title" style="font-size:14px;">📅 Add Upcoming Event</div>
+            <div class="p-title" style="font-size:14px;"><span data-icon="calendar-check" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Add Upcoming Event</div>
             <div class="row2">
               <div><label class="p-lbl">Event Title</label><input id="evtTitle" placeholder="e.g. Annual Sports Day"></div>
               <div>
@@ -2929,7 +2967,7 @@
       <!-- TAB: ENQUIRIES -->
       <div id="at-enquiries" class="at-p" style="display:none;">
         <div class="p-card">
-          <div class="p-title" style="font-size:14px;">📬 Enquiries from Parents / Visitors</div>
+          <div class="p-title" style="font-size:14px;"><span data-icon="mail" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Enquiries from Parents / Visitors</div>
           <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">All messages submitted via the Quick Enquiry form appear here in real-time.</p>
           <div id="enqList"><p class="empty-msg">No enquiries yet.</p></div>
         </div>
@@ -2948,7 +2986,7 @@
         </div>
         <div class="p-card">
           <div class="edit-s">
-            <div class="p-title" style="font-size:14px;">💳 Fee Payment (UPI) Settings</div>
+            <div class="p-title" style="font-size:14px;"><span data-icon="credit-card" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Fee Payment (UPI) Settings</div>
             <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Set your school's UPI ID so parents can pay fees directly from the Fees tab. Payments still need manual confirmation — parents tap "Notify School" after paying, and it appears below for you to approve.</p>
             <label class="p-lbl">UPI ID</label><input id="upiIdInput" placeholder="e.g. bws@okhdfcbank">
             <label class="p-lbl">Payee Name (shown in UPI app)</label><input id="payeeNameInput" placeholder="e.g. Better World School">
@@ -2979,7 +3017,7 @@
   <div class="modal">
     <div class="modal-head">
       <div class="modal-title" id="editTitle">Edit Student</div>
-      <button class="close-btn" onclick="closeModal()">✕</button>
+      <button class="close-btn" onclick="closeModal()"><span data-icon="x" data-icon-size="18"></span></button>
     </div>
     <div class="tabs" id="editTabs">
       <button class="tab active" onclick="switchEditTab('em-info',this)">Info</button>
@@ -3013,7 +3051,7 @@
     <!-- DASHBOARD EDITOR TAB -->
     <div id="em-dashboard" style="display:none;">
       <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Fill any fields you want to show on the student's Dashboard tab. Leave blank to hide.</div>
-      <div class="dash-section-title" style="margin-bottom:6px;">🎓 Student Details</div>
+      <div class="dash-section-title" style="margin-bottom:6px;"><span data-icon="user" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Student Details</div>
       <div class="row2">
         <div><label class="p-lbl">Date of Birth</label><input id="ed-dob" placeholder="e.g. 12 Jan 2010"></div>
         <div><label class="p-lbl">Blood Group</label><input id="ed-blood" placeholder="e.g. B+"></div>
@@ -3023,7 +3061,7 @@
         <div><label class="p-lbl">Section</label><input id="ed-section" placeholder="e.g. A"></div>
       </div>
       <label class="p-lbl">Address</label><input id="ed-address" placeholder="e.g. 12 Main Road, Delhi">
-      <div class="dash-section-title" style="margin:10px 0 6px;">👨‍👩‍👦 Parent / Guardian</div>
+      <div class="dash-section-title" style="margin:10px 0 6px;"><span data-icon="users" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Parent / Guardian</div>
       <div class="row2">
         <div><label class="p-lbl">Father's Name</label><input id="ed-father" placeholder="Father's name"></div>
         <div><label class="p-lbl">Mother's Name</label><input id="ed-mother" placeholder="Mother's name"></div>
@@ -3036,13 +3074,13 @@
         <div><label class="p-lbl">Email</label><input id="ed-email" placeholder="Email address"></div>
         <div><label class="p-lbl">Occupation</label><input id="ed-occupation" placeholder="e.g. Engineer"></div>
       </div>
-      <div class="dash-section-title" style="margin:10px 0 6px;">👩‍🏫 Class Teacher</div>
+      <div class="dash-section-title" style="margin:10px 0 6px;"><span data-icon="grad-cap" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Class Teacher</div>
       <div class="row2">
         <div><label class="p-lbl">Teacher Name</label><input id="ed-teacher" placeholder="e.g. Mrs. Sharma"></div>
         <div><label class="p-lbl">Teacher Contact</label><input id="ed-teacher-contact" placeholder="Phone/email"></div>
       </div>
       <label class="p-lbl">Remarks / Notes</label><input id="ed-remarks" placeholder="e.g. Good in Maths, needs improvement in English">
-      <button class="btn btn-navy" onclick="saveDashboardInfo()">💾 Save Dashboard Info</button>
+      <button class="btn btn-navy" onclick="saveDashboardInfo()"><span data-icon="save" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Save Dashboard Info</button>
     </div>
 
     <!-- FEES EDITOR TAB -->
@@ -3058,7 +3096,7 @@
       </div>
       <label class="p-lbl" style="margin-top:10px;">Note to Student</label>
       <input id="ef-note" placeholder="e.g. Please clear dues before 10th of every month">
-      <button class="btn btn-green" onclick="saveFeesInfo()" style="margin-top:4px;">💾 Save Fee Records</button>
+      <button class="btn btn-green" onclick="saveFeesInfo()" style="margin-top:4px;"><span data-icon="save" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Save Fee Records</button>
     </div>
 
     <!-- RESULTS TAB -->
@@ -3071,7 +3109,7 @@
   <div class="modal">
     <div class="modal-head">
       <div class="modal-title" id="editAdminTitle">Edit Teacher Account</div>
-      <button class="close-btn" onclick="closeAdminModal()">✕</button>
+      <button class="close-btn" onclick="closeAdminModal()"><span data-icon="x" data-icon-size="18"></span></button>
     </div>
     <label class="p-lbl">Full Name</label><input id="eaName" placeholder="Full name">
     <label class="p-lbl">Username</label><input id="eaUser" placeholder="Username">
@@ -3108,8 +3146,8 @@
 <div class="modal-overlay" id="payFeeModal">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title">💳 Pay Fees</div>
-      <button class="close-btn" onclick="closePayModal()">✕</button>
+      <div class="modal-title"><span data-icon="credit-card" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Pay Fees</div>
+      <button class="close-btn" onclick="closePayModal()"><span data-icon="x" data-icon-size="18"></span></button>
     </div>
     <p style="font-size:13px;color:var(--text);margin:0 0 4px;">Month: <b id="payModalMonth">—</b></p>
     <p style="font-size:22px;font-weight:900;color:var(--navy);margin:0 0 14px;" id="payModalAmount">₹0</p>
@@ -3117,11 +3155,11 @@
       <p class="empty-msg" style="padding:0;">The school hasn't set up UPI payments yet. Please pay via the school office for now.</p>
     </div>
     <div id="payModalHasUpi" style="display:none;">
-      <button class="btn btn-red" style="width:100%;" onclick="launchUpiApp()">📲 Open UPI App to Pay</button>
+      <button class="btn btn-red" style="width:100%;" onclick="launchUpiApp()"><span data-icon="credit-card" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Open UPI App to Pay</button>
       <p style="font-size:11px;color:var(--muted);margin:10px 0 4px;">Paying to: <b id="payModalUpiId">—</b></p>
       <div style="border-top:1px solid var(--border);margin:14px 0;"></div>
       <p style="font-size:12px;color:var(--text);margin:0 0 8px;">Already completed the payment?</p>
-      <button class="btn btn-navy" style="width:100%;" onclick="submitPaymentClaim()">✅ I've Already Paid — Notify School</button>
+      <button class="btn btn-navy" style="width:100%;" onclick="submitPaymentClaim()"><span data-icon="check" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>I've Already Paid — Notify School</button>
     </div>
   </div>
 </div>
@@ -3130,8 +3168,8 @@
 <div class="modal-overlay" id="qzLeaderModal">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title" id="qzLeaderTitle">🏆 Leaderboard</div>
-      <button class="close-btn" onclick="closeQuizLeaderboard()">✕</button>
+      <div class="modal-title" id="qzLeaderTitle"><span data-icon="award" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Leaderboard</div>
+      <button class="close-btn" onclick="closeQuizLeaderboard()"><span data-icon="x" data-icon-size="18"></span></button>
     </div>
     <div id="qzLeaderBody"></div>
   </div>
@@ -3140,8 +3178,8 @@
 <div class="modal-overlay" id="classLeaderModal">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title" id="classLeaderTitle">🏆 Class Rank</div>
-      <button class="close-btn" onclick="closeClassLeaderboard()">✕</button>
+      <div class="modal-title" id="classLeaderTitle"><span data-icon="award" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Class Rank</div>
+      <button class="close-btn" onclick="closeClassLeaderboard()"><span data-icon="x" data-icon-size="18"></span></button>
     </div>
     <p style="font-size:11px;color:var(--muted);padding:0 4px 8px;">Combined score across every quiz you've taken.</p>
     <div id="classLeaderBody"></div>
@@ -3412,7 +3450,7 @@ setTimeout(() => {
     console.warn('No data received from Firebase after 10s — check database rules/connection.');
     const banner = document.createElement('div');
     banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#b52b2b;color:#fff;text-align:center;padding:10px;font-family:sans-serif;font-size:14px;';
-    banner.innerHTML = '⚠️ Could not connect to the school database. Some data may be missing. Check your internet connection or try reloading.';
+    banner.innerHTML = stuIcon('alert-triangle',16) + ' Could not connect to the school database. Some data may be missing. Check your internet connection or try reloading.';
     document.body.appendChild(banner);
   }
 }, 10000);
@@ -3580,10 +3618,10 @@ function openAdminPanel() {
   const badge = document.getElementById('adminRoleBadge');
   if (isPrimary) {
     badge.className = 'role-badge role-primary';
-    badge.innerText = '⭐ Primary Admin';
+    badge.innerHTML = stuIcon('award', 13) + ' Primary Admin';
   } else {
     badge.className = 'role-badge role-teacher';
-    badge.innerText = '📋 ' + (curAdminData.role === 'coordinator' ? 'Coordinator' : 'Class Teacher');
+    badge.innerHTML = stuIcon('clipboard', 13) + ' ' + (curAdminData.role === 'coordinator' ? 'Coordinator' : 'Class Teacher');
   }
 
   // Show/hide teacher scope bar
@@ -3686,6 +3724,23 @@ const STU_ICON_PATHS = {
   award:         'M12 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z|M8.5 13l-1.5 8 5-3 5 3-1.5-8',
   edit:          'M12 20h9|M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z',
   'grad-cap':    'M2 9l10-5 10 5-10 5-10-5z|M6 11v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5|M22 9v6',
+  building:      'M4 21V4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v17|M13 21V9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v12|M7 7h1M7 11h1M7 15h1M16 12h1M16 16h1',
+  users:         'M10 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z|M2.5 20c.9-3.4 3.7-5.5 7.5-5.5s6.6 2.1 7.5 5.5|M16.5 6a3 3 0 0 1 0 6|M19 14.5c2 .5 3.4 2 4 4',
+  settings:      'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z|M19.4 13.5a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.9-2.9l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1h-.2a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.9-2.9l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.6v-.2a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.9 2.9l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.6 1h.2a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z',
+  x:             'M18 6L6 18M6 6l12 12',
+  printer:       'M6 9V3h12v6|M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2|M6 14h12v7H6z',
+  trash:         'M3 6h18|M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2|M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6|M10 11v6M14 11v6',
+  sun:           'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z|M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1',
+  moon:          'M20 14.5A8.5 8.5 0 1 1 9.5 4 7 7 0 0 0 20 14.5z',
+  save:          'M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z|M8 4v5h8V4|M7 13h10v7H7z',
+  download:      'M12 3v12|M7 11l5 5 5-5|M4 20h16',
+  'alert-triangle': 'M10.3 3.6 1.9 18a1.8 1.8 0 0 0 1.5 2.7h17.2a1.8 1.8 0 0 0 1.5-2.7L13.7 3.6a1.8 1.8 0 0 0-3.4 0z|M12 9v4|M12 17h.01',
+  file:          'M6 2h8l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z|M14 2v5h5|M9 13h6M9 17h6',
+  mail:          'M3 5h18v14H3z|M3 6l9 7 9-7',
+  phone:         'M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1.3 1.3 0 0 1 1.3-.3c1.2.4 2.5.6 3.8.6a1.3 1.3 0 0 1 1.3 1.3V20.5a1.3 1.3 0 0 1-1.3 1.3C10.9 21.8 2.2 13.1 2.2 2.5A1.3 1.3 0 0 1 3.5 1.2H7.5a1.3 1.3 0 0 1 1.3 1.3c0 1.3.2 2.6.6 3.8a1.3 1.3 0 0 1-.3 1.3z',
+  sparkles:      'M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z|M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z',
+  medal:         'M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z|M9 14.5 6.5 21l5.5-3 5.5 3-2.5-6.5',
+  check:         'M20 6 9 17l-5-5',
 };
 function stuIcon(name, size) {
   const d = STU_ICON_PATHS[name];
@@ -3695,6 +3750,44 @@ function stuIcon(name, size) {
   return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
 }
 window.stuIcon = stuIcon;
+
+/** Circular progress ring. pct: 0-100 (or null for "no data" — draws an empty
+    track with a dash instead of a number). color: the progress-arc color. */
+function stuRing(pct, size, stroke, color, label) {
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const has = pct != null && !isNaN(pct);
+  const clamped = has ? Math.min(100, Math.max(0, pct)) : 0;
+  const offset = c * (1 - clamped / 100);
+  const mid = size / 2;
+  const fontBig = Math.round(size * 0.24);
+  const fontSmall = Math.round(size * 0.1);
+  return `<div style="position:relative;width:${size}px;height:${size}px;flex-shrink:0;">
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="transform:rotate(-90deg);">
+      <circle cx="${mid}" cy="${mid}" r="${r}" fill="none" stroke="var(--db-border)" stroke-width="${stroke}"/>
+      ${has ? `<circle cx="${mid}" cy="${mid}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}"
+        stroke-dasharray="${c}" stroke-dashoffset="${offset}" stroke-linecap="round"
+        style="transition:stroke-dashoffset .6s var(--ease);"/>` : ''}
+    </svg>
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <div style="font-weight:800;color:var(--db-navy);font-size:${fontBig}px;line-height:1;font-family:'DM Sans',sans-serif;">${has ? Math.round(clamped) + '%' : '—'}</div>
+      ${label ? `<div style="font-size:${fontSmall}px;color:var(--db-muted);margin-top:2px;">${label}</div>` : ''}
+    </div>
+  </div>`;
+}
+window.stuRing = stuRing;
+
+/** Small numbered rank badge (replaces medal emoji) — gold/silver/bronze tint
+    for the top 3, plain text for the rest. */
+function stuMedal(rank) {
+  const colors = { 1:['#FEF3E2','#B45309'], 2:['#F1F5F9','#475569'], 3:['#FDF0E7','#9A3412'] };
+  if (colors[rank]) {
+    const [bg, fg] = colors[rank];
+    return `<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:${bg};color:${fg};font-size:11px;font-weight:800;">${rank}</span>`;
+  }
+  return `<span style="color:var(--db-muted);font-weight:600;">${rank}.</span>`;
+}
+window.stuMedal = stuMedal;
 
 /** Fills every static <span data-icon="name"> placeholder in the page with its SVG.
     Runs once; this script tag sits after the HTML it targets, so the elements
@@ -3808,16 +3901,19 @@ function stuRenderQuickCards(stu) {
   const feeData = stu.feeData || {};
   const months = feeData.months || {};
   const monthly = Number(feeData.monthlyFee) || 0, annual = Number(feeData.annualFee) || 0;
-  let totalDue = 0, anyRecord = false;
+  let totalDue = 0, totalFee = 0, totalPaid = 0, anyRecord = false;
   Object.keys(months).forEach(m => {
     const status = months[m]; if (!status) return;
     anyRecord = true;
     let fee = monthly; if (m === 'April') fee += annual;
-    if (status === 'due') totalDue += fee;
-    else if (status === 'partial') totalDue += Math.round(fee / 2);
+    totalFee += fee;
+    if (status === 'paid') totalPaid += fee;
+    else if (status === 'due') totalDue += fee;
+    else if (status === 'partial') { totalPaid += Math.round(fee / 2); totalDue += fee - Math.round(fee / 2); }
   });
   const feeLabel = !anyRecord ? '—' : (totalDue > 0 ? '₹' + totalDue.toLocaleString('en-IN') + ' Due' : 'Paid');
   const feeSub   = !anyRecord ? 'No records yet' : (totalDue > 0 ? 'Payment pending' : 'All clear');
+  const feePct   = anyRecord && totalFee > 0 ? (totalPaid / totalFee) * 100 : null;
 
   const pendingDoubts = Object.values(allDoubts).filter(d => d.studentUsername === stu.username && d.status !== 'answered').length;
   const pendingLeave   = Object.values(allLeaveRequests).filter(l => l.studentUsername === stu.username && l.status === 'pending').length;
@@ -3828,15 +3924,31 @@ function stuRenderQuickCards(stu) {
   const unreadNotice = (noticeUpdatedAt > getSeen('notice')) ? 1 : 0;
 
   const cards = [
-    { cls:'c-green',  ic:'calendar-check', title:'Attendance', val:'<span id="qcAttVal">…</span>', sub:'This school year', link:'View Attendance →', target:"openStuSection('sp-attendance','Attendance')" },
-    { cls:'c-purple', ic:'clipboard',  title:'Next Exam',  val:'<span id="qcExamVal">…</span>', sub:'<span id="qcExamSub"></span>', link:'View Quizzes →', target:"openStuSection('sp-quiz','Exams / Quizzes')" },
-    { cls:'c-orange', ic:'credit-card', title:'Fee Status', val:feeLabel, sub:feeSub, link:'View Details →', target:"openStuSection('sp-fees','Fees')" },
     { cls:'c-blue',   ic:'edit', title:'Homework', val:newHw + ' Pending', sub:newHw ? 'New since you last checked' : 'All caught up', link:'View →', target:"openStuSection('sp-homework','Homework')" },
+    { cls:'c-purple', ic:'clipboard',  title:'Next Exam',  val:'<span id="qcExamVal">…</span>', sub:'<span id="qcExamSub"></span>', link:'View Quizzes →', target:"openStuSection('sp-quiz','Exams / Quizzes')" },
     { cls:'c-purple', ic:'book-open', title:'Study Material', val:newSm + ' New', sub:'Added recently', link:'View →', target:"openStuSection('sp-study','Study Materials')" },
     { cls:'c-red',    ic:'bell', title:'Notifications', val:(pendingTotal + unreadNotice) + ' Unread', sub:'Needs your attention', link:'View →', target: newHw>0 ? "openStuSection('sp-homework','Homework')" : (pendingDoubts>0 ? "openStuSection('sp-doubts','Doubts')" : "openStuSection('sp-leave','Leave')") },
   ];
 
-  grid.innerHTML = cards.map(c => `
+  const ringCardsHtml = `
+    <div class="stu-quick-card ring-card" onclick="openStuSection('sp-attendance','Attendance')">
+      <div id="qcAttRing">${stuRing(null, 44, 5, 'var(--db-green)')}</div>
+      <div class="stu-qc-ring-body">
+        <div class="stu-qc-title">Attendance</div>
+        <div class="stu-qc-val">This school year</div>
+        <div class="stu-qc-link c-green">View Attendance →</div>
+      </div>
+    </div>
+    <div class="stu-quick-card ring-card" onclick="openStuSection('sp-fees','Fees')">
+      ${stuRing(feePct, 44, 5, 'var(--db-orange)')}
+      <div class="stu-qc-ring-body">
+        <div class="stu-qc-title">Fee Status</div>
+        <div class="stu-qc-val">${feeLabel} <span style="color:var(--db-muted);font-weight:500;">· ${feeSub}</span></div>
+        <div class="stu-qc-link c-orange">View Details →</div>
+      </div>
+    </div>`;
+
+  const restHtml = cards.map(c => `
     <div class="stu-quick-card" onclick="${c.target}">
       <div class="stu-qc-ic ${c.cls}">${stuIcon(c.ic, 16)}</div>
       <div class="stu-qc-title">${c.title}</div>
@@ -3844,6 +3956,8 @@ function stuRenderQuickCards(stu) {
       <div class="stu-qc-sub">${c.sub}</div>
       <div class="stu-qc-link ${c.cls}">${c.link}</div>
     </div>`).join('');
+
+  grid.innerHTML = ringCardsHtml + restHtml;
 
   // Attendance % — school year so far (reuses the same calc as the Attendance tab)
   const t = new Date(), startY = t.getMonth() >= 3 ? t.getFullYear() : t.getFullYear() - 1;
@@ -3854,9 +3968,9 @@ function stuRenderQuickCards(stu) {
       const r = data[d] && data[d][stu.username];
       if (r && AX_STATUSES.includes(r.status)) { if (r.status==='present') p++; else if (r.status==='absent') a++; else if (r.status==='late') l++; }
     });
-    const el = document.getElementById('qcAttVal');
-    if (el) el.textContent = (p+a+l) ? axPctText(axPct(p,a,l)) : '—';
-  }).catch(() => { const el = document.getElementById('qcAttVal'); if (el) el.textContent = '—'; });
+    const el = document.getElementById('qcAttRing');
+    if (el) el.innerHTML = stuRing((p+a+l) ? axPct(p,a,l) : null, 44, 5, 'var(--db-green)');
+  }).catch(() => { const el = document.getElementById('qcAttRing'); if (el) el.innerHTML = stuRing(null, 44, 5, 'var(--db-green)'); });
 
   // Next exam — nearest upcoming 'academic' event, else any upcoming event
   db.ref('events').orderByChild('date').startAt(new Date().toISOString().slice(0,10)).limitToFirst(8).once('value').then(snap => {
@@ -4056,7 +4170,7 @@ function renderStudentPortal(stu) {
   const gradePill = document.getElementById('stuGradePill');
   const gradeClass = {'A+':'grade-a-plus','A':'grade-a','B':'grade-b','C':'grade-c','D':'grade-d','F':'grade-d'}[grade] || 'grade-b';
   gradePill.className = 'stu-grade-pill ' + gradeClass;
-  gradePill.innerText = '✦ Grade ' + grade + ' · ' + avgRound + '%';
+  gradePill.innerHTML = stuIcon('award', 11) + ' Grade ' + grade + ' · ' + avgRound + '%';
   gradePill.style.display = 'inline-flex';
 
   // ── Greeting based on performance ──
@@ -4080,7 +4194,7 @@ function renderStudentPortal(stu) {
   const myRank = classMates_avgs.findIndex(c => c.username === stu.username) + 1;
   const rankChip = document.getElementById('stuRankChip');
   if (myRank > 0 && classmates.length > 1) {
-    rankChip.innerText = '🎖️ Rank ' + myRank + ' of ' + classmates.length + ' in ' + stu.class;
+    rankChip.innerHTML = stuIcon('medal', 11) + ' Rank ' + myRank + ' of ' + classmates.length + ' in ' + stu.class;
     rankChip.style.display = 'inline-flex';
   }
   // Topper
@@ -4646,11 +4760,11 @@ function renderSmList() {
 
   div.innerHTML = Object.values(folders).map(f => `
     <div class="list-row">
-      <div style="font-weight:700;color:var(--navy);">📁 ${f.subject} <span class="badge bg-navy" style="margin-left:6px;">${f.class}</span></div>
+      <div style="font-weight:700;color:var(--navy);">${stuIcon('book',13)} ${f.subject} <span class="badge bg-navy" style="margin-left:6px;">${f.class}</span></div>
       ${f.items.map(([key, m]) => `
         <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0 8px 16px;">
           <div>
-            <a href="${m.fileUrl}" target="_blank" style="font-weight:600;color:var(--red);text-decoration:none;">📄 ${m.title}</a>
+            <a href="${m.fileUrl}" target="_blank" style="font-weight:600;color:var(--red);text-decoration:none;">${stuIcon('file',13)} ${m.title}</a>
             <div style="font-size:11px;color:var(--muted);margin-top:2px;">${m.desc || ''}</div>
           </div>
           <button class="btn btn-red btn-sm" onclick="deleteStudyMaterial('${key}')">Delete</button>
@@ -4677,13 +4791,13 @@ function renderStudentStudyMaterials(stu) {
     return `
     <div style="border-bottom:1px solid var(--border);">
       <div onclick="toggleSmFolder('${fid}')" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
-        <span style="font-weight:700;color:var(--navy);">📁 ${subject}</span>
+        <span style="font-weight:700;color:var(--navy);">${stuIcon('book',13)} ${subject}</span>
         <span style="font-size:12px;color:var(--muted);">${folders[subject].length} file${folders[subject].length>1?'s':''} ${isOpen?'▲':'▼'}</span>
       </div>
       <div id="${fid}" style="display:${isOpen?'block':'none'};padding:0 16px 12px;">
         ${folders[subject].map(m => `
           <a href="${m.fileUrl}" target="_blank" style="display:block;padding:8px 0;text-decoration:none;color:var(--text);border-top:1px solid var(--border);">
-            <span style="color:var(--red);font-weight:600;">📄 ${m.title}</span>
+            <span style="color:var(--red);font-weight:600;">${stuIcon('file',13)} ${m.title}</span>
             ${m.desc ? `<div style="font-size:12px;color:var(--muted);margin-top:2px;">${m.desc}</div>` : ''}
           </a>`).join('')}
       </div>
@@ -4824,13 +4938,13 @@ function renderQzList() {
       </div>
       <div style="margin-top:6px;display:flex;gap:6px;">
         <button type="button" class="btn btn-navy btn-sm" onclick="toggleQzResults('${key}')">${open?'Hide':'View'} Submissions (${scores.length})</button>
-        <button type="button" class="btn btn-ghost btn-sm" onclick="openQuizLeaderboard('${key}')">🏆 Leaderboard</button>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="openQuizLeaderboard('${key}')">${stuIcon('award',14)} Leaderboard</button>
       </div>
       ${open ? `
         <div style="margin-top:8px;padding-left:6px;">
           ${scores.length ? [...scores].sort((a,b)=>b.score-a.score).map((r,i) => `
             <div style="font-size:12px;color:var(--text);padding:4px 0;border-top:1px solid var(--border);">
-              ${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'.'} ${r.studentName} — <b>${r.score}/${r.total}</b>
+              ${stuMedal(i+1)} ${r.studentName} — <b>${r.score}/${r.total}</b>
             </div>`).join('') : '<p class="empty-msg" style="font-size:12px;">No submissions yet.</p>'}
         </div>` : ''}
     </div>`;
@@ -4853,7 +4967,7 @@ function rankQuizResults(key) {
 function openQuizLeaderboard(key) {
   const qz = allQuizzes[key];
   if (!qz) return;
-  document.getElementById('qzLeaderTitle').innerText = '🏆 ' + qz.title + ' — ' + qz.class;
+  document.getElementById('qzLeaderTitle').innerHTML = stuIcon('award',16) + ' ' + qz.title + ' — ' + qz.class;
   const ranked = rankQuizResults(key);
   const body = document.getElementById('qzLeaderBody');
   if (!ranked.length) {
@@ -4861,7 +4975,7 @@ function openQuizLeaderboard(key) {
   } else {
     const meName = (typeof curUser !== 'undefined' && allStudents[curUser]) ? curUser : null;
     body.innerHTML = `<div style="max-height:50vh;overflow-y:auto;">` + ranked.map(r => {
-      const medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':r.rank+'.';
+      const medal = stuMedal(r.rank);
       const isMe = meName && r.username === meName;
       return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 4px;border-bottom:1px solid var(--border);${isMe?'background:#fff8e1;border-radius:8px;':''}">
         <span style="font-weight:${isMe?'800':'600'};color:var(--navy);">${medal} ${r.studentName}${isMe?' (You)':''}</span>
@@ -4908,14 +5022,14 @@ function computeClassLeaderboard(className) {
 function openClassLeaderboard() {
   const stu = allStudents[curUser];
   if (!stu) return;
-  document.getElementById('classLeaderTitle').innerText = '🏆 ' + stu.class + ' — Class Rank';
+  document.getElementById('classLeaderTitle').innerHTML = stuIcon('award',16) + ' ' + stu.class + ' — Class Rank';
   const ranked = computeClassLeaderboard(stu.class);
   const body = document.getElementById('classLeaderBody');
   if (!ranked.length) {
     body.innerHTML = '<p class="empty-msg">No one has attempted a quiz yet — be the first!</p>';
   } else {
     body.innerHTML = `<div style="max-height:55vh;overflow-y:auto;">` + ranked.map(r => {
-      const medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':r.rank+'.';
+      const medal = stuMedal(r.rank);
       const isMe = r.username === curUser;
       return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 4px;border-bottom:1px solid var(--border);${isMe?'background:#fff8e1;border-radius:8px;':''}">
         <span style="font-weight:${isMe?'800':'600'};color:var(--navy);">${medal} ${r.studentName}${isMe?' (You)':''}</span>
@@ -4941,14 +5055,14 @@ function openAdminClassLeaderboard() {
     if (allowed.length === 1) cls = allowed[0];
     else { alert('Please select a specific class filter above first (not "All"), then tap Class Rank again.'); return; }
   }
-  document.getElementById('classLeaderTitle').innerText = '🏆 ' + cls + ' — Class Rank';
+  document.getElementById('classLeaderTitle').innerHTML = stuIcon('award',16) + ' ' + cls + ' — Class Rank';
   const ranked = computeClassLeaderboard(cls);
   const body = document.getElementById('classLeaderBody');
   if (!ranked.length) {
     body.innerHTML = '<p class="empty-msg">No submissions yet for this class.</p>';
   } else {
     body.innerHTML = `<div style="max-height:55vh;overflow-y:auto;">` + ranked.map(r => {
-      const medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':r.rank+'.';
+      const medal = stuMedal(r.rank);
       return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 4px;border-bottom:1px solid var(--border);">
         <span style="font-weight:600;color:var(--navy);">${medal} ${r.studentName}</span>
         <span style="text-align:right;">
@@ -4980,7 +5094,7 @@ function renderStudentQuizzes(stu) {
         ${myResult
           ? `<span class="badge" style="background:#e8f5e9;color:#2e7d32;cursor:pointer;" onclick="openQuizResultScreen('${key}')">Scored ${myResult.score}/${myResult.total}</span>`
           : `<button class="btn btn-red btn-sm" onclick="startQuiz('${key}')">Start</button>`}
-        <button class="btn btn-ghost btn-sm" style="margin:0;" onclick="openQuizLeaderboard('${key}')">🏆</button>
+        <button class="btn btn-ghost btn-sm" style="margin:0;" onclick="openQuizLeaderboard('${key}')">${stuIcon('award',14)}</button>
       </div>
     </div>`;
   }).join('');
@@ -5616,7 +5730,7 @@ function renderModalResults() {
           <div class="r-sub">${r.subject}</div>
           <div style="display:flex;align-items:center;gap:10px;">
             <span class="r-marks" style="color:${scC(r.marks,r.total)}">${r.marks}/${r.total}</span>
-            <button class="del-x" onclick="deleteResult('${r.id}')">✕</button>
+            <button class="del-x" onclick="deleteResult('${r.id}')">${stuIcon('x',14)}</button>
           </div>
         </div>`).join('')}
     </div>`).join('');
@@ -5808,7 +5922,7 @@ function renderAdminList() {
       <div>
         <div class="adm-rn">${a.name}
           <span class="role-badge role-teacher" style="margin-left:6px;font-size:10px;">
-            ${a.role === 'coordinator' ? '📊 Coordinator' : '📋 Class Teacher'}
+            ${a.role === 'coordinator' ? stuIcon('bar-chart',12) + ' Coordinator' : stuIcon('clipboard',12) + ' Class Teacher'}
           </span>
         </div>
         <div class="adm-rm">@${a.username}</div>
@@ -5986,10 +6100,10 @@ function renderStudentFees(stu) {
 
     totalFee += fee;
     const chip = status === 'paid'
-      ? `<span class="fee-paid-chip">✓ Paid</span>`
+      ? `<span class="fee-paid-chip">${stuIcon('check',10)} Paid</span>`
       : status === 'partial'
       ? `<span class="fee-partial-chip">◑ Partial</span>`
-      : `<span class="fee-due-chip">✗ Due</span>`;
+      : `<span class="fee-due-chip">${stuIcon('x',10)} Due</span>`;
 
     let dueAmt = 0;
     if (status === 'paid')    totalPaid += fee;
@@ -6012,6 +6126,14 @@ function renderStudentFees(stu) {
   document.getElementById('feeTotal').innerText = fmt(totalFee);
   document.getElementById('feePaid').innerText  = fmt(totalPaid);
   document.getElementById('feeDue').innerText   = fmt(totalDue);
+
+  const feeRingEl = document.getElementById('feeRing'), feeRingCountsEl = document.getElementById('feeRingCounts');
+  if (feeRingEl) feeRingEl.innerHTML = stuRing(totalFee > 0 ? (totalPaid / totalFee) * 100 : null, 92, 9, 'var(--db-orange)', 'Paid');
+  if (feeRingCountsEl) feeRingCountsEl.innerHTML = totalFee > 0 ? `
+    <div class="stu-ax-sc"><div class="v">${fmt(totalFee)}</div><div class="l">Total Fee</div></div>
+    <div class="stu-ax-sc green"><div class="v">${fmt(totalPaid)}</div><div class="l">Paid</div></div>
+    <div class="stu-ax-sc orange"><div class="v">${fmt(totalDue)}</div><div class="l">Pending</div></div>` :
+    `<div class="stu-empty-note">No fee records added yet.</div>`;
 
   document.getElementById('payFullDueWrap').style.display = totalDue > 0 ? 'block' : 'none';
   document.getElementById('feeClaimNoteCard').style.display = totalDue > 0 ? 'block' : 'none';
@@ -6373,7 +6495,7 @@ function loadAdminEvents() {
           <div class="evt-item-title">${e.title}</div>
           <div class="evt-item-meta">${d}${e.time?' · '+e.time:''} · ${e.category||'General'}</div>
         </div>
-        <button class="del-btn" onclick="deleteEvent('${e.key}')">🗑</button>
+        <button class="del-btn" onclick="deleteEvent('${e.key}')">${stuIcon('trash',14)}</button>
       </div>`;
     }).join('');
   });
@@ -6399,7 +6521,7 @@ function loadEnquiries() {
       const dt = new Date(e.time).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
       return `<div class="enq-item">
         <div class="enq-name">${e.name||'—'}${!e.read?'<span class="enq-badge">NEW</span>':''}</div>
-        <div class="enq-contact">📞/✉️ ${e.contact||'—'}</div>
+        <div class="enq-contact">${stuIcon('phone',11)} ${e.contact||'—'}</div>
         <div class="enq-msg">${e.message||''}</div>
         <div class="enq-time">${dt}</div>
       </div>`;
@@ -6556,7 +6678,7 @@ function renderPaymentClaims() {
         <div style="font-size:10px;color:var(--muted);margin-top:2px;">Claimed ${new Date(c.claimedAt).toLocaleString('en-IN')}</div>
       </div>
       <div style="display:flex;gap:6px;">
-        <button class="btn btn-green btn-sm" style="margin:0;" onclick="approvePaymentClaim('${key}')">✓ Approve</button>
+        <button class="btn btn-green btn-sm" style="margin:0;" onclick="approvePaymentClaim('${key}')">${stuIcon('check',13)} Approve</button>
         <button class="btn btn-ghost btn-sm" style="margin:0;" onclick="dismissPaymentClaim('${key}')">Dismiss</button>
       </div>
     </div>`).join('');
@@ -7219,7 +7341,7 @@ let stuAttY = 0, stuAttM = 0, stuAttSeq = 0;
 
 function stuAttOpen() {
   const t = new Date(); stuAttY = t.getFullYear(); stuAttM = t.getMonth();
-  const yr = axEl('stuAttYearOut'); if (yr) yr.innerHTML = '';
+  stuAttSummary();
   stuAttRender();
 }
 function stuAttStep(d) {
@@ -7258,20 +7380,38 @@ function stuAttRender() {
       (p + a + l + v ? '' : '<div class="ax-note info">No attendance has been recorded for this month yet.</div>') + axPctNote();
   }).catch(e => { if (seq === stuAttSeq) out.innerHTML = `<div class="ax-note err">Could not load attendance. ${axEsc(axErrText(e))}</div>`; });
 }
-/** Whole school year so far (from 1 April). Loaded only when tapped, to save mobile data. */
-function stuAttYear() {
-  const stu = allStudents[curUser], out = axEl('stuAttYearOut'); if (!stu || !out) return;
+/** Ring + Present/Late/Absent counts + Today's Attendance, shown at the top of
+    the Attendance panel. Whole school year so far (from 1 April). */
+function stuAttSummary() {
+  const stu = allStudents[curUser];
+  const ringEl = axEl('stuAttRing'), countsEl = axEl('stuAttCounts'), todayEl = axEl('stuAttToday');
+  if (!stu || !ringEl) return;
   const t = new Date(), startY = t.getMonth() >= 3 ? t.getFullYear() : t.getFullYear() - 1;
-  const from = startY + '-04-01', to = axToday(), sid = curUser, seq = ++stuAttSeq;
-  out.innerHTML = '<p class="empty-msg">Loading…</p>';
+  const from = startY + '-04-01', to = axToday(), sid = curUser;
   axFetchRange(stu.class, from, to).then(data => {
     let p = 0, a = 0, l = 0, v = 0;
     Object.keys(data).forEach(d => { const r = data[d] && data[d][sid]; if (r && AX_STATUSES.includes(r.status)) { if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; else v++; } });
-    out.innerHTML = `<div style="font-weight:700;color:var(--navy);">School year so far</div><div style="font-size:12px;color:var(--muted);">${axEsc(axFmtDate(from))} – ${axEsc(axFmtDate(to))}</div>` +
-      axSummaryHtml(p + a + l + v, p, a, l, v) + (p + a + l + v ? '' : '<div class="ax-note info">No attendance recorded yet this school year.</div>');
-  }).catch(e => { out.innerHTML = `<div class="ax-note err">Could not load attendance. ${axEsc(axErrText(e))}</div>`; });
+    const rec = p + a + l;
+    ringEl.innerHTML = stuRing(rec ? axPct(p, a, l) : null, 92, 9, 'var(--db-green)', 'Current Session');
+    countsEl.innerHTML = `
+      <div class="stu-ax-sc green"><div class="v">${p}</div><div class="l">Present</div></div>
+      <div class="stu-ax-sc orange"><div class="v">${l}</div><div class="l">Late</div></div>
+      <div class="stu-ax-sc red"><div class="v">${a}</div><div class="l">Absent</div></div>`;
+
+    const todayRec = data[to] && data[to][sid];
+    let label, cls;
+    if (!todayRec || !AX_STATUSES.includes(todayRec.status)) { label = 'Not Marked'; cls = 'none'; }
+    else if (todayRec.status === 'present') { label = 'Present ' + stuIcon('calendar-check', 14); cls = 'present'; }
+    else if (todayRec.status === 'absent')  { label = 'Absent'; cls = 'absent'; }
+    else if (todayRec.status === 'late')    { label = 'Late'; cls = 'late'; }
+    else { label = 'On Leave'; cls = 'leave'; }
+    if (todayEl) todayEl.innerHTML = `<span class="stu-ax-today-lbl">Today's Attendance</span><span class="stu-ax-today-val ${cls}">${label}</span>`;
+  }).catch(() => {
+    ringEl.innerHTML = stuRing(null, 92, 9, 'var(--db-green)', 'Current Session');
+    if (countsEl) countsEl.innerHTML = '<div class="stu-empty-note">Could not load attendance.</div>';
+  });
 }
-window.stuAttStep = stuAttStep; window.stuAttYear = stuAttYear; window.stuAttOpen = stuAttOpen;
+window.stuAttStep = stuAttStep; window.stuAttOpen = stuAttOpen;
 
 // Show the homepage immediately — do not wait for auth or database reads.
 // Placed here, at the very end of the closure, so every `let`/const above
@@ -7290,10 +7430,10 @@ initApp();
 <div id="installBanner" style="display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;
   background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.3);
   display:none;align-items:center;justify-content:space-between;gap:10px;font-family:'DM Sans',sans-serif;">
-  <div style="font-size:13px;">📲 Install Better World School as an app for quicker access.</div>
+  <div style="font-size:13px;"><span data-icon="download" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Install Better World School as an app for quicker access.</div>
   <div style="display:flex;gap:8px;flex:none;">
     <button onclick="installBWSApp()" style="background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:12px;">Install</button>
-    <button onclick="dismissInstallBanner()" style="background:transparent;color:rgba(255,255,255,.7);border:none;font-size:18px;line-height:1;">✕</button>
+    <button onclick="dismissInstallBanner()" style="background:transparent;color:rgba(255,255,255,.7);border:none;line-height:1;"><span data-icon="x" data-icon-size="18"></span></button>
   </div>
 </div>
 
