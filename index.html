@@ -870,12 +870,80 @@
     .stu-ax-today-val.late{color:var(--db-orange);} .stu-ax-today-val.leave{color:var(--db-blue);}
     .stu-ax-today-val.none{color:var(--db-muted);}
 
+
+
+    /* ── Study Material resource centre ── */
+    .sm-search{display:flex;align-items:center;gap:8px;background:var(--db-card);border:1px solid var(--db-border);
+      border-radius:14px;padding:0 12px;margin-bottom:10px;color:var(--db-muted2);}
+    .sm-search input{border:none;background:none;margin:0;padding:12px 0;font-size:14px;outline:none;box-shadow:none;color:var(--db-text);}
+    .sm-search input:focus{box-shadow:none;border:none;background:none;}
+    .sm-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+    .sm-chip{border:1px solid var(--db-border);background:var(--db-card);color:var(--db-muted);border-radius:20px;
+      padding:6px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
+    .sm-chip.active{background:var(--db-blue);border-color:var(--db-blue);color:#fff;}
+    .sm-subject{margin-bottom:16px;}
+    .sm-subj-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 8px;}
+    .sm-subj-name{font-size:12px;font-weight:800;color:var(--db-navy);letter-spacing:.6px;text-transform:uppercase;}
+    .sm-subj-count{font-size:11px;color:var(--db-muted);}
+    .sm-box{background:var(--db-card);border:1px solid var(--db-border);border-radius:var(--db-r);box-shadow:var(--db-shadow);overflow:hidden;}
+    .sm-chapter{border-bottom:1px solid var(--db-border);}
+    .sm-chapter:last-child{border-bottom:none;}
+    .sm-ch-head{display:flex;align-items:center;gap:11px;padding:13px 14px;cursor:pointer;}
+    .sm-ch-head:active{background:var(--db-bg);}
+    .sm-ch-ic{width:34px;height:34px;border-radius:10px;background:var(--db-purple-bg);color:var(--db-purple);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .sm-ch-body{flex:1;min-width:0;}
+    .sm-ch-title{font-size:13.5px;font-weight:700;color:var(--db-text);}
+    .sm-ch-sub{font-size:11px;color:var(--db-muted);margin-top:1px;}
+    .sm-ch-arrow{color:var(--db-muted2);transition:transform .2s;}
+    .sm-chapter.open .sm-ch-arrow{transform:rotate(180deg);}
+    .sm-mats{display:none;padding:0 14px 12px;background:var(--db-bg);}
+    .sm-chapter.open .sm-mats{display:block;}
+    .sm-mat{display:flex;align-items:center;gap:10px;background:var(--db-card);border:1px solid var(--db-border);border-radius:12px;padding:10px 12px;margin-top:8px;}
+    .sm-mat-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .sm-mat-ic.pdf{background:var(--db-red-bg);color:var(--db-red);} .sm-mat-ic.video{background:var(--db-purple-bg);color:var(--db-purple);}
+    .sm-mat-ic.doc{background:var(--db-blue-bg);color:var(--db-blue);} .sm-mat-ic.link{background:var(--db-orange-bg);color:var(--db-orange);}
+    .sm-mat-body{flex:1;min-width:0;}
+    .sm-mat-title{font-size:12.5px;font-weight:700;color:var(--db-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .sm-mat-meta{font-size:10.5px;color:var(--db-muted);margin-top:1px;}
+    .sm-mat-act{display:flex;gap:6px;flex-shrink:0;}
+    .sm-btn{border:1px solid var(--db-border);background:var(--db-card);color:var(--db-blue);border-radius:9px;padding:6px 10px;
+      font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-family:inherit;}
+    .sm-btn.primary{background:var(--db-blue);border-color:var(--db-blue);color:#fff;}
+
+    /* ── Bottom navigation (phones) + radial centre action ── */
+    .stu-bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:900;height:calc(62px + env(safe-area-inset-bottom,0px));
+      padding-bottom:env(safe-area-inset-bottom,0px);background:var(--db-card);border-top:1px solid var(--db-border);
+      box-shadow:0 -4px 18px rgba(16,42,67,.08);display:flex;align-items:stretch;font-family:'DM Sans',sans-serif;}
+    .stu-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+      background:none;border:none;cursor:pointer;color:var(--db-muted2);font-family:inherit;font-size:10.5px;font-weight:600;padding:0;}
+    .stu-bn-item.active{color:var(--db-blue);}
+    .stu-bn-item:active{background:var(--db-bg);}
+    .stu-bn-spacer{flex:0 0 76px;}
+    .stu-fab-wrap{position:absolute;left:50%;top:-24px;transform:translateX(-50%);width:56px;height:56px;}
+    .stu-fab{position:absolute;inset:0;border-radius:50%;border:4px solid var(--db-card);cursor:pointer;
+      background:linear-gradient(135deg,var(--db-blue),var(--db-blue2));color:#fff;
+      display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(37,99,235,.4);
+      transition:transform .3s var(--ease);z-index:3;}
+    .stu-fab.open{transform:rotate(135deg);}
+    .stu-fab-item{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;
+      border:none;background:var(--db-card);color:var(--db-blue);box-shadow:0 6px 16px rgba(16,42,67,.22);
+      display:flex;align-items:center;justify-content:center;cursor:pointer;
+      transform:translate(0,0) scale(0);opacity:0;pointer-events:none;
+      transition:transform .3s var(--ease),opacity .2s;z-index:2;}
+    .stu-fab-item .fl{position:absolute;top:100%;margin-top:4px;font-size:10px;font-weight:700;color:var(--db-navy);
+      background:#fff;border-radius:10px;padding:1px 7px;white-space:nowrap;box-shadow:0 2px 6px rgba(16,42,67,.12);}
+    .stu-fab-wrap.open .stu-fab-item{opacity:1;pointer-events:auto;transform:translate(var(--fx),var(--fy)) scale(1);}
+    .stu-fab-backdrop{display:none;position:fixed;inset:0;z-index:880;background:rgba(16,42,67,.35);}
+    .stu-fab-backdrop.open{display:block;}
+    .stu-dashboard{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));}
+    @media (min-width:900px){ .stu-bottomnav,.stu-fab-backdrop{display:none!important;} }
+
     /* ── Desktop / tablet: permanent sidebar + multi-column dashboard ── */
     @media (min-width:900px){
       .stu-hamburger{display:none;}
       .stu-drawer-backdrop{display:none!important;}
       .stu-drawer{transform:none;position:sticky;top:0;height:100vh;flex-shrink:0;}
-      #stuPortalBody{display:flex;align-items:flex-start;}
+      .stu-portal-body{display:flex;align-items:flex-start;}
       .stu-portal-main{flex:1;min-width:0;}
       /* The sidebar already shows the school brand permanently, so the top
          header is trimmed down to just the bell + avatar — avoids the
@@ -1904,7 +1972,7 @@
     <!-- backdrop sits outside the flex layout, pure overlay on mobile -->
     <div class="stu-drawer-backdrop" id="stuDrawerBackdrop" onclick="stuDrawerClose()"></div>
 
-    <div id="stuPortalBody">
+    <div id="stuPortalBody" class="stu-portal-body">
       <!-- Nav drawer (mobile: slide-in overlay · desktop: permanent sidebar) -->
       <div class="stu-drawer" id="stuDrawer">
         <div class="stu-drawer-head">
@@ -2078,6 +2146,23 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Bottom navigation (phones): 4 shortcuts parents use most + centre action -->
+    <div class="stu-fab-backdrop" id="stuFabBackdrop" onclick="stuFabClose()"></div>
+    <div class="stu-bottomnav" id="stuBottomNav">
+      <button class="stu-bn-item active" onclick="backToStuHome()"><span data-icon="home" data-icon-size="21"></span>Home</button>
+      <button class="stu-bn-item" onclick="openStuSection('sp-attendance','Attendance')"><span data-icon="calendar-check" data-icon-size="21"></span>Attendance</button>
+      <div class="stu-bn-spacer"></div>
+      <button class="stu-bn-item" onclick="openStuSection('sp-fees','Fees')"><span data-icon="credit-card" data-icon-size="21"></span>Fees</button>
+      <button class="stu-bn-item" onclick="openStuSection('sp-results','Results')"><span data-icon="bar-chart" data-icon-size="21"></span>Results</button>
+      <div class="stu-fab-wrap" id="stuFabWrap">
+        <button class="stu-fab-item" style="--fx:-86px;--fy:-31px;" onclick="stuFabGo('sp-leave','Leave')" aria-label="Leave"><span data-icon="calendar-x" data-icon-size="19"></span><span class="fl">Leave</span></button>
+        <button class="stu-fab-item" style="--fx:-46px;--fy:-82px;" onclick="stuFabGo('sp-homework','Homework')" aria-label="Homework"><span data-icon="edit" data-icon-size="19"></span><span class="fl">Homework</span></button>
+        <button class="stu-fab-item" style="--fx:46px;--fy:-82px;" onclick="stuFabGo('notice')" aria-label="Notice"><span data-icon="bell" data-icon-size="19"></span><span class="fl">Notice</span></button>
+        <button class="stu-fab-item" style="--fx:86px;--fy:-31px;" onclick="stuFabGo('sp-doubts','Doubts')" aria-label="Doubts"><span data-icon="help-circle" data-icon-size="19"></span><span class="fl">Doubts</span></button>
+        <button class="stu-fab" id="stuFab" onclick="stuFabToggle()" aria-label="Quick actions"><span data-icon="plus" data-icon-size="26"></span></button>
       </div>
     </div>
 
@@ -2291,12 +2376,10 @@
 
     <!-- ── TAB: STUDY MATERIALS ── -->
     <div class="stu-panel" id="sp-study">
-      <div class="p-card" style="padding:0;overflow:hidden;">
-        <div class="p-title" style="font-size:13px;padding:14px 16px 10px;"><span data-icon="book-open" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Study Materials</div>
-        <div id="stuStudyList">
-          <p class="empty-msg" style="padding:0 16px 16px;">No study materials posted yet.</p>
-        </div>
-      </div>
+      <div class="sm-search"><span data-icon="search" data-icon-size="17"></span>
+        <input type="text" id="smSearchInput" placeholder="Search material" oninput="stuSmSearch(this.value)"></div>
+      <div class="sm-chips" id="smChips"></div>
+      <div id="stuStudyList"><div class="stu-empty-note">No study materials posted yet.</div></div>
     </div>
 
     <!-- ── TAB: QUIZZES ── -->
@@ -2462,42 +2545,105 @@
 
   <!-- ADMIN PANEL -->
   <div id="admin-portal" style="display:none;">
-    <div class="wide">
-      <div class="admin-topbar">
-        <div class="admin-info-bar">
-          <div class="ai-name" id="adminDisplayName">Management Console</div>
+    <div class="stu-drawer-backdrop" id="adminDrawerBackdrop" onclick="adminDrawerClose()"></div>
+
+    <div id="adminPortalBody" class="stu-portal-body">
+      <!-- Nav drawer (mobile: slide-in overlay · desktop: permanent sidebar) -->
+      <div class="stu-drawer" id="adminDrawer">
+        <div class="stu-drawer-head">
+          <div class="stu-drawer-brand">
+            <div class="stu-drawer-brand-logo">BWS</div>
+            <div class="stu-drawer-school">Better World School</div>
+          </div>
+          <div class="stu-drawer-sname" id="adminDisplayName">Management Console</div>
           <span id="adminRoleBadge" class="role-badge role-primary"><span data-icon="award" data-icon-size="13" style="vertical-align:-2px;margin-right:3px;"></span>Primary Admin</span>
         </div>
-        <button class="logout-btn" style="color:var(--navy);" onclick="doLogout()">Logout</button>
-      </div>
-      <!-- Teacher scope notice (shown for class teachers) -->
-      <div id="teacherScopeBar" class="teacher-notice" style="display:none;">
-        <span data-icon="bell" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>You are logged in as a <strong>Class Teacher</strong>. You can only manage students and results for your assigned classes.
-      </div>
-      <!-- Back bar: shown only when a section is open -->
-      <div class="admin-back-bar" id="adminBackBar">
-        <button onclick="backToAdminHome()">←</button>
-        <span class="back-title" id="adminBackTitle"></span>
+        <nav class="stu-drawer-nav" id="adminDrawerNav">
+          <button class="stu-drawer-item active" data-nav="home" onclick="adminDrawerGoHome(this)">
+            <span class="di-ic" data-icon="home"></span><span class="di-lbl">Dashboard</span>
+          </button>
+          <button class="stu-drawer-item" data-nav="at-classes" onclick="adminDrawerGo('at-classes','Classes',this)">
+            <span class="di-ic" data-icon="building"></span><span class="di-lbl">Classes</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-students" data-nav="at-students" onclick="adminDrawerGo('at-students','Students',this)">
+            <span class="di-ic" data-icon="users"></span><span class="di-lbl">Students</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-admins" data-nav="at-admins" onclick="adminDrawerGo('at-admins','Admins',this)" style="display:none;">
+            <span class="di-ic" data-icon="grad-cap"></span><span class="di-lbl">Teachers / Admins</span>
+          </button>
+          <div class="stu-drawer-divider"></div>
+          <button class="stu-drawer-item" data-nav="at-attendance" id="tile-attendance" onclick="adminDrawerGo('at-attendance','Attendance',this)">
+            <span class="di-ic" data-icon="calendar-check"></span><span class="di-lbl">Attendance</span>
+          </button>
+          <button class="stu-drawer-item" data-nav="at-results" onclick="adminDrawerGo('at-results','Add Results',this)">
+            <span class="di-ic" data-icon="bar-chart"></span><span class="di-lbl">Results</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-dashfee" data-nav="at-dashfee" onclick="adminDrawerGo('at-dashfee','Dashboard &amp; Fees',this)">
+            <span class="di-ic" data-icon="credit-card"></span><span class="di-lbl">Fees</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-leave" data-nav="at-leave" onclick="adminDrawerGo('at-leave','Leave Requests',this)">
+            <span class="di-ic" data-icon="calendar-x"></span><span class="di-lbl">Leave Requests</span>
+          </button>
+          <div class="stu-drawer-divider"></div>
+          <button class="stu-drawer-item" id="tile-homework" data-nav="at-homework" onclick="adminDrawerGo('at-homework','Homework',this)">
+            <span class="di-ic" data-icon="edit"></span><span class="di-lbl">Homework</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-study" data-nav="at-study" onclick="adminDrawerGo('at-study','Study Materials',this)">
+            <span class="di-ic" data-icon="book-open"></span><span class="di-lbl">Study Material</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-quiz" data-nav="at-quiz" onclick="adminDrawerGo('at-quiz','Quizzes',this)">
+            <span class="di-ic" data-icon="clipboard"></span><span class="di-lbl">Quizzes / Exams</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-doubts" data-nav="at-doubts" onclick="adminDrawerGo('at-doubts','Doubts',this)">
+            <span class="di-ic" data-icon="help-circle"></span><span class="di-lbl">Doubts</span>
+          </button>
+          <div class="stu-drawer-divider"></div>
+          <button class="stu-drawer-item" id="tile-notice" data-nav="at-notice" onclick="adminDrawerGo('at-notice','Notice',this)">
+            <span class="di-ic" data-icon="bell"></span><span class="di-lbl">Notice</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-events" data-nav="at-events" onclick="adminDrawerGo('at-events','Events',this)" style="display:none;">
+            <span class="di-ic" data-icon="calendar-check"></span><span class="di-lbl">Events</span>
+          </button>
+          <button class="stu-drawer-item" id="tile-enquiries" data-nav="at-enquiries" onclick="adminDrawerGo('at-enquiries','Enquiries',this)" style="display:none;">
+            <span class="di-ic" data-icon="mail"></span><span class="di-lbl">Enquiries</span>
+            <span id="enqBadgeTile" class="unread-dot" style="display:none;"></span>
+          </button>
+          <button class="stu-drawer-item" id="tile-settings" data-nav="at-settings" onclick="adminDrawerGo('at-settings','Settings',this)">
+            <span class="di-ic" data-icon="settings"></span><span class="di-lbl">Settings</span>
+          </button>
+        </nav>
+        <div class="stu-drawer-foot">
+          <button class="stu-drawer-logout" onclick="doLogout()"><span data-icon="log-out" data-icon-size="16"></span> Logout</button>
+        </div>
       </div>
 
-      <!-- Home grid: shown by default, hidden while a section is open -->
-      <div class="admin-home-grid" id="adminHomeGrid">
-        <div class="admin-home-tile" onclick="openAdminSection('at-classes','Classes')"><span class="tile-icon" data-icon="building"></span><span class="tile-label">Classes</span></div>
-        <div class="admin-home-tile" id="tile-students" onclick="openAdminSection('at-students','Students')"><span class="tile-icon" data-icon="users"></span><span class="tile-label">Students</span></div>
-        <div class="admin-home-tile" onclick="openAdminSection('at-results','Add Results')"><span class="tile-icon" data-icon="bar-chart"></span><span class="tile-label">Add Results</span></div>
-        <div class="admin-home-tile" id="tile-dashfee" onclick="openAdminSection('at-dashfee','Dashboard &amp; Fees')"><span class="tile-icon" data-icon="credit-card"></span><span class="tile-label">Dashboard &amp; Fees</span></div>
-        <div class="admin-home-tile" id="tile-notice" onclick="openAdminSection('at-notice','Notice')"><span class="tile-icon" data-icon="bell"></span><span class="tile-label">Notice</span></div>
-        <div class="admin-home-tile" id="tile-homework" onclick="openAdminSection('at-homework','Homework')"><span class="tile-icon" data-icon="edit"></span><span class="tile-label">Homework</span></div>
-        <div class="admin-home-tile" id="tile-study" onclick="openAdminSection('at-study','Study Materials')"><span class="tile-icon" data-icon="book-open"></span><span class="tile-label">Study Materials</span></div>
-        <div class="admin-home-tile" id="tile-quiz" onclick="openAdminSection('at-quiz','Quizzes')"><span class="tile-icon" data-icon="clipboard"></span><span class="tile-label">Quizzes</span></div>
-        <div class="admin-home-tile" id="tile-doubts" onclick="openAdminSection('at-doubts','Doubts')"><span class="tile-icon" data-icon="help-circle"></span><span class="tile-label">Doubts</span></div>
-        <div class="admin-home-tile" id="tile-leave" onclick="openAdminSection('at-leave','Leave Requests')"><span class="tile-icon" data-icon="calendar-x"></span><span class="tile-label">Leave Requests</span></div>
-        <div class="admin-home-tile" id="tile-attendance" onclick="openAdminSection('at-attendance','Attendance')"><span class="tile-icon" data-icon="calendar-check"></span><span class="tile-label">Attendance</span></div>
-        <div class="admin-home-tile" id="tile-events" onclick="openAdminSection('at-events','Events')" style="display:none;"><span class="tile-icon" data-icon="calendar-check"></span><span class="tile-label">Events</span></div>
-        <div class="admin-home-tile" id="tile-enquiries" onclick="openAdminSection('at-enquiries','Enquiries')" style="display:none;"><span class="tile-icon" data-icon="mail"></span><span class="tile-label">Enquiries</span><span id="enqBadgeTile" class="unread-dot" style="display:none;"></span></div>
-        <div class="admin-home-tile" id="tile-admins" onclick="openAdminSection('at-admins','Admins')" style="display:none;"><span class="tile-icon" data-icon="grad-cap"></span><span class="tile-label">Admins</span></div>
-        <div class="admin-home-tile" id="tile-settings" onclick="openAdminSection('at-settings','Settings')"><span class="tile-icon" data-icon="settings"></span><span class="tile-label">Settings</span></div>
-      </div>
+      <div class="stu-portal-main">
+        <!-- Compact top header — the ONLY header for admin, same pattern as student -->
+        <div class="stu-topbar">
+          <button class="stu-hamburger" onclick="adminDrawerOpen()" aria-label="Menu"><span data-icon="menu" data-icon-size="19"></span></button>
+          <div class="stu-topbar-brand">
+            <div class="stu-topbar-logo">BWS</div>
+            <div class="stu-topbar-name">Admin Dashboard</div>
+          </div>
+          <div class="stu-topbar-right">
+            <button class="stu-bell-btn" onclick="adminDrawerGo('at-notice','Notice',null)" aria-label="Notice"><span data-icon="bell" data-icon-size="17"></span></button>
+            <div class="stu-topbar-avatar" onclick="adminDrawerGo('at-settings','Settings',null)">A</div>
+          </div>
+        </div>
+
+        <div class="wide">
+          <!-- Teacher scope notice (shown for class teachers) -->
+          <div id="teacherScopeBar" class="teacher-notice" style="display:none;">
+            <span data-icon="bell" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>You are logged in as a <strong>Class Teacher</strong>. You can only manage students and results for your assigned classes.
+          </div>
+          <!-- Back bar: shown only when a section is open -->
+          <div class="admin-back-bar" id="adminBackBar">
+            <button onclick="backToAdminHome()">←</button>
+            <span class="back-title" id="adminBackTitle"></span>
+          </div>
+
+          <!-- Admin dashboard: shown by default, hidden while a section is open -->
+          <div id="adminHomeGrid"></div>
 
       <!-- Old tab row kept in the DOM but hidden — switchAdminTab still works via it internally -->
       <div class="tabs" id="adminTabs" style="display:none;">
@@ -2774,13 +2920,15 @@
         <div class="p-card">
           <div class="edit-s">
             <div class="p-title" style="font-size:14px;"><span data-icon="book-open" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Upload Study Material</div>
-            <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Organized as Class → Subject folders. Students only see materials for their own class.</p>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Organized as Class → Subject → Chapter → Material. Students only see materials for their own class.</p>
             <label class="p-lbl">Class</label>
             <select id="smClass"></select>
             <label class="p-lbl">Subject (folder name)</label>
             <input type="text" id="smSubject" placeholder="e.g. Mathematics">
-            <label class="p-lbl">Chapter / Title</label>
-            <input type="text" id="smTitle" placeholder="e.g. Chapter 4 — Fractions">
+            <label class="p-lbl">Chapter (optional)</label>
+            <input type="text" id="smChapter" placeholder="e.g. Real Numbers">
+            <label class="p-lbl">Material title</label>
+            <input type="text" id="smTitle" placeholder="e.g. Chapter 1 notes (PDF)">
             <label class="p-lbl">Notes (optional)</label>
             <textarea id="smDesc" rows="2" placeholder="Short description..."></textarea>
             <label class="p-lbl">PDF / File Link</label>
@@ -3009,6 +3157,8 @@
       </div>
 
     </div><!-- end .wide -->
+      </div><!-- end stu-portal-main -->
+    </div><!-- end adminPortalBody -->
   </div><!-- end admin-portal -->
 
 </div><!-- end portal-page -->
@@ -3635,13 +3785,13 @@ function openAdminPanel() {
     (isPrimary || (curAdminData && curAdminData.permissions && curAdminData.permissions.notice))
     ? 'inline-block' : 'none';
 
-  // Show/hide the matching home-grid tiles the same way
-  document.getElementById('tile-admins').style.display    = isPrimary ? 'block' : 'none';
-  document.getElementById('tile-events').style.display    = isPrimary ? 'block' : 'none';
-  document.getElementById('tile-enquiries').style.display = isPrimary ? 'block' : 'none';
+  // Show/hide the matching drawer items the same way
+  document.getElementById('tile-admins').style.display    = isPrimary ? 'flex' : 'none';
+  document.getElementById('tile-events').style.display    = isPrimary ? 'flex' : 'none';
+  document.getElementById('tile-enquiries').style.display = isPrimary ? 'flex' : 'none';
   document.getElementById('tile-notice').style.display    =
     (isPrimary || (curAdminData && curAdminData.permissions && curAdminData.permissions.notice))
-    ? 'block' : 'none';
+    ? 'flex' : 'none';
 
   renderClassView();
   renderAdminList();
@@ -3679,6 +3829,7 @@ function openAdminPanel() {
 }
 
 function doLogout() {
+  try { stuDrawerClose(); adminDrawerClose(); stuFabClose(); } catch (e) {}
   curUser = null;
   curAdminData = null;
   clearSession();
@@ -3741,6 +3892,10 @@ const STU_ICON_PATHS = {
   sparkles:      'M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z|M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z',
   medal:         'M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z|M9 14.5 6.5 21l5.5-3 5.5 3-2.5-6.5',
   check:         'M20 6 9 17l-5-5',
+  plus:          'M12 5v14M5 12h14',
+  search:        'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z|M21 21l-4.3-4.3',
+  video:         'M3 6h13a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3z|M17 10l4-2v8l-4-2',
+  'chevron-down':'M6 9l6 6 6-6',
 };
 function stuIcon(name, size) {
   const d = STU_ICON_PATHS[name];
@@ -3803,6 +3958,7 @@ stuFillStaticIcons();
 
 function openStuSection(id, label) {
   stuDrawerClose();
+  stuFabClose();
   document.getElementById('stuHomeGrid').style.display = 'none';
   document.querySelectorAll('.stu-panel').forEach(p => p.classList.remove('active'));
   const panel = document.getElementById(id);
@@ -4066,6 +4222,165 @@ function renderStudentDashboardHome(stu) {
 }
 window.stuDrawerOpen = stuDrawerOpen; window.stuDrawerClose = stuDrawerClose;
 window.stuDrawerGo = stuDrawerGo; window.stuDrawerGoHome = stuDrawerGoHome; window.stuDrawerGoNotice = stuDrawerGoNotice;
+
+/* ═══════════════════════════════════════════
+   STUDENT BOTTOM NAV — centre action fans out quick shortcuts
+═══════════════════════════════════════════ */
+function stuFabToggle() {
+  const w = document.getElementById('stuFabWrap'), f = document.getElementById('stuFab'), b = document.getElementById('stuFabBackdrop');
+  const open = !w.classList.contains('open');
+  w.classList.toggle('open', open); f.classList.toggle('open', open); b.classList.toggle('open', open);
+}
+function stuFabClose() {
+  const w = document.getElementById('stuFabWrap'), f = document.getElementById('stuFab'), b = document.getElementById('stuFabBackdrop');
+  if (w) w.classList.remove('open'); if (f) f.classList.remove('open'); if (b) b.classList.remove('open');
+}
+function stuFabGo(id, label) {
+  stuFabClose();
+  if (id === 'notice') { viewSchoolNotice(); return; }
+  openStuSection(id, label);
+}
+window.stuFabToggle = stuFabToggle; window.stuFabClose = stuFabClose; window.stuFabGo = stuFabGo;
+
+/* ═══════════════════════════════════════════
+   ADMIN NAV DRAWER + DASHBOARD
+   Same drawer component/classes as the student side.
+═══════════════════════════════════════════ */
+function adminDrawerOpen() {
+  document.getElementById('adminDrawer').classList.add('open');
+  document.getElementById('adminDrawerBackdrop').classList.add('open');
+}
+function adminDrawerClose() {
+  const d = document.getElementById('adminDrawer'), b = document.getElementById('adminDrawerBackdrop');
+  if (d) d.classList.remove('open');
+  if (b) b.classList.remove('open');
+}
+function adminDrawerSetActive(key) {
+  document.querySelectorAll('#adminDrawerNav .stu-drawer-item').forEach(el => {
+    el.classList.toggle('active', (el.dataset.nav || 'home') === key);
+  });
+}
+function adminDrawerGo(id, label, el) {
+  adminDrawerClose();
+  adminDrawerSetActive(id);
+  openAdminSection(id, label);
+}
+function adminDrawerGoHome(el) {
+  adminDrawerClose();
+  backToAdminHome();
+}
+window.adminDrawerOpen = adminDrawerOpen; window.adminDrawerClose = adminDrawerClose;
+window.adminDrawerGo = adminDrawerGo; window.adminDrawerGoHome = adminDrawerGoHome;
+
+/** Information-first admin dashboard: summary cards, pending actions, recent activity. */
+function renderAdminDashboard() {
+  const el = document.getElementById('adminHomeGrid');
+  if (!el) return;
+  const isPrimary = !curAdminData;
+  const allowed = getAllowedClasses();
+  const students = Object.values(allStudents).filter(s => allowed.includes(s.class));
+  const teachers = Object.keys(allSubAdmins).length;
+
+  let pendingFeeStudents = 0;
+  students.forEach(s => {
+    const m = (s.feeData && s.feeData.months) || {};
+    if (Object.values(m).some(v => v === 'due' || v === 'partial')) pendingFeeStudents++;
+  });
+  const pendingLeave  = Object.values(allLeaveRequests).filter(l => l.status === 'pending' && allowed.includes(l.class)).length;
+  const pendingDoubts = Object.values(allDoubts).filter(d => d.status !== 'answered' && allowed.includes(d.class)).length;
+  const pendingClaims = isPrimary ? Object.values(allPaymentClaims).filter(c => c.status === 'pending').length : 0;
+
+  const go = (id, label) => `adminDrawerGo('${id}','${label}',null)`;
+  const card = (cls, ic, title, val, sub, target) => `
+    <div class="stu-quick-card" onclick="${target}">
+      <div class="stu-qc-ic ${cls}">${stuIcon(ic, 16)}</div>
+      <div class="stu-qc-title">${title}</div>
+      <div class="stu-qc-val">${val}</div>
+      <div class="stu-qc-sub">${sub}</div>
+    </div>`;
+
+  const actionRow = (cls, ic, title, count, target) => `
+    <div class="stu-update-row" onclick="${target}">
+      <div class="stu-ur-ic ${cls}">${stuIcon(ic, 16)}</div>
+      <div class="stu-ur-body">
+        <div class="stu-ur-title">${title}</div>
+        <div class="stu-ur-time">${count ? count + ' waiting for review' : 'Nothing pending'}</div>
+      </div>
+      <div class="stu-ur-arrow">${stuIcon('chevron-right', 15)}</div>
+    </div>`;
+
+  el.className = 'stu-dashboard';
+  el.innerHTML = `
+    <div class="stu-dash-inner">
+      <div class="stu-welcome-card">
+        <div>
+          <div class="stu-welcome-title">${stuGreetingWord()}, ${axEsc(isPrimary ? 'Admin' : (curAdminData.name || 'Teacher').split(' ')[0])}</div>
+          <div class="stu-welcome-sub">Here is the school at a glance.</div>
+        </div>
+        <div class="stu-welcome-ill">${stuIcon('building', 26)}</div>
+      </div>
+
+      <div class="stu-quick-grid">
+        ${card('c-blue', 'users', 'Students', students.length, 'Enrolled', go('at-students','Students'))}
+        ${card('c-purple', 'grad-cap', 'Teachers', teachers, 'Staff accounts', isPrimary ? go('at-admins','Admins') : go('at-classes','Classes'))}
+        <div class="stu-quick-card ring-card" onclick="${go('at-attendance','Attendance')}">
+          <div id="admAttRing">${stuRing(null, 44, 5, 'var(--db-green)')}</div>
+          <div class="stu-qc-ring-body">
+            <div class="stu-qc-title">Today's Attendance</div>
+            <div class="stu-qc-val" id="admAttSub">Checking…</div>
+          </div>
+        </div>
+        ${card('c-orange', 'credit-card', 'Pending Fees', pendingFeeStudents, 'Students with dues', go('at-dashfee','Dashboard &amp; Fees'))}
+      </div>
+
+      <div class="stu-section-head"><div class="stu-section-title">Pending Actions</div></div>
+      <div class="stu-update-list">
+        ${actionRow('c-green', 'calendar-x', 'Leave requests', pendingLeave, go('at-leave','Leave Requests'))}
+        ${actionRow('c-blue', 'help-circle', 'Student doubts', pendingDoubts, go('at-doubts','Doubts'))}
+        ${isPrimary ? actionRow('c-orange', 'credit-card', 'Fee payment claims', pendingClaims, go('at-dashfee','Dashboard &amp; Fees')) : ''}
+      </div>
+
+      ${isPrimary ? `
+      <div class="stu-section-head"><div class="stu-section-title">Recent Activity</div>
+        <button class="stu-section-link" onclick="${go('at-settings','Settings')}">View All →</button></div>
+      <div class="stu-update-list" id="admRecent"><div class="stu-empty-note">Loading…</div></div>` : ''}
+    </div>`;
+
+  // Today's attendance across the classes this admin can see
+  const today = axToday();
+  const classes = [...new Set(students.map(s => s.class))];
+  Promise.all(classes.map(c => axFetchRange(c, today, today).catch(() => ({})))).then(results => {
+    let p = 0, a = 0, l = 0;
+    results.forEach(data => {
+      const day = data[today] || {};
+      Object.values(day).forEach(r => {
+        if (!r || !AX_STATUSES.includes(r.status)) return;
+        if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++;
+      });
+    });
+    const rec = p + a + l;
+    const ringEl = document.getElementById('admAttRing'), subEl = document.getElementById('admAttSub');
+    if (ringEl) ringEl.innerHTML = stuRing(rec ? axPct(p, a, l) : null, 44, 5, 'var(--db-green)');
+    if (subEl) subEl.textContent = rec ? (p + l) + ' of ' + rec + ' present' : 'Not marked yet';
+  });
+
+  if (isPrimary) {
+    db.ref('activityLog').orderByChild('time').limitToLast(5).once('value').then(snap => {
+      const box = document.getElementById('admRecent'); if (!box) return;
+      const items = snap.val() ? Object.values(snap.val()).reverse() : [];
+      if (!items.length) { box.innerHTML = '<div class="stu-empty-note">No activity yet.</div>'; return; }
+      box.innerHTML = items.map(e => `
+        <div class="stu-update-row">
+          <div class="stu-ur-ic c-blue">${stuIcon('file', 16)}</div>
+          <div class="stu-ur-body">
+            <div class="stu-ur-title">${axEsc(e.msg || '')}</div>
+            <div class="stu-ur-time">${axEsc(e.actor || '')} · ${e.time ? stuTimeAgo(e.time) : ''}</div>
+          </div>
+        </div>`).join('');
+    }).catch(() => { const box = document.getElementById('admRecent'); if (box) box.innerHTML = '<div class="stu-empty-note">Could not load activity.</div>'; });
+  }
+}
+window.renderAdminDashboard = renderAdminDashboard;
 
 /* ═══════════════════════════════════════════
    STUDENT PORTAL RENDER
@@ -4701,6 +5016,7 @@ function postStudyMaterial() {
   const cls   = document.getElementById('smClass').value;
   const sub   = document.getElementById('smSubject').value.trim();
   const title = document.getElementById('smTitle').value.trim();
+  const chapter = document.getElementById('smChapter').value.trim();
   const desc  = document.getElementById('smDesc').value.trim();
   const url   = document.getElementById('smFileUrl').value.trim();
 
@@ -4711,9 +5027,10 @@ function postStudyMaterial() {
   if (!allowed.includes(cls)) { alert('You do not have permission to post materials for this class.'); return; }
 
   const postedBy = curAdminData ? curAdminData.name : 'Admin';
-  db.ref('studyMaterials').push({ class: cls, subject: sub, title, desc, fileUrl: url, postedBy, postedAt: Date.now() })
+  db.ref('studyMaterials').push({ class: cls, subject: sub, chapter, title, desc, fileUrl: url, postedBy, postedAt: Date.now() })
     .then(() => {
       document.getElementById('smSubject').value = '';
+      document.getElementById('smChapter').value = '';
       document.getElementById('smTitle').value   = '';
       document.getElementById('smDesc').value    = '';
       document.getElementById('smFileUrl').value = '';
@@ -4750,66 +5067,104 @@ function renderSmList() {
   const div = document.getElementById('smList');
   if (!entries.length) { div.innerHTML = '<p class="empty-msg">No study materials uploaded yet.</p>'; return; }
 
-  // Group by "Class||Subject" folder key
-  const folders = {};
+  // Class → Subject → Chapter → Material
+  const tree = {};
   entries.forEach(([key, m]) => {
     const fKey = m.class + '||' + m.subject;
-    if (!folders[fKey]) folders[fKey] = { class: m.class, subject: m.subject, items: [] };
-    folders[fKey].items.push([key, m]);
+    const ch = m.chapter || 'General';
+    tree[fKey] = tree[fKey] || { class: m.class, subject: m.subject, chapters: {} };
+    (tree[fKey].chapters[ch] = tree[fKey].chapters[ch] || []).push([key, m]);
   });
 
-  div.innerHTML = Object.values(folders).map(f => `
-    <div class="list-row">
-      <div style="font-weight:700;color:var(--navy);">${stuIcon('book',13)} ${f.subject} <span class="badge bg-navy" style="margin-left:6px;">${f.class}</span></div>
-      ${f.items.map(([key, m]) => `
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0 8px 16px;">
-          <div>
-            <a href="${m.fileUrl}" target="_blank" style="font-weight:600;color:var(--red);text-decoration:none;">${stuIcon('file',13)} ${m.title}</a>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px;">${m.desc || ''}</div>
-          </div>
-          <button class="btn btn-red btn-sm" onclick="deleteStudyMaterial('${key}')">Delete</button>
-        </div>`).join('')}
+  div.innerHTML = Object.values(tree).map(f => `
+    <div class="sm-subject">
+      <div class="sm-subj-head"><div class="sm-subj-name">${axEsc(f.subject)} · ${axEsc(f.class)}</div>
+        <div class="sm-subj-count">${Object.keys(f.chapters).length} chapter(s)</div></div>
+      <div class="sm-box">${Object.keys(f.chapters).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map(ch => `
+        <div class="sm-chapter open"><div class="sm-ch-head" style="cursor:default;">
+          <div class="sm-ch-ic">${stuIcon('book', 17)}</div>
+          <div class="sm-ch-body"><div class="sm-ch-title">${axEsc(ch)}</div><div class="sm-ch-sub">${f.chapters[ch].length} material(s)</div></div></div>
+          <div class="sm-mats">${f.chapters[ch].map(([key, m]) => { const t = stuSmFileType(m); return `
+            <div class="sm-mat"><div class="sm-mat-ic ${t.k}">${stuIcon(t.ic, 16)}</div>
+              <div class="sm-mat-body"><div class="sm-mat-title">${axEsc(m.title || '')}</div>
+                <div class="sm-mat-meta">${t.lbl}${m.desc ? ' · ' + axEsc(m.desc) : ''}</div></div>
+              <div class="sm-mat-act"><a class="sm-btn" href="${axEsc(m.fileUrl || '#')}" target="_blank" rel="noopener">Open</a>
+                <button class="sm-btn" style="color:var(--db-red);" onclick="deleteStudyMaterial('${key}')" aria-label="Delete">${stuIcon('trash', 14)}</button></div></div>`; }).join('')}</div>
+        </div>`).join('')}</div>
     </div>`).join('');
 }
 
 /** Student view: subject folders for their class only, tap to expand/collapse chapters. */
-function renderStudentStudyMaterials(stu) {
-  const el = document.getElementById('stuStudyList');
-  if (!el) return;
-  const items = Object.values(allStudyMaterials).filter(m => m.class === stu.class);
-  if (!items.length) { el.innerHTML = '<p class="empty-msg" style="padding:0 16px 16px;">No study materials posted yet.</p>'; return; }
+let smSearchTerm = '', smSubjectFilter = 'All', smOpenChapters = {};
+function stuSmFileType(m) {
+  const u = String(m.fileUrl || '').toLowerCase(), t = String(m.title || '').toLowerCase();
+  if (/youtu\.?be|vimeo|\.mp4|\.mov|\.webm/.test(u)) return { k:'video', ic:'video', lbl:'Video' };
+  if (/\.pdf|pdf/.test(u) || /pdf/.test(t)) return { k:'pdf', ic:'file', lbl:'PDF' };
+  if (/\.docx?|\.pptx?|\.xlsx?|docs\.google|document|presentation/.test(u)) return { k:'doc', ic:'file', lbl:'Document' };
+  return { k:'link', ic:'file', lbl:'Link' };
+}
+function stuSmDownloadUrl(url) {
+  const m = String(url || '').match(/drive\.google\.com\/file\/d\/([^/]+)/);
+  return m ? 'https://drive.google.com/uc?export=download&id=' + m[1] : url;
+}
+function stuSmSearch(v) { smSearchTerm = (v || '').toLowerCase().trim(); const s = allStudents[curUser]; if (s) renderStudentStudyMaterials(s); }
+function stuSmSubject(s) { smSubjectFilter = s; const st = allStudents[curUser]; if (st) renderStudentStudyMaterials(st); }
+function stuSmToggle(id) { smOpenChapters[id] = !smOpenChapters[id]; const el = document.getElementById(id); if (el) el.classList.toggle('open', smOpenChapters[id]); }
 
-  const folders = {};
+/** Class → Subject → Chapter → Material resource centre. */
+function renderStudentStudyMaterials(stu) {
+  const el = document.getElementById('stuStudyList'), chipsEl = document.getElementById('smChips');
+  if (!el) return;
+  const all = Object.values(allStudyMaterials).filter(m => m.class === stu.class);
+  if (!all.length) { el.innerHTML = '<div class="stu-empty-note">No study materials posted yet.</div>'; if (chipsEl) chipsEl.innerHTML = ''; return; }
+
+  const subjects = [...new Set(all.map(m => m.subject))].sort();
+  if (smSubjectFilter !== 'All' && !subjects.includes(smSubjectFilter)) smSubjectFilter = 'All';
+  if (chipsEl) chipsEl.innerHTML = ['All', ...subjects].map(s =>
+    `<button class="sm-chip ${s === smSubjectFilter ? 'active' : ''}" onclick="stuSmSubject(${JSON.stringify(s).replace(/"/g, '&quot;')})">${axEsc(s)}</button>`).join('');
+
+  const items = all.filter(m =>
+    (smSubjectFilter === 'All' || m.subject === smSubjectFilter) &&
+    (!smSearchTerm || [m.title, m.subject, m.chapter, m.desc].some(x => String(x || '').toLowerCase().includes(smSearchTerm))));
+  if (!items.length) { el.innerHTML = '<div class="stu-empty-note">No material matches your search.</div>'; return; }
+
+  const tree = {};
   items.forEach(m => {
-    if (!folders[m.subject]) folders[m.subject] = [];
-    folders[m.subject].push(m);
+    const ch = m.chapter || 'General';
+    (tree[m.subject] = tree[m.subject] || {})[ch] = (tree[m.subject][ch] || []).concat(m);
   });
 
-  el.innerHTML = Object.keys(folders).sort().map(subject => {
-    const fid = 'smf_' + subject.replace(/\s+/g,'_');
-    const isOpen = !!smOpenFolders[fid];
-    return `
-    <div style="border-bottom:1px solid var(--border);">
-      <div onclick="toggleSmFolder('${fid}')" style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
-        <span style="font-weight:700;color:var(--navy);">${stuIcon('book',13)} ${subject}</span>
-        <span style="font-size:12px;color:var(--muted);">${folders[subject].length} file${folders[subject].length>1?'s':''} ${isOpen?'▲':'▼'}</span>
-      </div>
-      <div id="${fid}" style="display:${isOpen?'block':'none'};padding:0 16px 12px;">
-        ${folders[subject].map(m => `
-          <a href="${m.fileUrl}" target="_blank" style="display:block;padding:8px 0;text-decoration:none;color:var(--text);border-top:1px solid var(--border);">
-            <span style="color:var(--red);font-weight:600;">${stuIcon('file',13)} ${m.title}</span>
-            ${m.desc ? `<div style="font-size:12px;color:var(--muted);margin-top:2px;">${m.desc}</div>` : ''}
-          </a>`).join('')}
-      </div>
-    </div>`;
+  el.innerHTML = Object.keys(tree).sort().map(subject => {
+    const chapters = Object.keys(tree[subject]).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    return `<div class="sm-subject">
+      <div class="sm-subj-head"><div class="sm-subj-name">${axEsc(subject)}</div>
+        <div class="sm-subj-count">${chapters.length} chapter${chapters.length === 1 ? '' : 's'}</div></div>
+      <div class="sm-box">${chapters.map(ch => {
+        const id = 'smc_' + (subject + '_' + ch).replace(/[^a-zA-Z0-9]/g, '_');
+        const open = smSearchTerm ? true : !!smOpenChapters[id];
+        const mats = tree[subject][ch].slice().sort((a, b) => (b.postedAt || 0) - (a.postedAt || 0));
+        return `<div class="sm-chapter ${open ? 'open' : ''}" id="${id}">
+          <div class="sm-ch-head" onclick="stuSmToggle('${id}')">
+            <div class="sm-ch-ic">${stuIcon('book', 17)}</div>
+            <div class="sm-ch-body"><div class="sm-ch-title">${axEsc(ch)}</div>
+              <div class="sm-ch-sub">${mats.length} material${mats.length === 1 ? '' : 's'}</div></div>
+            <div class="sm-ch-arrow">${stuIcon('chevron-down', 18)}</div>
+          </div>
+          <div class="sm-mats">${mats.map(m => {
+            const t = stuSmFileType(m), url = axEsc(m.fileUrl || '#');
+            return `<div class="sm-mat">
+              <div class="sm-mat-ic ${t.k}">${stuIcon(t.ic, 16)}</div>
+              <div class="sm-mat-body"><div class="sm-mat-title">${axEsc(m.title || 'Material')}</div>
+                <div class="sm-mat-meta">${t.lbl} · ${axEsc(ch)} · ${m.postedAt ? stuTimeAgo(m.postedAt) : ''}</div></div>
+              <div class="sm-mat-act">
+                <a class="sm-btn primary" href="${url}" target="_blank" rel="noopener">Open</a>
+                ${t.k === 'video' ? '' : `<a class="sm-btn" href="${axEsc(stuSmDownloadUrl(m.fileUrl))}" target="_blank" rel="noopener" aria-label="Download">${stuIcon('download', 14)}</a>`}
+              </div></div>`;
+          }).join('')}</div></div>`;
+      }).join('')}</div></div>`;
   }).join('');
 }
-
-function toggleSmFolder(fid) {
-  smOpenFolders[fid] = !smOpenFolders[fid];
-  const el = document.getElementById(fid);
-  if (el) el.style.display = smOpenFolders[fid] ? 'block' : 'none';
-}
+window.stuSmSearch = stuSmSearch; window.stuSmSubject = stuSmSubject; window.stuSmToggle = stuSmToggle;
 
 /* ═══════════════════════════════════════════
    QUIZZES (admin builder + auto-graded student attempts)
@@ -5820,6 +6175,7 @@ function switchAdminTab(id, btn) {
 /** Opens one admin section full-screen: hides the home grid, runs the
     existing switchAdminTab logic for that section, and shows a back bar. */
 function openAdminSection(id, label) {
+  adminDrawerClose();
   switchAdminTab(id, null);
   document.getElementById('adminHomeGrid').style.display = 'none';
   document.getElementById('adminBackBar').style.display = 'flex';
@@ -5833,10 +6189,12 @@ function backToAdminHome() {
   if (typeof axLeaveOk === 'function' && !axLeaveOk()) return;
   document.querySelectorAll('.at-p').forEach(p => { p.classList.remove('active'); p.style.display = ''; });
   document.getElementById('adminBackBar').style.display = 'none';
-  document.getElementById('adminHomeGrid').style.display = 'grid';
+  document.getElementById('adminHomeGrid').style.display = 'block';
   document.documentElement.style.overflow = '';
   document.body.style.overflow = '';
   window.scrollTo(0, 0);
+  adminDrawerSetActive('home');
+  renderAdminDashboard();
 }
 
 /* ═══════════════════════════════════════════
@@ -6781,7 +7139,6 @@ window.switchToSibling    = switchToSibling;
 window.postStudyMaterial  = postStudyMaterial;
 window.deleteStudyMaterial= deleteStudyMaterial;
 window.setSmFilter        = setSmFilter;
-window.toggleSmFolder     = toggleSmFolder;
 window.addQuizQuestionBlock = addQuizQuestionBlock;
 window.removeQuizQuestionBlock = removeQuizQuestionBlock;
 window.saveQuiz           = saveQuiz;
