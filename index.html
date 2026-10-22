@@ -115,7 +115,7 @@
     /* ════════════════════════════════
        NAV
     ════════════════════════════════ */
-    nav{
+    body > nav{
       position:sticky;top:0;z-index:900;
       background:rgba(13,27,75,.92);
       backdrop-filter:blur(16px) saturate(160%);
@@ -731,6 +731,11 @@
     .stu-drawer-sname{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px;}
     .stu-drawer-sclass{font-size:11.5px;color:rgba(255,255,255,.55);}
     .stu-drawer-nav{flex:1;overflow-y:auto;padding:10px 10px;-webkit-overflow-scrolling:touch;}
+    /* Inside the student/admin app the marketing site bar must not exist at all */
+    body.in-portal > nav,body.in-portal .fab,body.in-portal .fab-tooltip,body.in-portal .scroll-top{display:none!important;}
+    /* drawer lists are always a plain vertical column */
+    .stu-drawer-nav{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:stretch;height:auto;position:static;}
+
     .stu-drawer-item{display:flex;align-items:center;gap:13px;width:100%;
       padding:11px 12px;border:none;background:none;border-radius:11px;cursor:pointer;
       font-family:inherit;font-size:13.5px;font-weight:500;color:rgba(255,255,255,.78);
@@ -910,6 +915,84 @@
       font-size:11px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-family:inherit;}
     .sm-btn.primary{background:var(--db-blue);border-color:var(--db-blue);color:#fff;}
 
+
+    /* ── Notification centre ── */
+    .stu-bell-count{position:absolute;top:-3px;right:-3px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;
+      background:var(--db-red);color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;
+      border:2px solid var(--db-card);box-sizing:content-box;line-height:1;}
+    .nt-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+    .nt-count{font-size:13px;font-weight:700;color:var(--db-navy);}
+    .nt-markall{border:none;background:none;color:var(--db-blue);font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;}
+    .nt-list{background:var(--db-card);border:1px solid var(--db-border);border-radius:var(--db-r);box-shadow:var(--db-shadow);overflow:hidden;}
+    .nt-row{display:flex;gap:11px;padding:13px 14px;border-bottom:1px solid var(--db-border);cursor:pointer;align-items:flex-start;}
+    .nt-row:last-child{border-bottom:none;} .nt-row:active{background:var(--db-bg);}
+    .nt-row.unread{background:#F3F8FE;}
+    .nt-ic{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+    .nt-ic.c-blue{background:var(--db-blue-bg);color:var(--db-blue);} .nt-ic.c-purple{background:var(--db-purple-bg);color:var(--db-purple);}
+    .nt-ic.c-green{background:var(--db-green-bg);color:var(--db-green);} .nt-ic.c-orange{background:var(--db-orange-bg);color:var(--db-orange);}
+    .nt-body{flex:1;min-width:0;}
+    .nt-title{font-size:13px;color:var(--db-text);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .nt-row.unread .nt-title{font-weight:800;}
+    .nt-desc{font-size:11.5px;color:var(--db-muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .nt-time{font-size:10.5px;color:var(--db-muted2);margin-top:3px;}
+    .nt-dot{width:9px;height:9px;border-radius:50%;background:var(--db-blue);flex-shrink:0;margin-top:5px;}
+    .nt-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;background:var(--db-blue-bg);color:var(--db-blue);text-transform:capitalize;}
+    .nt-detail-body{white-space:pre-wrap;font-size:14px;line-height:1.6;color:var(--db-text);margin:12px 0;}
+    .nt-detail-meta{font-size:11.5px;color:var(--db-muted);}
+
+
+    /* Big dashboard cards (attendance / fees) */
+    .stu-big-card{background:var(--db-card);border:1px solid var(--db-border);border-radius:var(--db-r);box-shadow:var(--db-shadow);padding:16px;margin-bottom:12px;}
+    .sbc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+    .sbc-title{font-size:14px;font-weight:700;color:var(--db-navy);} .sbc-sub{font-size:11px;color:var(--db-muted);margin-top:1px;}
+    .sbc-link{border:none;background:none;color:var(--db-blue);font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;padding:0;}
+    .sbc-body{display:flex;align-items:center;gap:16px;}
+    .sbc-stats{flex:1;display:flex;flex-direction:column;gap:8px;}
+    .sbc-stats.row3{flex-direction:row;justify-content:space-around;}
+    .sbc-stat .v{font-size:16px;font-weight:800;color:var(--db-navy);line-height:1.1;} .sbc-stat .l{font-size:10.5px;color:var(--db-muted);margin-top:2px;}
+    .sbc-stat.green .v{color:var(--db-green);} .sbc-stat.orange .v{color:var(--db-orange);} .sbc-stat.red .v{color:var(--db-red);}
+    .sbc-today{margin-top:14px;padding-top:12px;border-top:1px solid var(--db-border);display:flex;justify-content:space-between;align-items:center;}
+    .sbc-foot{margin-top:14px;}
+    .sbc-btn{width:100%;border:1px solid var(--db-border);background:var(--db-bg);color:var(--db-blue);font-weight:700;font-size:12.5px;padding:10px;border-radius:12px;cursor:pointer;font-family:inherit;}
+
+
+    .fee-rows{display:flex;flex-direction:column;}
+    .fee-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-top:1px solid var(--db-border);}
+    .fee-row:first-child{border-top:none;}
+    .fee-row-name{font-size:13.5px;font-weight:700;color:var(--db-navy);} .fee-row-amt{font-size:12px;color:var(--db-muted);margin-top:2px;}
+    .fee-row-side{display:flex;align-items:center;gap:8px;}
+
+
+    .qx-card{background:var(--db-card);border:1px solid var(--db-border);border-radius:var(--db-r);box-shadow:var(--db-shadow);padding:13px 14px;margin-bottom:10px;}
+    .qx-top{display:flex;align-items:center;gap:11px;}
+    .qx-ic{width:38px;height:38px;border-radius:11px;background:var(--db-purple-bg);color:var(--db-purple);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .qx-main{flex:1;min-width:0;} .qx-title{font-size:13.5px;font-weight:700;color:var(--db-navy);} .qx-meta{font-size:11px;color:var(--db-muted);margin-top:2px;}
+    .qx-status{font-size:10px;font-weight:800;padding:3px 9px;border-radius:10px;white-space:nowrap;}
+    .qx-status.live{background:var(--db-blue-bg);color:var(--db-blue);} .qx-status.done{background:var(--db-green-bg);color:var(--db-green);}
+    .qx-actions{display:flex;gap:8px;margin-top:11px;} .qx-actions .sm-btn{padding:8px 12px;font-size:12px;}
+
+
+    /* Results summary + timetable + student directory */
+    .rs-head{display:flex;align-items:center;gap:16px;}
+    .rs-bar{margin-top:10px;} .rs-bar .t{display:flex;justify-content:space-between;font-size:12px;color:var(--db-text);font-weight:600;margin-bottom:4px;}
+    .rs-track{height:7px;border-radius:5px;background:var(--db-border);overflow:hidden;} .rs-fill{height:100%;border-radius:5px;}
+    .rs-two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+    .rs-box{border-radius:12px;padding:10px 12px;} .rs-box.good{background:var(--db-green-bg);} .rs-box.warn{background:var(--db-orange-bg);}
+    .rs-box .h{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;}
+    .rs-box.good .h{color:var(--db-green);} .rs-box.warn .h{color:var(--db-orange);} .rs-box .b{font-size:12.5px;font-weight:700;color:var(--db-navy);}
+    .tt-card{display:flex;gap:12px;align-items:center;background:var(--db-card);border:1px solid var(--db-border);border-radius:14px;padding:12px 14px;margin-bottom:8px;box-shadow:var(--db-shadow);}
+    .tt-card.now{border-color:var(--db-blue);background:#F3F8FE;}
+    .tt-no{width:34px;height:34px;border-radius:10px;background:var(--db-blue-bg);color:var(--db-blue);font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .tt-sub{font-size:13.5px;font-weight:700;color:var(--db-navy);} .tt-meta{font-size:11px;color:var(--db-muted);margin-top:2px;}
+    .tt-tag{margin-left:auto;font-size:10px;font-weight:800;padding:3px 9px;border-radius:10px;background:var(--db-blue);color:#fff;}
+    .tt-tag.next{background:var(--db-orange-bg);color:var(--db-orange);}
+    .tt-edit{border:1px solid var(--db-border);border-radius:12px;padding:10px;margin-bottom:8px;background:var(--db-bg);}
+    .stud-row{display:flex;align-items:center;gap:11px;padding:11px 2px;border-bottom:1px solid var(--db-border);}
+    .stud-row:last-child{border-bottom:none;}
+    .stud-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--db-blue),var(--db-navy));color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .stud-main{flex:1;min-width:0;} .stud-name{font-size:13.5px;font-weight:700;color:var(--db-navy);}
+    .stud-sub{font-size:11px;color:var(--db-muted);margin-top:2px;}
+
     /* ── Bottom navigation (phones) + radial centre action ── */
     .stu-bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:900;height:calc(62px + env(safe-area-inset-bottom,0px));
       padding-bottom:env(safe-area-inset-bottom,0px);background:var(--db-card);border-top:1px solid var(--db-border);
@@ -952,7 +1035,7 @@
       .stu-topbar{justify-content:flex-end;padding:14px 28px;}
       .stu-dashboard{padding:10px 28px 40px;}
       .stu-dash-inner{max-width:980px;}
-      .stu-quick-grid{grid-template-columns:repeat(3,1fr);}
+      .stu-quick-grid{grid-template-columns:repeat(4,1fr);}
       .stu-dash-cols{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:start;}
     }
 
@@ -1347,7 +1430,7 @@
       --cream:#0f1117;--white:#1a1d27;--light:#1e2132;--border:#2e3248;
       --text:#e8e8f0;--muted:#8b8fa8;
     }
-    body.dark-mode nav{background:#080c1e;}
+    body.dark-mode > nav{background:#080c1e;}
     body.dark-mode .stats-strip{background:#1a1d27;}
     body.dark-mode .feat-card,body.dark-mode .p-card,body.dark-mode .event-card{background:#1e2132;border-color:#2e3248;}
     body.dark-mode footer{background:#080c1e;}
@@ -1992,9 +2075,9 @@
           <button class="stu-drawer-item active" data-nav="home" onclick="stuDrawerGoHome(this)">
             <span class="di-ic" data-icon="home"></span><span class="di-lbl">Dashboard</span>
           </button>
-          <button class="stu-drawer-item" onclick="stuDrawerGoNotice(this)">
+          <button class="stu-drawer-item" data-nav="sp-notices" onclick="stuDrawerGo('sp-notices','Notifications',this)">
             <span class="di-ic" data-icon="bell"></span><span class="di-lbl">Notifications</span>
-            <span class="stu-drawer-badge dot" id="drawerNoticeBadge" style="display:none;"></span>
+            <span class="stu-drawer-badge" id="drawerNoticeBadge" style="display:none;"></span>
           </button>
           <div class="stu-drawer-divider"></div>
           <button class="stu-drawer-item" data-nav="sp-quiz" onclick="stuDrawerGo('sp-quiz','Exams / Quizzes',this)">
@@ -2006,6 +2089,9 @@
           </button>
           <button class="stu-drawer-item" data-nav="sp-attendance" onclick="stuDrawerGo('sp-attendance','Attendance',this)">
             <span class="di-ic" data-icon="calendar-check"></span><span class="di-lbl">Attendance</span>
+          </button>
+          <button class="stu-drawer-item" data-nav="sp-timetable" onclick="stuDrawerGo('sp-timetable','Timetable',this)">
+            <span class="di-ic" data-icon="clock"></span><span class="di-lbl">Timetable</span>
           </button>
           <button class="stu-drawer-item" data-nav="sp-leave" onclick="stuDrawerGo('sp-leave','Leave',this)">
             <span class="di-ic" data-icon="calendar-x"></span><span class="di-lbl">Leave</span>
@@ -2054,8 +2140,8 @@
             <div class="stu-topbar-name">Better World School</div>
           </div>
           <div class="stu-topbar-right">
-            <button class="stu-bell-btn" id="stuNoticeBell" onclick="viewSchoolNotice()" aria-label="Notifications">
-              <span data-icon="bell" data-icon-size="17"></span><span class="stu-bell-dot"></span>
+            <button class="stu-bell-btn" id="stuNoticeBell" onclick="openStuSection('sp-notices','Notifications')" aria-label="Notifications">
+              <span data-icon="bell" data-icon-size="17"></span><span class="stu-bell-count" id="stuBellCount"></span>
             </button>
             <div class="stu-topbar-avatar" id="stuAvatar" onclick="openStuSection('sp-dashboard','Profile')">S</div>
           </div>
@@ -2083,13 +2169,18 @@
                   <div class="stu-welcome-ill"><span data-icon="grad-cap" data-icon-size="26"></span></div>
                 </div>
 
-                <!-- Quick info cards -->
+                <!-- Attendance + Fees: the two most important facts, visible immediately -->
+                <div class="stu-big-card" id="dashAttCard"></div>
+                <div class="stu-big-card" id="dashFeeCard"></div>
+
+                <!-- Academic snapshot -->
+                <div class="stu-section-head" style="margin-top:6px;"><div class="stu-section-title">Academic Snapshot</div></div>
                 <div class="stu-quick-grid" id="dashQuickGrid"></div>
 
                 <!-- Recent Updates -->
                 <div class="stu-section-head">
                   <div class="stu-section-title">Recent Updates</div>
-                  <button class="stu-section-link" onclick="viewSchoolNotice()">View All →</button>
+                  <button class="stu-section-link" onclick="openStuSection('sp-notices','Notifications')">View All →</button>
                 </div>
                 <div class="stu-update-list" id="dashUpdatesList"></div>
 
@@ -2166,19 +2257,19 @@
       </div>
     </div>
 
-    <!-- Old tab row kept in the DOM but hidden — nothing else references it -->
-    <div class="stu-tabs-wrap" style="display:none;">
-      <button class="stu-tab active" onclick="switchStuTab('sp-overview',this)">📊 Overview</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-results',this)">📋 Results</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-subjects',this)">📚 Subjects</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-progress',this)">📈 Progress</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-dashboard',this)">🪪 Dashboard</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-fees',this)">💰 Fees</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-homework',this)">📝 Homework</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-study',this)"><span data-icon="book-open" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Study Materials</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-quiz',this)"><span data-icon="clipboard" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Quizzes</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-doubts',this)">❓ Doubts</button>
-      <button class="stu-tab" onclick="switchStuTab('sp-leave',this)">🗓️ Leave</button>
+    <!-- ── TAB: NOTIFICATION CENTRE ── -->
+    <div class="stu-panel" id="sp-notices">
+      <div class="nt-top"><div class="nt-count" id="ntUnreadLabel">Notifications</div>
+        <button class="nt-markall" onclick="ntMarkAll()">Mark all as read</button></div>
+      <div class="sm-chips" id="ntChips"></div>
+      <div class="nt-list" id="ntList"></div>
+    </div>
+
+    <!-- ── TAB: TIMETABLE ── -->
+    <div class="stu-panel" id="sp-timetable">
+      <div class="sm-chips" id="ttChips"></div>
+      <div id="ttNowNext"></div>
+      <div id="ttList"></div>
     </div>
 
     <!-- ── TAB: OVERVIEW ── -->
@@ -2231,9 +2322,11 @@
     <!-- ── TAB: RESULTS (timeline) ── -->
     <div class="stu-panel" id="sp-results">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="font-size:13px;font-weight:700;color:var(--navy);">All Results</div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy);">Performance</div>
         <button class="print-btn" style="width:auto;padding:7px 14px;font-size:12px;" onclick="printResultCard()"><span data-icon="printer" data-icon-size="14" style="vertical-align:-2px;margin-right:4px;"></span>Print</button>
       </div>
+      <div class="stu-big-card" id="resSummary"></div>
+      <div class="stu-section-head"><div class="stu-section-title">Recent Results</div></div>
       <div id="s-results"><p class="empty-msg">No results added yet.</p></div>
     </div>
 
@@ -2384,15 +2477,10 @@
 
     <!-- ── TAB: QUIZZES ── -->
     <div class="stu-panel" id="sp-quiz">
-      <div id="stuQuizListWrap" class="p-card" style="padding:0;overflow:hidden;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px;">
-          <div class="p-title" style="font-size:13px;padding:0;"><span data-icon="clipboard" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Quizzes</div>
-          <button class="btn btn-navy btn-sm" style="margin:0;" onclick="openClassLeaderboard()"><span data-icon="award" data-icon-size="15" style="vertical-align:-3px;margin-right:6px;"></span>Class Rank</button>
-        </div>
-        <div id="stuQuizList">
-          <p class="empty-msg" style="padding:0 16px 16px;">No quizzes posted yet.</p>
-        </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+        <button class="sbc-link" onclick="openClassLeaderboard()">Class Rank →</button>
       </div>
+      <div id="stuQuizList"><div class="stu-empty-note">No quizzes posted yet.</div></div>
     </div>
 
     <!-- ═══ FULL-SCREEN: Quiz Taking (one question per screen) ═══ -->
@@ -2575,6 +2663,9 @@
           <button class="stu-drawer-item" data-nav="at-attendance" id="tile-attendance" onclick="adminDrawerGo('at-attendance','Attendance',this)">
             <span class="di-ic" data-icon="calendar-check"></span><span class="di-lbl">Attendance</span>
           </button>
+          <button class="stu-drawer-item" id="tile-timetable" data-nav="at-timetable" onclick="adminDrawerGo('at-timetable','Timetable',this)" style="display:none;">
+            <span class="di-ic" data-icon="clock"></span><span class="di-lbl">Timetable</span>
+          </button>
           <button class="stu-drawer-item" data-nav="at-results" onclick="adminDrawerGo('at-results','Add Results',this)">
             <span class="di-ic" data-icon="bar-chart"></span><span class="di-lbl">Results</span>
           </button>
@@ -2673,7 +2764,9 @@
       <!-- TAB: STUDENTS -->
       <div id="at-students" class="at-p" style="display:none;">
         <div class="p-card">
-          <div class="p-title" style="font-size:14px;">Filter by Class</div>
+          <div class="sm-search"><span data-icon="search" data-icon-size="17"></span>
+            <input type="text" id="stuSearch" placeholder="Search by name or username" oninput="renderStuList()"></div>
+          <div class="p-title" style="font-size:12px;color:var(--muted);">Class</div>
           <div class="pills" id="stuPills"></div>
           <div id="stuList"></div>
         </div>
@@ -2871,13 +2964,41 @@
       <!-- TAB: NOTICE -->
       <div id="at-notice" class="at-p" style="display:none;">
         <div class="p-card">
-          <div class="edit-s">
-            <div class="p-title" style="font-size:14px;">Update Homepage Notice</div>
-            <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Stored in Firebase — visible to everyone instantly on all devices.</p>
-            <label class="p-lbl">Notice Text</label>
-            <textarea id="noticeText" rows="3" placeholder="Type the notice..."></textarea>
-            <button class="btn btn-red" onclick="saveNotice()">Publish Notice</button>
+          <div class="p-title" style="font-size:14px;">Publish a Notice</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Students see it in their Notification Centre with the date and time, and get an unread badge.</p>
+          <label class="p-lbl">Title</label>
+          <input type="text" id="nbTitle" placeholder="e.g. School closed on 15th Oct">
+          <label class="p-lbl">Message</label>
+          <textarea id="nbBody" rows="4" placeholder="Write the full notice…"></textarea>
+          <div class="row2">
+            <div><label class="p-lbl">Category</label>
+              <select id="nbCat"><option value="school">School</option><option value="academic">Academic</option><option value="exams">Exams</option><option value="events">Events</option><option value="fees">Fees</option><option value="attendance">Attendance</option></select></div>
+            <div><label class="p-lbl">Send to</label><select id="nbAud"></select></div>
           </div>
+          <button class="btn btn-dbprimary" onclick="publishNotice()">Publish Notice</button>
+        </div>
+        <div class="p-card"><div class="p-title" style="font-size:14px;">Published Notices</div><div id="nbList"></div></div>
+        <div class="p-card">
+          <div class="edit-s">
+            <div class="p-title" style="font-size:14px;">Homepage Scrolling Banner</div>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">The short line scrolling on the public website. (Publishing a notice for everyone updates this too.)</p>
+            <textarea id="noticeText" rows="2" placeholder="Type the banner text..."></textarea>
+            <button class="btn btn-ghost" onclick="saveNotice()">Update Banner</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="at-timetable" class="at-p" style="display:none;">
+        <div class="p-card">
+          <div class="p-title" style="font-size:14px;">Class Timetable</div>
+          <div class="row2">
+            <div><label class="p-lbl">Class</label><select id="ttAdmClass" onchange="ttAdminLoad()"></select></div>
+            <div><label class="p-lbl">Day</label><select id="ttAdmDay" onchange="ttAdminLoad()"><option>Mon</option><option>Tue</option><option>Wed</option><option>Thu</option><option>Fri</option><option>Sat</option></select></div>
+          </div>
+          <div id="ttAdmRows"></div>
+          <button class="btn btn-ghost" onclick="ttAdminAdd()">+ Add period</button>
+          <button class="btn btn-dbprimary" onclick="ttAdminSave()">Save Timetable</button>
+          <p id="ttAdmMsg" style="font-size:12px;color:var(--muted);"></p>
         </div>
       </div>
 
@@ -3163,6 +3284,17 @@
 
 </div><!-- end portal-page -->
 <!-- EDIT MODAL -->
+<div class="modal-overlay" id="notifModal">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="ntModalTitle">Notice</div>
+      <button class="close-btn" onclick="ntClose()"><span data-icon="x" data-icon-size="18"></span></button></div>
+    <span class="nt-tag" id="ntModalTag"></span>
+    <div class="nt-detail-body" id="ntModalBody"></div>
+    <div class="nt-detail-meta" id="ntModalMeta"></div>
+    <button class="btn btn-dbprimary" id="ntModalGo" style="margin-top:14px;display:none;" onclick="ntGoRelated()">Open</button>
+  </div>
+</div>
+
 <div class="modal-overlay" id="editModal">
   <div class="modal">
     <div class="modal-head">
@@ -3348,6 +3480,7 @@
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  document.body.classList.toggle('in-portal', id === 'portal-page');
   window.scrollTo(0,0);
 }
 function goHome() { showPage('home-page'); }
@@ -3505,6 +3638,24 @@ function startDbListeners() {
     allPaymentClaims = snap.val() || {};
     if (curUser === 'admin' || curAdminData) renderPaymentClaims();
   }, err => console.warn('paymentClaims read denied:', err.message));
+
+  // Timetable — non-blocking
+  db.ref('timetable').on('value', snap => {
+    allTimetable = snap.val() || {};
+    if (curUser === 'admin' || curAdminData) renderAdminDashboard();
+    else if (curUser && allStudents[curUser] && document.getElementById('sp-timetable').classList.contains('active')) ttRenderStudent();
+  }, err => console.warn('timetable read denied:', err.message));
+
+  // Notices (admin → students) — non-blocking
+  db.ref('notices').on('value', snap => {
+    const prev = allNotices; allNotices = snap.val() || {};
+    if (curUser === 'admin' || curAdminData) renderAdminNotices();
+    else if (curUser && allStudents[curUser]) {
+      renderStudentDashboardHome(allStudents[curUser]);
+      if (document.getElementById('sp-notices').classList.contains('active')) ntRender();
+      Object.keys(allNotices).filter(k => !prev[k] && (allNotices[k].postedAt || 0) > sessionLoadTime).forEach(k => maybeNotify('New notice from school', allNotices[k].title));
+    }
+  }, err => console.warn('notices read denied:', err.message));
 
   // Doubts — non-blocking (does not count toward onReady/loading screen)
   db.ref('doubts').on('value', snap => {
@@ -3788,6 +3939,7 @@ function openAdminPanel() {
   // Show/hide the matching drawer items the same way
   document.getElementById('tile-admins').style.display    = isPrimary ? 'flex' : 'none';
   document.getElementById('tile-events').style.display    = isPrimary ? 'flex' : 'none';
+  document.getElementById('tile-timetable').style.display = isPrimary ? 'flex' : 'none';
   document.getElementById('tile-enquiries').style.display = isPrimary ? 'flex' : 'none';
   document.getElementById('tile-notice').style.display    =
     (isPrimary || (curAdminData && curAdminData.permissions && curAdminData.permissions.notice))
@@ -3896,6 +4048,7 @@ const STU_ICON_PATHS = {
   search:        'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z|M21 21l-4.3-4.3',
   video:         'M3 6h13a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3z|M17 10l4-2v8l-4-2',
   'chevron-down':'M6 9l6 6 6-6',
+  clock:         'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z|M12 7v5l3 2',
 };
 function stuIcon(name, size) {
   const d = STU_ICON_PATHS[name];
@@ -3969,6 +4122,8 @@ function openStuSection(id, label) {
   if (id === 'sp-study')    markSeen('sm');
   if (id === 'sp-quiz')     markSeen('qz');
   if (id === 'sp-attendance') stuAttOpen();
+  if (id === 'sp-notices') ntRender();
+  if (id === 'sp-timetable') ttRenderStudent();
   // Panel is now its own full-screen page — reset its internal scroll, and
   // lock the page behind it so it can't be scrolled while the section is open.
   if (panel) panel.scrollTop = 0;
@@ -4054,90 +4209,86 @@ function stuRenderQuickCards(stu) {
   const grid = document.getElementById('dashQuickGrid');
   if (!grid) return;
 
-  const feeData = stu.feeData || {};
-  const months = feeData.months || {};
+  /* ── fees (synchronous — data is already loaded) ── */
+  const feeData = stu.feeData || {}, months = feeData.months || {};
   const monthly = Number(feeData.monthlyFee) || 0, annual = Number(feeData.annualFee) || 0;
-  let totalDue = 0, totalFee = 0, totalPaid = 0, anyRecord = false;
+  let totalFee = 0, totalPaid = 0, totalDue = 0, anyRecord = false;
   Object.keys(months).forEach(m => {
-    const status = months[m]; if (!status) return;
-    anyRecord = true;
-    let fee = monthly; if (m === 'April') fee += annual;
-    totalFee += fee;
-    if (status === 'paid') totalPaid += fee;
-    else if (status === 'due') totalDue += fee;
-    else if (status === 'partial') { totalPaid += Math.round(fee / 2); totalDue += fee - Math.round(fee / 2); }
+    const st = months[m]; if (!st) return; anyRecord = true;
+    const fee = monthly + (m === 'April' ? annual : 0); totalFee += fee;
+    if (st === 'paid') totalPaid += fee;
+    else if (st === 'due') totalDue += fee;
+    else if (st === 'partial') { const h = Math.round(fee / 2); totalPaid += h; totalDue += fee - h; }
   });
-  const feeLabel = !anyRecord ? '—' : (totalDue > 0 ? '₹' + totalDue.toLocaleString('en-IN') + ' Due' : 'Paid');
-  const feeSub   = !anyRecord ? 'No records yet' : (totalDue > 0 ? 'Payment pending' : 'All clear');
-  const feePct   = anyRecord && totalFee > 0 ? (totalPaid / totalFee) * 100 : null;
+  const money = n => '₹' + n.toLocaleString('en-IN');
+  const feeCard = document.getElementById('dashFeeCard');
+  if (feeCard) feeCard.innerHTML = `
+    <div class="sbc-head"><div><div class="sbc-title">Fees</div><div class="sbc-sub">Current academic session</div></div>
+      <button class="sbc-link" onclick="openStuSection('sp-fees','Fees')">View Fee Details →</button></div>
+    ${anyRecord ? `<div class="sbc-body">
+      ${stuRing(totalFee ? (totalPaid / totalFee) * 100 : null, 84, 8, 'var(--db-green)', 'Paid')}
+      <div class="sbc-stats">
+        <div class="sbc-stat"><div class="v">${money(totalFee)}</div><div class="l">Total Fee</div></div>
+        <div class="sbc-stat green"><div class="v">${money(totalPaid)}</div><div class="l">Paid</div></div>
+        <div class="sbc-stat orange"><div class="v">${money(totalDue)}</div><div class="l">Pending</div></div>
+      </div></div>` : '<div class="stu-empty-note">No fee records have been added yet.</div>'}`;
 
-  const pendingDoubts = Object.values(allDoubts).filter(d => d.studentUsername === stu.username && d.status !== 'answered').length;
-  const pendingLeave   = Object.values(allLeaveRequests).filter(l => l.studentUsername === stu.username && l.status === 'pending').length;
-  const newHw = Object.values(allHomework).filter(h => h.class === stu.class && (h.postedAt||0) > getSeen('hw')).length;
-  const pendingTotal = pendingDoubts + pendingLeave + newHw;
+  /* ── attendance card: skeleton now, numbers when the fetch returns ── */
+  const attCard = document.getElementById('dashAttCard');
+  const attShell = (ring, counts, today) => `
+    <div class="sbc-head"><div><div class="sbc-title">Attendance</div><div class="sbc-sub">Current session</div></div>
+      <button class="sbc-link" onclick="openStuSection('sp-attendance','Attendance')">View Attendance →</button></div>
+    <div class="sbc-body">${ring}<div class="sbc-stats row3">${counts}</div></div>
+    <div class="sbc-today">${today}</div>`;
+  const skel = n => `<div class="sbc-stat ${n.c}"><div class="v">${n.v}</div><div class="l">${n.l}</div></div>`;
+  if (attCard) attCard.innerHTML = attShell(stuRing(null, 84, 8, 'var(--db-green)'),
+    skel({c:'green',v:'—',l:'Present'}) + skel({c:'orange',v:'—',l:'Late'}) + skel({c:'red',v:'—',l:'Absent'}),
+    '<span class="stu-ax-today-lbl">Today</span><span class="stu-ax-today-val none">Checking…</span>');
 
-  const newSm = Object.values(allStudyMaterials).filter(s => s.class === stu.class && (s.postedAt||0) > getSeen('sm')).length;
-  const unreadNotice = (noticeUpdatedAt > getSeen('notice')) ? 1 : 0;
-
-  const cards = [
-    { cls:'c-blue',   ic:'edit', title:'Homework', val:newHw + ' Pending', sub:newHw ? 'New since you last checked' : 'All caught up', link:'View →', target:"openStuSection('sp-homework','Homework')" },
-    { cls:'c-purple', ic:'clipboard',  title:'Next Exam',  val:'<span id="qcExamVal">…</span>', sub:'<span id="qcExamSub"></span>', link:'View Quizzes →', target:"openStuSection('sp-quiz','Exams / Quizzes')" },
-    { cls:'c-purple', ic:'book-open', title:'Study Material', val:newSm + ' New', sub:'Added recently', link:'View →', target:"openStuSection('sp-study','Study Materials')" },
-    { cls:'c-red',    ic:'bell', title:'Notifications', val:(pendingTotal + unreadNotice) + ' Unread', sub:'Needs your attention', link:'View →', target: newHw>0 ? "openStuSection('sp-homework','Homework')" : (pendingDoubts>0 ? "openStuSection('sp-doubts','Doubts')" : "openStuSection('sp-leave','Leave')") },
-  ];
-
-  const ringCardsHtml = `
-    <div class="stu-quick-card ring-card" onclick="openStuSection('sp-attendance','Attendance')">
-      <div id="qcAttRing">${stuRing(null, 44, 5, 'var(--db-green)')}</div>
-      <div class="stu-qc-ring-body">
-        <div class="stu-qc-title">Attendance</div>
-        <div class="stu-qc-val">This school year</div>
-        <div class="stu-qc-link c-green">View Attendance →</div>
-      </div>
-    </div>
-    <div class="stu-quick-card ring-card" onclick="openStuSection('sp-fees','Fees')">
-      ${stuRing(feePct, 44, 5, 'var(--db-orange)')}
-      <div class="stu-qc-ring-body">
-        <div class="stu-qc-title">Fee Status</div>
-        <div class="stu-qc-val">${feeLabel} <span style="color:var(--db-muted);font-weight:500;">· ${feeSub}</span></div>
-        <div class="stu-qc-link c-orange">View Details →</div>
-      </div>
-    </div>`;
-
-  const restHtml = cards.map(c => `
-    <div class="stu-quick-card" onclick="${c.target}">
-      <div class="stu-qc-ic ${c.cls}">${stuIcon(c.ic, 16)}</div>
-      <div class="stu-qc-title">${c.title}</div>
-      <div class="stu-qc-val">${c.val}</div>
-      <div class="stu-qc-sub">${c.sub}</div>
-      <div class="stu-qc-link ${c.cls}">${c.link}</div>
-    </div>`).join('');
-
-  grid.innerHTML = ringCardsHtml + restHtml;
-
-  // Attendance % — school year so far (reuses the same calc as the Attendance tab)
   const t = new Date(), startY = t.getMonth() >= 3 ? t.getFullYear() : t.getFullYear() - 1;
   const from = startY + '-04-01', to = axToday();
   axFetchRange(stu.class, from, to).then(data => {
     let p = 0, a = 0, l = 0;
-    Object.keys(data).forEach(d => {
-      const r = data[d] && data[d][stu.username];
-      if (r && AX_STATUSES.includes(r.status)) { if (r.status==='present') p++; else if (r.status==='absent') a++; else if (r.status==='late') l++; }
-    });
-    const el = document.getElementById('qcAttRing');
-    if (el) el.innerHTML = stuRing((p+a+l) ? axPct(p,a,l) : null, 44, 5, 'var(--db-green)');
-  }).catch(() => { const el = document.getElementById('qcAttRing'); if (el) el.innerHTML = stuRing(null, 44, 5, 'var(--db-green)'); });
+    Object.keys(data).forEach(d => { const r = data[d] && data[d][stu.username];
+      if (r && AX_STATUSES.includes(r.status)) { if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; } });
+    const todayRec = data[to] && data[to][stu.username];
+    let label = 'Not Marked', cls = 'none';
+    if (todayRec && AX_STATUSES.includes(todayRec.status)) {
+      ({ present:['Present','present'], absent:['Absent','absent'], late:['Late','late'], leave:['On Leave','leave'] }[todayRec.status]).forEach((v, i) => i ? cls = v : label = v);
+    }
+    if (attCard) attCard.innerHTML = attShell(stuRing((p + a + l) ? axPct(p, a, l) : null, 84, 8, 'var(--db-green)'),
+      skel({c:'green',v:p,l:'Present'}) + skel({c:'orange',v:l,l:'Late'}) + skel({c:'red',v:a,l:'Absent'}),
+      `<span class="stu-ax-today-lbl">Today's Attendance</span><span class="stu-ax-today-val ${cls}">${label}</span>`);
+  }).catch(() => { if (attCard) attCard.innerHTML = attShell(stuRing(null, 84, 8, 'var(--db-green)'), '', '<span class="stu-ax-today-lbl">Attendance could not be loaded.</span>'); });
 
-  // Next exam — nearest upcoming 'academic' event, else any upcoming event
-  db.ref('events').orderByChild('date').startAt(new Date().toISOString().slice(0,10)).limitToFirst(8).once('value').then(snap => {
-    const data = snap.val() || {};
-    const events = Object.values(data).sort((a,b) => a.date.localeCompare(b.date));
+  /* ── academic snapshot ── */
+  const newHw = Object.values(allHomework).filter(h => h.class === stu.class && (h.postedAt || 0) > getSeen('hw')).length;
+  const newSm = Object.values(allStudyMaterials).filter(s => s.class === stu.class && (s.postedAt || 0) > getSeen('sm')).length;
+  const results = rArr(stu.results).slice().sort((x, y) => String(y.date || '').localeCompare(String(x.date || '')));
+  const last = results[0];
+  const lastPct = last && last.total ? Math.round((last.marks / last.total) * 100) : null;
+  const cards = [
+    { cls:'c-purple', ic:'clipboard', title:'Next Test', val:'<span id="qcExamVal">…</span>', sub:'<span id="qcExamSub"></span>', target:"openStuSection('sp-quiz','Exams / Quizzes')" },
+    { cls:'c-green', ic:'bar-chart', title:'Recent Result', val:last ? axEsc(last.subject) + ' · ' + lastPct + '%' : 'None yet', sub:last ? axEsc(last.testName || '') : 'Results appear here', target:"openStuSection('sp-results','Results')" },
+    { cls:'c-blue', ic:'book-open', title:'Study Material', val:newSm + ' new', sub:'Added recently', target:"openStuSection('sp-study','Study Materials')" },
+    { cls:'c-orange', ic:'edit', title:'Homework', val:newHw + ' new', sub:newHw ? 'Since you last checked' : 'All caught up', target:"openStuSection('sp-homework','Homework')" },
+  ];
+  grid.innerHTML = cards.map(k => `
+    <div class="stu-quick-card" onclick="${k.target}">
+      <div class="stu-qc-ic ${k.cls}">${stuIcon(k.ic, 16)}</div>
+      <div class="stu-qc-title">${k.title}</div>
+      <div class="stu-qc-val">${k.val}</div>
+      <div class="stu-qc-sub">${k.sub}</div>
+    </div>`).join('');
+
+  db.ref('events').orderByChild('date').startAt(new Date().toISOString().slice(0, 10)).limitToFirst(8).once('value').then(snap => {
+    const events = Object.values(snap.val() || {}).sort((a, b) => a.date.localeCompare(b.date));
     const exam = events.find(e => e.category === 'academic') || events[0];
-    const valEl = document.getElementById('qcExamVal'), subEl = document.getElementById('qcExamSub');
-    if (!exam) { if (valEl) valEl.textContent = 'None scheduled'; if (subEl) subEl.textContent = ''; return; }
+    const v = document.getElementById('qcExamVal'), s = document.getElementById('qcExamSub');
+    if (!exam) { if (v) v.textContent = 'None scheduled'; return; }
     const d = new Date(exam.date);
-    if (valEl) valEl.textContent = exam.title || 'Event';
-    if (subEl) subEl.textContent = d.toLocaleDateString('en-IN',{day:'numeric',month:'short'}) + (exam.time ? ' · '+exam.time : '');
+    if (v) v.textContent = exam.title || 'Event';
+    if (s) s.textContent = d.toLocaleDateString('en-IN', { day:'numeric', month:'short' }) + (exam.time ? ' · ' + exam.time : '');
   }).catch(() => {});
 }
 
@@ -4152,9 +4303,8 @@ function stuRenderRecentUpdates(stu) {
     items.push({ ic:'book-open', cls:'c-blue', title:'New Study Material: ' + (s.title||s.subject||'Material'), ts:s.postedAt, target:"openStuSection('sp-study','Study Materials')" }));
   Object.values(allQuizzes).filter(q => q.class === stu.class).forEach(q =>
     items.push({ ic:'clipboard', cls:'c-green', title:'New Quiz: ' + (q.title||q.subject||'Quiz'), ts:q.postedAt, target:"openStuSection('sp-quiz','Exams / Quizzes')" }));
-  if (siteNotice && noticeUpdatedAt) {
-    items.push({ ic:'bell', cls:'c-red', title:'School Notice: ' + siteNotice, ts:noticeUpdatedAt, target:"viewSchoolNotice()" });
-  }
+  Object.values(allNotices).filter(n => !n.audience || n.audience === 'All' || n.audience === stu.class).forEach(n =>
+    items.push({ ic:'bell', cls:'c-red', title:'Notice: ' + n.title, ts:n.postedAt, target:"openStuSection('sp-notices','Notifications')" }));
   items.sort((a,b) => (b.ts||0) - (a.ts||0));
   const top = items.slice(0, 5);
 
@@ -4212,16 +4362,217 @@ function renderStudentDashboardHome(stu) {
   if (pmSub)    pmSub.textContent = 'Class ' + (stu.class || '—') + (d.admno ? ' · ID ' + d.admno : '');
 
   stuRenderQuickCards(stu);
+  stuRenderResultSummary(stu);
   stuRenderRecentUpdates(stu);
   stuRenderUpcoming();
 
-  // Drawer notification badge mirrors the existing notice-bell unread state
-  const bellVisible = document.getElementById('stuNoticeBell') && document.getElementById('stuNoticeBell').style.display !== 'none';
-  const drawerBadge = document.getElementById('drawerNoticeBadge');
-  if (drawerBadge) drawerBadge.style.display = bellVisible ? 'inline-block' : 'none';
+  ntRefreshBadges();
 }
 window.stuDrawerOpen = stuDrawerOpen; window.stuDrawerClose = stuDrawerClose;
 window.stuDrawerGo = stuDrawerGo; window.stuDrawerGoHome = stuDrawerGoHome; window.stuDrawerGoNotice = stuDrawerGoNotice;
+
+
+/* ═══════════════════════════════════════════
+   NOTIFICATION CENTRE (student) + NOTICES (admin)
+═══════════════════════════════════════════ */
+let allNotices = {};
+const NT_CATS = [['all','All'],['school','School'],['academic','Academic'],['attendance','Attendance'],['fees','Fees'],['exams','Exams'],['events','Events']];
+const NT_ICON = { school:'bell', academic:'book-open', attendance:'calendar-check', fees:'credit-card', exams:'clipboard', events:'sparkles' };
+const NT_COLOR = { school:'c-blue', academic:'c-purple', attendance:'c-green', fees:'c-orange', exams:'c-purple', events:'c-blue' };
+let ntFilter = 'all', ntCache = [], ntCurrent = null;
+
+function ntReadKey() { return 'bws_nread_' + (curUser || ''); }
+function ntGetRead() { try { return JSON.parse(localStorage.getItem(ntReadKey()) || '{}'); } catch (e) { return {}; } }
+function ntSetRead(o) { try { localStorage.setItem(ntReadKey(), JSON.stringify(o)); } catch (e) {} }
+
+/** One merged, newest-first list: admin notices + real activity that concerns this student. */
+function ntItems(stu) {
+  const out = [];
+  Object.entries(allNotices).forEach(([k, n]) => {
+    if (n.audience && n.audience !== 'All' && n.audience !== stu.class) return;
+    out.push({ id:'n_'+k, cat:n.category || 'school', title:n.title, body:n.body, ts:n.postedAt || 0, by:n.postedBy });
+  });
+  Object.entries(allHomework).forEach(([k, h]) => { if (h.class === stu.class)
+    out.push({ id:'hw_'+k, cat:'academic', title:'New homework: ' + (h.title || h.subject), body:[h.subject, h.desc, h.due ? 'Due: ' + h.due : ''].filter(Boolean).join('\n'), ts:h.postedAt || 0, by:h.postedBy, go:['sp-homework','Homework'] }); });
+  Object.entries(allStudyMaterials).forEach(([k, s]) => { if (s.class === stu.class)
+    out.push({ id:'sm_'+k, cat:'academic', title:'New study material: ' + (s.title || s.subject), body:[s.subject, s.chapter, s.desc].filter(Boolean).join('\n'), ts:s.postedAt || 0, by:s.postedBy, go:['sp-study','Study Materials'] }); });
+  Object.entries(allQuizzes).forEach(([k, q]) => { if (q.class === stu.class)
+    out.push({ id:'qz_'+k, cat:'exams', title:'New quiz: ' + (q.title || q.subject), body:[q.subject, (q.questions ? q.questions.length + ' questions' : '')].filter(Boolean).join('\n'), ts:q.postedAt || 0, by:q.postedBy, go:['sp-quiz','Exams / Quizzes'] }); });
+  Object.entries(allLeaveRequests).forEach(([k, l]) => { if (l.studentUsername === stu.username && l.status && l.status !== 'pending')
+    out.push({ id:'lv_'+k+'_'+l.status, cat:'attendance', title:'Leave request ' + l.status, body:(l.fromDate || '') + (l.toDate && l.toDate !== l.fromDate ? ' to ' + l.toDate : '') + (l.reason ? '\n' + l.reason : ''), ts:l.reviewedAt || l.appliedAt || 0, by:l.reviewedBy, go:['sp-leave','Leave'] }); });
+  Object.entries(allDoubts).forEach(([k, d]) => { if (d.studentUsername === stu.username && d.status === 'answered')
+    out.push({ id:'db_'+k, cat:'academic', title:'Your doubt was answered', body:(d.question || '') + '\n\nAnswer: ' + (d.answer || ''), ts:d.answeredAt || d.askedAt || 0, by:d.answeredBy, go:['sp-doubts','Doubts'] }); });
+  const fd = stu.feeData || {}, months = fd.months || {}, monthly = Number(fd.monthlyFee) || 0, annual = Number(fd.annualFee) || 0;
+  let due = 0; Object.keys(months).forEach(m => { const s = months[m]; let f = monthly + (m === 'April' ? annual : 0); if (s === 'due') due += f; else if (s === 'partial') due += Math.round(f / 2); });
+  if (due > 0) { const d = new Date(); out.push({ id:'fee_'+due, cat:'fees', title:'Fee payment pending', body:'₹' + due.toLocaleString('en-IN') + ' is pending. Open Fees to see the month-wise details and pay.', ts:new Date(d.getFullYear(), d.getMonth(), 1).getTime(), go:['sp-fees','Fees'] }); }
+  return out.sort((a, b) => b.ts - a.ts).slice(0, 60);
+}
+function ntIsUnread(it, read) { return !read[it.id] && it.ts > Date.now() - 14 * 86400000; }
+function ntUnreadCount(stu) { const r = ntGetRead(); return ntItems(stu).filter(i => ntIsUnread(i, r)).length; }
+
+function ntRefreshBadges() {
+  const stu = allStudents[curUser]; if (!stu) return;
+  const n = ntUnreadCount(stu);
+  const bell = document.getElementById('stuBellCount'), db_ = document.getElementById('drawerNoticeBadge');
+  if (bell) { bell.textContent = n > 9 ? '9+' : n; bell.style.display = n ? 'flex' : 'none'; }
+  if (db_) { db_.textContent = n > 9 ? '9+' : n; db_.style.display = n ? 'flex' : 'none'; }
+  return n;
+}
+function ntRender() {
+  const stu = allStudents[curUser], list = document.getElementById('ntList'); if (!stu || !list) return;
+  const read = ntGetRead(); ntCache = ntItems(stu);
+  const unread = ntCache.filter(i => ntIsUnread(i, read)).length;
+  document.getElementById('ntUnreadLabel').textContent = unread ? unread + ' unread' : 'All caught up';
+  document.getElementById('ntChips').innerHTML = NT_CATS.map(([k, l]) =>
+    `<button class="sm-chip ${k === ntFilter ? 'active' : ''}" onclick="ntSetFilter('${k}')">${l}</button>`).join('');
+  const rows = ntCache.filter(i => ntFilter === 'all' || i.cat === ntFilter);
+  if (!rows.length) { list.innerHTML = '<div class="stu-empty-note">No notifications here yet.</div>'; return; }
+  list.innerHTML = rows.map(i => `
+    <div class="nt-row ${ntIsUnread(i, read) ? 'unread' : ''}" onclick="ntOpen('${i.id}')">
+      <div class="nt-ic ${NT_COLOR[i.cat] || 'c-blue'}">${stuIcon(NT_ICON[i.cat] || 'bell', 17)}</div>
+      <div class="nt-body"><div class="nt-title">${axEsc(i.title)}</div>
+        <div class="nt-desc">${axEsc(String(i.body || '').split('\n')[0])}</div>
+        <div class="nt-time">${stuTimeAgo(i.ts)}</div></div>
+      ${ntIsUnread(i, read) ? '<div class="nt-dot"></div>' : ''}
+    </div>`).join('');
+}
+function ntSetFilter(k) { ntFilter = k; ntRender(); }
+function ntOpen(id) {
+  const it = ntCache.find(x => x.id === id); if (!it) return; ntCurrent = it;
+  const r = ntGetRead(); r[id] = 1; ntSetRead(r);
+  document.getElementById('ntModalTitle').textContent = it.title;
+  document.getElementById('ntModalTag').textContent = it.cat;
+  document.getElementById('ntModalBody').textContent = it.body || '';
+  document.getElementById('ntModalMeta').textContent = new Date(it.ts).toLocaleString('en-IN', { day:'numeric', month:'short', year:'numeric', hour:'numeric', minute:'2-digit' }) + (it.by ? ' · ' + it.by : '');
+  document.getElementById('ntModalGo').style.display = it.go ? 'block' : 'none';
+  document.getElementById('notifModal').classList.add('open');
+  ntRender(); ntRefreshBadges();
+}
+function ntClose() { document.getElementById('notifModal').classList.remove('open'); }
+function ntGoRelated() { const it = ntCurrent; ntClose(); if (it && it.go) openStuSection(it.go[0], it.go[1]); }
+function ntMarkAll() {
+  const stu = allStudents[curUser]; if (!stu) return;
+  const r = ntGetRead(); ntItems(stu).forEach(i => r[i.id] = 1); ntSetRead(r); ntRender(); ntRefreshBadges();
+}
+window.ntSetFilter = ntSetFilter; window.ntOpen = ntOpen; window.ntClose = ntClose; window.ntMarkAll = ntMarkAll; window.ntGoRelated = ntGoRelated;
+
+/* ── Admin: publish / list / delete notices ── */
+function publishNotice() {
+  const title = document.getElementById('nbTitle').value.trim(), body = document.getElementById('nbBody').value.trim();
+  const category = document.getElementById('nbCat').value, audience = document.getElementById('nbAud').value;
+  if (!title || !body) { alert('Please enter a title and a message.'); return; }
+  const postedBy = curAdminData ? curAdminData.name : 'Admin', ts = Date.now();
+  db.ref('notices').push({ title, body, category, audience, postedBy, postedAt: ts }).then(() => {
+    if (audience === 'All') return Promise.all([db.ref('config/notice').set(title), db.ref('config/noticeUpdatedAt').set(ts)]);
+  }).then(() => {
+    document.getElementById('nbTitle').value = ''; document.getElementById('nbBody').value = '';
+    alert('Notice published.');
+  }).catch(e => alert('Error: ' + e.message));
+}
+function deleteNotice(key) { if (confirm('Delete this notice?')) db.ref('notices/' + key).remove().catch(e => alert('Error: ' + e.message)); }
+function renderAdminNotices() {
+  const sel = document.getElementById('nbAud'); if (sel && !sel.options.length)
+    sel.innerHTML = '<option value="All">Everyone</option>' + getAllowedClasses().map(c => `<option value="${c}">${c}</option>`).join('');
+  const box = document.getElementById('nbList'); if (!box) return;
+  const items = Object.entries(allNotices).sort((a, b) => (b[1].postedAt || 0) - (a[1].postedAt || 0));
+  box.innerHTML = items.length ? items.map(([k, n]) => `
+    <div class="list-row" style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">
+      <div style="min-width:0;"><div style="font-weight:700;font-size:13px;color:var(--navy);">${axEsc(n.title)}</div>
+        <div style="font-size:11px;color:var(--muted);">${axEsc(n.category || 'school')} · ${axEsc(n.audience || 'All')} · ${stuTimeAgo(n.postedAt)}</div></div>
+      <button class="btn btn-red btn-sm" onclick="deleteNotice('${k}')">${stuIcon('trash', 14)}</button>
+    </div>`).join('') : '<p class="empty-msg">No notices published yet.</p>';
+}
+window.publishNotice = publishNotice; window.deleteNotice = deleteNotice;
+
+
+/* ═══════════════════════════════════════════
+   RESULTS SUMMARY (real data only)
+═══════════════════════════════════════════ */
+function stuRenderResultSummary(stu) {
+  const box = document.getElementById('resSummary'); if (!box) return;
+  const res = rArr(stu.results).filter(r => r.total);
+  if (!res.length) { box.innerHTML = '<div class="stu-empty-note">Your results will appear here once your teacher adds them.</div>'; return; }
+  const sumM = res.reduce((a, r) => a + Number(r.marks || 0), 0), sumT = res.reduce((a, r) => a + Number(r.total || 0), 0);
+  const overall = sumT ? (sumM / sumT) * 100 : null;
+  const bySub = {};
+  res.forEach(r => { const s = (bySub[r.subject] = bySub[r.subject] || { m:0, t:0 }); s.m += Number(r.marks || 0); s.t += Number(r.total || 0); });
+  const subs = Object.entries(bySub).map(([n, v]) => [n, v.t ? (v.m / v.t) * 100 : 0]).sort((a, b) => b[1] - a[1]);
+  const col = p => p >= 75 ? 'var(--db-green)' : p >= 50 ? 'var(--db-orange)' : 'var(--db-red)';
+  const tests = new Set(res.map(r => r.testName || r.id)).size;
+  const strong = subs.filter(s => s[1] >= 75).slice(0, 2), weak = subs.slice().reverse().filter(s => s[1] < 60).slice(0, 2);
+  box.innerHTML = `
+    <div class="sbc-head"><div><div class="sbc-title">Overall Performance</div><div class="sbc-sub">${tests} test${tests === 1 ? '' : 's'} · ${res.length} result${res.length === 1 ? '' : 's'}</div></div></div>
+    <div class="rs-head">${stuRing(overall, 84, 8, col(overall), 'Overall')}
+      <div style="flex:1;">${subs.map(([n, p]) => `<div class="rs-bar"><div class="t"><span>${axEsc(n)}</span><span>${Math.round(p)}%</span></div>
+        <div class="rs-track"><div class="rs-fill" style="width:${Math.round(p)}%;background:${col(p)};"></div></div></div>`).join('')}</div></div>
+    <div class="rs-two">
+      <div class="rs-box good"><div class="h">Strong areas</div><div class="b">${strong.length ? strong.map(s => axEsc(s[0])).join(', ') : 'Keep building'}</div></div>
+      <div class="rs-box warn"><div class="h">Needs practice</div><div class="b">${weak.length ? weak.map(s => axEsc(s[0])).join(', ') : 'Nothing flagged'}</div></div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════
+   TIMETABLE  (timetable/{class}/{Mon..Sat} = [{subject,start,end,teacher,room}])
+═══════════════════════════════════════════ */
+let allTimetable = {}, ttDay = null, ttDraft = [];
+const TT_DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat'];
+const ttToday = () => ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()];
+const ttList = x => Array.isArray(x) ? x.filter(Boolean) : Object.values(x || {});
+function ttMin(t) { const m = /^(\d{1,2}):(\d{2})/.exec(t || ''); return m ? (+m[1]) * 60 + (+m[2]) : null; }
+const ttFmt = t => { const m = ttMin(t); if (m == null) return t || ''; const h = Math.floor(m / 60); return ((h + 11) % 12 + 1) + ':' + String(m % 60).padStart(2, '0') + ' ' + (h < 12 ? 'AM' : 'PM'); };
+
+function ttRenderStudent() {
+  const stu = allStudents[curUser], list = document.getElementById('ttList'); if (!stu || !list) return;
+  const today = ttToday(); if (!ttDay) ttDay = TT_DAYS.includes(today) ? today : 'Mon';
+  document.getElementById('ttChips').innerHTML = TT_DAYS.map(d => `<button class="sm-chip ${d === ttDay ? 'active' : ''}" onclick="ttSetDay('${d}')">${d}${d === today ? ' · Today' : ''}</button>`).join('');
+  const periods = ttList((allTimetable[stu.class] || {})[ttDay]);
+  const now = new Date(), nowM = now.getHours() * 60 + now.getMinutes();
+  let cur = -1, nxt = -1;
+  if (ttDay === today) periods.forEach((p, i) => { const s = ttMin(p.start), e = ttMin(p.end);
+    if (s != null && e != null && nowM >= s && nowM < e) cur = i; else if (s != null && s > nowM && nxt === -1) nxt = i; });
+  const nn = document.getElementById('ttNowNext');
+  nn.innerHTML = '';
+  if (!periods.length) { list.innerHTML = '<div class="stu-empty-note">No classes scheduled for ' + ttDay + '.</div>'; return; }
+  list.innerHTML = periods.map((p, i) => `<div class="tt-card ${i === cur ? 'now' : ''}">
+      <div class="tt-no">${i + 1}</div>
+      <div><div class="tt-sub">${axEsc(p.subject)}</div>
+        <div class="tt-meta">${ttFmt(p.start)} – ${ttFmt(p.end)}${p.teacher ? ' · ' + axEsc(p.teacher) : ''}${p.room ? ' · Room ' + axEsc(p.room) : ''}</div></div>
+      ${i === cur ? '<span class="tt-tag">Now</span>' : i === nxt ? '<span class="tt-tag next">Next</span>' : ''}</div>`).join('');
+}
+function ttSetDay(d) { ttDay = d; ttRenderStudent(); }
+
+function ttAdminInit() {
+  const sel = document.getElementById('ttAdmClass');
+  if (!sel.options.length) sel.innerHTML = getAllowedClasses().map(x => `<option>${x}</option>`).join('');
+  document.getElementById('ttAdmDay').value = ttToday() === 'Sun' ? 'Mon' : ttToday();
+  ttAdminLoad();
+}
+function ttAdminLoad() {
+  const cls = document.getElementById('ttAdmClass').value, day = document.getElementById('ttAdmDay').value;
+  ttDraft = ttList((allTimetable[cls] || {})[day]).map(p => Object.assign({}, p));
+  if (!ttDraft.length) ttDraft.push({ subject:'', start:'', end:'', teacher:'', room:'' });
+  ttAdminDraw(); document.getElementById('ttAdmMsg').textContent = '';
+}
+function ttAdminDraw() {
+  document.getElementById('ttAdmRows').innerHTML = ttDraft.map((p, i) => `<div class="tt-edit">
+    <div class="row2"><div><label class="p-lbl">Subject</label><input value="${axEsc(p.subject)}" oninput="ttDraft[${i}].subject=this.value"></div>
+      <div><label class="p-lbl">Teacher</label><input value="${axEsc(p.teacher || '')}" oninput="ttDraft[${i}].teacher=this.value"></div></div>
+    <div class="row2"><div><label class="p-lbl">Start</label><input type="time" value="${axEsc(p.start || '')}" oninput="ttDraft[${i}].start=this.value"></div>
+      <div><label class="p-lbl">End</label><input type="time" value="${axEsc(p.end || '')}" oninput="ttDraft[${i}].end=this.value"></div></div>
+    <div class="row2"><div><label class="p-lbl">Room</label><input value="${axEsc(p.room || '')}" oninput="ttDraft[${i}].room=this.value"></div>
+      <div style="display:flex;align-items:flex-end;"><button class="btn btn-red btn-sm" style="margin-bottom:12px;" onclick="ttAdminRemove(${i})">${stuIcon('trash', 14)} Remove</button></div></div>
+  </div>`).join('');
+}
+function ttAdminAdd() { ttDraft.push({ subject:'', start:'', end:'', teacher:'', room:'' }); ttAdminDraw(); }
+function ttAdminRemove(i) { ttDraft.splice(i, 1); ttAdminDraw(); }
+function ttAdminSave() {
+  const cls = document.getElementById('ttAdmClass').value, day = document.getElementById('ttAdmDay').value;
+  const rows = ttDraft.filter(p => p.subject && p.subject.trim()).sort((a, b) => (ttMin(a.start) ?? 9999) - (ttMin(b.start) ?? 9999));
+  const ref = db.ref('timetable/' + cls + '/' + day);
+  (rows.length ? ref.set(rows) : ref.remove()).then(() => { document.getElementById('ttAdmMsg').textContent = 'Saved ' + cls + ' · ' + day + '.'; })
+    .catch(e => alert('Error: ' + e.message));
+}
+window.ttSetDay = ttSetDay; window.ttAdminLoad = ttAdminLoad; window.ttAdminAdd = ttAdminAdd; window.ttAdminRemove = ttAdminRemove; window.ttAdminSave = ttAdminSave; Object.defineProperty(window, 'ttDraft', { get: () => ttDraft });
 
 /* ═══════════════════════════════════════════
    STUDENT BOTTOM NAV — centre action fans out quick shortcuts
@@ -4237,7 +4588,7 @@ function stuFabClose() {
 }
 function stuFabGo(id, label) {
   stuFabClose();
-  if (id === 'notice') { viewSchoolNotice(); return; }
+  if (id === 'notice') { openStuSection('sp-notices', 'Notifications'); return; }
   openStuSection(id, label);
 }
 window.stuFabToggle = stuFabToggle; window.stuFabClose = stuFabClose; window.stuFabGo = stuFabGo;
@@ -4309,13 +4660,35 @@ function renderAdminDashboard() {
       <div class="stu-ur-arrow">${stuIcon('chevron-right', 15)}</div>
     </div>`;
 
+  /* Teacher view: today's classes + next class from the timetable, matched on the teacher's name */
+  let teacherBlock = '';
+  if (!isPrimary) {
+    const me = String(curAdminData.name || '').toLowerCase().trim(), day = ttToday(), nowD = new Date(), nowM = nowD.getHours() * 60 + nowD.getMinutes();
+    const mine = [];
+    Object.entries(allTimetable).forEach(([cls, days]) => ttList(days[day]).forEach(p => { if (me && String(p.teacher || '').toLowerCase().trim() === me) mine.push(Object.assign({ cls }, p)); }));
+    mine.sort((a, b) => (ttMin(a.start) ?? 0) - (ttMin(b.start) ?? 0));
+    const nextIdx = mine.findIndex(p => (ttMin(p.start) ?? -1) > nowM);
+    teacherBlock = `<div class="stu-section-head"><div class="stu-section-title">Today's Classes</div>
+        <button class="stu-section-link" onclick="adminDrawerGo('at-attendance','Attendance',null)">Take Attendance →</button></div>
+      ${mine.length ? mine.map((p, i) => `<div class="tt-card ${(ttMin(p.start) <= nowM && nowM < ttMin(p.end)) ? 'now' : ''}">
+          <div class="tt-no">${i + 1}</div><div><div class="tt-sub">${axEsc(p.subject)} · ${axEsc(p.cls)}</div>
+          <div class="tt-meta">${ttFmt(p.start)} – ${ttFmt(p.end)}${p.room ? ' · Room ' + axEsc(p.room) : ''}</div></div>
+          ${i === nextIdx ? '<span class="tt-tag next">Next</span>' : ''}</div>`).join('')
+        : '<div class="stu-empty-note">No classes found for you today. Classes appear here when the timetable lists your name as the teacher.</div>'}
+      <div class="stu-section-head"><div class="stu-section-title">My Classes</div></div>
+      <div class="stu-update-list">${getAllowedClasses().map(cl => `<div class="stu-update-row" onclick="adminDrawerGo('at-students','Students',null)">
+        <div class="stu-ur-ic c-blue">${stuIcon('users', 16)}</div><div class="stu-ur-body"><div class="stu-ur-title">${axEsc(cl)}</div>
+        <div class="stu-ur-time">${Object.values(allStudents).filter(s => s.class === cl).length} students</div></div>
+        <div class="stu-ur-arrow">${stuIcon('chevron-right', 15)}</div></div>`).join('') || '<div class="stu-empty-note">No classes assigned yet.</div>'}</div>`;
+  }
+
   el.className = 'stu-dashboard';
   el.innerHTML = `
     <div class="stu-dash-inner">
       <div class="stu-welcome-card">
         <div>
           <div class="stu-welcome-title">${stuGreetingWord()}, ${axEsc(isPrimary ? 'Admin' : (curAdminData.name || 'Teacher').split(' ')[0])}</div>
-          <div class="stu-welcome-sub">Here is the school at a glance.</div>
+          <div class="stu-welcome-sub">${isPrimary ? 'Here is the school at a glance.' : 'Your classes and tasks for today.'}</div>
         </div>
         <div class="stu-welcome-ill">${stuIcon('building', 26)}</div>
       </div>
@@ -4332,6 +4705,8 @@ function renderAdminDashboard() {
         </div>
         ${card('c-orange', 'credit-card', 'Pending Fees', pendingFeeStudents, 'Students with dues', go('at-dashfee','Dashboard &amp; Fees'))}
       </div>
+
+      ${isPrimary ? '' : teacherBlock}
 
       <div class="stu-section-head"><div class="stu-section-title">Pending Actions</div></div>
       <div class="stu-update-list">
@@ -4853,19 +5228,18 @@ function renderStuPills() {
 function setStuFilter(c) { stuFilter = c; renderStuPills(); renderStuList(); }
 function renderStuList() {
   const allowed = getAllowedClasses();
+  const q = ((document.getElementById('stuSearch') || {}).value || '').toLowerCase().trim();
   const list = Object.values(allStudents).filter(s =>
-    (stuFilter==='All' || s.class===stuFilter) && allowed.includes(s.class)
-  );
-  const div  = document.getElementById('stuList');
-  if (!list.length) { div.innerHTML='<p class="empty-msg">No students found.</p>'; return; }
+    (stuFilter === 'All' || s.class === stuFilter) && allowed.includes(s.class) &&
+    (!q || String(s.name).toLowerCase().includes(q) || String(s.username).toLowerCase().includes(q)));
+  const div = document.getElementById('stuList');
+  if (!list.length) { div.innerHTML = '<p class="empty-msg">No students found.</p>'; return; }
   div.innerHTML = list.map(stu => {
     const res = rArr(stu.results);
-    return `<div class="list-row" style="display:flex;justify-content:space-between;align-items:center;">
-      <div>
-        <span style="font-weight:700;color:var(--navy);">${stu.name}</span>
-        <span class="badge bg-navy" style="margin-left:8px;">${stu.class}</span>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px;">@${stu.username} · ${res.length} result${res.length!==1?'s':''}${stu.parentPhone?' · 📞 '+axPhoneShow(stu.parentPhone):''}</div>
-      </div>
+    return `<div class="stud-row">
+      <div class="stud-av">${axEsc((stu.name || '?').charAt(0).toUpperCase())}</div>
+      <div class="stud-main"><div class="stud-name">${axEsc(stu.name)} <span class="badge bg-navy" style="margin-left:4px;">${axEsc(stu.class)}</span></div>
+        <div class="stud-sub">@${axEsc(stu.username)} · ${res.length} result${res.length !== 1 ? 's' : ''}${stu.parentPhone ? ' · ' + stuIcon('phone', 11) + ' ' + axPhoneShow(stu.parentPhone) : ''}</div></div>
       <button class="btn btn-navy btn-sm" onclick="openEditModal('${stu.username}')">Edit</button>
     </div>`;
   }).join('');
@@ -5434,25 +5808,27 @@ function openAdminClassLeaderboard() {
 function renderStudentQuizzes(stu) {
   const el = document.getElementById('stuQuizList');
   if (!el) return;
-  const entries = Object.entries(allQuizzes).filter(([k,q]) => q.class === stu.class);
-  if (!entries.length) { el.innerHTML = '<p class="empty-msg" style="padding:0 16px 16px;">No quizzes posted yet.</p>'; return; }
-
-  el.innerHTML = entries.map(([key, qz]) => {
-    const myResult = (allQuizResults[key] || {})[stu.username];
-    return `
-    <div class="list-row pad" style="display:flex;justify-content:space-between;align-items:center;">
-      <div>
-        <span style="font-weight:700;color:var(--navy);">${qz.title}</span>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px;">${qz.subject} · ${qz.questions.length} question(s)</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;">
-        ${myResult
-          ? `<span class="badge" style="background:#e8f5e9;color:#2e7d32;cursor:pointer;" onclick="openQuizResultScreen('${key}')">Scored ${myResult.score}/${myResult.total}</span>`
-          : `<button class="btn btn-red btn-sm" onclick="startQuiz('${key}')">Start</button>`}
-        <button class="btn btn-ghost btn-sm" style="margin:0;" onclick="openQuizLeaderboard('${key}')">${stuIcon('award',14)}</button>
-      </div>
-    </div>`;
-  }).join('');
+  const entries = Object.entries(allQuizzes).filter(([k, q]) => q.class === stu.class)
+    .sort((a, b) => (b[1].postedAt || 0) - (a[1].postedAt || 0));
+  const card = ([key, qz]) => {
+    const my = (allQuizResults[key] || {})[stu.username];
+    const q = (qz.questions || []).length, mins = qz.timeLimit;
+    return `<div class="qx-card">
+      <div class="qx-top"><div class="qx-ic">${stuIcon('clipboard', 18)}</div>
+        <div class="qx-main"><div class="qx-title">${axEsc(qz.title)}</div>
+          <div class="qx-meta">${axEsc(qz.subject || '')} · ${q} question${q === 1 ? '' : 's'}${mins ? ' · ' + mins + ' min' : ''}${qz.postedAt ? ' · ' + stuTimeAgo(qz.postedAt) : ''}</div></div>
+        <span class="qx-status ${my ? 'done' : 'live'}">${my ? 'Completed' : 'Available'}</span></div>
+      <div class="qx-actions">
+        ${my ? `<button class="sm-btn primary" onclick="openQuizResultScreen('${key}')">View Result · ${my.score}/${my.total}</button>`
+             : `<button class="sm-btn primary" onclick="startQuiz('${key}')">Start Exam →</button>`}
+        <button class="sm-btn" onclick="openQuizLeaderboard('${key}')" aria-label="Leaderboard">${stuIcon('award', 14)}</button>
+      </div></div>`;
+  };
+  const avail = entries.filter(([k]) => !((allQuizResults[k] || {})[stu.username]));
+  const done = entries.filter(([k]) => ((allQuizResults[k] || {})[stu.username]));
+  const section = (t, list) => list.length ? `<div class="stu-section-head" style="margin-top:6px;"><div class="stu-section-title">${t}</div><div class="sm-subj-count">${list.length}</div></div>${list.map(card).join('')}` : '';
+  el.innerHTML = entries.length ? section('Ongoing / Available', avail) + section('Completed', done)
+    : '<div class="stu-empty-note">No quizzes posted yet.</div>';
 }
 
 /** Renders the quiz-taking form for a single quiz, replacing the list view. */
@@ -6142,6 +6518,8 @@ function switchAdminTab(id, btn) {
   }
   if (id === 'at-dashfee') renderPaymentClaims();
   if (id === 'at-events')   loadAdminEvents();
+  if (id === 'at-notice')   renderAdminNotices();
+  if (id === 'at-timetable') ttAdminInit();
   if (id === 'at-enquiries') loadEnquiries();
   if (id === 'at-homework') {
     const allowed = getAllowedClasses();
@@ -6472,12 +6850,10 @@ function renderStudentFees(stu) {
       ? ''
       : `<button class="btn btn-red btn-sm" style="margin:0;" onclick="openPayModal('${m}', ${dueAmt})">Pay</button>`;
 
-    rows += `<tr>
-      <td style="font-weight:700;">${m}</td>
-      <td>₹${fee.toLocaleString('en-IN')}</td>
-      <td>${chip}</td>
-      <td>${payBtn}</td>
-    </tr>`;
+    rows += `<div class="fee-row">
+      <div class="fee-row-main"><div class="fee-row-name">${m}</div><div class="fee-row-amt">₹${fee.toLocaleString('en-IN')}</div></div>
+      <div class="fee-row-side">${chip}${payBtn}</div>
+    </div>`;
   });
 
   const fmt = n => '₹' + n.toLocaleString('en-IN');
@@ -6500,10 +6876,7 @@ function renderStudentFees(stu) {
   if (!rows) {
     wrap.innerHTML = '<p class="empty-msg" style="padding:0 16px 16px;">No fee records added yet.</p>';
   } else {
-    wrap.innerHTML = `<table class="fee-ledger-table">
-      <thead><tr><th>Month</th><th>Amount</th><th>Status</th><th></th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`;
+    wrap.innerHTML = `<div class="fee-rows">${rows}</div>`;
   }
 
   const noteCard = document.getElementById('feeNoteCard');
@@ -6698,22 +7071,9 @@ function checkNewItems(type, dataObj, stuClass, notifTitle) {
        .forEach(it => maybeNotify(notifTitle, it.title || it.subject || 'Tap to view'));
 }
 
-function refreshNoticeBell() {
-  const seen = getSeen('notice');
-  const bell = document.getElementById('stuNoticeBell');
-  if (!bell) return;
-  const isNew = noticeUpdatedAt > seen;
-  bell.style.display = isNew ? 'inline-flex' : 'none';
-  if (isNew && noticeUpdatedAt > sessionLoadTime && noticeUpdatedAt > seen) {
-    maybeNotify('🔔 New notice from school', siteNotice);
-  }
-}
+function refreshNoticeBell() { ntRefreshBadges(); }
 
-function viewSchoolNotice() {
-  alert(siteNotice || 'No notice yet.');
-  markSeen('notice');
-  document.getElementById('stuNoticeBell').style.display = 'none';
-}
+function viewSchoolNotice() { openStuSection('sp-notices', 'Notifications'); }
 
 /* ── DARK MODE ── */
 /* ── SCROLL TO TOP ── */
