@@ -1,0 +1,9 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "in.betterworldschool.app",
+        "sha256_cert_fingerprints": ["AC:7D:95:3D:48:15:B3:B4:1A:C9:BD:CA:8F:4D:23:C2:E4:55:BE:46:00:AE:3B:61:EA:E2:D5:CE:74:37:6E:90" 
+     "0F:D2:31:18:01:C3:7B:72:CE:D1:74:29:28:BA:BF:ED:6F:E0:70:89:71:49:41:C6:11:B3:81:02:E7:77:61:86"]
+      }
+    }]
