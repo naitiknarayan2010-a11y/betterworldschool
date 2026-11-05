@@ -1,13 +1,18 @@
-BETTER WORLD SCHOOL - PWA package
-=================================
-Upload ALL files in this folder to the ROOT of your Netlify site (drag the whole folder, or the unzipped contents):
+BETTER WORLD SCHOOL - PWA package (v12)
+=======================================
+Upload everything in this folder to the ROOT of your Netlify site. Keep the .well-known folder.
 
-  index.html        the app (includes the new Attendance system)
-  manifest.json     app name, colours, icons
-  sw.js             service worker (makes updates automatic - do not rename)
-  _headers          tells Netlify not to cache the app page (needed for instant updates)
-  icon-*.png        app icons (bigger logo)
+  index.html            the app (v12: email/password sign-in)
+  manifest.json         app name, colours, icons
+  sw.js                 service worker (do not rename)
+  _headers              Netlify cache + assetlinks headers
+  icon-*.png            app icons (any + maskable + apple-touch)
+  privacy.html          privacy policy page (use this URL in Play Console)
+  .well-known/assetlinks.json   EDIT before deploying: package name + SHA-256 fingerprint (see below)
 
-After this one-time upload, future updates are just: upload the new index.html -> done.
-Users only need to open or refresh the app. No uninstall / reinstall.
-(Optional: if you also want existing phones to switch to the new worker sooner, nothing to do - browsers check by themselves within about a day.)
+play-store/             for Play Console only - do NOT upload to Netlify
+  play-store-icon-512.png, feature-graphic-1024x500.png
+
+Play Store steps: build the .aab on pwabuilder.com, create the app in Play Console, copy the SHA-256
+from Play Console > Setup > App signing into assetlinks.json, redeploy, then open
+https://YOUR-SITE/.well-known/assetlinks.json to confirm it loads.

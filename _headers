@@ -9,3 +9,8 @@
   Cache-Control: no-cache
 /icon-*.png
   Cache-Control: public, max-age=86400
+# Required for the Play Store app: lets Google verify that the app belongs to this website.
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-cache
