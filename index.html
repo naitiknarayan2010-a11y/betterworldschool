@@ -2313,31 +2313,11 @@ document.addEventListener('DOMContentLoaded', function(){ document.querySelector
 #loadingScreen{background:#e6f2ff;gap:0;padding:24px;text-align:center;overflow:hidden;transition:opacity .4s ease;}
 #loadingScreen.out{opacity:0;pointer-events:none;}
 #loadingScreen::before{content:"";position:absolute;top:-28%;right:-32%;width:95vmax;height:95vmax;border-radius:50%;background:radial-gradient(circle,rgba(26,115,232,.10),transparent 62%);}
-.sp-stage{position:relative;width:min(70vw,290px);aspect-ratio:1;margin-bottom:28px;}
-.sp-orbit{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(99,102,241,.22);}
-.sp-orbit.o2{inset:8%;border:1.5px dashed rgba(26,115,232,.35);animation:sp-spin 28s linear infinite;}
-.sp-badge{position:absolute;inset:19%;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 46px rgba(26,115,232,.28),0 0 0 10px rgba(255,255,255,.75);animation:sp-pulse 2.6s ease-in-out infinite;}
-.sp-badge img{width:72%;height:72%;object-fit:contain;}
-.sp-chip{position:absolute;width:42px;height:42px;border-radius:14px;background:#fff;box-shadow:0 8px 20px rgba(23,54,93,.14);display:flex;align-items:center;justify-content:center;animation:sp-float 3.4s ease-in-out infinite;}
-.sp-chip svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-.sp-chip.c1{top:3%;right:6%;color:#1A73E8;}.sp-chip.c2{top:46%;right:-9%;color:#188038;animation-delay:.6s;}.sp-chip.c3{bottom:4%;left:8%;color:#F9AB00;animation-delay:1.2s;}
-.sp-dot{position:absolute;border-radius:50%;}.sp-dot.d1{width:11px;height:11px;left:8%;top:16%;background:#a855f7;}.sp-dot.d2{width:10px;height:10px;right:12%;bottom:10%;background:#06b6d4;}
-.sp-title{margin:0;font:800 clamp(26px,8.4vw,40px)/1.08 'Inter',sans-serif;color:#17365D;letter-spacing:-.5px;animation:sp-rise .7s .1s both;}
-.sp-sub{margin-top:10px;font:600 15px/1.3 'Inter',sans-serif;color:#5F6368;animation:sp-rise .7s .25s both;}
-.sp-feat{display:flex;width:100%;max-width:420px;margin:30px 0 24px;animation:sp-rise .7s .4s both;}
-.sp-feat>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 6px;border-left:1px solid rgba(23,54,93,.1);}
-.sp-feat>div:first-child{border-left:0;}
-.sp-feat .ic{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
-.sp-feat .ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-.sp-feat b{font:700 15px 'Inter',sans-serif;color:#17365D;}.sp-feat span{font:500 13px 'Inter',sans-serif;color:#5F6368;}
-.sp-bar{width:min(80vw,360px);height:8px;border-radius:8px;background:#E2E8F0;overflow:hidden;animation:sp-rise .7s .55s both;}
-.sp-bar i{display:block;height:100%;width:38%;border-radius:8px;background:#06b6d4;animation:sp-slide 1.5s ease-in-out infinite;}
-.sp-load{margin-top:14px;font:700 11px 'Inter',sans-serif;letter-spacing:.3em;color:#80868B;text-transform:uppercase;animation:sp-rise .7s .65s both;}
-@keyframes sp-spin{to{transform:rotate(360deg);}}
-@keyframes sp-pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.035);}}
-@keyframes sp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+
+
 @keyframes sp-rise{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
-@keyframes sp-slide{0%{transform:translateX(-110%);}100%{transform:translateX(290%);}}
+
 /* ── v11 · centre + button and quick actions ── */
 .stu-bottomnav{box-shadow:0 -6px 24px rgba(23,54,93,.09);}
 .stu-fab{background:#4285F4;box-shadow:0 10px 24px rgba(29,78,216,.45);transition:transform .45s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;}
@@ -2496,15 +2476,7 @@ body > nav{background:var(--navy);-webkit-backdrop-filter:none;backdrop-filter:n
 .pn-fee-hero{background:var(--warn-bg);border:1px solid #FDE293;}
 .pn-fee-hero.ok{background:var(--ok-bg);border-color:#CEEAD6;}
 #loadingScreen{background:var(--bg);}
-#loadingScreen::before{display:none;}
-.sp-badge{box-shadow:var(--sh-3);}
-.sp-chip{box-shadow:var(--sh-2);}
-.sp-chip.c1{color:var(--primary);} .sp-chip.c2{color:var(--ok);} .sp-chip.c3{color:var(--warn);}
-.sp-dot{display:none;}
-.sp-title,.sp-feat b,.bws-ov-card h4{color:var(--navy);font-weight:700;}
-.sp-sub,.sp-feat span,.sp-load,.bws-ov-card p{color:var(--text-2);}
-.sp-bar{background:var(--line);}
-.sp-bar i{background:var(--primary);}
+#loadingScreen::before{display:none;}.bws-ov-card h4{color:var(--navy);font-weight:700;}.bws-ov-card p{color:var(--text-2);}
 .bws-ov{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(23,32,51,.45);}
 .bws-ov-card{border-radius:var(--r-lg);box-shadow:var(--sh-3);}
 .bws-ov-ic{background:var(--info-bg);}
@@ -2636,7 +2608,7 @@ body.dark-mode .p-title,body.dark-mode .modal-title,body.dark-mode .s-name h3,bo
 body.dark-mode .admin-back-bar .back-title,body.dark-mode .admin-back-bar button,body.dark-mode .ai-name,body.dark-mode .ss-val,body.dark-mode .stat-num,
 body.dark-mode .ac-title,body.dark-mode .ac-name,body.dark-mode .ac-stat .v,body.dark-mode .ac-sec h3,body.dark-mode .ac-chapter,
 body.dark-mode .ac-empty .t,body.dark-mode .ac-form label,body.dark-mode .bws-lg-amt,body.dark-mode .bws-sum b,body.dark-mode .gallery-heading,
-body.dark-mode .btn-ghost,body.dark-mode .ac-btn.sec,body.dark-mode .s-stat-val,body.dark-mode .sp-title,body.dark-mode .sp-feat b{color:var(--text);}
+body.dark-mode .btn-ghost,body.dark-mode .ac-btn.sec,body.dark-mode .s-stat-val{color:var(--text);}
 body.dark-mode .tab.active,body.dark-mode .pill.active,body.dark-mode .ac-chip.active,body.dark-mode .ac-link{color:var(--primary);}
 body.dark-mode .btn-dbprimary,body.dark-mode .btn-navy,body.dark-mode .ac-btn,body.dark-mode .sm-btn.primary,body.dark-mode .fee-row .btn-sm{background:var(--primary)!important;color:#0B1220!important;border-color:var(--primary);}
 body.dark-mode .ac-btn.sec,body.dark-mode .btn-ghost{background:var(--surface-2)!important;color:var(--text)!important;border-color:var(--line-2);}
@@ -2647,7 +2619,7 @@ body.dark-mode .tabs{background:var(--surface-2);}
 body.dark-mode .tab.active{background:var(--surface);}
 body.dark-mode select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23AEB4BB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");}
 body.dark-mode .modal-overlay,body.dark-mode #confirmBox,body.dark-mode .bws-ov{background:rgba(0,0,0,.6);}
-body.dark-mode .bws-ov-card,body.dark-mode .sp-badge,body.dark-mode .sp-chip{background:var(--surface);}
+body.dark-mode .bws-ov-card{background:var(--surface);}
 body.dark-mode #loadingScreen{background:var(--bg);}
 body.dark-mode .stu-bell-count,body.dark-mode #pnMoreBadge{box-shadow:0 0 0 2px var(--surface);color:#0B1220;}
 body.dark-mode .stu-bottomnav{background:var(--surface);}
@@ -3040,29 +3012,27 @@ body.dark-mode .close-btn:hover{background:var(--surface-2);}
 }
 </style>
 <script>var BWS_ICO_SUN="<svg class=\"ico\" viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4\"/></svg>",BWS_ICO_MOON="<svg class=\"ico\" viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z\"/></svg>";</script>
+<style id="bws-v22">
+#loadingScreen{background:#fff!important;padding:0!important;gap:0!important;transition:opacity .25s ease!important;}
+#loadingScreen::before{display:none!important;}
+#bwsSplashLogo{width:min(46vw,190px);height:auto;object-fit:contain;display:block;animation:bwsSplashIn .4s ease-out both;}
+@keyframes bwsSplashIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:none;}}
+.dn svg{animation:none!important;}
+.stu-bell-count{animation:none!important;}
+body.bws-intro .dn svg{animation:dnSpin .95s cubic-bezier(.2,.8,.2,1) both!important;}
+body.bws-intro .stu-bell-count{animation:bwsBadgePop .45s cubic-bezier(.3,1.6,.5,1) both!important;}
+</style>
+<style id="bws-v23">
+.bws-seg{display:flex;gap:4px;background:var(--surface-2,#F1F5F9);padding:4px;border-radius:12px;margin:0 0 12px;}
+.bws-seg button{flex:1;border:0;background:transparent;padding:10px 6px;border-radius:9px;font:600 13px/1.2 inherit;font-family:inherit;color:var(--muted);min-height:40px;}
+.bws-seg button.on{background:var(--white,#fff);color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.12);}
+</style>
 </head>
 <body>
     
 <!-- LOADING SCREEN -->
-<div id="loadingScreen" role="status" aria-label="Loading Better World School">
-  <div class="sp-stage">
-    <div class="sp-orbit"></div><div class="sp-orbit o2"></div>
-    <i class="sp-dot d1"></i><i class="sp-dot d2"></i>
-    <span class="sp-chip c1"><svg viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></svg></span>
-    <span class="sp-chip c2"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18M9 15l2 2 4-4"/></svg></span>
-    <span class="sp-chip c3"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-    <div class="sp-badge"><img alt="Better World School" class="bws-logo-img"></div>
-  </div>
-  <h1 class="sp-title">Better World School</h1>
-  <div class="sp-sub">Parents · Students · Teachers</div>
-  <div class="sp-feat">
-    <div><span class="ic" style="background:#e8f7ee;color:#188038;"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18M9 15l2 2 4-4"/></svg></span><b>Attendance</b><span>Track daily</span></div>
-    <div><span class="ic" style="background:#efe9fd;color:#7c3aed;"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><b>Results</b><span>See progress</span></div>
-    <div><span class="ic" style="background:#FEF7E0;color:#F9AB00;"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></span><b>Fees</b><span>Stay informed</span></div>
-  </div>
-  <div class="sp-bar"><i></i></div>
-  <div class="sp-load">Opening your school portal</div>
-</div>
+<div id="loadingScreen" role="status" aria-label="Loading Better World School"><img id="bwsSplashLogo" alt="Better World School"></div>
+<script>try{document.getElementById("bwsSplashLogo").src=BWS_LOGO;}catch(e){}</script>
 
 <!-- ════════════════════════════════════
      NAVIGATION
@@ -3569,8 +3539,8 @@ body.dark-mode .close-btn:hover{background:var(--surface-2);}
           <button class="stu-drawer-item" data-nav="sp-leave" onclick="stuDrawerGo('sp-leave','Leave',this)">
             <span class="di-ic" data-icon="calendar-x"></span><span class="di-lbl">Leave</span>
           </button>
-          <button class="stu-drawer-item" data-nav="sp-doubts" onclick="stuDrawerGo('sp-doubts','Doubts',this)">
-            <span class="di-ic" data-icon="help-circle"></span><span class="di-lbl">Doubts</span>
+          <button class="stu-drawer-item" data-nav="sp-doubts" onclick="stuDrawerGo('sp-doubts','Messages',this)">
+            <span class="di-ic" data-icon="help-circle"></span><span class="di-lbl">Messages</span>
           </button>
           <button class="stu-drawer-item" data-nav="sp-dashboard" onclick="stuDrawerGo('sp-dashboard','Profile',this)">
             <span class="di-ic" data-icon="user"></span><span class="di-lbl">Profile</span>
@@ -3749,7 +3719,7 @@ body.dark-mode .close-btn:hover{background:var(--surface-2);}
       <div id="s-results"><div class="stu-empty-note">Recent exams will be listed here.</div></div>
       <button type="button" class="pn-btn" onclick="stuGo('sp-subjects','Subject details','sp-results','Results &amp; Progress')">Subject-wise test details</button>
       <button type="button" class="pn-btn" onclick="stuGo('sp-progress','Progress over time','sp-results','Results &amp; Progress')">Progress over time</button>
-      <button type="button" class="pn-btn" onclick="printResultCard()">Print result card</button>
+      <button type="button" class="pn-btn" onclick="bwsRC(curUser)">Report card (print / save PDF)</button>
     </div>
 
     <!-- ── TAB: SUBJECTS (expandable cards) ── -->
@@ -3982,7 +3952,9 @@ body.dark-mode .close-btn:hover{background:var(--surface-2);}
     </div>
 
     <!-- ── TAB: DOUBTS ── -->
+    <div class="stu-panel" id="sp-complaint"><div class="bws-seg" role="tablist"><button type="button" role="tab" class="" onclick="bwsMsgTab('sp-doubts')">Ask a teacher</button><button type="button" role="tab" class="on" onclick="bwsMsgTab('sp-complaint')">Complaint / suggestion</button></div><div class="p-card"><div class="p-title" style="font-size:14px;">Complaint / Suggestion</div><p style="font-size:12px;color:var(--muted);margin:4px 0 8px;">Your message goes to the school office. Replies appear below.</p><label class="p-lbl">About</label><select id="cmpCat"><option value="Teaching">Teaching</option><option value="Fees">Fees</option><option value="Facilities / Safety">Facilities / Safety</option><option value="Other">Other</option></select><label class="p-lbl">Message</label><textarea id="cmpText" rows="4" maxlength="500" placeholder="Write here"></textarea><button class="btn btn-dbprimary" onclick="bwsCmpSubmit()">Send</button></div><div class="p-card" id="cmpMine"></div></div>
     <div class="stu-panel" id="sp-doubts">
+<div class="bws-seg" role="tablist"><button type="button" role="tab" class="on" onclick="bwsMsgTab('sp-doubts')">Ask a teacher</button><button type="button" role="tab" class="" onclick="bwsMsgTab('sp-complaint')">Complaint / suggestion</button></div>
       <div class="p-card">
         <div class="p-title" style="font-size:14px;"><span data-icon="help-circle" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Ask a Doubt</div>
         <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Your question goes straight to your class teacher.</p>
@@ -4377,6 +4349,7 @@ body.dark-mode .close-btn:hover{background:var(--surface-2);}
       <!-- TAB: DASHBOARD & FEES EDITOR -->
       <div id="at-dashfee" class="at-p" style="display:none;">
 
+        <div class="p-card" id="bwsFrCard"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Fee reminders</div><div class="row2"><div><label class="p-lbl">Class</label><select id="bwsFrClass" onchange="bwsFrRender()"></select></div><div style="display:flex;align-items:flex-end;"><button class="btn btn-dbprimary" onclick="bwsFrAll()">Remind all</button></div></div><div id="bwsFrList"></div></div>
         <!-- Pending UPI payment claims from parents -->
         <div class="p-card" id="paymentClaimsCard" style="display:none;">
           <div class="p-title" style="font-size:14px;"><span data-icon="credit-card" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Payment Claims Awaiting Confirmation</div>
@@ -4568,6 +4541,8 @@ body.dark-mode .close-btn:hover{background:var(--surface-2);}
         </div>
       </div>
 
+      <div id="at-complaints" class="at-p" style="display:none;"><div class="p-card"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Parent complaints</div><div id="bwsCmpList"></div></div></div>
+      <div id="at-reportcard" class="at-p" style="display:none;"><div class="p-card"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Report card</div><div class="row2"><div><label class="p-lbl">Class</label><select id="bwsRcClass" onchange="bwsRcFill()"></select></div><div><label class="p-lbl">Student</label><select id="bwsRcStu" onchange="bwsRcLoad()"></select></div></div><label class="p-lbl">Teacher's remark</label><textarea id="bwsRcRemark" rows="3" maxlength="300" placeholder="e.g. Good progress. Needs more practice in Maths."></textarea><button class="btn btn-dbprimary" onclick="bwsRcSave()">Save remark</button><button class="pn-btn" onclick="bwsRcOpen()">Open report card</button></div></div>
       <div id="at-timetable" class="at-p" style="display:none;">
         <div class="p-card">
           <div class="p-title" style="font-size:14px;">Class Timetable</div>
@@ -4794,7 +4769,7 @@ body.dark-mode .close-btn:hover{background:var(--surface-2);}
               <div><label class="p-lbl">Event Title</label><input id="evtTitle" placeholder="e.g. Annual Sports Day"></div>
               <div>
                 <label class="p-lbl">Category</label>
-                <select id="evtCat">
+                <select id="evtCat"><option value="holiday">Holiday</option>
                   <option value="general">General</option>
                   <option value="academic">Academic</option>
                   <option value="sports">Sports</option>
@@ -5088,11 +5063,17 @@ function toggleDark() {
 // Apply saved dark mode on page load
 window.addEventListener('DOMContentLoaded', function() {
   let _dk = ''; try { _dk = localStorage.getItem('bws_dark'); } catch (e) {}
-  if (_dk) {
+  if (_dk === null ? !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) : _dk) {
     document.body.classList.add('dark-mode');
     const btn = document.getElementById('darkBtn');
     if (btn) btn.innerHTML = BWS_ICO_SUN;
-  }
+}
+try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+  let v = null; try { v = localStorage.getItem('bws_dark'); } catch (x) {}
+  if (v !== null) return;                       // the user chose manually: leave it alone
+  document.body.classList.toggle('dark-mode', e.matches);
+  const b = document.getElementById('darkBtn'); if (b) b.innerHTML = e.matches ? BWS_ICO_SUN : BWS_ICO_MOON;
+}); } catch (e) {}
 });
 
 document.addEventListener('firebaseReady', function() {
@@ -5155,7 +5136,7 @@ function onReady() {
 
 function startDbListeners() {
   // 1. Students — readable by any authenticated user (any signed-in user)
-  db.ref('students').on('value', snap => {
+  bwsStudentsRef().on('value', snap => {
     allStudents = snap.val() || {}; acDataIn('students');
     if (curUser === 'admin' || curAdminData) { renderClassView(); renderStuList(); }
     if (curUser && curUser !== 'admin' && !curAdminData && allStudents[curUser]) {
@@ -5201,7 +5182,7 @@ function startDbListeners() {
 
   // Quiz Results — non-blocking
   db.ref('quizResults').on('value', snap => {
-    allQuizResults = snap.val() || {}; acDataIn('quizResults');
+    allQuizResults = bwsClean(snap.val() || {}); acDataIn('quizResults');
     if (curUser === 'admin' || curAdminData) renderQzList();
     if (curUser && curUser !== 'admin' && !curAdminData && allStudents[curUser]) {
       renderStudentQuizzes(allStudents[curUser]);
@@ -5214,7 +5195,7 @@ function startDbListeners() {
 
   // Payment claims — non-blocking
   db.ref('paymentClaims').on('value', snap => {
-    allPaymentClaims = snap.val() || {}; acDataIn('paymentClaims');
+    allPaymentClaims = bwsClean(snap.val() || {}); acDataIn('paymentClaims');
     if (curUser === 'admin' || curAdminData) renderPaymentClaims();
   }, err => { console.warn('paymentClaims read denied:', err.message); acLoaded.paymentClaims = 'error'; acRefreshActive(); });
 
@@ -5246,7 +5227,7 @@ function startDbListeners() {
 
   // Doubts — non-blocking (does not count toward onReady/loading screen)
   db.ref('doubts').on('value', snap => {
-    allDoubts = snap.val() || {}; acDataIn('doubts');
+    allDoubts = bwsClean(snap.val() || {}); acDataIn('doubts');
     if (curUser === 'admin' || curAdminData) renderAdminDoubts();
     if (curUser && curUser !== 'admin' && !curAdminData && allStudents[curUser]) {
       renderStudentDoubts(allStudents[curUser]);
@@ -5262,7 +5243,7 @@ function startDbListeners() {
 
   // Leave Requests — non-blocking
   db.ref('leaveRequests').on('value', snap => {
-    allLeaveRequests = snap.val() || {}; acDataIn('leaveRequests');
+    allLeaveRequests = bwsClean(snap.val() || {}); acDataIn('leaveRequests');
     if (curUser === 'admin' || curAdminData) renderAdminLeaveRequests();
     if (curUser && curUser !== 'admin' && !curAdminData && allStudents[curUser]) {
       renderStudentLeaveRequests(allStudents[curUser]);
@@ -5277,7 +5258,7 @@ function startDbListeners() {
   });
 
   // 2. Admin password
-  db.ref('config/adminPass').on('value', snap => {
+  bwsAdminPassRef().on('value', snap => {
     adminPass = snap.val() || 'admin123';
     onReady();
   }, err => { console.error('config/adminPass read denied:', err.message); onReady(); });
@@ -5297,7 +5278,7 @@ function startDbListeners() {
   }, err => console.warn('config/noticeUpdatedAt read denied:', err.message));
 
   // 4. Sub-admins
-  db.ref('admins').on('value', snap => {
+  bwsAdminsRef().on('value', snap => {
     allSubAdmins = snap.val() || {};
     if (curAdminData && curUser && allSubAdmins[curUser]) { curAdminData = allSubAdmins[curUser]; try { teacherProfileRender(); admRenderBottomNav(); } catch (e) {} acRefreshActive(); }
     if (curUser === 'admin') renderAdminList();
@@ -5832,13 +5813,13 @@ const STU_TAB_OF = {
   'sp-academics':'academics', 'sp-study':'academics', 'sp-quiz':'academics', 'sp-exams':'academics', 'sp-results':'academics',
   'sp-overview':'academics', 'sp-subjects':'academics', 'sp-progress':'academics',
   'sp-attendance':'attendance', 'sp-fees':'fees',
-  'sp-more':'more', 'sp-notices':'more', 'sp-leave':'more', 'sp-dashboard':'more', 'sp-help':'more', 'sp-timetable':'more', 'sp-doubts':'more'
+  'sp-more':'more', 'sp-notices':'more', 'sp-leave':'more', 'sp-dashboard':'more', 'sp-help':'more', 'sp-timetable':'more', 'sp-doubts':'more', 'sp-complaint':'more'
 };
 const STU_LABEL_OF = {
   'sp-academics':'Academics', 'sp-study':'Study Material', 'sp-quiz':'Exams', 'sp-exams':'Exams', 'sp-results':'Results',
-  'sp-timetable':'Timetable', 'sp-overview':'Overview', 'sp-subjects':'Subject details', 'sp-progress':'Progress over time', 'sp-doubts':'Doubts',
+  'sp-timetable':'Timetable', 'sp-overview':'Overview', 'sp-subjects':'Subject details', 'sp-progress':'Progress over time', 'sp-doubts':'Messages',
   'sp-attendance':'Attendance', 'sp-fees':'Fees', 'sp-more':'More', 'sp-notices':'Notifications', 'sp-leave':'Leave',
-  'sp-dashboard':'Profile', 'sp-help':'About / Help'
+  'sp-dashboard':'Profile', 'sp-help':'About / Help', 'sp-complaint':'Messages'
 };
 
 const stuMoney = n => '₹' + Number(n || 0).toLocaleString('en-IN');
@@ -6021,10 +6002,10 @@ function stuMoreRender() {
     R('bell', 'o', 'Notifications', unread ? unread + ' new' : 'School notices and updates', 'sp-notices', 'Notifications', unread ? { n: unread > 9 ? '9+' : unread } : null) +
     R('clock', 'n', 'Timetable', 'Daily class schedule', 'sp-timetable', 'Timetable') +
     R('calendar-x', 'r', 'Leave', 'Apply for leave and see decisions', 'sp-leave', 'Leave') +
-    R('help-circle', 'b', 'Doubts', 'Ask a teacher a question', 'sp-doubts', 'Doubts') +
-    R('user', 'n', 'Profile', 'Student details and password', 'sp-dashboard', 'Profile') +
+    R('help-circle', 'b', 'Messages', 'Ask a teacher or send a complaint', 'sp-doubts', 'Messages') +
+        R('user', 'n', 'Profile', 'Student details and password', 'sp-dashboard', 'Profile') +
     R('info', 'n', 'Help / About', 'How to use this app', 'sp-help', 'Help / About') +
-    `</div><button class="pn-logout" type="button" onclick="doLogout()">Log out</button>`;
+    `</div><button type="button" class="pn-btn" id="bwsLangBtn" onclick="bwsLangToggle()">${window.bwsLangLabel ? window.bwsLangLabel() : 'हिन्दी में देखें'}</button><button class="pn-logout" type="button" onclick="doLogout()">Log out</button>`;
 }
 
 /* ── Academics hub ── */
@@ -6399,7 +6380,7 @@ function stuFeeDonutFill(stu) {
 
 /* ═══════════ v7 · CENTRE + BUTTON — radial quick actions (all roles) ═══════════ */
 const BWS_FAB = {
-  student: [['help-circle', 'Ask Doubt', () => { stuTab('sp-doubts', 'Doubts'); setTimeout(() => { const t = document.getElementById('dbQuestion'); if (t) try { t.focus(); } catch (e) {} }, 350); }],
+  student: [['help-circle', 'Ask Doubt', () => { stuTab('sp-doubts', 'Messages'); setTimeout(() => { const t = document.getElementById('dbQuestion'); if (t) try { t.focus(); } catch (e) {} }, 350); }],
             ['book-open', 'Study', () => stuTab('sp-study', 'Study Material')], ['calendar-x', 'Leave', () => stuTab('sp-leave', 'Leave')], ['bar-chart', 'Results', () => stuTab('sp-results', 'Results')]],
   teacher: [['calendar-check', 'Attendance', () => hmAtt()], ['bar-chart', 'Add Result', () => adminDrawerGo('at-results', 'Results', null)], ['book-open', 'Material', () => adminDrawerGo('at-study', 'Study Material', null)], ['help-circle', 'Doubts', () => adminDrawerGo('at-doubts', 'Doubts', null)]],
   admin: [['plus', 'Add Student', () => { adminDrawerGo('at-students', 'Students', null); admScrollAdd(); }], ['grad-cap', 'Add Staff', () => adminDrawerGo('at-admins', 'Teachers / Staff', null)], ['bar-chart', 'Add Result', () => adminDrawerGo('at-results', 'Results', null)], ['bell', 'Notice', () => adminDrawerGo('at-notice', 'Notifications', null)]]
@@ -6810,7 +6791,9 @@ function admHubDefs() {
       ['calendar-check', 'g', 'Staff Attendance', 'Mark teacher and staff attendance', 'at-staffatt', 'Staff Attendance'],
       ['calendar-x', 'r', 'Leave Requests', 'Approve or decline leave', 'at-leave', 'Leave Requests'],
       ['bell', 'o', 'Notifications', 'Send and manage notices', 'at-notice', 'Notifications'],
-      ['calendar-check', 'b', 'Events', 'School calendar and events', 'at-events', 'Events'],
+      ['calendar-check', 'b', 'Events', 'School calendar and events, holidays', 'at-events', 'Events'],
+['clipboard', 'g', 'Report cards', 'Print report cards, add remarks', 'at-reportcard', 'Report cards'],
+['help-circle', 'o', 'Complaints', 'Messages from parents', 'at-complaints', 'Complaints', { show: !curAdminData }],
       ['mail', 'b', 'Enquiries', 'Messages from the website', 'at-enquiries', 'Enquiries'],
       ['settings', 'n', 'Settings', 'Payments, backup, year-end, activity log, password', 'at-settings', 'Settings'],
       ['log-out', 'r', 'Log out', 'Sign out of this device', '', '', { act: 'doLogout()' }]] }
@@ -7017,7 +7000,7 @@ function acRefreshActive() {
 /* Which sections a role may open — mirrors the drawer rules so bell/dashboard shortcuts cannot bypass them */
 function adminRouteAllowed(id) {
   if (!curAdminData) return true;
-  if (['at-admins', 'at-events', 'at-timetable', 'at-enquiries', 'at-staffatt'].includes(id)) return false;
+  if (['at-admins', 'at-events', 'at-timetable', 'at-enquiries', 'at-staffatt', 'at-complaints'].includes(id)) return false;
   if (id === 'at-notice') return hasPerm('notice');
   return true;
 }
@@ -10516,8 +10499,7 @@ function axRenderMark(state, text) {
   if (state) axRenderMark._state = state; else state = axRenderMark._state || 'idle';
   const box = axEl('axRoster'), stat = axEl('axStatus'), tools = axEl('axTools');
   const btn = axEl('axSaveBtn'), dirtyEl = axEl('axDirty');
-  axEl('axDateNote').innerHTML = (axDate && axDate <= axToday() && axIsSunday(axDate))
-    ? '<div class="ax-note warn">This date is a Sunday. Only save attendance if school was open.</div>' : '';
+  window.bwsHolPaint && window.bwsHolPaint();
   if (state !== 'ready') {
     tools.style.display = 'none'; stat.innerHTML = ''; dirtyEl.textContent = '';
     btn.disabled = true; btn.style.opacity = .5; btn.textContent = 'Save Attendance'; axEl('axNotify').style.display = 'none';
@@ -10870,7 +10852,7 @@ function axLeaveDays(l, today) {
   let from = l.syncedThrough ? axNextDay(l.syncedThrough) : l.fromDate;
   if (from < l.fromDate) from = l.fromDate;
   const days = [];
-  for (let d = from, n = 0; d <= upTo && n < 400; d = axNextDay(d), n++) if (!axIsSunday(d)) days.push(d);
+  for (let d = from, n = 0; d <= upTo && n < 400; d = axNextDay(d), n++) if (!axIsSunday(d) && !(window.bwsIsHol && window.bwsIsHol(d))) days.push(d);
   return { days, from, upTo };
 }
 function axAbsKey(cls, date, id) { return 'att_' + (cls + '_' + date + '_' + id).replace(/[^A-Za-z0-9_-]/g, '_'); }
@@ -12001,7 +11983,7 @@ function stuAttRender() {
     out.innerHTML = `<div class="ax-cal">${grid}</div>` +
       '<div class="ax-legend"><span><i class="ax-dot" style="background:#E6F4EA;"></i>Present</span><span><i class="ax-dot" style="background:#FCE8E6;"></i>Absent</span>' +
       '<span><i class="ax-dot" style="background:#FEF7E0;"></i>Late</span><span><i class="ax-dot" style="background:#E8F0FE;"></i>Leave</span><span><i class="ax-dot"></i>Not recorded</span></div>' +
-      '<div id="stuAttDetail" class="pn-att-detail"></div>' +
+      (window.bwsLowBanner ? window.bwsLowBanner(p, a, l) : '') + '<div id="stuAttDetail" class="pn-att-detail"></div>' +
       `<div class="pn-sumlbl">This month</div><div class="pn-month"><span>${p} Present</span><span>${a} Absent</span><span>${l} Late</span><span>${v} Leave</span></div>` +
       (p + a + l + v ? '' : '<div class="ax-note info" style="margin-top:12px;">No attendance has been recorded for this month yet.</div>') + axPctNote();
     stuAttShowDay(sel);
@@ -12061,7 +12043,16 @@ window.stuTab = stuTab; window.stuGo = stuGo; window.stuBack = stuBack; window.s
 // live once data arrives.
 dbReady = true;
 const _loadingScreenEl = document.getElementById('loadingScreen');
-if (_loadingScreenEl) { const _w = Math.max(0, 1200 - (window.performance ? performance.now() : 1200)); setTimeout(() => { _loadingScreenEl.classList.add('out'); setTimeout(() => { _loadingScreenEl.style.display = 'none'; }, 420); }, _w); }
+if (_loadingScreenEl) {
+  let _authKnown = false, _authUser = null; auth.onAuthStateChanged(u => { _authKnown = true; _authUser = u; });
+  const _saved = () => { try { return !!localStorage.getItem('bwsSession'); } catch (e) { return false; } };
+  const _hide = () => { _loadingScreenEl.classList.add('out'); setTimeout(() => { _loadingScreenEl.style.display = 'none'; }, 280); };
+  (function _wait() {
+    const t = window.performance ? performance.now() : 9999;
+    try { if (window.bwsEarlyEnter) window.bwsEarlyEnter(); } catch (e) {}
+    if (curUser || t > 8000 || (t > 650 && (!_saved() || (_authKnown && !_authUser)))) _hide(); else setTimeout(_wait, 60);
+  })();
+}
 initApp();
 
 
@@ -12788,8 +12779,6 @@ body.dark-mode .role-primary,
 body.dark-mode .s-name h3,
 body.dark-mode .sec-title,
 body.dark-mode .slider-btn,
-body.dark-mode .sp-feat b,
-body.dark-mode .sp-title,
 body.dark-mode .spark-label,
 body.dark-mode .ss-val,
 body.dark-mode .stat-num,
@@ -13004,5 +12993,441 @@ body.dark-mode .qx-card{border-left-color:var(--line-2);}
 })();
 </script>
 
+<style>
+.bws-hol-link{display:inline-block;margin:6px 0;font-size:12px;font-weight:700;color:var(--blue,#1a73e8);}
+#bwsRC{position:fixed;inset:0;z-index:99999;background:#fff;color:#111;overflow:auto;padding:18px;font-family:inherit;}
+#bwsRC .rc-w{max-width:760px;margin:0 auto;}
+#bwsRC h2{margin:0;font-size:20px}#bwsRC .rc-h{display:flex;gap:12px;align-items:center;border-bottom:2px solid #0D1B4B;padding-bottom:10px;margin-bottom:12px}
+#bwsRC .rc-h img{width:54px;height:54px;object-fit:contain}
+#bwsRC table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+#bwsRC th,#bwsRC td{border:1px solid #cfd4dc;padding:7px 8px;text-align:left;vertical-align:top}
+#bwsRC th{background:#eef1f6}#bwsRC .rc-t{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;color:#555;margin-top:3px}
+#bwsRC .rc-box{border:1px solid #cfd4dc;border-radius:8px;padding:10px;margin:8px 0;font-size:13px}
+#bwsRC .rc-sig{display:flex;justify-content:space-between;margin-top:46px;font-size:12px}#bwsRC .rc-sig span{border-top:1px solid #333;padding-top:4px;min-width:30%;text-align:center}
+#bwsRC .rc-btns{display:flex;gap:8px;margin-bottom:12px}
+@media print{body.bws-rc-on>*:not(#bwsRC){display:none!important}#bwsRC{position:static!important;overflow:visible!important;padding:0}.rc-np{display:none!important}}
+</style>
+<script>
+/* ═══ BWS v20: holidays, low-attendance banner, fee reminders, report card, complaints, Hindi, link helper ═══ */
+(function () {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  const isAdmin = () => !curAdminData;
+  const BWS_LOW = 75;
+  const inr = n => '\u20B9' + Number(n || 0).toLocaleString('en-IN');
+
+  /* ── Holidays (stored as events with category "holiday") ── */
+  let hol = {}, holLoaded = false, holBusy = false;
+  function holLoad(cb) {
+    if (holBusy) return; holBusy = true;
+    db.ref('events').once('value').then(sn => {
+      hol = {}; const v = sn.val() || {};
+      Object.keys(v).forEach(k => { const e = v[k]; if (e && e.category === 'holiday' && e.date) hol[e.date] = { id:k, title:e.title || 'Holiday' }; });
+      holLoaded = true; holBusy = false; cb && cb();
+    }).catch(() => { holBusy = false; });
+  }
+  window.bwsIsHol = d => !!hol[d];
+  window.bwsHolPaint = function () {
+    const el = $('axDateNote'); if (!el) return;
+    if (!holLoaded) holLoad(window.bwsHolPaint);
+    const d = (typeof axDate !== 'undefined') ? axDate : '';
+    let h = '';
+    if (d && d <= axToday() && axIsSunday(d)) h += '<div class="ax-note warn">This date is a Sunday. Only save attendance if school was open.</div>';
+    if (d && hol[d]) h += '<div class="ax-note warn">Holiday: ' + esc(hol[d].title) + '. Attendance is not needed on this day.' + (isAdmin() ? ' <a href="#" style="font-weight:700" onclick="bwsHolDel();return false;">Remove holiday</a>' : '') + '</div>';
+    else if (d && isAdmin()) h += '<a href="#" class="bws-hol-link" onclick="bwsHolAdd();return false;">Mark this date as a holiday</a>';
+    el.innerHTML = h;
+  };
+  window.bwsHolAdd = function () {
+    const d = axDate; if (!d) return;
+    const t = prompt('Holiday name (e.g. Diwali)'); if (!t || !t.trim()) return;
+    const r = db.ref('events').push();
+    r.set({ title:t.trim().slice(0, 80), date:d, category:'holiday', time:'', description:'School closed', createdAt:new Date().toISOString() })
+      .then(() => { hol[d] = { id:r.key, title:t.trim() }; window.bwsHolPaint(); acToast('Holiday saved'); })
+      .catch(e => acToast('Could not save: ' + e.message, 'err'));
+  };
+  window.bwsHolDel = function () {
+    const d = axDate, h = hol[d]; if (!h || !confirm('Remove this holiday?')) return;
+    db.ref('events/' + h.id).remove().then(() => { delete hol[d]; window.bwsHolPaint(); acToast('Holiday removed'); }).catch(e => acToast('Could not remove: ' + e.message, 'err'));
+  };
+  const _attSave = window.attSave;
+  if (typeof _attSave === 'function') window.attSave = function () {
+    if (hol[axDate] && !confirm('This date is marked as a holiday (' + hol[axDate].title + '). Save attendance anyway?')) return;
+    return _attSave.apply(this, arguments);
+  };
+
+  /* ── Low-attendance warning for parents ── */
+  window.bwsLowBanner = function (p, a, l) {
+    const n = p + a + l; if (n < 5) return '';
+    const pct = Math.round((p + (AX_LATE_COUNTS_AS_ATTENDED ? l : 0)) / n * 100);
+    if (pct >= BWS_LOW) return '';
+    return '<div class="ax-note warn" style="margin:10px 0;">\u26A0 Attendance this month is ' + pct + '%, below ' + BWS_LOW + '%. Please make sure your child comes to school regularly.</div>';
+  };
+
+  /* ── Fee reminders (in-app notification to the parent) ── */
+  function frRows() {
+    const c = $('bwsFrClass') && $('bwsFrClass').value;
+    return Object.values(allStudents).filter(s => s && s.class === c).map(s => ({ s, t:stuFeeTotalsBase(s) })).filter(x => x.t.totalDue > 0)
+      .sort((a, b) => String(a.s.name).localeCompare(String(b.s.name)));
+  }
+  window.bwsFrRender = function () {
+    const sel = $('bwsFrClass'); if (!sel) return;
+    if (!sel.options.length) {
+      const cls = [...new Set(Object.values(allStudents).map(s => s && s.class).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric:true }));
+      sel.innerHTML = cls.map(c => '<option>' + esc(c) + '</option>').join('');
+    }
+    const rows = frRows();
+    $('bwsFrList').innerHTML = rows.length ? rows.map(x => '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);"><div><b style="font-size:13px;">' + esc(x.s.name || x.s.username) + '</b><div style="font-size:11.5px;color:var(--muted);">' + inr(x.t.totalDue) + ' due \u00B7 ' + esc(x.t.dueMonths.join(', ')) + '</div></div><button class="btn" data-u="' + esc(x.s.username) + '" onclick="bwsFrOne(this.dataset.u,this)">Remind</button></div>').join('')
+      : '<p class="empty-msg">No pending dues in this class.</p>';
+  };
+  function frSend(u) {
+    const s = allStudents[u], t = s && stuFeeTotalsBase(s); if (!t || !t.totalDue) return Promise.resolve(false);
+    return ncPut({ title:'Fee reminder', body:'A fee of ' + inr(t.totalDue) + ' is pending for ' + t.dueMonths.join(', ') + '. Please pay at school or from the Fees section. \u2013 Better World School',
+      category:'fee', important:true, audience:'student', audienceValue:u, source:'feeRemind' }, 'fr_' + u + '_' + ncDayKey(Date.now()), true).then(() => true);
+  }
+  window.bwsFrOne = function (u, btn) {
+    btn.disabled = true; frSend(u).then(() => { btn.textContent = 'Sent \u2713'; }).catch(e => { btn.disabled = false; acToast('Could not send: ' + e.message, 'err'); });
+  };
+  window.bwsFrAll = function () {
+    const rows = frRows(); if (!rows.length) { acToast('No pending dues in this class.'); return; }
+    if (!confirm('Send a fee reminder to ' + rows.length + ' parent(s)?')) return;
+    Promise.all(rows.map(x => frSend(x.s.username))).then(() => { acToast('Reminders sent'); window.bwsFrRender(); }).catch(e => acToast('Some reminders failed: ' + e.message, 'err'));
+  };
+
+  /* ── Report card ── */
+  const GR = [[90, 'A+'], [80, 'A'], [70, 'B'], [60, 'C'], [40, 'D'], [0, 'E']];
+  const grade = p => p == null ? '-' : GR.find(g => p >= g[0])[1];
+  window.bwsMsgTab = function (id) {
+    document.querySelectorAll('.stu-panel').forEach(p => p.classList.remove('active'));
+    const p = $(id); if (p) { p.classList.add('active'); p.scrollTop = 0; }
+    try { stuNavSync(id); } catch (e) {}
+    if (id === 'sp-complaint') window.bwsCmpStuRender();
+  };
+  window.bwsRC = function (u) {
+    const s = allStudents[u]; if (!s) return;
+    const rows = rArr(s.results).filter(stuHasMarks).sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')));
+    const by = {}; rows.forEach(r => { const k = r.subject || 'General'; (by[k] = by[k] || []).push(r); });
+    let tm = 0, tt = 0;
+    const body = Object.keys(by).sort().map(sub => {
+      let m = 0, t = 0;
+      const tests = by[sub].map(r => { const mk = Number(r.marks) || 0, tot = Number(r.total) || 0; m += mk; t += tot; return '<div class="rc-t"><span>' + esc(r.testName || 'Test') + '</span><span>' + mk + '/' + tot + '</span></div>'; }).join('');
+      tm += m; tt += t; const p = t ? m / t * 100 : null;
+      return '<tr><td><b>' + esc(sub) + '</b>' + tests + '</td><td>' + m + '/' + t + '</td><td>' + (p == null ? '-' : p.toFixed(1) + '%') + '</td><td>' + grade(p) + '</td></tr>';
+    }).join('');
+    const op = tt ? tm / tt * 100 : null, now = new Date(), sy = now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
+    const rem = s.reportRemark && s.reportRemark.text;
+    const old = $('bwsRC'); if (old) old.remove();
+    const d = document.createElement('div'); d.id = 'bwsRC';
+    d.innerHTML = '<div class="rc-w"><div class="rc-btns rc-np"><button class="btn btn-dbprimary" onclick="window.print()">Print / Save PDF</button><button class="btn" onclick="bwsRCClose()">Close</button></div>' +
+      '<div class="rc-h">' + (typeof BWS_LOGO !== 'undefined' ? '<img src="' + BWS_LOGO + '" alt="">' : '') + '<div><h2>Better World School</h2><div style="font-size:13px;color:#555;">Progress Report \u00B7 ' + sy + '\u2013' + String(sy + 1).slice(2) + '</div></div></div>' +
+      '<div class="rc-box"><b>' + esc(s.name || s.username) + '</b> \u00B7 Class ' + esc(s.class || '') + '</div>' +
+      (rows.length ? '<table><tr><th>Subject / tests</th><th>Marks</th><th>%</th><th>Grade</th></tr>' + body + '<tr><th>Overall</th><th>' + tm + '/' + tt + '</th><th>' + (op == null ? '-' : op.toFixed(1) + '%') + '</th><th>' + grade(op) + '</th></tr></table>' : '<div class="rc-box">No marks have been entered yet.</div>') +
+      '<div class="rc-box" id="bwsRCatt">Attendance: loading\u2026</div>' +
+      '<div class="rc-box"><b>Teacher\'s remark:</b> ' + (rem ? esc(rem) : '\u2014') + '</div>' +
+      '<div class="rc-sig"><span>Class Teacher</span><span>Parent</span><span>Principal</span></div>' +
+      '<p style="font-size:10.5px;color:#777;margin-top:18px;">Grades: A+ 90%+, A 80%+, B 70%+, C 60%+, D 40%+, E below 40%.</p></div>';
+    document.body.appendChild(d); document.body.classList.add('bws-rc-on');
+    const from = sy + '-04-01', to = axToday();
+    axFetchRange(s.class, from, to).then(data => {
+      let p = 0, a = 0, l = 0;
+      Object.keys(data || {}).forEach(k => { const r = data[k] && data[k][u]; if (!r) return; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; });
+      const n = p + a + l, el = $('bwsRCatt');
+      if (el) el.innerHTML = n ? '<b>Attendance:</b> ' + Math.round((p + l) / n * 100) + '% (' + (p + l) + ' of ' + n + ' days)' : '<b>Attendance:</b> not recorded yet';
+    }).catch(() => { const el = $('bwsRCatt'); if (el) el.innerHTML = '<b>Attendance:</b> not available'; });
+  };
+  window.bwsRCClose = function () { const d = $('bwsRC'); if (d) d.remove(); document.body.classList.remove('bws-rc-on'); };
+  window.bwsRcFill = function () {
+    const cs = $('bwsRcClass'); if (!cs) return;
+    if (!cs.options.length) cs.innerHTML = getAllowedClasses().slice().sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric:true })).map(c => '<option>' + esc(c) + '</option>').join('');
+    $('bwsRcStu').innerHTML = acStudentsOf(cs.value).map(s => '<option value="' + esc(s.username) + '">' + esc(s.name || s.username) + '</option>').join('');
+    window.bwsRcLoad();
+  };
+  window.bwsRcLoad = function () { const u = $('bwsRcStu').value, s = allStudents[u]; $('bwsRcRemark').value = (s && s.reportRemark && s.reportRemark.text) || ''; };
+  window.bwsRcSave = function () {
+    const u = $('bwsRcStu').value; if (!u) return;
+    db.ref('students/' + u + '/reportRemark').set({ text:$('bwsRcRemark').value.trim().slice(0, 300), by:(curAdminData && curAdminData.name) || 'Admin', at:Date.now() })
+      .then(() => acToast('Remark saved')).catch(e => acToast('Could not save: ' + e.message, 'err'));
+  };
+  window.bwsRcOpen = function () { const u = $('bwsRcStu').value; if (u) window.bwsRC(u); };
+
+  /* ── Complaint box (data kept under complaints/{student}/{id}) ── */
+  window.bwsCmpStuRender = function () {
+    const u = curUser, el = $('cmpMine'); if (!el) return;
+    db.ref('complaints/' + u).once('value').then(sn => {
+      const v = sn.val() || {}, arr = Object.keys(v).map(k => Object.assign({ id:k }, v[k])).sort((a, b) => b.at - a.at);
+      el.innerHTML = '<div class="p-title" style="font-size:13px;margin-bottom:8px;">Your messages</div>' + (arr.length ? arr.map(c =>
+        '<div style="padding:9px 0;border-top:1px solid var(--line);font-size:13px;"><div style="font-size:11px;color:var(--muted);">' + esc(c.category) + ' \u00B7 ' + new Date(c.at).toLocaleDateString('en-IN') + ' \u00B7 <b>' + (c.status === 'resolved' ? 'Resolved' : c.status === 'seen' ? 'Seen' : 'Sent') + '</b></div>' + esc(c.text) +
+        (c.reply ? '<div style="margin-top:6px;padding:8px;background:var(--surface-2);border-radius:8px;"><b>School:</b> ' + esc(c.reply) + '</div>' : '') + '</div>').join('') : '<p class="empty-msg">Nothing sent yet.</p>');
+    }).catch(() => { el.innerHTML = '<p class="empty-msg">Could not load. Please check your internet.</p>'; });
+  };
+  window.bwsCmpSubmit = function () {
+    const s = allStudents[curUser], t = $('cmpText').value.trim(); if (!s) return;
+    if (t.length < 5) { alert('Please write your message.'); return; }
+    db.ref('complaints/' + curUser).push({ student:curUser, name:s.name || curUser, class:s.class || '', category:$('cmpCat').value, text:t.slice(0, 500), status:'new', at:Date.now() })
+      .then(() => { $('cmpText').value = ''; window.bwsCmpStuRender(); alert('Your message has been sent to the school.'); })
+      .catch(() => alert('Could not send. Please try again.'));
+  };
+  window.bwsCmpAdminRender = function () {
+    const el = $('bwsCmpList'); if (!el) return; el.innerHTML = '<p class="empty-msg">Loading\u2026</p>';
+    db.ref('complaints').once('value').then(sn => {
+      const v = sn.val() || {}, all = [];
+      Object.keys(v).forEach(u => Object.keys(v[u] || {}).forEach(k => all.push(Object.assign({ id:k, u }, v[u][k]))));
+      all.sort((a, b) => b.at - a.at);
+      el.innerHTML = all.length ? all.map(c => '<div style="padding:10px 0;border-top:1px solid var(--line);font-size:13px;"><div style="font-size:11.5px;color:var(--muted);">' + esc(c.name) + ' \u00B7 ' + esc(c.class) + ' \u00B7 ' + esc(c.category) + ' \u00B7 ' + new Date(c.at).toLocaleDateString('en-IN') + ' \u00B7 <b>' + esc(c.status) + '</b></div>' + esc(c.text) +
+        (c.reply ? '<div style="margin-top:6px;padding:8px;background:var(--surface-2);border-radius:8px;"><b>Reply:</b> ' + esc(c.reply) + '</div>' : '') +
+        '<div style="display:flex;gap:8px;margin-top:8px;"><button class="btn" data-u="' + esc(c.u) + '" data-k="' + esc(c.id) + '" onclick="bwsCmpReply(this.dataset.u,this.dataset.k)">Reply &amp; resolve</button>' + (c.status === 'new' ? '<button class="btn" data-u="' + esc(c.u) + '" data-k="' + esc(c.id) + '" onclick="bwsCmpSeen(this.dataset.u,this.dataset.k)">Mark seen</button>' : '') + '</div></div>').join('') : '<p class="empty-msg">No complaints yet.</p>';
+    }).catch(e => { el.innerHTML = '<p class="empty-msg">Could not load: ' + esc(e.message) + '</p>'; });
+  };
+  window.bwsCmpSeen = function (u, k) { db.ref('complaints/' + u + '/' + k + '/status').set('seen').then(window.bwsCmpAdminRender); };
+  window.bwsCmpReply = function (u, k) {
+    const r = prompt('Reply to the parent'); if (!r || !r.trim()) return;
+    db.ref('complaints/' + u + '/' + k).update({ status:'resolved', reply:r.trim().slice(0, 400), repliedAt:Date.now() }).then(() => {
+      ncPut({ title:'Reply to your complaint', body:r.trim().slice(0, 400), category:'notice', audience:'student', audienceValue:u, source:'complaint' });
+      window.bwsCmpAdminRender();
+    }).catch(e => acToast('Could not save: ' + e.message, 'err'));
+  };
+
+  /* ── hooks into existing navigation ── */
+  const _oss = openStuSection;
+  openStuSection = function (id) { const r = _oss.apply(this, arguments); if (id === 'sp-complaint') window.bwsCmpStuRender(); return r; };
+  const _sat = switchAdminTab;
+  switchAdminTab = function (id) {
+    const r = _sat.apply(this, arguments);
+    try {
+      if (id === 'at-dashfee') window.bwsFrRender();
+      if (id === 'at-complaints') window.bwsCmpAdminRender();
+      if (id === 'at-reportcard') window.bwsRcFill();
+    } catch (e) { console.error(e); }
+    return r;
+  };
+
+  /* ── Study material link helper ── */
+  document.addEventListener('input', e => {
+    const inp = e.target; if (!inp || inp.id !== 'smFileUrl') return;
+    let h = $('bwsSmHint');
+    if (!h) { h = document.createElement('div'); h.id = 'bwsSmHint'; h.style.cssText = 'font-size:12px;line-height:1.4;margin:5px 0 8px;'; inp.insertAdjacentElement('afterend', h); }
+    const v = inp.value.trim(); let m = '', ok = true;
+    if (!v) m = '';
+    else if (/drive\.google\.com\/(file\/d\/|open\?id=|uc\?)/.test(v)) m = '\u2713 Google Drive file. Set sharing to \u201CAnyone with the link\u201D so students can open it.';
+    else if (/drive\.google\.com\/drive\/folders\//.test(v)) m = '\u2713 Google Drive folder. Set sharing to \u201CAnyone with the link\u201D.';
+    else if (/docs\.google\.com\/(document|presentation|spreadsheets|forms)\//.test(v)) m = '\u2713 Google Docs / Slides / Sheets link. Set sharing to \u201CAnyone with the link\u201D.';
+    else if (/(youtube\.com|youtu\.be)\//.test(v)) m = '\u2713 YouTube video link.';
+    else if (/^https?:\/\//.test(v)) m = '\u2713 Web link.';
+    else { m = 'Paste the full link, starting with https://'; ok = false; }
+    h.style.color = ok ? '#188038' : '#D93025'; h.textContent = m;
+  });
+
+  /* ── Hindi (translates the main parent/student screens; English is the default) ── */
+  const HI = { 'Home':'होम', 'Academics':'पढ़ाई', 'Attendance':'उपस्थिति', 'Fees':'फ़ीस', 'More':'और', 'Notifications':'सूचनाएँ', 'Timetable':'समय सारणी', 'Leave':'छुट्टी', 'Doubts':'प्रश्न', 'Messages':'संदेश', 'Ask a teacher':'शिक्षक से पूछें', 'Complaint / suggestion':'शिकायत / सुझाव', 'Profile':'प्रोफ़ाइल', 'Help / About':'सहायता', 'About / Help':'सहायता', 'Log out':'लॉग आउट',
+    'Results':'परिणाम', 'Results & Progress':'परिणाम और प्रगति', 'Study Material':'अध्ययन सामग्री', 'Exams':'परीक्षाएँ', 'Present':'उपस्थित', 'Absent':'अनुपस्थित', 'Late':'देर से', 'Not recorded':'दर्ज नहीं', 'This month':'इस महीने',
+    'Apply for Leave':'छुट्टी का आवेदन', 'From Date':'आरंभ तिथि', 'To Date':'अंतिम तिथि', 'Reason':'कारण', 'Submit Request':'आवेदन भेजें', 'Your Leave Requests':'आपके छुट्टी आवेदन', 'Recent exams':'हाल की परीक्षाएँ',
+    'Subject-wise test details':'विषयवार परीक्षा विवरण', 'Progress over time':'समय के साथ प्रगति', 'Report card (print / save PDF)':'रिपोर्ट कार्ड (प्रिंट / PDF)', 'Complaint / Suggestion':'शिकायत / सुझाव', 'Complaint box':'शिकायत पेटी',
+    'Send a complaint or suggestion':'शिकायत या सुझाव भेजें', 'Your messages':'आपके संदेश', 'Send':'भेजें', 'Message':'संदेश', 'About':'विषय', 'Teaching':'पढ़ाई', 'Other':'अन्य', 'Pending':'लंबित', 'Approved':'स्वीकृत', 'Declined':'अस्वीकृत', 'Paid':'भुगतान हुआ', 'Due':'बकाया',
+    'Student details and password':'छात्र विवरण और पासवर्ड', 'Daily class schedule':'दैनिक समय सारणी', 'Apply for leave and see decisions':'छुट्टी का आवेदन करें', 'Ask a teacher a question':'शिक्षक से प्रश्न पूछें', 'School notices and updates':'स्कूल की सूचनाएँ', 'How to use this app':'ऐप कैसे उपयोग करें' };
+  let lang = 'en'; try { lang = localStorage.getItem('bwsLang') || 'en'; } catch (e) {}
+  const orig = new WeakMap();
+  function tr(root) {
+    if (!root) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), list = []; let n;
+    while ((n = w.nextNode())) { if (!/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName)) list.push(n); }
+    list.forEach(n => {
+      const raw = n.nodeValue, t = raw.trim(); if (!t) return;
+      if (lang === 'hi') { const h = HI[t]; if (h) { const nv = raw.replace(t, h); orig.set(n, [raw, nv]); n.nodeValue = nv; } }
+      else { const o = orig.get(n); if (o && n.nodeValue === o[1]) n.nodeValue = o[0]; orig.delete(n); }
+    });
+  }
+  window.bwsLangLabel = () => lang === 'hi' ? 'View in English' : 'हिन्दी में देखें';
+  window.bwsLangToggle = function () {
+    lang = lang === 'hi' ? 'en' : 'hi'; try { localStorage.setItem('bwsLang', lang); } catch (e) {}
+    document.documentElement.lang = lang; tr(document.body);
+    const b = $('bwsLangBtn'); if (b) b.textContent = window.bwsLangLabel();
+  };
+  new MutationObserver(ms => {
+    if (lang !== 'hi') return;
+    ms.forEach(m => { m.addedNodes.forEach(a => { if (a.nodeType === 1) tr(a); else if (a.nodeType === 3 && a.parentNode) tr(a.parentNode); }); });
+  }).observe(document.body, { childList:true, subtree:true });
+  if (lang === 'hi') { document.documentElement.lang = 'hi'; tr(document.body); }
+})();
+
+</script>
+<script>
+/* ═══ BWS v21: role-based sign-in, per-user data loading, account sync ═══
+   roles/<email with . as ,> = { r:'admin'|'teacher'|'student', u:username, sibs:{...} }  (written only by the admin app)
+   The Firebase sign-in email already contains a fingerprint of the password, so a matching roles entry proves the password.   */
+(function () {
+  const $ = id => document.getElementById(id);
+  let ROLE = null, ME = null, SIBS = [], bootP = null, typedUser = null, listening = false;
+  const keyOf = e => String(e).replace(/\./g, ',');
+  const isAdminRole = () => ROLE === 'admin' || ROLE === 'legacy';
+
+  async function loadRole(email) {
+    try { return (await db.ref('roles/' + keyOf(email)).once('value')).val(); } catch (e) { return null; }
+  }
+  async function legacyAdminPass() {
+    try { return (await db.ref('config/adminPass').once('value')).val() || 'admin123'; } catch (e) { return null; }
+  }
+
+  /* start the listeners once, and only after the role is known */
+  const _sdl = startDbListeners;
+  window.startDbListeners = function () { if (listening) return; listening = true; return _sdl.apply(this, arguments); };
+
+  window.proceedOnce = function (reason) {
+    if (authSettled) return; authSettled = true;
+    window.__bwsAuthReason = reason || '';
+    bootP = (async () => {
+      const u = auth.currentUser; if (!u) { authSettled = false; return; }
+      const r = await loadRole(u.email);
+      if (r && r.r) {
+        ROLE = r.r; ME = r.u; SIBS = Object.keys(r.sibs || {}); if (ME && !SIBS.includes(ME)) SIBS.push(ME);
+        startDbListeners(); return;
+      }
+      ROLE = 'none';
+      const sv = getSavedSession(), who = String(typedUser || (sv && sv.user) || '').toLowerCase();
+      if (who === 'admin' && !typedUser) { ROLE = 'legacy'; startDbListeners(); }       // first run after upgrade (roles not created yet)
+      else if (!typedUser) { try { await auth.signOut(); } catch (e) {} authSettled = false; ROLE = null; }
+    })();
+  };
+
+  /* data wrappers used inside startDbListeners */
+  window.bwsStudentsRef = function () {
+    if (ROLE === 'student') {
+      return { on(ev, cb, eb) {
+        const store = {};
+        (SIBS.length ? SIBS : [ME]).forEach(k => db.ref('students/' + k).on('value', sn => {
+          if (sn.val()) store[k] = sn.val(); else delete store[k];
+          cb({ val: () => Object.assign({}, store) });
+        }, e => { if (eb) eb(e); }));
+      } };
+    }
+    return { on(ev, cb, eb) { return db.ref('students').on(ev, sn => { cb(sn); window.bwsSyncSoon(); }, eb); } };
+  };
+  window.bwsAdminPassRef = function () {
+    if (!isAdminRole()) return { on(ev, cb) { cb({ val: () => null }); } };
+    return { on(ev, cb, eb) { return db.ref('config/adminPass').on(ev, sn => { cb(sn); window.bwsSyncSoon(); }, eb); } };
+  };
+  window.bwsAdminsRef = function () {
+    if (isAdminRole()) return { on(ev, cb, eb) { return db.ref('admins').on(ev, sn => { cb(sn); window.bwsSyncSoon(); }, eb); } };
+    if (ROLE === 'teacher') return { on(ev, cb, eb) { return db.ref('admins/' + ME).on(ev, sn => { const v = sn.val(); cb({ val: () => v ? { [ME]: v } : {} }); }, eb); } };
+    return { on(ev, cb) { cb({ val: () => ({}) }); } };
+  };
+  /* text typed by students is shown as plain text, never as HTML */
+  window.bwsClean = function c(v) {
+    if (typeof v === 'string') return v.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    if (Array.isArray(v)) return v.map(c);
+    if (v && typeof v === 'object') { const o = {}; Object.keys(v).forEach(k => { o[k] = c(v[k]); }); return o; }
+    return v;
+  };
+
+  /* enter the portal for the already-verified role */
+  function enter(pass) {
+    const err = $('loginErr'); if (err) err.style.display = 'none';
+    if (isAdminRole()) {
+      curUser = 'admin'; curAdminData = null; if (pass != null) saveSession('admin', pass); openAdminPanel(); return true;
+    }
+    if (ROLE === 'teacher') {
+      const a = allSubAdmins[ME]; if (!a) return false;
+      curUser = ME; curAdminData = a; if (pass != null) saveSession(ME, pass); openAdminPanel(); try { logActivity('login', a.name + ' logged in'); } catch (e) {} return true;
+    }
+    if (ROLE === 'student') {
+      const st = allStudents[ME]; if (!st) return false;
+      curUser = ME; curAdminData = null; if (pass != null) saveSession(ME, pass);
+      $('portal-login').style.display = 'none'; $('stu-portal').style.display = 'block';
+      const hd = $('portalHeader'); if (hd) hd.style.display = 'none';
+      document.body.classList.add('bws-intro'); setTimeout(() => document.body.classList.remove('bws-intro'), 1400);
+      renderStudentPortal(st); return true;
+    }
+    return false;
+  }
+
+  window.handleLogin = async function () {
+    if (bwsLoginBusy) return;
+    const user = $('loginUser').value.trim(), pass = $('loginPass').value, err = $('loginErr');
+    if (!user || !pass) { if (err) err.style.display = 'block'; return; }
+    if (!(window.crypto && crypto.subtle)) { alert('Sign in needs a secure (https) connection.'); return; }
+    const lk = bwsLockLeft(); if (lk) { alert('Too many wrong attempts. Please try again in ' + lk + ' minute' + (lk > 1 ? 's' : '') + '.'); return; }
+    bwsLoginBusy = true; typedUser = user;
+    try {
+      const h = await bwsHash(pass), email = bwsFbEmail(user, h), fbPw = 'bws#' + pass;
+      let created = false;
+      if (!(auth.currentUser && auth.currentUser.email === email)) {
+        try { await auth.signInWithEmailAndPassword(email, fbPw); }
+        catch (e) { if (!BWS_AUTH_MISSING.includes(e.code)) throw e; await auth.createUserWithEmailAndPassword(email, fbPw); created = true; }
+      }
+      proceedOnce(); await bootP;
+      if (ROLE === 'none' && user.toLowerCase() === 'admin') {          // one-time bootstrap before roles exist
+        const ap = await legacyAdminPass();
+        if (ap != null && String(pass) === String(ap)) { ROLE = 'legacy'; startDbListeners(); }
+      }
+      let ok = false;
+      if (ROLE && ROLE !== 'none') { await bwsWaitForData(8000); ok = enter(pass); }
+      if (ok) bwsLockClear();
+      else {
+        bwsLockFail(); if (err) err.style.display = 'block';
+        try { if (created && auth.currentUser) await auth.currentUser.delete(); } catch (e) {}
+        try { await auth.signOut(); } catch (e) {}
+        if (listening) location.reload(); else { ROLE = null; authSettled = false; bootP = null; }
+      }
+    } catch (e) {
+      console.error('Sign-in failed:', e.code, e.message);
+      if (e.code === 'auth/network-request-failed') alert('No internet connection. Please try again.');
+      else if (e.code === 'auth/operation-not-allowed') alert('Email/Password sign-in is not enabled in Firebase yet.');
+      else if (e.code === 'auth/too-many-requests') alert('Too many attempts. Please wait a few minutes and try again.');
+      else if (err) err.style.display = 'block';
+    } finally { bwsLoginBusy = false; typedUser = null; }
+  };
+
+  /* silent sign-in when the device still has a Firebase session */
+  window.tryAutoLogin = function () {
+    if (curUser || typedUser) return;
+    const sv = getSavedSession(); if (!sv || !sv.user) return;
+    if (ROLE === 'legacy') { if (sv.h) bwsHash(String(adminPass)).then(h => { if (h === sv.h) enter(null); else clearSession(); }); return; }
+    if (ROLE && ROLE !== 'none') enter(null);
+  };
+  window.bwsEarlyEnter = function () {              // open the saved account as soon as its own data has arrived
+    if (curUser || typedUser || !ROLE || ROLE === 'none' || ROLE === 'legacy') return false;
+    if (!getSavedSession()) return false;
+    if (ROLE === 'student' && !allStudents[ME]) return false;
+    if (ROLE !== 'student' && (readyCount < 4 || (ROLE === 'teacher' && !allSubAdmins[ME]))) return false;
+    return enter(null);
+  };
+  window.attemptLogin = function () { return false; };    // old browser-side password check is gone
+
+  /* ── keep roles/ in step with the passwords the admin manages (admin app only) ── */
+  const stable = v => JSON.stringify(v, (k, x) => (x && typeof x === 'object' && !Array.isArray(x)) ? Object.keys(x).sort().reduce((o, y) => (o[y] = x[y], o), {}) : x);
+  let syncT = null, syncBusy = false;
+  window.bwsSyncSoon = function () {
+    if (!isAdminRole()) return; clearTimeout(syncT); syncT = setTimeout(window.bwsSyncRoles, 2500);
+  };
+  window.bwsSyncRoles = async function () {
+    if (!isAdminRole() || syncBusy) return;
+    if (readyCount < 4 || acLoaded.students !== true) { window.bwsSyncSoon(); return; }
+    syncBusy = true;
+    try {
+      const want = {}, put = async (u, pw, val) => { if (pw == null || pw === '') return; want[keyOf(bwsFbEmail(u, await bwsHash(String(pw))))] = val; };
+      await put('admin', adminPass, { r:'admin', u:'admin' });
+      for (const k of Object.keys(allSubAdmins)) await put(k, allSubAdmins[k] && allSubAdmins[k].password, { r:'teacher', u:k });
+      const fam = {};
+      Object.keys(allStudents).forEach(k => { const f = allStudents[k] && allStudents[k].familyId; if (f) (fam[f] = fam[f] || []).push(k); });
+      for (const k of Object.keys(allStudents)) {
+        const st = allStudents[k]; if (!st) continue;
+        const sibs = {}; (st.familyId ? fam[st.familyId] : [k]).forEach(x => { sibs[x] = true; }); sibs[k] = true;
+        await put(k, st.password, { r:'student', u:k, sibs });
+      }
+      const cur = (await db.ref('roles').once('value')).val() || {}, mine = auth.currentUser ? keyOf(auth.currentUser.email) : '';
+      const upd = {}; let writes = 0, removes = 0;
+      Object.keys(want).forEach(k => { if (stable(cur[k]) !== stable(want[k])) { upd[k] = want[k]; writes++; } });
+      Object.keys(cur).forEach(k => { if (!want[k] && k !== mine) { upd[k] = null; removes++; } });
+      if (removes > 5 && removes > Object.keys(cur).length * 0.3) { console.warn('roles sync stopped: too many removals', removes); return; }   // safety net
+      if (writes + removes) await db.ref('roles').update(upd);
+      let done = false; try { done = localStorage.getItem('bwsSecDone') === '1'; } catch (e) {}
+      if (!done) {
+        try { localStorage.setItem('bwsSecDone', '1'); } catch (e) {}
+        alert('Security setup is ready: ' + Object.keys(allStudents).length + ' students, ' + Object.keys(allSubAdmins).length + ' teachers and the admin account are registered. You can now publish the new database rules.');
+      }
+    } catch (e) { console.warn('roles sync failed:', e && e.message); }
+    finally { syncBusy = false; }
+  };
+})();
+
+</script>
 </body>
 </html>
