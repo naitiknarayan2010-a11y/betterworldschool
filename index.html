@@ -3036,6 +3036,28 @@ body.dark-mode .btn-hp,body.dark-mode .nav-btn,body.dark-mode .testi-av,body.dar
 body.dark-mode .testi-quote{color:#6AA3F5!important;}
 body.dark-mode .fab-tooltip{color:#E8EAED!important;background:#172338!important;border:1px solid #263449;}
 </style>
+<style id="bws-app-feel">
+/* Make it feel like an app, not a web page */
+*{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;}
+html,body{-webkit-user-select:none;user-select:none;overscroll-behavior-y:none;}
+input,textarea,select,[contenteditable="true"],.bws-selectable{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default;}
+a,button,[onclick],.tab,.pill{outline:none;}
+:focus:not(:focus-visible){outline:none;}
+img{-webkit-user-drag:none;user-drag:none;}
+</style>
+<style id="bws-v24">
+html{-webkit-tap-highlight-color:transparent;}
+body:not(.bws-staff){-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+body:not(.bws-staff) input,body:not(.bws-staff) textarea,body:not(.bws-staff) select,body:not(.bws-staff) .selectable{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default;}
+img{-webkit-user-drag:none;}
+body.dark-mode .pn-card.muted{background:var(--db-card,#111A2B);}
+body.dark-mode .fee-paid-chip{background:rgba(129,201,149,.16);color:#81C995;border-color:rgba(129,201,149,.3);}
+body.dark-mode .fee-due-chip{background:rgba(242,139,130,.16);color:#F28B82;border-color:rgba(242,139,130,.3);}
+body.dark-mode .fee-partial-chip{background:rgba(253,214,99,.16);color:#FDD663;border-color:rgba(253,214,99,.3);}
+body.dark-mode .pn-fee-lbl,body.dark-mode .pn-card-m.warn{color:#FDD663;}
+body.dark-mode .pn-fee-hero.ok .pn-fee-lbl,body.dark-mode .pn-card-m.live{color:#81C995;}
+body.dark-mode .pn-t-sub{color:#AEB4BB;}
+</style>
 </head>
 <body>
     
@@ -3962,6 +3984,7 @@ body.dark-mode .fab-tooltip{color:#E8EAED!important;background:#172338!important
 
     <!-- ── TAB: DOUBTS ── -->
     <div class="stu-panel" id="sp-complaint"><div class="bws-seg" role="tablist"><button type="button" role="tab" class="" onclick="bwsMsgTab('sp-doubts')">Ask a teacher</button><button type="button" role="tab" class="on" onclick="bwsMsgTab('sp-complaint')">Complaint / suggestion</button></div><div class="p-card"><div class="p-title" style="font-size:14px;">Complaint / Suggestion</div><p style="font-size:12px;color:var(--muted);margin:4px 0 8px;">Your message goes to the school office. Replies appear below.</p><label class="p-lbl">About</label><select id="cmpCat"><option value="Teaching">Teaching</option><option value="Fees">Fees</option><option value="Facilities / Safety">Facilities / Safety</option><option value="Other">Other</option></select><label class="p-lbl">Message</label><textarea id="cmpText" rows="4" maxlength="500" placeholder="Write here"></textarea><button class="btn btn-dbprimary" onclick="bwsCmpSubmit()">Send</button></div><div class="p-card" id="cmpMine"></div></div>
+    <div class="stu-panel" id="sp-datesheet"><div class="p-card"><div class="p-title" style="font-size:14px;">Date sheet</div><p style="font-size:12px;color:var(--muted);margin:4px 0 8px;">Exam and test dates for your class.</p><div id="dsList"></div></div></div>
     <div class="stu-panel" id="sp-doubts">
 <div class="bws-seg" role="tablist"><button type="button" role="tab" class="on" onclick="bwsMsgTab('sp-doubts')">Ask a teacher</button><button type="button" role="tab" class="" onclick="bwsMsgTab('sp-complaint')">Complaint / suggestion</button></div>
       <div class="p-card">
@@ -4358,7 +4381,7 @@ body.dark-mode .fab-tooltip{color:#E8EAED!important;background:#172338!important
       <!-- TAB: DASHBOARD & FEES EDITOR -->
       <div id="at-dashfee" class="at-p" style="display:none;">
 
-        <div class="p-card" id="bwsFrCard"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Fee reminders</div><div class="row2"><div><label class="p-lbl">Class</label><select id="bwsFrClass" onchange="bwsFrRender()"></select></div><div style="display:flex;align-items:flex-end;"><button class="btn btn-dbprimary" onclick="bwsFrAll()">Remind all</button></div></div><div id="bwsFrList"></div></div>
+        <div class="p-card" id="bwsFrCard"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Fee reminders</div><div class="row2"><div><label class="p-lbl">Class</label><select id="bwsFrClass" onchange="bwsFrRender()"></select></div><div style="display:flex;align-items:flex-end;"><button class="btn btn-dbprimary" onclick="bwsFrAll()">Remind all</button><button class="btn" style="margin-left:6px;" onclick="bwsDuesCsv()">Dues CSV</button></div></div><div id="bwsFrList"></div></div>
         <!-- Pending UPI payment claims from parents -->
         <div class="p-card" id="paymentClaimsCard" style="display:none;">
           <div class="p-title" style="font-size:14px;"><span data-icon="credit-card" data-icon-size="16" style="vertical-align:-3px;margin-right:6px;"></span>Payment Claims Awaiting Confirmation</div>
@@ -4550,8 +4573,11 @@ body.dark-mode .fab-tooltip{color:#E8EAED!important;background:#172338!important
         </div>
       </div>
 
+      <div id="at-school" class="at-p" style="display:none;"><div class="p-card"><div class="p-title" style="font-size:14px;margin-bottom:8px;">School settings</div><div class="row2"><div><label class="p-lbl">Academic session</label><input id="scSession" placeholder="2026-27" maxlength="12"></div><div><label class="p-lbl">Session starts in</label><select id="scStartMonth"></select></div></div><label class="p-lbl">Grading scale (one per line: minimum % then grade)</label><textarea id="scGrades" rows="6" placeholder="90 A+"></textarea><label class="p-lbl">Subjects per class (one class per line)</label><textarea id="scSubjects" rows="6" placeholder="10: Maths, Science, English, SST, Hindi"></textarea><label class="p-lbl">Fees per class (one per line: class: monthly fee, annual fee)</label><textarea id="scFees" rows="5" placeholder="10: 1500, 2000"></textarea><button class="btn btn-dbprimary" onclick="bwsSchoolSave()">Save settings</button><button class="pn-btn" onclick="bwsApplyClassFees()">Apply class fees to students</button></div></div>
       <div id="at-complaints" class="at-p" style="display:none;"><div class="p-card"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Parent complaints</div><div id="bwsCmpList"></div></div></div>
       <div id="at-reportcard" class="at-p" style="display:none;"><div class="p-card"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Report card</div><div class="row2"><div><label class="p-lbl">Class</label><select id="bwsRcClass" onchange="bwsRcFill()"></select></div><div><label class="p-lbl">Student</label><select id="bwsRcStu" onchange="bwsRcLoad()"></select></div></div><label class="p-lbl">Teacher's remark</label><textarea id="bwsRcRemark" rows="3" maxlength="300" placeholder="e.g. Good progress. Needs more practice in Maths."></textarea><button class="btn btn-dbprimary" onclick="bwsRcSave()">Save remark</button><button class="pn-btn" onclick="bwsRcOpen()">Open report card</button></div></div>
+      <div id="at-risk" class="at-p" style="display:none;"><div class="p-card"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Students at risk</div><p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Last 30 days: attendance below 75%, average marks below 40%, or fees pending for 2+ months (fees shown to the primary admin only). Tap WhatsApp to message the parent.</p><label class="p-lbl">Class</label><select id="bwsRkClass" onchange="bwsRiskRender()"></select><div id="bwsRkList"></div></div></div>
+      <div id="at-weekly" class="at-p" style="display:none;"><div class="p-card"><div class="p-title" style="font-size:14px;margin-bottom:8px;">Weekly parent update</div><p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Last 7 days of attendance and tests for each student. WhatsApp opens with the message ready; you press Send.</p><label class="p-lbl">Class</label><select id="bwsWkClass" onchange="bwsWeeklyRender()"></select><div id="bwsWkList"></div></div></div>
       <div id="at-timetable" class="at-p" style="display:none;">
         <div class="p-card">
           <div class="p-title" style="font-size:14px;">Class Timetable</div>
@@ -4790,6 +4816,8 @@ body.dark-mode .fab-tooltip{color:#E8EAED!important;background:#172338!important
               <div><label class="p-lbl">Event Date</label><input type="date" id="evtDate"></div>
               <div><label class="p-lbl">Time (optional)</label><input id="evtTime" placeholder="e.g. 10:00 AM"></div>
             </div>
+            <label class="p-lbl">For class (optional, for exam date sheets)</label>
+            <select id="evtClass"><option value="">All classes</option></select>
             <label class="p-lbl">Description</label>
             <textarea id="evtDesc" rows="2" placeholder="Brief description of the event…"></textarea>
             <button class="btn btn-dbprimary" onclick="addEvent()">Add Event →</button>
@@ -5824,13 +5852,13 @@ const STU_TAB_OF = {
   'sp-academics':'academics', 'sp-study':'academics', 'sp-quiz':'academics', 'sp-exams':'academics', 'sp-results':'academics',
   'sp-overview':'academics', 'sp-subjects':'academics', 'sp-progress':'academics',
   'sp-attendance':'attendance', 'sp-fees':'fees',
-  'sp-more':'more', 'sp-notices':'more', 'sp-leave':'more', 'sp-dashboard':'more', 'sp-help':'more', 'sp-timetable':'more', 'sp-doubts':'more', 'sp-complaint':'more'
+  'sp-more':'more', 'sp-notices':'more', 'sp-leave':'more', 'sp-dashboard':'more', 'sp-help':'more', 'sp-timetable':'more', 'sp-doubts':'more', 'sp-complaint':'more', 'sp-datesheet':'more'
 };
 const STU_LABEL_OF = {
   'sp-academics':'Academics', 'sp-study':'Study Material', 'sp-quiz':'Exams', 'sp-exams':'Exams', 'sp-results':'Results',
   'sp-timetable':'Timetable', 'sp-overview':'Overview', 'sp-subjects':'Subject details', 'sp-progress':'Progress over time', 'sp-doubts':'Messages',
   'sp-attendance':'Attendance', 'sp-fees':'Fees', 'sp-more':'More', 'sp-notices':'Notifications', 'sp-leave':'Leave',
-  'sp-dashboard':'Profile', 'sp-help':'About / Help', 'sp-complaint':'Messages'
+  'sp-dashboard':'Profile', 'sp-help':'About / Help', 'sp-complaint':'Messages', 'sp-datesheet':'Date sheet'
 };
 
 const stuMoney = n => '₹' + Number(n || 0).toLocaleString('en-IN');
@@ -6014,6 +6042,7 @@ function stuMoreRender() {
     R('clock', 'n', 'Timetable', 'Daily class schedule', 'sp-timetable', 'Timetable') +
     R('calendar-x', 'r', 'Leave', 'Apply for leave and see decisions', 'sp-leave', 'Leave') +
     R('help-circle', 'b', 'Messages', 'Ask a teacher or send a complaint', 'sp-doubts', 'Messages') +
+    R('clipboard', 'g', 'Date sheet', 'Exam dates for your class', 'sp-datesheet', 'Date sheet') +
         R('user', 'n', 'Profile', 'Student details and password', 'sp-dashboard', 'Profile') +
     R('info', 'n', 'Help / About', 'How to use this app', 'sp-help', 'Help / About') +
     `</div><button type="button" class="pn-btn" id="bwsLangBtn" onclick="bwsLangToggle()">${window.bwsLangLabel ? window.bwsLangLabel() : 'हिन्दी में देखें'}</button><button class="pn-logout" type="button" onclick="doLogout()">Log out</button>`;
@@ -6207,7 +6236,7 @@ function stuRenderUpcoming() {
   const el = document.getElementById('dashUpcomingList'); if (!el) return;
   if (stuEvState === 'error') { el.innerHTML = '<div class="pn-empty">Couldn’t load school events.<br><button type="button" class="pn-retry" data-pnretry="events">Retry</button></div>'; return; }
   if (stuEvState !== 'ok') { el.innerHTML = '<div class="pn-loading">Loading school events…</div>'; return; }
-  const events = (stuEvCache.list || []).filter(e => e !== stuExamEvUsed).slice(0, 3);
+  const events = (stuEvCache.list || []).filter(e => e !== stuExamEvUsed && window.bwsEvFor(e)).slice(0, 3);
   if (!events.length) { el.innerHTML = '<div class="pn-empty">Nothing is scheduled right now.</div>'; return; }
   el.innerHTML = events.map(e => {
     const d = new Date(e.date);
@@ -6246,7 +6275,7 @@ function stuFillExamCard(stu) {
     `role="button" tabindex="0" data-pngo="sp-exams" data-label="Exams" data-exam="${axEsc(ex.id)}"`); return; }
   const evOk = stuEvState === 'ok', evErr = stuEvState === 'error';
   if (evOk) {
-    const ev = (stuEvCache.list || []).find(e => e.category === 'academic');
+    const ev = (stuEvCache.list || []).find(e => e.category === 'academic' && window.bwsEvFor(e));
     if (ev) { const d = new Date(ev.date); stuExamEvUsed = ev;
       el.innerHTML = card(`<div class="pn-card-t">${axEsc(ev.title || 'Exam')}</div><div class="pn-card-m">${d.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short' })}${ev.time ? ' · ' + axEsc(ev.time) : ''}</div>`); return; }
   }
@@ -6308,7 +6337,7 @@ function stuRenderHome(stu) {
   const feeLbl = `<div class="pn-t-lbl">${stuIcon('credit-card', 16)} Fees</div>`;
   const feeHtml = `<div class="pn-tile" role="button" tabindex="0" data-pngo="sp-fees" data-label="Fees">${feeLbl}` + (fee.any
     ? '<div class="dn-row">' + stuDonut(stuFeeSegs(fee), 104, 12, stuFeePct(fee) + '%', 'Paid') + '</div>' + stuFeeLegendHtml(fee, false) +
-      `<div class="pn-t-sub" style="margin-top:6px;">${fee.totalDue > 0 ? 'Next due: ' + axEsc(fee.dueMonths[0]) + (fee.dueMonths.length > 1 ? ' +' + (fee.dueMonths.length - 1) + ' more' : '') : 'All paid'}</div>`
+      `<div class="pn-t-sub" style="margin-top:6px;">${fee.totalDue > 0 ? window.bwsDueLbl(axEsc(fee.dueMonths[0])) + (fee.dueMonths.length > 1 ? ' +' + (fee.dueMonths.length - 1) + ' more' : '') : 'All paid'}</div>`
     : '<div class="dn-row">' + stuDonut([], 104, 12, '—', '') + '</div><div class="pn-t-sub" style="text-align:center;">No fee details added yet</div>') + '</div>';
 
   // Notices: up to 3 important/recent ones, readable right here
@@ -6794,7 +6823,7 @@ function admHubDefs() {
       ['clipboard', 'p', 'Exams', 'Online exams, quizzes and results', 'at-exams', 'Exams'],
       ['clipboard', 'p', 'Question Bank', 'Reusable questions for exams', 'at-qb2', 'Question Bank'],
       ['book-open', 'b', 'Study Material', 'Notes and resources by class', 'at-study', 'Study Material'],
-      ['clock', 'n', 'Timetable', 'Class timetables', 'at-timetable', 'Timetable'],
+      ['clock', 'b', 'Timetable', 'Class timetables', 'at-timetable', 'Timetable'],
       ['trending-up', 'g', 'Analytics', 'Performance across the school', 'at-analytics', 'Analytics'],
       ['help-circle', 'b', 'Doubts', 'Questions from students', 'at-doubts', 'Doubts']] },
     more: { title: 'More', rows: [
@@ -6804,7 +6833,10 @@ function admHubDefs() {
       ['bell', 'o', 'Notifications', 'Send and manage notices', 'at-notice', 'Notifications'],
       ['calendar-check', 'b', 'Events', 'School calendar and events, holidays', 'at-events', 'Events'],
 ['clipboard', 'g', 'Report cards', 'Print report cards, add remarks', 'at-reportcard', 'Report cards'],
+['alert-triangle', 'r', 'Students at risk', 'Low attendance, marks or long pending fees', 'at-risk', 'Students at risk'],
+['mail', 'g', 'Weekly parent update', 'Ready-to-send WhatsApp summary per student', 'at-weekly', 'Weekly parent update'],
 ['help-circle', 'o', 'Complaints', 'Messages from parents', 'at-complaints', 'Complaints', { show: !curAdminData }],
+['clipboard', 'b', 'School settings', 'Session, grading scale, subjects', 'at-school', 'School settings', { show: !curAdminData }],
       ['mail', 'b', 'Enquiries', 'Messages from the website', 'at-enquiries', 'Enquiries'],
       ['settings', 'n', 'Settings', 'Payments, backup, year-end, activity log, password', 'at-settings', 'Settings'],
       ['log-out', 'r', 'Log out', 'Sign out of this device', '', '', { act: 'doLogout()' }]] }
@@ -7011,7 +7043,7 @@ function acRefreshActive() {
 /* Which sections a role may open — mirrors the drawer rules so bell/dashboard shortcuts cannot bypass them */
 function adminRouteAllowed(id) {
   if (!curAdminData) return true;
-  if (['at-admins', 'at-events', 'at-timetable', 'at-enquiries', 'at-staffatt', 'at-complaints'].includes(id)) return false;
+  if (['at-admins', 'at-events', 'at-timetable', 'at-enquiries', 'at-staffatt', 'at-complaints', 'at-school'].includes(id)) return false;
   if (id === 'at-notice') return hasPerm('notice');
   return true;
 }
@@ -7308,6 +7340,8 @@ function renderAdminDashboard() {
   const doubts = Object.values(allDoubts).filter(d => d.status !== 'answered' && allowed.includes(d.class)).length;
   const claims = Object.values(allPaymentClaims).filter(c => c.status === 'pending').length;
   const enq = window.admEnqUnread || 0;
+let cmpNew = 0, dueTotal = 0;
+students.forEach(s => { try { dueTotal += stuFeeTotalsBase(s).totalDue; } catch (e) {} });
   const noRes = students.filter(s => !rArr(s.results).length).length;
   const classes = [...new Set(students.map(s => s.class))], isSun = new Date().getDay() === 0;
   let att = { st: stSt === 'ok' ? 'loading' : stSt };   // attendance fills in after students have loaded
@@ -7318,7 +7352,8 @@ function renderAdminDashboard() {
     { label: 'Fee payments', st: cSt, row: claims ? { cls: 'c-orange', ic: 'credit-card', title: 'Fee payments to verify', desc: plural(claims, ' payment', ' payments') + ' reported by parents', btn: 'Review Payments', act: hmGo('at-dashfee', 'Fees') } : null },
     { label: 'Unanswered doubts', st: dSt, row: doubts ? { cls: 'c-blue', ic: 'help-circle', title: 'Unanswered doubts', desc: doubts + ' from students', btn: 'View Doubts', act: hmGo('at-doubts', 'Doubts') } : null },
     { label: 'New enquiries', st: eSt, row: enq ? { cls: 'c-purple', ic: 'mail', title: 'New enquiries', desc: plural(enq, ' unread message', ' unread messages') + ' from the website', btn: 'View Enquiries', act: hmGo('at-enquiries', 'Enquiries') } : null },
-    { label: 'Results', st: stSt, row: noRes ? { cls: 'c-orange', ic: 'bar-chart', title: 'Results pending', desc: noRes + (noRes === 1 ? ' student has' : ' students have') + ' no results yet', btn: 'Add Results', act: hmGo('at-results', 'Results') } : null }
+    { label: 'Complaints', st: 'ok', row: cmpNew ? { cls: 'c-purple', ic: 'help-circle', title: 'Parent complaints', desc: plural(cmpNew, ' new message', ' new messages'), btn: 'View Complaints', act: hmGo('at-complaints', 'Complaints') } : null },
+{ label: 'Results', st: stSt, row: noRes ? { cls: 'c-orange', ic: 'bar-chart', title: 'Results pending', desc: noRes + (noRes === 1 ? ' student has' : ' students have') + ' no results yet', btn: 'Add Results', act: hmGo('at-results', 'Results') } : null }
   ], 'Nothing needs your attention right now.');
   const v = x => stSt === 'ok' ? x : (stSt === 'error' ? '—' : '…');
   const card = (cls, ic, title, val, sub, t) => `<div class="stu-quick-card" onclick="${t}"><div class="stu-qc-ic ${cls}">${stuIcon(ic, 16)}</div><div class="stu-qc-title">${title}</div><div class="stu-qc-val">${val}</div><div class="stu-qc-sub">${sub}</div></div>`;
@@ -7329,7 +7364,7 @@ function renderAdminDashboard() {
       ${card('c-blue', 'users', 'Students', v(students.length), 'Enrolled', hmGo('at-students', 'Students'))}
       ${card('c-purple', 'grad-cap', 'Teachers', teachers, 'Staff accounts', hmGo('at-admins', 'Teachers / Staff'))}
       <div class="stu-quick-card ring-card" onclick="${hmGo('at-attendance', 'Attendance')}"><div id="admAttRing">${stuRing(null, 44, 5, 'var(--db-green)')}</div><div class="stu-qc-ring-body"><div class="stu-qc-title">Today’s attendance</div><div class="stu-qc-val" id="admAttSub">${stSt === 'error' ? 'Couldn’t load' : 'Checking…'}</div></div></div>
-      ${card('c-orange', 'credit-card', 'Fees pending', v(feeDue), 'Students with dues', hmGo('at-dashfee', 'Fees'))}
+      ${card('c-orange', 'credit-card', 'Fees pending', v(feeDue), (dueTotal ? '\u20B9' + dueTotal.toLocaleString('en-IN') + ' due' : 'Students with dues'), hmGo('at-dashfee', 'Fees'))}
     </div>
     <div class="hm-cols"><div class="hm-main">
       <div class="hm-sec"><h3>Needs attention</h3></div>
@@ -7340,7 +7375,8 @@ function renderAdminDashboard() {
       <div class="hm-sec"><h3>Recent activity</h3><button type="button" class="ac-link" onclick="${hmGo('at-settings', 'Settings')}">View all →</button></div>
       <div class="hm-list" id="admRecent"><div class="hm-note">Loading…</div></div>
     </div></div></div>`;
-  if (stSt === 'ok') hmLoadAttendance(classes, res => {
+  db.ref('complaints').once('value').then(sn => { let n = 0; const v = sn.val() || {}; Object.keys(v).forEach(u => Object.values(v[u] || {}).forEach(c => { if (c && c.status === 'new') n++; })); cmpNew = n; const box = document.getElementById('admActions'); if (box) box.innerHTML = pendHtml(); }).catch(() => {});
+if (stSt === 'ok') hmLoadAttendance(classes, res => {
     att = res; hmPaintAtt(res);
     const box = document.getElementById('admActions'); if (box) box.innerHTML = pendHtml();
   });
@@ -9610,7 +9646,7 @@ function renderStudentFees_v6(stu) {
     document.getElementById('feeSummaryStrip').style.display = has ? '' : 'none';
     document.getElementById('feeHeroLbl').textContent = !has ? 'Fee details' : totalDue > 0 ? 'Pending amount' : 'All fees paid';
     document.getElementById('feeHeroSub').textContent = !has ? 'The school office has not added fee details yet. Please check back later.'
-      : totalDue > 0 ? 'Next due: ' + (dueMonthsLocal[0] || 'Remaining balance') + (dueMonthsLocal.length > 1 ? ' · ' + dueMonthsLocal.length + ' months pending' : '') : 'Nothing is pending. Thank you!';
+      : totalDue > 0 ? window.bwsDueLbl(dueMonthsLocal[0] || 'Remaining balance') + (dueMonthsLocal.length > 1 ? ' · ' + dueMonthsLocal.length + ' months pending' : '') : 'Nothing is pending. Thank you!';
     const pct = has ? Math.round(totalPaid / totalFee * 100) : 0;
     document.getElementById('feeHeroBar').style.width = pct + '%';
     document.getElementById('feeHeroPct').textContent = has ? pct + '% of ' + fmt(totalFee) + ' paid' : '';
@@ -9738,8 +9774,8 @@ function loadFeeEditor() {
   const feeData  = stu.feeData || {};
   const months   = feeData.months || {};
 
-  document.getElementById('ef-monthly').value = feeData.monthlyFee || '';
-  document.getElementById('ef-annual').value  = feeData.annualFee  || '';
+  document.getElementById('ef-monthly').value = feeData.monthlyFee || window.bwsFeeDefault(editUsername, 'monthly') || '';
+  document.getElementById('ef-annual').value  = feeData.annualFee  || window.bwsFeeDefault(editUsername, 'annual') || '';
   document.getElementById('ef-note').value    = feeData.note || '';
 
   const grid = document.getElementById('ef-months-grid');
@@ -9905,7 +9941,7 @@ function loadHomeEvents() {
       return;
     }
     const events = Object.entries(data).map(([k,v]) => ({...v, key:k}))
-      .filter(e => e.date >= new Date().toISOString().slice(0,10))
+      .filter(e => e.date >= new Date().toISOString().slice(0,10) && !e.class)
       .sort((a,b) => a.date.localeCompare(b.date))
       .slice(0,6);
     if (!events.length) {
@@ -9938,7 +9974,7 @@ function addEvent() {
   const time  = document.getElementById('evtTime').value.trim();
   const desc  = document.getElementById('evtDesc').value.trim();
   if (!title || !date) { alert('Please enter event title and date.'); return; }
-  db.ref('events').push({ title, date, category: cat, time, description: desc, createdAt: new Date().toISOString() })
+  db.ref('events').push(Object.assign({ title, date, category: cat, time, description: desc, createdAt: new Date().toISOString() }, (document.getElementById('evtClass') && document.getElementById('evtClass').value) ? { class: document.getElementById('evtClass').value } : {}))
     .then(() => {
       document.getElementById('evtTitle').value = '';
       document.getElementById('evtDate').value  = '';
@@ -9961,7 +9997,7 @@ function loadAdminEvents() {
       return `<div class="evt-item">
         <div>
           <div class="evt-item-title">${e.title}</div>
-          <div class="evt-item-meta">${d}${e.time?' · '+e.time:''} · ${e.category||'General'}</div>
+          <div class="evt-item-meta">${d}${e.time?' · '+e.time:''} · ${e.category||'General'}${e.class ? ' \u00B7 ' + e.class : ''}</div>
         </div>
         <button class="del-btn" onclick="deleteEvent('${e.key}')">${stuIcon('trash',14)}</button>
       </div>`;
@@ -11550,7 +11586,7 @@ function exRenderList(noLoad) {
     const st = exStatus(e), c = exAttCache[e.id], n = c ? Object.values(c.data).filter(a => a && a.status && a.status !== 'in_progress').length : null, roster = axStudentsOf(e.class).length;
     const pend = c ? Object.values(c.data).filter(a => a && a.status === 'submitted').length : 0;
     return `<div class="ac-card ex-card"><div class="ex-card-top"><div><span class="ty-badge ty-exam">Exam</span><div class="ac-title">${acEsc(e.title)}</div><div class="ac-muted">${acEsc(e.class)} <i>/</i> ${acEsc(e.subject)}</div></div><span class="ac-chip st-${st}">${EX_STATUS_LBL[st]}</span></div>` +
-      `<div class="ex-meta"><span>${acI('clock', 14)} ${e.duration} min</span><span>${acI('file', 14)} ${e.questions.length} question${e.questions.length === 1 ? '' : 's'}</span><span>${e.total} marks</span></div>` +
+      `<div class="ex-meta"><span>${acI('clock', 14)} ${e.duration} min</span><span>${acI('file', 14)} ${e.questions.length} question${e.questions.length === 1 ? '' : 's'}</span><span>${e.total} mark${e.total === 1 ? '' : 's'}</span></div>` +
       `<div class="ac-muted ex-win">${acEsc(acDT(e.startAt))} to ${acEsc(acDT(e.endAt))}</div>` +
       `<div class="ex-card-stats">${n == null ? 'Loading attempts…' : `<b>${n}</b> of ${roster} submitted` + (pend ? ` &middot; <b class="warn">${pend}</b> need checking` : '')}</div>` +
       `<div class="ex-card-btns"><button type="button" class="ac-btn sm" data-act="attempts" data-id="${acEsc(e.id)}">${acI('users', 15)} Attempts</button>` +
@@ -11807,7 +11843,7 @@ function stuExRender(load) {
     else if (st === 'upcoming') { btn = `<button type="button" class="ac-btn ghost sm" data-a="open" data-ex="${acEsc(e.id)}">Details</button>`; tag = '<span class="ac-chip st-upcoming">Upcoming</span>'; }
     else { btn = `<button type="button" class="ac-btn sm" data-a="open" data-ex="${acEsc(e.id)}">${a && a.status === 'in_progress' ? 'Resume' : 'Start'}</button>`; tag = '<span class="ac-chip st-live">Live now</span>'; }
     return `<div class="ac-card ex-card"><div class="ex-card-top"><div><span class="ty-badge ty-exam">Exam</span><div class="ac-title">${acEsc(e.title)}</div><div class="ac-muted">${acEsc(e.subject)}</div></div>${tag}</div>` +
-      `<div class="ex-meta"><span>${acI('clock', 14)} ${e.duration} min</span><span>${acI('file', 14)} ${e.questions.length} question${e.questions.length === 1 ? '' : 's'}</span><span>${e.total} marks</span></div>` +
+      `<div class="ex-meta"><span>${acI('clock', 14)} ${e.duration} min</span><span>${acI('file', 14)} ${e.questions.length} question${e.questions.length === 1 ? '' : 's'}</span><span>${e.total} mark${e.total === 1 ? '' : 's'}</span></div>` +
       `<div class="ac-muted ex-win">${st === 'upcoming' ? 'Opens ' + acEsc(acDT(e.startAt)) : st === 'live' && !submitted ? 'Closes ' + acEsc(acDT(e.endAt)) : acEsc(acDT(e.startAt))}</div>${btn ? `<div class="ex-card-btns">${btn}</div>` : ''}</div>`;
   };
   const block = (t, arr) => arr.length ? `<div class="ac-sec">${t}</div>` + arr.map(card).join('') : '';
@@ -12688,7 +12724,7 @@ window.bwsCsvImport = function () {
       sel.innerHTML = cls.map(c => '<option>' + esc(c) + '</option>').join('');
     }
     const rows = frRows();
-    $('bwsFrList').innerHTML = rows.length ? rows.map(x => '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);"><div><b style="font-size:13px;">' + esc(x.s.name || x.s.username) + '</b><div style="font-size:11.5px;color:var(--muted);">' + inr(x.t.totalDue) + ' due \u00B7 ' + esc(x.t.dueMonths.join(', ')) + '</div></div><button class="btn" data-u="' + esc(x.s.username) + '" onclick="bwsFrOne(this.dataset.u,this)">Remind</button></div>').join('')
+    $('bwsFrList').innerHTML = rows.length ? rows.map(x => '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);"><div><b style="font-size:13px;">' + esc(x.s.name || x.s.username) + '</b><div style="font-size:11.5px;color:var(--muted);">' + inr(x.t.totalDue) + ' due \u00B7 ' + esc(x.t.dueMonths.join(', ')) + '</div></div><button class="btn" data-u="' + esc(x.s.username) + '" onclick="bwsFrOne(this.dataset.u,this)">Remind</button>' + window.bwsFrWa(x) + '</div>').join('')
       : '<p class="empty-msg">No pending dues in this class.</p>';
   };
   function frSend(u) {
@@ -12706,8 +12742,7 @@ window.bwsCsvImport = function () {
   };
 
   /* ── Report card ── */
-  const GR = [[90, 'A+'], [80, 'A'], [70, 'B'], [60, 'C'], [40, 'D'], [0, 'E']];
-  const grade = p => p == null ? '-' : GR.find(g => p >= g[0])[1];
+  const grade = p => { if (p == null) return '-'; const g = window.bwsGrades().find(x => p >= x[0]); return g ? g[1] : '-'; };
   window.bwsMsgTab = function (id) {
     document.querySelectorAll('.stu-panel').forEach(p => p.classList.remove('active'));
     const p = $(id); if (p) { p.classList.add('active'); p.scrollTop = 0; }
@@ -12719,26 +12754,26 @@ window.bwsCsvImport = function () {
     const rows = rArr(s.results).filter(stuHasMarks).sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')));
     const by = {}; rows.forEach(r => { const k = r.subject || 'General'; (by[k] = by[k] || []).push(r); });
     let tm = 0, tt = 0;
-    const body = Object.keys(by).sort().map(sub => {
+    const body = Object.keys(by).sort((a, b) => { const o = window.bwsSubjectsFor(s.class), ia = o.indexOf(a), ib = o.indexOf(b); return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || a.localeCompare(b); }).map(sub => {
       let m = 0, t = 0;
       const tests = by[sub].map(r => { const mk = Number(r.marks) || 0, tot = Number(r.total) || 0; m += mk; t += tot; return '<div class="rc-t"><span>' + esc(r.testName || 'Test') + '</span><span>' + mk + '/' + tot + '</span></div>'; }).join('');
       tm += m; tt += t; const p = t ? m / t * 100 : null;
       return '<tr><td><b>' + esc(sub) + '</b>' + tests + '</td><td>' + m + '/' + t + '</td><td>' + (p == null ? '-' : p.toFixed(1) + '%') + '</td><td>' + grade(p) + '</td></tr>';
     }).join('');
-    const op = tt ? tm / tt * 100 : null, now = new Date(), sy = now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
+    const op = tt ? tm / tt * 100 : null, now = new Date(), sy = window.bwsSessionYear();
     const rem = s.reportRemark && s.reportRemark.text;
     const old = $('bwsRC'); if (old) old.remove();
     const d = document.createElement('div'); d.id = 'bwsRC';
     d.innerHTML = '<div class="rc-w"><div class="rc-btns rc-np"><button class="btn btn-dbprimary" onclick="window.print()">Print / Save PDF</button><button class="btn" onclick="bwsRCClose()">Close</button></div>' +
-      '<div class="rc-h">' + (typeof BWS_LOGO !== 'undefined' ? '<img src="' + BWS_LOGO + '" alt="">' : '') + '<div><h2>Better World School</h2><div style="font-size:13px;color:#555;">Progress Report \u00B7 ' + sy + '\u2013' + String(sy + 1).slice(2) + '</div></div></div>' +
+      '<div class="rc-h">' + (typeof BWS_LOGO !== 'undefined' ? '<img src="' + BWS_LOGO + '" alt="">' : '') + '<div><h2>Better World School</h2><div style="font-size:13px;color:#555;">Progress Report \u00B7 ' + window.bwsSessionLabel() + '</div></div></div>' +
       '<div class="rc-box"><b>' + esc(s.name || s.username) + '</b> \u00B7 Class ' + esc(s.class || '') + '</div>' +
       (rows.length ? '<table><tr><th>Subject / tests</th><th>Marks</th><th>%</th><th>Grade</th></tr>' + body + '<tr><th>Overall</th><th>' + tm + '/' + tt + '</th><th>' + (op == null ? '-' : op.toFixed(1) + '%') + '</th><th>' + grade(op) + '</th></tr></table>' : '<div class="rc-box">No marks have been entered yet.</div>') +
       '<div class="rc-box" id="bwsRCatt">Attendance: loading\u2026</div>' +
       '<div class="rc-box"><b>Teacher\'s remark:</b> ' + (rem ? esc(rem) : '\u2014') + '</div>' +
       '<div class="rc-sig"><span>Class Teacher</span><span>Parent</span><span>Principal</span></div>' +
-      '<p style="font-size:10.5px;color:#777;margin-top:18px;">Grades: A+ 90%+, A 80%+, B 70%+, C 60%+, D 40%+, E below 40%.</p></div>';
+      '<p style="font-size:10.5px;color:#777;margin-top:18px;">Grades: ' + window.bwsGrades().map(g => g[1] + ' ' + g[0] + '%+').join(', ') + '.</p></div>';
     document.body.appendChild(d); document.body.classList.add('bws-rc-on');
-    const from = sy + '-04-01', to = axToday();
+    const from = sy + '-' + String(window.bwsStartMonth()).padStart(2, '0') + '-01', to = axToday();
     axFetchRange(s.class, from, to).then(data => {
       let p = 0, a = 0, l = 0;
       Object.keys(data || {}).forEach(k => { const r = data[k] && data[k][u]; if (!r) return; if (r.status === 'present') p++; else if (r.status === 'absent') a++; else if (r.status === 'late') l++; });
@@ -12800,9 +12835,9 @@ window.bwsCsvImport = function () {
 
   /* ── hooks into existing navigation ── */
   const _oss = openStuSection;
-  openStuSection = function (id) { const r = _oss.apply(this, arguments); if (id === 'sp-complaint') window.bwsCmpStuRender(); return r; };
+  openStuSection = window.openStuSection = function (id) { const r = _oss.apply(this, arguments); if (id === 'sp-complaint') window.bwsCmpStuRender(); return r; };
   const _sat = switchAdminTab;
-  switchAdminTab = function (id) {
+  switchAdminTab = window.switchAdminTab = function (id) {
     const r = _sat.apply(this, arguments);
     try {
       if (id === 'at-dashfee') window.bwsFrRender();
@@ -12829,7 +12864,7 @@ window.bwsCsvImport = function () {
   });
 
   /* ── Hindi (translates the main parent/student screens; English is the default) ── */
-  const HI = { 'Home':'होम', 'Academics':'पढ़ाई', 'Attendance':'उपस्थिति', 'Fees':'फ़ीस', 'More':'और', 'Notifications':'सूचनाएँ', 'Timetable':'समय सारणी', 'Leave':'छुट्टी', 'Doubts':'प्रश्न', 'Messages':'संदेश', 'Ask a teacher':'शिक्षक से पूछें', 'Complaint / suggestion':'शिकायत / सुझाव', 'Profile':'प्रोफ़ाइल', 'Help / About':'सहायता', 'About / Help':'सहायता', 'Log out':'लॉग आउट',
+  const HI = { 'Home':'होम', 'Academics':'पढ़ाई', 'Attendance':'उपस्थिति', 'Fees':'फ़ीस', 'More':'और', 'Notifications':'सूचनाएँ', 'Timetable':'समय सारणी', 'Leave':'छुट्टी', 'Doubts':'प्रश्न', 'Messages':'संदेश', 'Date sheet':'परीक्षा तालिका', 'Ask a teacher':'शिक्षक से पूछें', 'Complaint / suggestion':'शिकायत / सुझाव', 'Profile':'प्रोफ़ाइल', 'Help / About':'सहायता', 'About / Help':'सहायता', 'Log out':'लॉग आउट',
     'Results':'परिणाम', 'Results & Progress':'परिणाम और प्रगति', 'Study Material':'अध्ययन सामग्री', 'Exams':'परीक्षाएँ', 'Present':'उपस्थित', 'Absent':'अनुपस्थित', 'Late':'देर से', 'Not recorded':'दर्ज नहीं', 'This month':'इस महीने',
     'Apply for Leave':'छुट्टी का आवेदन', 'From Date':'आरंभ तिथि', 'To Date':'अंतिम तिथि', 'Reason':'कारण', 'Submit Request':'आवेदन भेजें', 'Your Leave Requests':'आपके छुट्टी आवेदन', 'Recent exams':'हाल की परीक्षाएँ',
     'Subject-wise test details':'विषयवार परीक्षा विवरण', 'Progress over time':'समय के साथ प्रगति', 'Report card (print / save PDF)':'रिपोर्ट कार्ड (प्रिंट / PDF)', 'Complaint / Suggestion':'शिकायत / सुझाव', 'Complaint box':'शिकायत पेटी',
@@ -12888,9 +12923,11 @@ window.bwsCsvImport = function () {
       const u = auth.currentUser; if (!u) { authSettled = false; return; }
       const r = await loadRole(u.email);
       if (r && r.r) {
+        if (fastOn && (r.r !== 'student' || r.u !== ME)) { kick(); return; }
         ROLE = r.r; ME = r.u; SIBS = Object.keys(r.sibs || {}); if (ME && !SIBS.includes(ME)) SIBS.push(ME);
         startDbListeners(); return;
       }
+      if (fastOn) { kick(); return; }
       ROLE = 'none';
       const sv = getSavedSession(), who = String(typedUser || (sv && sv.user) || '').toLowerCase();
       if (who === 'admin' && !typedUser) { ROLE = 'legacy'; startDbListeners(); }       // first run after upgrade (roles not created yet)
@@ -12905,7 +12942,7 @@ window.bwsCsvImport = function () {
         const store = {};
         (SIBS.length ? SIBS : [ME]).forEach(k => db.ref('students/' + k).on('value', sn => {
           if (sn.val()) store[k] = sn.val(); else delete store[k];
-          cb({ val: () => Object.assign({}, store) });
+          cb({ val: () => Object.assign({}, store) }); if (window.bwsFastSave) window.bwsFastSave(ME, SIBS, store);
         }, e => { if (eb) eb(e); }));
       } };
     }
@@ -12932,11 +12969,11 @@ window.bwsCsvImport = function () {
   function enter(pass) {
     const err = $('loginErr'); if (err) err.style.display = 'none';
     if (isAdminRole()) {
-      curUser = 'admin'; curAdminData = null; if (pass != null) saveSession('admin', pass); openAdminPanel(); return true;
+      document.body.classList.add('bws-staff'); curUser = 'admin'; curAdminData = null; if (pass != null) saveSession('admin', pass); openAdminPanel(); return true;
     }
     if (ROLE === 'teacher') {
       const a = allSubAdmins[ME]; if (!a) return false;
-      curUser = ME; curAdminData = a; if (pass != null) saveSession(ME, pass); openAdminPanel(); try { logActivity('login', a.name + ' logged in'); } catch (e) {} return true;
+      document.body.classList.add('bws-staff'); curUser = ME; curAdminData = a; if (pass != null) saveSession(ME, pass); openAdminPanel(); try { logActivity('login', a.name + ' logged in'); } catch (e) {} return true;
     }
     if (ROLE === 'student') {
       const st = allStudents[ME]; if (!st) return false;
@@ -13002,6 +13039,31 @@ window.bwsCsvImport = function () {
   };
   attemptLogin = window.attemptLogin = function () { return false; };    // old browser-side password check is gone
 
+  /* ── fast start: open the saved student's portal from a small local copy, then live data replaces it ── */
+  let fastOn = false;
+  function kick() { try { localStorage.removeItem('bwsFast'); } catch (e) {} try { clearSession(); } catch (e) {} try { auth.signOut(); } catch (e) {} location.reload(); }
+  window.bwsFastSave = function (me, sibs, store) {
+    if (window.__bwsFastT) return;
+    window.__bwsFastT = setTimeout(() => {
+      window.__bwsFastT = null;
+      try {
+        const recs = {}; Object.keys(store).forEach(k => { const r = Object.assign({}, store[k]); delete r.password; recs[k] = r; });
+        localStorage.setItem('bwsFast', JSON.stringify({ u:me, sibs, recs, t:Date.now() }));
+      } catch (e) {}
+    }, 3000);
+  };
+  function fastEnter() {
+    if (curUser || ROLE) return;
+    let c = null; try { c = JSON.parse(localStorage.getItem('bwsFast') || 'null'); } catch (e) {}
+    const sv = getSavedSession();
+    if (!c || !sv || !c.recs || !c.recs[c.u] || String(sv.user).toLowerCase() !== String(c.u).toLowerCase() || Date.now() - c.t > 14 * 86400000) return;
+    ROLE = 'student'; ME = c.u; SIBS = c.sibs || [c.u]; allStudents = Object.assign({}, c.recs); fastOn = true;
+    if (!enter(null)) { ROLE = null; ME = null; fastOn = false; allStudents = {}; }
+  }
+  auth.onAuthStateChanged(u => { if (fastOn && !u) kick(); });
+  setTimeout(fastEnter, 0);
+  const _dl = doLogout; doLogout = window.doLogout = function () { try { localStorage.removeItem('bwsFast'); } catch (e) {} return _dl.apply(this, arguments); };
+
   /* ── keep roles/ in step with the passwords the admin manages (admin app only) ── */
   const stable = v => JSON.stringify(v, (k, x) => (x && typeof x === 'object' && !Array.isArray(x)) ? Object.keys(x).sort().reduce((o, y) => (o[y] = x[y], o), {}) : x);
   let syncT = null, syncBusy = false;
@@ -13030,15 +13092,262 @@ window.bwsCsvImport = function () {
       if (removes > 5 && removes > Object.keys(cur).length * 0.3) { console.warn('roles sync stopped: too many removals', removes); return; }   // safety net
       if (writes + removes) await db.ref('roles').update(upd);
       let done = false; try { done = localStorage.getItem('bwsSecDone') === '1'; } catch (e) {}
-      if (!done) {
-        try { localStorage.setItem('bwsSecDone', '1'); } catch (e) {}
-        alert('Security setup is ready: ' + Object.keys(allStudents).length + ' students, ' + Object.keys(allSubAdmins).length + ' teachers and the admin account are registered. You can now publish the new database rules.');
-      }
+      if (!done) { try { localStorage.setItem('bwsSecDone', '1'); } catch (e) {} }
     } catch (e) { console.warn('roles sync failed:', e && e.message); }
     finally { syncBusy = false; }
   };
 })();
 
+
+
+/* ═══ BWS v24: school settings, fee-due wording, native-app feel, status-bar colour ═══ */
+(function () {
+  const $ = id => document.getElementById(id);
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DEF_GR = [[90,'A+'],[80,'A'],[70,'B'],[60,'C'],[40,'D'],[0,'E']];
+  const esc = x => String(x == null ? '' : x).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  let cfg = {}, schoolOn = false;
+
+  window.bwsGrades = () => {
+    const g = (cfg.grades || []).filter(x => x && isFinite(x.min) && x.g).map(x => [Number(x.min), String(x.g)]).sort((a, b) => b[0] - a[0]);
+    return g.length ? g : DEF_GR;
+  };
+  window.bwsStartMonth = () => { const m = Number(cfg.startMonth); return m >= 1 && m <= 12 ? m : 4; };
+  window.bwsSessionYear = () => {
+    const m = /^(\d{4})/.exec(cfg.session || ''); if (m) return Number(m[1]);
+    const n = new Date(); return n.getMonth() + 1 >= window.bwsStartMonth() ? n.getFullYear() : n.getFullYear() - 1;
+  };
+  window.bwsSessionLabel = () => cfg.session || (window.bwsSessionYear() + '-' + String(window.bwsSessionYear() + 1).slice(2));
+  const norm = c => String(c || '').toLowerCase().replace(/class|grade|std|standard/g, '').replace(/[^a-z0-9]/g, '');
+  window.bwsSubjectsFor = cls => { const o = cfg.subjects || {}, k = Object.keys(o).find(x => norm(x) === norm(cls)); return k ? (o[k] || []) : []; };
+  /* ── Phase 3B: per-class fees, year rollover, dues export ── */
+  window.bwsParseFees = txt => {
+    const o = {};
+    String(txt || '').split('\n').forEach(l => {
+      const i = l.indexOf(':'); if (i < 1) return;
+      const key = l.slice(0, i).replace(/[.$#\[\]\/]/g, '').trim(), p = l.slice(i + 1).split(',').map(x => x.trim());
+      const m = Number(p[0]); if (!key || !isFinite(m) || p[0] === '' || m < 0) return;
+      const a = p.length > 1 && p[1] !== '' && isFinite(Number(p[1])) ? Number(p[1]) : null;
+      o[key] = a == null ? { monthly:m } : { monthly:m, annual:a };
+    });
+    return o;
+  };
+  window.bwsFeesFor = cls => {
+    const o = cfg.fees || {}, k = Object.keys(o).find(x => norm(x) === norm(cls));
+    return k && o[k] ? { monthly:Number(o[k].monthly) || 0, annual:o[k].annual == null ? null : Number(o[k].annual) || 0 } : null;
+  };
+  window.bwsFeeDefault = (u, kind) => {
+    const st = allStudents[u], f = st && window.bwsFeesFor(st.class);
+    return f ? (kind === 'annual' ? (f.annual == null ? '' : f.annual) : f.monthly) : '';
+  };
+  window.bwsApplyClassFees = function () {
+    if (!isPrimaryAdmin()) { alert('Only the primary admin can do this.'); return; }
+    const ups = {}; let n = 0;
+    Object.entries(allStudents).forEach(([k, st]) => {
+      const f = window.bwsFeesFor(st && st.class); if (!f) return;
+      const fd = st.feeData || {}, m = String(f.monthly), a = String(f.annual == null ? (fd.annualFee || '') : f.annual);
+      if (String(fd.monthlyFee || '') !== m || String(fd.annualFee || '') !== a) { ups[k + '/feeData/monthlyFee'] = m; ups[k + '/feeData/annualFee'] = a; n++; }
+    });
+    if (!n) { alert('Every student already matches the saved class fees (or no class fees are saved yet).'); return; }
+    if (!confirm('Set the monthly and annual fee of ' + n + ' student(s) to their class amount? Paid and due months are not changed. Save your settings first.')) return;
+    db.ref('students').update(ups).then(() => { logActivity('edit', 'Class fees applied to ' + n + ' students'); acToast(n + ' students updated'); }).catch(e => alert('Could not update: ' + e.message));
+  };
+  window.bwsDuesCsv = function () {
+    const rows = [['Name', 'Class', 'Username', 'Parent phone', 'Amount due', 'Due months']];
+    Object.values(allStudents).filter(s => s).map(s => ({ s, t:stuFeeTotalsBase(s) })).filter(x => x.t.totalDue > 0)
+      .sort((a, b) => String(a.s.class).localeCompare(String(b.s.class), undefined, { numeric:true }) || String(a.s.name).localeCompare(String(b.s.name)))
+      .forEach(x => rows.push([x.s.name || '', x.s.class || '', x.s.username || '', x.s.parentPhone || '', x.t.totalDue, x.t.dueMonths.join(' ')]));
+    if (rows.length === 1) { acToast('No pending dues.'); return; }
+    bwsCsvDownload('fee-dues_' + new Date().toISOString().slice(0, 10) + '.csv', rows);
+  };
+  /* year-end promotion: archives the finished year, then starts the new one */
+  window.bwsPromote = function () {
+    if (!isPrimaryAdmin()) { alert('Only the primary admin can do this.'); return; }
+    const next = {}; CLASSES.forEach((c, i) => { if (i < CLASSES.length - 1) next[c] = CLASSES[i + 1]; });
+    const label = window.bwsSessionLabel().replace(/[.$#\[\]\/]/g, '-'), ups = {}; let n = 0, stay = 0, dues = 0;
+    Object.entries(allStudents).forEach(([k, st]) => {
+      if (!st || !next[st.class]) { stay++; return; }
+      n++; if (stuFeeTotalsBase(st).totalDue > 0) dues++;
+      ups[k + '/archive/' + label] = { class:st.class, results:st.results || null, feeData:st.feeData || null, remark:st.reportRemark || null, promotedAt:Date.now() };
+      ups[k + '/class'] = next[st.class]; ups[k + '/results'] = null; ups[k + '/reportRemark'] = null;
+      if (st.feeData) {
+        const months = {}; Object.keys(st.feeData.months || {}).forEach(m => { months[m] = 'due'; });
+        const f = window.bwsFeesFor(next[st.class]), fd = Object.assign({}, st.feeData, { months });
+        if (f) { fd.monthlyFee = String(f.monthly); if (f.annual != null) fd.annualFee = String(f.annual); }
+        ups[k + '/feeData'] = fd;
+      }
+    });
+    if (!n) { alert('No students to promote.'); return; }
+    const msg = 'This moves ' + n + ' students up one class and starts a new fee year (every billed month becomes due). Last year\'s marks, remarks and fees are saved under Past years for each student.\n\n'
+      + (dues ? dues + ' student(s) still have unpaid dues this year. Those dues will NOT carry over, so collect or note them first.\n\n' : '')
+      + stay + ' student(s) in the last class stay unchanged (remove them yourself).\nA backup file downloads first.\n\nType PROMOTE to continue:';
+    if (prompt(msg) !== 'PROMOTE') return;
+    bwsBackupP().then(() => db.ref('students').update(ups))
+      .then(() => { logActivity('edit', 'Year-end promotion: ' + n + ' students moved up'); alert(n + ' students promoted. Now set the new academic session in School settings.'); })
+      .catch(e => alert('Promotion stopped: ' + e.message));
+  };
+
+  /* class-aware events + date sheet */
+  window.bwsEvFor = e => !e || !e.class || norm(e.class) === norm((allStudents[curUser] || {}).class);
+  window.bwsDsRender = function () {
+    const el = document.getElementById('dsList'); if (!el) return; el.innerHTML = '<p class="empty-msg">Loading\u2026</p>';
+    db.ref('events').once('value').then(sn => {
+      const today = new Date().toISOString().slice(0, 10), v = sn.val() || {};
+      const list = Object.keys(v).map(k => v[k]).filter(e => e && e.date && e.category === 'academic' && window.bwsEvFor(e)).sort((a, b) => a.date.localeCompare(b.date));
+      const row = e => '<div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);"><div style="min-width:64px;font-weight:700;font-size:13px;">' + new Date(e.date).toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short' }) + '</div><div><div style="font-weight:600;font-size:14px;">' + esc(e.title) + '</div>' + (e.time || e.description ? '<div style="font-size:12px;color:var(--muted);">' + esc([e.time, e.description].filter(Boolean).join(' \u00B7 ')) + '</div>' : '') + '</div></div>';
+      const up = list.filter(e => e.date >= today), past = list.filter(e => e.date < today).reverse();
+      el.innerHTML = (up.length ? up.map(row).join('') : '<p class="empty-msg">No upcoming exam dates yet.</p>') + (past.length ? '<div class="p-title" style="font-size:13px;margin:14px 0 4px;">Earlier</div>' + past.slice(0, 8).map(row).join('') : '');
+    }).catch(() => { el.innerHTML = '<p class="empty-msg">Could not load. Please check your internet.</p>'; });
+  };
+  const _oss3 = openStuSection;
+  openStuSection = window.openStuSection = function (id) { const r = _oss3.apply(this, arguments); if (id === 'sp-datesheet') { try { window.bwsDsRender(); } catch (e) {} } return r; };
+  const _sat3 = switchAdminTab;
+  switchAdminTab = window.switchAdminTab = function (id) {
+    const r = _sat3.apply(this, arguments);
+    if (id === 'at-events') { const sel = $('evtClass'); if (sel && sel.options.length < 2) sel.innerHTML = '<option value="">All classes</option>' + CLASSES.map(c => '<option>' + esc(c) + '</option>').join(''); }
+    return r;
+  };
+
+  window.bwsDueLbl = m => {
+    const i = MONTHS.indexOf(String(m)); if (i < 0) return 'Next due: ' + m;
+    const st = window.bwsStartMonth() - 1, pos = x => (x - st + 12) % 12;
+    return pos(i) < pos(new Date().getMonth()) ? 'Overdue since ' + m : 'Next due: ' + m;
+  };
+
+  /* settings are read by every signed-in user and written only by the admin */
+  const _sd2 = startDbListeners;
+  startDbListeners = window.startDbListeners = function () {
+    const r = _sd2.apply(this, arguments);
+    if (!schoolOn) { schoolOn = true; try { db.ref('config/school').on('value', sn => { cfg = sn.val() || {}; }, () => {}); } catch (e) {} }
+    return r;
+  };
+  const _as = acSubjectsOf;
+  acSubjectsOf = function (cls) {
+    const base = _as.apply(this, arguments) || [], c = window.bwsSubjectsFor(cls);
+    return c.length ? c.concat(base.filter(x => !c.includes(x))) : base;
+  };
+
+  window.bwsSchoolFill = function () {
+    const sm = $('scStartMonth'); if (!sm) return;
+    if (!sm.options.length) sm.innerHTML = MONTHS.map((m, i) => '<option value="' + (i + 1) + '">' + m + '</option>').join('');
+    $('scSession').value = cfg.session || ''; sm.value = String(window.bwsStartMonth());
+    $('scGrades').value = window.bwsGrades().map(g => g[0] + ' ' + g[1]).join('\n');
+    $('scSubjects').value = Object.keys(cfg.subjects || {}).map(k => k + ': ' + (cfg.subjects[k] || []).join(', ')).join('\n');
+    $('scFees').value = Object.keys(cfg.fees || {}).map(k => k + ': ' + cfg.fees[k].monthly + (cfg.fees[k].annual != null ? ', ' + cfg.fees[k].annual : '')).join('\n');
+  };
+  window.bwsSchoolSave = function () {
+    const grades = [];
+    $('scGrades').value.split('\n').forEach(l => { const m = /^\s*(\d+(?:\.\d+)?)\s*%?\s+(.+?)\s*$/.exec(l); if (m) grades.push({ min:Number(m[1]), g:m[2].slice(0, 6) }); });
+    if (!grades.length || !grades.some(x => x.min === 0)) { alert('Add at least one grade, including one with minimum 0 (for example "0 E").'); return; }
+    const subjects = {};
+    $('scSubjects').value.split('\n').forEach(l => {
+      const i = l.indexOf(':'); if (i < 1) return;
+      const key = l.slice(0, i).replace(/[.$#\[\]\/]/g, '').trim(), list = l.slice(i + 1).split(',').map(x => x.trim()).filter(Boolean);
+      if (key && list.length) subjects[key] = list;
+    });
+    db.ref('config/school').set({ session:$('scSession').value.trim().slice(0, 12), startMonth:Number($('scStartMonth').value), grades, subjects, fees:window.bwsParseFees($('scFees').value), updatedAt:Date.now() })
+      .then(() => acToast('Settings saved')).catch(e => acToast('Could not save: ' + e.message, 'err'));
+  };
+  const _sat2 = switchAdminTab;
+  switchAdminTab = window.switchAdminTab = function (id) {
+    const r = _sat2.apply(this, arguments);
+    if (id === 'at-school') { try { window.bwsSchoolFill(); } catch (e) {} }
+    return r;
+  };
+
+  /* app-like behaviour for parents and students: no text selection or long-press menu (staff keep copy/paste) */
+  const okSel = e => {
+    const n = e.target, el = n && (n.nodeType === 1 ? n : n.parentElement);
+    return !el || !!el.closest('input,textarea,select,[contenteditable="true"],.selectable') || document.body.classList.contains('bws-staff');
+  };
+  document.addEventListener('contextmenu', e => { if (!okSel(e)) e.preventDefault(); });
+  document.addEventListener('selectstart', e => { if (!okSel(e)) e.preventDefault(); });
+
+  /* status-bar colour follows light/dark */
+  const tc = document.querySelector('meta[name="theme-color"]');
+  const syncTc = () => { if (tc) tc.setAttribute('content', document.body.classList.contains('dark-mode') ? '#0B1220' : '#17365D'); };
+  new MutationObserver(syncTc).observe(document.body, { attributes:true, attributeFilter:['class'] }); syncTc();
+})();
+
+/* ═══ BWS v23: Phase 6 — engagement: WhatsApp fee reminders, students at risk, weekly parent summary ═══ */
+(function () {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+  const inr = n => '\u20B9' + Number(n || 0).toLocaleString('en-IN');
+  const SCH = 'Better World School', LOW_ATT = 75, LOW_MARKS = 40, GAP = 'display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);';
+  const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  const daysAgo = n => { const d = new Date(); d.setDate(d.getDate() - n); return iso(d); };
+  const link = (ph, msg) => ph ? '<a class="ax-wa" href="' + esc(axWaLink(ph, msg)) + '" target="_blank" rel="noopener">WhatsApp</a>' : '<span class="ax-nonum">No number</span>';
+  const classOpts = sel => { if (!sel.options.length) { sel.innerHTML = getAllowedClasses().slice().sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric:true })).map(c => '<option>' + esc(c) + '</option>').join(''); const f = [...sel.options].map(o => o.value).find(c => acStudentsOf(c).length); if (f) sel.value = f; } };
+  const tally = data => {
+    const t = {};
+    Object.keys(data || {}).forEach(d => {
+      if (window.bwsIsHol && window.bwsIsHol(d)) return;
+      const day = data[d] || {};
+      Object.keys(day).forEach(id => { const r = day[id], o = t[id] = t[id] || { P:0, A:0, L:0 };
+        if (r && r.status === 'present') o.P++; else if (r && r.status === 'absent') o.A++; else if (r && r.status === 'late') o.L++; });
+    });
+    return t;
+  };
+
+  /* 1. WhatsApp next to the in-app fee reminder (uses the saved parent number) */
+  window.bwsFrWa = function (x) {
+    const t = x.t, msg = 'Dear Parent, a fee of ' + inr(t.totalDue) + ' is pending for ' + x.s.name + ' (' + x.s.class + ') for ' + t.dueMonths.join(', ') + '. Please pay at school or from the Fees section of the app. \u2013 ' + SCH;
+    return link(x.s.parentPhone, msg);
+  };
+
+  /* 2. Students at risk: low attendance, low marks, (primary admin only) long-pending fees */
+  window.bwsRiskRender = function () {
+    const sel = $('bwsRkClass'), box = $('bwsRkList'); if (!sel || !box) return; classOpts(sel);
+    const cls = sel.value; if (!cls) { box.innerHTML = '<p class="empty-msg">No classes available.</p>'; return; }
+    box.innerHTML = '<p class="empty-msg">Checking\u2026</p>';
+    axFetchRange(cls, daysAgo(30), axToday()).then(data => {
+      if (sel.value !== cls) return;
+      const t = tally(data), rows = [];
+      acStudentsOf(cls).forEach(s => {
+        const why = [], o = t[s.username] || { P:0, A:0, L:0 }, n = o.P + o.A + o.L, pc = axPct(o.P, o.A, o.L);
+        if (n >= 5 && pc < LOW_ATT) why.push('Attendance ' + axPctText(pc) + ' in the last 30 days');
+        const m = rArr(s.results).filter(stuHasMarks).map(r => acPct(r.marks, r.total)).filter(x => x != null);
+        if (m.length >= 2) { const avg = m.reduce((a, b) => a + b, 0) / m.length; if (avg < LOW_MARKS) why.push('Average marks ' + Math.round(avg) + '%'); }
+        const f = !curAdminData ? stuFeeTotalsBase(s) : null;
+        if (f && f.dueMonths.length >= 2) why.push('Fees pending for ' + f.dueMonths.length + ' months');
+        if (why.length) rows.push({ s, why });
+      });
+      rows.sort((a, b) => b.why.length - a.why.length || String(a.s.name).localeCompare(String(b.s.name)));
+      box.innerHTML = rows.length ? rows.map(r => '<div style="' + GAP + '"><div><b style="font-size:13px;">' + esc(r.s.name || r.s.username) + '</b><div style="font-size:11.5px;color:var(--muted);">' + esc(r.why.join(' \u00B7 ')) + '</div></div>' +
+        link(r.s.parentPhone, 'Dear Parent, we would like to talk about the progress of ' + r.s.name + ' (' + cls + '): ' + r.why.join('; ') + '. Please meet the class teacher at your convenience. \u2013 ' + SCH) + '</div>').join('')
+        : '<p class="empty-msg">No students flagged in this class.</p>';
+    }).catch(e => { box.innerHTML = '<p class="empty-msg">' + esc(axErrText(e)) + '</p>'; });
+  };
+
+  /* 3. Weekly parent summary: one ready-to-send WhatsApp message per student (last 7 days) */
+  window.bwsWeeklyRender = function () {
+    const sel = $('bwsWkClass'), box = $('bwsWkList'); if (!sel || !box) return; classOpts(sel);
+    const cls = sel.value; if (!cls) { box.innerHTML = '<p class="empty-msg">No classes available.</p>'; return; }
+    const from = daysAgo(6), to = axToday();
+    box.innerHTML = '<p class="empty-msg">Preparing\u2026</p>';
+    axFetchRange(cls, from, to).then(data => {
+      if (sel.value !== cls) return;
+      const t = tally(data), studs = acStudentsOf(cls);
+      box.innerHTML = studs.length ? studs.map(s => {
+        const o = t[s.username] || { P:0, A:0, L:0 }, n = o.P + o.A + o.L;
+        const tests = rArr(s.results).filter(r => stuHasMarks(r) && r.date && r.date >= from && r.date <= to).map(r => (r.subject ? r.subject + ' ' : '') + (r.testName || 'Test') + ' ' + r.marks + '/' + r.total);
+        const f = !s.feeData || curAdminData ? null : stuFeeTotalsBase(s);
+        let msg = 'Weekly update for ' + s.name + ' (' + cls + '), ' + axFmtDate(from) + ' to ' + axFmtDate(to) + '.\nAttendance: ' + (n ? o.P + ' present, ' + o.A + ' absent, ' + o.L + ' late.' : 'not recorded this week.') + '\nTests: ' + (tests.length ? tests.join('; ') + '.' : 'none this week.');
+        if (f && f.totalDue > 0) msg += '\nFees pending: ' + inr(f.totalDue) + '.';
+        msg += '\n\u2013 ' + SCH;
+        return '<div style="' + GAP + '"><div><b style="font-size:13px;">' + esc(s.name || s.username) + '</b><div style="font-size:11.5px;color:var(--muted);">' + (n ? o.P + 'P \u00B7 ' + o.A + 'A \u00B7 ' + o.L + 'L' : 'No attendance') + ' \u00B7 ' + tests.length + ' test' + (tests.length === 1 ? '' : 's') + '</div></div>' + link(s.parentPhone, msg) + '</div>';
+      }).join('') : '<p class="empty-msg">No students in this class.</p>';
+    }).catch(e => { box.innerHTML = '<p class="empty-msg">' + esc(axErrText(e)) + '</p>'; });
+  };
+
+  const _sat6 = switchAdminTab;
+  switchAdminTab = window.switchAdminTab = function (id) {
+    const r = _sat6.apply(this, arguments);
+    try { if (id === 'at-risk') window.bwsRiskRender(); if (id === 'at-weekly') window.bwsWeeklyRender(); } catch (e) {}
+    return r;
+  };
+})();
 
 }); // end firebaseReady
 </script>
