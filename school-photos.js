@@ -8,7 +8,7 @@
 window.SCHOOL_PHOTOS = {
   faculty: [
     // { name: "Anita Sharma", subject: "Mathematics", photo: "images/faculty/anita.jpg" },
-{ name: "Laddo singh", subject: "Mathematics", photo: "images/faculty/laddo.jpg" },
-{ name: "MCHS", subject: "School", photo: "images/faculty/mchs.jpg" },
+{ name: "Laddo singh", subject: "Mathematics", photo: "laddo.jpg" },
+{ name: "MCHS", subject: "School", photo: "mchs.jpg" },
    ]
 };
