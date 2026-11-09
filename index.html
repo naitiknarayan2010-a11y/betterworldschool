@@ -53,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function(){ document.querySelector
     var scripts = [
       CDN + "firebase-app-compat.js",
       CDN + "firebase-database-compat.js",
-      CDN + "firebase-auth-compat.js"
+      CDN + "firebase-auth-compat.js",
+      CDN + "firebase-messaging-compat.js"
     ];
 
     // Load scripts one by one in sequence, then init
@@ -3237,6 +3238,8 @@ body.dark-mode .pn-t-sub{color:#AEB4BB;}
       </div>
     </div>
   </section>
+  <section id="faculty" style="display:none"><div class="sec-inner"><div class="sec-tag">Our Teachers</div><h2 class="sec-title">Meet our faculty</h2><div class="bws-ph-grid" id="bwsFacGrid"></div></div></section>
+
 
   <!-- OBJECTIVES -->
   <section id="objectives" class="obj-bg">
@@ -6607,10 +6610,11 @@ function publishNotice() {
   const category = document.getElementById('nbCat').value, audience = document.getElementById('nbAud').value;
   if (!title || !body) { alert('Please enter a title and a message.'); return; }
   const postedBy = curAdminData ? curAdminData.name : 'Admin', ts = Date.now();
-  db.ref('notices').push({ title, body, category, audience, postedBy, postedAt: ts }).then(() => {
+  const nref = db.ref('notices').push({ title, body, category, audience, postedBy, postedAt: ts, postedByUid: (firebase.auth().currentUser || {}).uid || '' }); nref.then(() => {
     if (audience === 'All') return Promise.all([db.ref('config/notice').set(title), db.ref('config/noticeUpdatedAt').set(ts)]);
   }).then(() => {
     document.getElementById('nbTitle').value = ''; document.getElementById('nbBody').value = '';
+    if (window.bwsPushNotice) window.bwsPushNotice(nref.key);
     alert('Notice published.');
   }).catch(e => alert('Error: ' + e.message));
 }
@@ -9827,6 +9831,7 @@ function markSeen(type) {
 
 let _notifAsked = false;   // ask at most once per page load, not on every live data refresh
 function requestNotifPermission() {
+  return; /* permission is now requested only when the student taps the Notifications switch */
   if (_notifAsked || typeof Notification === 'undefined') return;
   _notifAsked = true;
   if (Notification.permission === 'default') Notification.requestPermission();
@@ -13349,6 +13354,48 @@ window.bwsCsvImport = function () {
   };
 })();
 
+/* ═══ BWS v26: Web push (FCM + Cloudflare Worker). Fill in worker and vapid below; until then the switch stays hidden. ═══ */
+(function () {
+  const PUSH = Object.assign({ worker: 'https://bws-push.naitiknarayan2010.workers.dev', vapid: 'BLJFVJMmNzvnMufRteFJONn1Wcbju5YKp-kGgThTF0UkuTuDo1p4tJS_imIEmvrdjyzUVq8WeFyEkUAxGhxs198' }, window.BWS_PUSH || {});
+  const $ = id => document.getElementById(id);
+  const ready = () => PUSH.worker.indexOf('YOUR-') < 0 && PUSH.vapid.indexOf('YOUR_') < 0 && 'serviceWorker' in navigator && 'Notification' in window && !!(firebase.messaging && firebase.messaging.isSupported && firebase.messaging.isSupported());
+  const call = async (path, body) => {
+    const u = firebase.auth().currentUser; if (!u) throw new Error('Please sign in again');
+    const r = await fetch(PUSH.worker + path, { method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + await u.getIdToken() }, body: JSON.stringify(body || {}) });
+    const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || 'Error ' + r.status); return j;
+  };
+  const getTok = async () => firebase.messaging().getToken({ vapidKey: PUSH.vapid, serviceWorkerRegistration: await navigator.serviceWorker.ready });
+  const msg = t => { const e = $('bwsPushMsg'); if (e) e.textContent = t || ''; };
+  const on = () => localStorage.getItem('bwsPush') === '1' && Notification.permission === 'granted';
+  function draw() {
+    const host = $('sp-notices'); if (!host || !ready()) return;
+    let c = $('bwsPushCard'); if (!c) { c = document.createElement('div'); c.id = 'bwsPushCard'; c.className = 'ac-card'; c.style.cssText = 'margin:0 0 12px;'; host.insertBefore(c, host.firstChild); }
+    c.innerHTML = '<div class="ac-name" style="margin-bottom:4px;">Phone notifications</div><div style="font-size:12.5px;color:var(--muted);margin-bottom:10px;">Get school notices on this phone even when the app is closed.</div>' +
+      '<button id="bwsPushBtn" class="btn btn-dbprimary" style="width:100%;" onclick="' + (on() ? 'bwsPushDisable()' : 'bwsPushEnable()') + '">' + (on() ? 'Turn off on this phone' : 'Turn on notifications') + '</button><div id="bwsPushMsg" style="font-size:12px;margin-top:8px;color:var(--muted);"></div>';
+  }
+  window.bwsPushEnable = async function () {
+    msg('Working\u2026');
+    try {
+      const perm = await Notification.requestPermission();
+      if (perm !== 'granted') { msg(perm === 'denied' ? 'Notifications are blocked. Turn them on in Android Settings \u2192 Apps \u2192 Better World School \u2192 Notifications, then try again.' : 'Permission was not given.'); return; }
+      await call('/register', { token: await getTok() }); localStorage.setItem('bwsPush', '1'); localStorage.setItem('bwsPushTs', String(Date.now())); draw(); msg('Notifications are on.');
+    } catch (e) { msg('Could not turn on: ' + e.message); }
+  };
+  window.bwsPushDisable = async function () {
+    try { const t = await getTok(); await call('/unregister', { token: t }); await firebase.messaging().deleteToken(); } catch (e) {}
+    localStorage.removeItem('bwsPush'); draw(); msg('Notifications are off on this phone.');
+  };
+  window.bwsPushNotice = function (id) { if (ready() && id) call('/notify', { type: 'notice', id }).catch(e => console.warn('Push not sent:', e.message)); };
+  const openFrom = s => { if (s === 'notices') { const b = document.querySelector('[data-nav="sp-notices"]'); if (b) b.click(); } };
+  if ('serviceWorker' in navigator) navigator.serviceWorker.addEventListener('message', ev => { if (ev.data && ev.data.type === 'bws-open') openFrom(ev.data.open); });
+  firebase.auth().onAuthStateChanged(async u => {
+    if (!u) return; draw();
+    const o = new URLSearchParams(location.search).get('open'); if (o) setTimeout(() => openFrom(o), 1500);
+    if (ready() && on() && Date.now() - Number(localStorage.getItem('bwsPushTs') || 0) > 20 * 3600000) { try { await call('/register', { token: await getTok() }); localStorage.setItem('bwsPushTs', String(Date.now())); } catch (e) {} }
+  });
+  document.addEventListener('click', e => { if (e.target.closest && e.target.closest('[data-nav="sp-notices"]')) setTimeout(draw, 50); });
+})();
+
 }); // end firebaseReady
 </script>
 
@@ -13749,6 +13796,35 @@ body.dark-mode .qx-card{border-left-color:var(--line-2);}
 #bwsRC .rc-sig{display:flex;justify-content:space-between;margin-top:46px;font-size:12px}#bwsRC .rc-sig span{border-top:1px solid #333;padding-top:4px;min-width:30%;text-align:center}
 #bwsRC .rc-btns{display:flex;gap:8px;margin-bottom:12px}
 @media print{body.bws-rc-on>*:not(#bwsRC){display:none!important}#bwsRC{position:static!important;overflow:visible!important;padding:0}.rc-np{display:none!important}}
+
+/* Home page photos (Faculty and Gallery) */
+.bws-ph-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+@media(min-width:720px){.bws-ph-grid{grid-template-columns:repeat(4,1fr)}}
+.bws-ph-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(16,42,67,.12);text-align:center}
+.bws-ph-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#e8eef5}
+.bws-ph-gal .bws-ph-card img{aspect-ratio:4/3}
+.bws-ph-card .t{padding:8px 8px 2px;font-weight:700;font-size:13.5px;color:#102A43}
+.bws-ph-card .s{padding:0 8px 10px;font-size:12px;color:#5b6b7b}
+body.dark-mode .bws-ph-card{background:#16202e}body.dark-mode .bws-ph-card .t{color:#e6edf5}body.dark-mode .bws-ph-card .s{color:#9fb0c3}
 </style>
+<script src="./school-photos.js"></script>
+<script>
+(function () {
+  var P = window.SCHOOL_PHOTOS || {};
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; }
+  function fill(secId, gridId, items, name, sub) {
+    var sec = document.getElementById(secId), grid = document.getElementById(gridId);
+    if (!sec || !grid || !items || !items.length) return;
+    items.slice(0, 24).forEach(function (it) {
+      var src = it && (it.photo || it.src); if (!src) return;
+      var c = el('div', 'bws-ph-card'), im = document.createElement('img');
+      im.loading = 'lazy'; im.decoding = 'async'; im.alt = String(it[name] || ''); im.onerror = function () { c.remove(); }; im.src = String(src);
+      c.appendChild(im); if (it[name]) c.appendChild(el('div', 't', String(it[name]))); if (sub && it[sub]) c.appendChild(el('div', 's', String(it[sub]))); grid.appendChild(c);
+    });
+    if (grid.children.length) sec.style.display = '';
+  }
+  fill('faculty', 'bwsFacGrid', P.faculty, 'name', 'subject');
+})();
+</script>
 </body>
 </html>

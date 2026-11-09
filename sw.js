@@ -63,3 +63,21 @@ self.addEventListener('fetch', event => {
   }
   event.respondWith(staleWhileRevalidate(req));
 });
+
+
+/* ── Push notifications (FCM data messages sent by the BWS Worker) ── */
+self.addEventListener('push', event => {
+  let d = {};
+  try { const j = event.data ? event.data.json() : {}; d = j.data || j; } catch (e) {}
+  event.waitUntil(self.registration.showNotification(d.title || 'Better World School', {
+    body: d.body || '', tag: d.tag || undefined, icon: './icon-192.png', badge: './icon-192.png', data: { open: d.open || '' }
+  }));
+});
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  const open = (event.notification.data || {}).open || '';
+  event.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    for (const c of list) { if ('focus' in c) { c.postMessage({ type: 'bws-open', open }); return c.focus(); } }
+    return self.clients.openWindow('./?open=' + encodeURIComponent(open));
+  }));
+});
